@@ -1,11 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Placeholder, meta } from "@/components/Placeholder";
+import { Onboarding } from "@/components/Onboarding";
 import { SECCIONES } from "@/lib/secciones";
 
 export const Route = createFileRoute("/_authenticated/indice/")({
   head: () => meta("Índice de Contenidos", "Todas las partes y módulos de Neurohack 21."),
   component: () => (
     <Placeholder title="Índice de Contenidos">
+      <Onboarding />
       <ul className="space-y-2">
         {SECCIONES.map((s) => (
           <li key={s.slug}>
