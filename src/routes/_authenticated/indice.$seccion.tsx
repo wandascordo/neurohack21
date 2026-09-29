@@ -109,25 +109,33 @@ function Seccion() {
 
 function groupParagraphs(blocks: Block[]) {
   const nodes: ReactNode[] = [];
-  let buf: { b: Block; idx: number }[] = [];
+  // Grupo = subtítulo ("h") + los párrafos que le siguen; se renderiza en un
+  // contenedor con gap-5 (20 px) para que el subtítulo quede a 20 px del
+  // primer párrafo. Entre grupos/elementos se aplica el gap-10 (40 px) del article.
+  let grupo: { b: Block; idx: number }[] | null = null;
   const flush = () => {
-    if (buf.length === 0) return;
-    if (buf.length === 1) {
-      nodes.push(<BlockView key={buf[0]!.idx} b={buf[0]!.b} />);
+    if (!grupo) return;
+    if (grupo.length === 1) {
+      nodes.push(<BlockView key={grupo[0]!.idx} b={grupo[0]!.b} />);
     } else {
       nodes.push(
-        <div key={`pg-${buf[0]!.idx}`} className="flex flex-col gap-5">
-          {buf.map(({ b, idx }) => (
+        <div key={`pg-${grupo[0]!.idx}`} className="flex flex-col gap-5">
+          {grupo.map(({ b, idx }) => (
             <BlockView key={idx} b={b} />
           ))}
         </div>
       );
     }
-    buf = [];
+    grupo = null;
   };
   blocks.forEach((b, idx) => {
-    if (b.type === "p") {
-      buf.push({ b, idx });
+    if (b.type === "p" && grupo) {
+      grupo.push({ b, idx });
+    } else if (b.type === "h") {
+      flush();
+      grupo = [{ b, idx }];
+    } else if (b.type === "p") {
+      grupo = [{ b, idx }];
     } else {
       flush();
       nodes.push(<BlockView key={idx} b={b} />);
@@ -135,6 +143,15 @@ function groupParagraphs(blocks: Block[]) {
   });
   flush();
   return nodes;
+}
+
+function anchorId(text: string) {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 function BlockView({ b }: { b: Block }) {
