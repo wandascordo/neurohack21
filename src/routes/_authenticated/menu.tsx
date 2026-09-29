@@ -38,6 +38,7 @@ function Menu() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [view, setView] = useState<"main" | "indice">("main");
+  const [closing, setClosing] = useState(false);
 
   const { data: lastSlug } = useQuery({
     queryKey: ["last-read"],
