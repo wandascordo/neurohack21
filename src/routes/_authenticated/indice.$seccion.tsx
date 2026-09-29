@@ -48,7 +48,7 @@ function Seccion() {
               <img className="h-[200px] self-stretch object-contain dark:invert" src={illustration.url} alt="" />
             </div>
           </div>
-          <Link to="/indice/$seccion" params={{ seccion: p.firstSlug }} className={btnPrimary}>Continuar</Link>
+          <Link to="/indice/$seccion" params={{ seccion: p.firstSlug }} className={`${btnPrimary} w-full`}>Continuar</Link>
         </div>
       </BookScreen>
     );
@@ -74,7 +74,7 @@ function Seccion() {
           )}
         </article>
         {p.slug === "prologo" && next && (
-          <Link to="/indice/$seccion" params={{ seccion: next.slug }} className={btnPrimary}>Siguiente</Link>
+          <Link to="/indice/$seccion" params={{ seccion: next.slug }} className={`${btnPrimary} w-full`}>Siguiente</Link>
         )}
       </div>
       {p.slug !== "prologo" && <div className="fixed inset-x-0 bottom-0 bg-tiza/95 backdrop-blur">
@@ -85,9 +85,9 @@ function Seccion() {
             <Link to="/indice" className={btnSecondary}>‹ Índice</Link>
           )}
           {next ? (
-            <Link to="/indice/$seccion" params={{ seccion: next.slug }} className={btnPrimary}>Siguiente ›</Link>
+            <Link to="/indice/$seccion" params={{ seccion: next.slug }} className={`${btnPrimary} flex-1`}>Siguiente ›</Link>
           ) : (
-            <Link to="/indice" className={btnPrimary}>Índice</Link>
+            <Link to="/indice" className={`${btnPrimary} flex-1`}>Índice</Link>
           )}
         </div>
       </div>}

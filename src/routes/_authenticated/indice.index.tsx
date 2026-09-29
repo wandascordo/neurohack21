@@ -34,7 +34,7 @@ function Indice() {
             ))}
           </nav>
         </div>
-        <Link to="/indice/$seccion" params={{ seccion: "prologo" }} className={btnPrimary}>Comenzar</Link>
+        <Link to="/indice/$seccion" params={{ seccion: "prologo" }} className={`${btnPrimary} w-full`}>Comenzar</Link>
       </div>
     </BookScreen>
   );
