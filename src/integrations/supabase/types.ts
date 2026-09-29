@@ -147,6 +147,7 @@ export type Database = {
           email: string | null
           first_login_at: string | null
           id: string
+          last_read_slug: string | null
           onboarding_completed_at: string | null
           purchased_at: string | null
           updated_at: string
@@ -157,6 +158,7 @@ export type Database = {
           email?: string | null
           first_login_at?: string | null
           id: string
+          last_read_slug?: string | null
           onboarding_completed_at?: string | null
           purchased_at?: string | null
           updated_at?: string
@@ -167,6 +169,7 @@ export type Database = {
           email?: string | null
           first_login_at?: string | null
           id?: string
+          last_read_slug?: string | null
           onboarding_completed_at?: string | null
           purchased_at?: string | null
           updated_at?: string
@@ -229,6 +232,7 @@ export type Database = {
         Returns: boolean
       }
       mark_first_login: { Args: never; Returns: undefined }
+      set_last_read: { Args: { _slug: string }; Returns: undefined }
     }
     Enums: {
       access_status: "activo" | "pendiente" | "revocado"

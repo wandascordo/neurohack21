@@ -15,6 +15,13 @@
       "when": 1790708794183,
       "tag": "0001_onboarding_done",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790719493312,
+      "tag": "0002_last_read_slug",
+      "breakpoints": true
     }
   ]
 }
