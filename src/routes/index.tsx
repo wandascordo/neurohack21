@@ -55,8 +55,10 @@ function Portada() {
     setInfo(`Te enviamos un email a ${email} para crear una nueva contraseña.`);
   }
 
-  const pill = "flex flex-row gap-2.5 items-center self-stretch h-[52px] bg-tiza/10 rounded-full border-2 border-cover-ink backdrop-blur-[50px] py-4 pr-1 pl-6 overflow-hidden";
+  const pillBase = "group flex flex-row gap-2.5 items-center self-stretch h-[52px] rounded-full border-2 border-cover-ink backdrop-blur-[50px] py-4 pr-1 pl-6 overflow-hidden";
   const inputCls = "min-w-0 flex-1 bg-transparent text-base font-semibold leading-none text-carbon placeholder:uppercase placeholder:text-cover-ink focus:outline-none";
+  const activeField = "bg-white";
+  const activeBtn = "bg-salvia hover:bg-salvia";
 
   return (
     <main className="relative isolate min-h-[100svh] overflow-hidden bg-primary text-cover-ink font-cover">
@@ -70,15 +72,16 @@ function Portada() {
         <img src={logo.url} alt="Neurohack 21" width={250} height={30} className="mx-auto h-auto w-[250px] max-w-full" />
         <div className="flex flex-1 flex-col justify-end gap-5">
           <form onSubmit={onSubmit} className="flex flex-col gap-2.5">
-            <div className={pill}>
+            <div className={`${pillBase} ${email ? activeField : "bg-tiza/10"} group-hover:bg-white group-focus-within:bg-white`}>
               <label htmlFor="email" className="sr-only">Email</label>
               <input id="email" type="email" autoComplete="email" inputMode="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className={`${inputCls} pr-4`} />
             </div>
-            <div className={pill}>
+            <div className={`${pillBase} ${password ? activeField : "bg-tiza/10"} group-hover:bg-white group-focus-within:bg-white`}>
               <label htmlFor="password" className="sr-only">Contraseña</label>
               <input id="password" type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" className={inputCls} />
-              <Button type="submit" variant="ghost" size="icon" disabled={loading} aria-label="Ingresar" className="size-[38px] shrink-0 rounded-full bg-avena hover:bg-avena/90">
-                <img src={coverArrow.url} alt="" width={20} height={20} className="size-5" />
+              <Button type="submit" variant="ghost" size="icon" disabled={loading} aria-label="Ingresar"
+                className={`size-[38px] shrink-0 rounded-full ${password ? activeBtn : "bg-avena hover:bg-avena/90"} group-hover:bg-salvia group-focus-within:bg-salvia`}>
+                <img src={coverArrow.url} alt="" width={20} height={20} className={`size-5 ${password ? "brightness-0 invert" : ""} group-hover:brightness-0 group-hover:invert group-focus-within:brightness-0 group-focus-within:invert`} />
               </Button>
             </div>
           </form>
