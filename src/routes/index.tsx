@@ -10,11 +10,11 @@ import loginPoster from "@/assets/login-video-poster.jpg.asset.json";
 import logo from "@/assets/neurohack-21-logo.svg.asset.json";
 
 export const Route = createFileRoute("/")({
-  head: () => meta("Portada", "Neurohack 21: libro interactivo del reto de 21 días de Destello Interior."),
-  component: Portada,
+  head: () => meta("Login", "Ingresá a Neurohack 21, el libro interactivo del reto de 21 días de Destello Interior."),
+  component: Login,
 });
 
-function Portada() {
+function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -34,12 +34,12 @@ function FirstTimeLogin() {
       if (m.includes("weak") || m.includes("pwned") || m.includes("easy to guess"))
         return setError("Esa contraseña es muy común y fácil de adivinar. Elegí otra más segura (por ejemplo, combiná palabras, números y símbolos).");
       if (m.includes("already registered") || m.includes("already exists"))
-        return setError("Este email ya tiene una cuenta. Ingresá desde la portada con tu contraseña.");
+        return setError("Este email ya tiene una cuenta. Ingresá desde el login con tu contraseña.");
       if (m.includes("rate") || m.includes("too many"))
         return setError("Hubo demasiados intentos. Esperá unos minutos y probá de nuevo.");
       return setError("No pudimos crear tu cuenta. Intentá de nuevo.");
     }
-    if (data.user && data.user.identities?.length === 0) return setError("Ya existe una cuenta con este email. Ingresá desde la portada.");
+    if (data.user && data.user.identities?.length === 0) return setError("Ya existe una cuenta con este email. Ingresá desde el login.");
     setSent(true);
   }
 
