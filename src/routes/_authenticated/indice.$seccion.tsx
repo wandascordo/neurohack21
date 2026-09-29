@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Placeholder } from "@/components/Placeholder";
-import { BookScreen, ProgressBar, TopBar, btnPrimary, btnSecondary } from "@/components/libro/BookChrome";
+import { BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { LIBRO, type Block } from "@/lib/libro";
 import illustration from "@/assets/parte-1-illustration.png.asset.json";
 
@@ -68,7 +68,22 @@ function Seccion() {
         <ProgressBar value={(i + 1) / LIBRO.length} />
         <article className="flex flex-col gap-5 self-stretch py-5">
           <div className="flex flex-col gap-2.5">
-            <p className="text-base font-semibold leading-none text-piedra">{p.eyebrow}</p>
+            <p className="text-base font-semibold leading-none text-piedra">
+              {p.eyebrow.includes(" / ") ? (
+                (() => {
+                  const sep = p.eyebrow.lastIndexOf(" / ");
+                  return (
+                    <>
+                      {p.eyebrow.slice(0, sep)}
+                      {" / "}
+                      <span className="text-carbon">{p.eyebrow.slice(sep + 3)}</span>
+                    </>
+                  );
+                })()
+              ) : (
+                p.eyebrow
+              )}
+            </p>
             <h1 className="text-4xl font-normal leading-[1.1] tracking-[-2.00px] text-carbon">{p.titulo}</h1>
           </div>
           {p.kind === "reto" ? (
