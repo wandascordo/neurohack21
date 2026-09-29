@@ -14,16 +14,226 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      daily_logs: {
+        Row: {
+          arrival_other: string | null
+          arrival_tags: string[]
+          body_scan: boolean
+          coherence_breathing: boolean
+          created_at: string
+          day_number: number
+          focus_level: number | null
+          guided_visualization: boolean
+          how_resumed: string | null
+          id: string
+          logged_at: string
+          missed_practice: boolean
+          reflection: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          arrival_other?: string | null
+          arrival_tags?: string[]
+          body_scan?: boolean
+          coherence_breathing?: boolean
+          created_at?: string
+          day_number: number
+          focus_level?: number | null
+          guided_visualization?: boolean
+          how_resumed?: string | null
+          id?: string
+          logged_at?: string
+          missed_practice?: boolean
+          reflection?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          arrival_other?: string | null
+          arrival_tags?: string[]
+          body_scan?: boolean
+          coherence_breathing?: boolean
+          created_at?: string
+          day_number?: number
+          focus_level?: number | null
+          guided_visualization?: boolean
+          how_resumed?: string | null
+          id?: string
+          logged_at?: string
+          missed_practice?: boolean
+          reflection?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      focus_assessments: {
+        Row: {
+          answers: number[]
+          assessed_at: string
+          id: string
+          moment: Database["public"]["Enums"]["assessment_moment"]
+          total_score: number | null
+          user_id: string
+        }
+        Insert: {
+          answers: number[]
+          assessed_at?: string
+          id?: string
+          moment: Database["public"]["Enums"]["assessment_moment"]
+          total_score?: number | null
+          user_id?: string
+        }
+        Update: {
+          answers?: number[]
+          assessed_at?: string
+          id?: string
+          moment?: Database["public"]["Enums"]["assessment_moment"]
+          total_score?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      implementation_intentions: {
+        Row: {
+          created_at: string
+          id: string
+          if_situation: string
+          position: number
+          then_action: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          if_situation: string
+          position?: number
+          then_action: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          if_situation?: string
+          position?: number
+          then_action?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      maintenance_rituals: {
+        Row: {
+          ritual: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ritual?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          ritual?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          access_status: Database["public"]["Enums"]["access_status"]
+          created_at: string
+          email: string | null
+          first_login_at: string | null
+          id: string
+          purchased_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          access_status?: Database["public"]["Enums"]["access_status"]
+          created_at?: string
+          email?: string | null
+          first_login_at?: string | null
+          id: string
+          purchased_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          access_status?: Database["public"]["Enums"]["access_status"]
+          created_at?: string
+          email?: string | null
+          first_login_at?: string | null
+          id?: string
+          purchased_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      resource_usage_events: {
+        Row: {
+          created_at: string
+          id: string
+          resource_name: string
+          resource_type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          resource_name: string
+          resource_type: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          resource_name?: string
+          resource_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      mark_first_login: { Args: never; Returns: undefined }
     }
     Enums: {
-      [_ in never]: never
+      access_status: "activo" | "pendiente" | "revocado"
+      app_role: "admin" | "user"
+      assessment_moment:
+        | "pre_dia1"
+        | "cierre_semana1"
+        | "cierre_semana2"
+        | "dia21"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +360,15 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      access_status: ["activo", "pendiente", "revocado"],
+      app_role: ["admin", "user"],
+      assessment_moment: [
+        "pre_dia1",
+        "cierre_semana1",
+        "cierre_semana2",
+        "dia21",
+      ],
+    },
   },
 } as const
