@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Placeholder } from "@/components/Placeholder";
 import { SECCIONES } from "@/lib/secciones";
 
