@@ -14,14 +14,12 @@ function Menu() {
 
 function Header() {
   return (
-    <div className="flex h-fit flex-1 flex-col items-center gap-1">
-      <span
-        role="img"
-        aria-label="Neurohack 21"
-        className="block h-3 w-[100px] bg-carbon"
-        style={{ mask: `url(${logo.url}) center / contain no-repeat`, WebkitMask: `url(${logo.url}) center / contain no-repeat` }}
-      />
-    </div>
+    <Link
+      to="/indice"
+      aria-label="Neurohack 21 — Ir al Índice de Contenidos"
+      className="absolute left-1/2 top-1/2 block h-3 w-[100px] -translate-x-1/2 -translate-y-1/2 bg-carbon"
+      style={{ mask: `url(${logo.url}) center / contain no-repeat`, WebkitMask: `url(${logo.url}) center / contain no-repeat` }}
+    />
   );
 }
 
@@ -49,7 +47,7 @@ function DarkMode() {
 
 export function TopBar({ onClose }: { onClose?: () => void }) {
   return (
-    <div className="flex h-fit flex-row items-center justify-center gap-10 self-stretch py-2.5">
+    <div className="relative flex h-fit flex-row items-center justify-between self-stretch py-2.5">
       {onClose ? (
         <button type="button" onClick={onClose} aria-label="Cerrar menú" className="h-7 w-7">
           <img className="h-7 w-7" src={menuClose.url} alt="" />
