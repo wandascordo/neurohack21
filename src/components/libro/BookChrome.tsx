@@ -14,14 +14,12 @@ function Menu() {
 
 function Header() {
   return (
-    <div className="flex h-fit flex-1 flex-col items-center gap-1">
-      <span
-        role="img"
-        aria-label="Neurohack 21"
-        className="block h-3 w-[100px] bg-carbon"
-        style={{ mask: `url(${logo.url}) center / contain no-repeat`, WebkitMask: `url(${logo.url}) center / contain no-repeat` }}
-      />
-    </div>
+    <Link
+      to="/indice"
+      aria-label="Neurohack 21 — Ir al Índice de Contenidos"
+      className="absolute left-1/2 top-1/2 block h-3 w-[100px] -translate-x-1/2 -translate-y-1/2 bg-carbon"
+      style={{ mask: `url(${logo.url}) center / contain no-repeat`, WebkitMask: `url(${logo.url}) center / contain no-repeat` }}
+    />
   );
 }
 
