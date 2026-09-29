@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { meta } from "@/components/Placeholder";
-import coverPhoto from "@/assets/cover-landscape.jpg";
 import coverArrow from "@/assets/cover-arrow.png.asset.json";
+import loginVideo from "@/assets/login-background.mp4.asset.json";
+import loginPoster from "@/assets/login-video-poster.jpg.asset.json";
+import logo from "@/assets/neurohack-21-logo.svg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => meta("Portada", "Neurohack 21: libro interactivo del reto de 21 días de Destello Interior."),
@@ -52,11 +54,13 @@ function Portada() {
 
   return (
     <main className="relative isolate min-h-[100svh] overflow-hidden bg-primary text-cover-ink font-cover">
-      <img src={coverPhoto} alt="Mujer de espaldas frente a un paisaje de montaña" width={1024} height={1792} className="absolute inset-0 -z-10 h-full w-full object-cover object-center" />
+      <img src={loginPoster.url} alt="" aria-hidden="true" className="absolute inset-0 -z-20 h-full w-full object-cover object-center" />
+      <video autoPlay muted loop playsInline preload="metadata" poster={loginPoster.url} aria-hidden="true" className="absolute inset-0 -z-10 h-full w-full object-cover object-center motion-reduce:hidden">
+        <source src={loginVideo.url} type="video/mp4" />
+      </video>
       <div className="mx-auto flex min-h-[100svh] w-full max-w-5xl flex-col items-center px-5 pt-[max(4.75rem,8svh)] pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:px-8">
-        <h1 className="whitespace-nowrap text-center text-[42px] font-normal leading-none text-cover-ink md:text-[72px]">
-          Neurohack 21<sup className="ml-1 align-top text-[11px] leading-none md:text-base">™</sup>
-        </h1>
+        <h1 className="sr-only">Neurohack 21</h1>
+        <img src={logo.url} alt="Neurohack 21" width={250} height={30} className="h-auto w-[250px] max-w-full" />
         <div className="mt-auto w-full max-w-2xl">
           {sent ? (
             <div role="status" className="rounded-[2rem] border-2 border-cover-ink px-6 py-4 text-base leading-snug text-cover-ink backdrop-blur-sm">
