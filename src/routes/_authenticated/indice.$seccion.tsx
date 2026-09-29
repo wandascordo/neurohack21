@@ -118,9 +118,10 @@ function BlockView({ b }: { b: Block }) {
           <p className="py-1 text-sm font-normal tracking-tight text-piedra">En este módulo:</p>
           {b.items.map((item, idx) => (
             <div key={item} className={`py-3.5 ${idx < b.items.length - 1 ? "border-t border-carbon-10/10" : ""}`}>
-              <ol className="list-decimal pl-4 text-lg font-semibold leading-[1.1] tracking-tight text-piedra">
-                <li>{item}</li>
-              </ol>
+              <div className="flex flex-row items-start gap-0.5 pl-4 text-lg font-semibold leading-[1.1] tracking-tight text-piedra">
+                <span>{idx + 1}.</span>
+                <span>{item}</span>
+              </div>
             </div>
           ))}
         </div>
