@@ -164,9 +164,9 @@ function BlockView({ b }: { b: Block }) {
       );
     case "ejercicio":
       return (
-        <div className="rounded-2xl bg-avena/60 p-5">
-          <p className="mb-2 font-semibold text-carbon">{b.title ?? "Ejercicio de cierre de módulo"}</p>
-          <p className="text-base tracking-tight text-carbon">{b.text}</p>
+        <div className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
+          <p className="text-base font-bold tracking-tight text-carbon">{b.title ?? "Ejercicio de cierre de módulo"}</p>
+          <p className="text-base font-normal tracking-tight text-piedra">{b.text}</p>
         </div>
       );
     default:
