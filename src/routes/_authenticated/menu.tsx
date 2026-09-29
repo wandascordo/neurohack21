@@ -52,8 +52,12 @@ function Menu() {
   const continuar = lastSlug && LIBRO.some((p) => p.slug === lastSlug) ? lastSlug : "prologo";
 
   function closeMenu() {
-    if (window.history.length > 1) router.history.back();
-    else navigate({ to: "/indice" });
+    if (closing) return;
+    setClosing(true);
+    window.setTimeout(() => {
+      if (window.history.length > 1) router.history.back();
+      else navigate({ to: "/indice" });
+    }, 170);
   }
 
   async function signOut() {
@@ -65,7 +69,7 @@ function Menu() {
 
   return (
     <BookScreen fill>
-      <div className="flex w-full flex-1 flex-col gap-5">
+      <div className={`flex w-full flex-1 flex-col gap-5 ${closing ? "animate-menu-out" : "animate-menu-in"}`}>
         <TopBar onClose={closeMenu} />
         {view === "main" ? (
           <div className="flex flex-1 flex-col items-center gap-[30px] self-stretch">
