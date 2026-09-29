@@ -19,6 +19,9 @@ function Portada() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
+  const [password, setPassword] = useState("");
+  const [step, setStep] = useState<"email" | "password">("email");
+  const [mode, setMode] = useState<"login" | "signup">("login");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -42,16 +45,42 @@ function Portada() {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
     setError(null);
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: window.location.origin },
-    });
+    if (step === "email") return setStep("password");
+    if (password.length < 8) return setError("La contraseña debe tener al menos 8 caracteres.");
+    setLoading(true);
+    if (mode === "signup") {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { emailRedirectTo: window.location.origin },
+      });
+      setLoading(false);
+      if (error) return setError("No pudimos crear tu cuenta. Revisá los datos e intentá de nuevo.");
+      if (data.user && data.user.identities?.length === 0)
+        return setError("Ya existe una cuenta con este email. Ingresá con tu contraseña.");
+      setPassword("");
+      setMode("login");
+      setSent(true);
+      return;
+    }
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
-    if (error) return setError("No pudimos enviar el enlace. Revisá tu email e intentá de nuevo.");
-    setSent(true);
+    if (error) {
+      if (/confirm/i.test(error.message)) return setError("Todavía no validaste tu email. Abrí el enlace que te enviamos.");
+      return setError("Email o contraseña incorrectos. Si es tu primera vez, creá tu cuenta.");
+    }
   }
+
+  const pill =
+    "group flex h-[52px] items-center gap-2 rounded-full border-2 border-cover-ink py-1 pl-6 pr-1.5 transition-colors hover:border-tiza hover:bg-tiza focus-within:border-tiza focus-within:bg-tiza data-[active]:border-tiza data-[active]:bg-tiza";
+  const inputCls =
+    "min-w-0 flex-1 bg-transparent text-base font-semibold leading-none text-cover-ink placeholder:uppercase placeholder:text-cover-ink focus:outline-none group-hover:text-carbon group-hover:placeholder:text-avena group-focus-within:text-carbon group-focus-within:placeholder:text-avena group-data-[active]:text-carbon";
+  const arrowBtn = (label: string) => (
+    <Button type="submit" variant="ghost" size="icon" disabled={loading} aria-label={label} className="size-[38px] shrink-0 rounded-full bg-cover-warm text-cover-arrow hover:bg-cover-warm/90 hover:text-cover-arrow group-hover:bg-salvia group-focus-within:bg-salvia group-data-[active]:bg-salvia group-hover:hover:bg-salvia/90">
+      <img src={coverArrow.url} alt="" width={20} height={20} className="size-5 group-hover:brightness-0 group-hover:invert group-focus-within:brightness-0 group-focus-within:invert group-data-[active]:brightness-0 group-data-[active]:invert" />
+    </Button>
+  );
 
   return (
     <main className="relative isolate min-h-[100svh] overflow-hidden bg-primary text-cover-ink font-cover">
@@ -64,22 +93,36 @@ function Portada() {
         <h1 className="sr-only">Neurohack 21</h1>
         <img src={logo.url} alt="Neurohack 21" width={250} height={30} className="h-auto w-[250px] max-w-full" />
         <div className="mt-auto w-full max-w-2xl">
-          {sent ? (
-            <div role="status" className="rounded-[2rem] border-2 border-cover-ink px-6 py-4 text-base leading-snug text-cover-ink backdrop-blur-sm">
-              Te enviamos un enlace a <strong>{email}</strong>. Abrilo desde este dispositivo para ingresar.
+          {sent && (
+            <div role="status" className="mb-4 rounded-[2rem] border-2 border-cover-ink px-6 py-4 text-base leading-snug text-cover-ink backdrop-blur-sm">
+              Te enviamos un enlace a <strong>{email}</strong> para validar tu email. Después de abrirlo, volvé a ingresar con tu email y contraseña.
             </div>
-          ) : (
-            <form onSubmit={onSubmit} className="w-full">
-              <label htmlFor="email" className="sr-only">Ingresá con tu email</label>
-              <div data-active={email ? "" : undefined} className="group flex h-[52px] items-center gap-2 rounded-full border-2 border-cover-ink py-1 pl-6 pr-1.5 transition-colors hover:border-tiza hover:bg-tiza focus-within:border-tiza focus-within:bg-tiza data-[active]:border-tiza data-[active]:bg-tiza">
-                <input id="email" type="email" autoComplete="email" inputMode="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="INGRESÁ CON TU EMAIL" className="min-w-0 flex-1 bg-transparent text-base font-semibold uppercase leading-none text-cover-ink placeholder:text-cover-ink focus:outline-none group-hover:text-carbon group-hover:placeholder:text-avena group-focus-within:text-carbon group-focus-within:placeholder:text-avena group-data-[active]:text-carbon" />
-                <Button type="submit" variant="ghost" size="icon" disabled={loading} aria-label={loading ? "Enviando enlace" : "Enviarme el enlace"} className="size-[38px] shrink-0 rounded-full bg-cover-warm text-cover-arrow hover:bg-cover-warm/90 hover:text-cover-arrow group-hover:bg-salvia group-focus-within:bg-salvia group-data-[active]:bg-salvia group-hover:hover:bg-salvia/90">
-                  <img src={coverArrow.url} alt="" width={20} height={20} className="size-5 group-hover:brightness-0 group-hover:invert group-focus-within:brightness-0 group-focus-within:invert group-data-[active]:brightness-0 group-data-[active]:invert" />
-                </Button>
-              </div>
-              {error && <p role="alert" className="mt-3 text-sm font-medium text-cover-ink">{error}</p>}
-            </form>
           )}
+          <form onSubmit={onSubmit} className="w-full space-y-3">
+            {step === "password" && (
+              <p className="px-2 text-sm font-medium text-cover-ink">
+                {mode === "signup" ? "Creá una contraseña de al menos 8 caracteres" : "Ingresá tu contraseña"}
+              </p>
+            )}
+            <label htmlFor="email" className="sr-only">Email</label>
+            <div data-active={email ? "" : undefined} className={pill}>
+              <input id="email" type="email" autoComplete="email" inputMode="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="INGRESÁ CON TU EMAIL" className={inputCls} />
+              {step === "email" && arrowBtn("Continuar")}
+            </div>
+            {step === "password" && (
+              <>
+                <label htmlFor="password" className="sr-only">Contraseña</label>
+                <div data-active={password ? "" : undefined} className={pill}>
+                  <input id="password" type="password" autoFocus minLength={8} required autoComplete={mode === "signup" ? "new-password" : "current-password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder={mode === "signup" ? "CREÁ UNA CONTRASEÑA" : "CONTRASEÑA"} className={inputCls} />
+                  {arrowBtn(loading ? "Cargando" : mode === "signup" ? "Crear cuenta" : "Ingresar")}
+                </div>
+                <button type="button" onClick={() => { setMode(mode === "login" ? "signup" : "login"); setError(null); }} className="block w-full text-center text-sm text-cover-ink underline underline-offset-4">
+                  {mode === "login" ? "¿Primera vez? Creá tu cuenta" : "¿Ya tenés cuenta? Ingresá"}
+                </button>
+              </>
+            )}
+            {error && <p role="alert" className="px-2 text-sm font-medium text-cover-ink">{error}</p>}
+          </form>
           <p className="mt-[clamp(2rem,7svh,4rem)] text-center text-xs font-normal text-cover-ink md:text-sm">
             Producto desarrollado por <span className="underline underline-offset-4">Destello Interior</span>
           </p>
