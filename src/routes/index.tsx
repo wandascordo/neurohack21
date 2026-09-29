@@ -71,10 +71,10 @@ function Portada() {
           ) : (
             <form onSubmit={onSubmit} className="w-full">
               <label htmlFor="email" className="sr-only">Ingresá con tu email</label>
-              <div className="flex h-[52px] items-center gap-2 rounded-full border-2 border-cover-ink py-1 pl-6 pr-1.5 focus-within:ring-2 focus-within:ring-cover-warm">
-                <input id="email" type="email" autoComplete="email" inputMode="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="INGRESÁ CON TU EMAIL" className="min-w-0 flex-1 bg-transparent text-base font-semibold uppercase leading-none text-cover-ink placeholder:text-cover-ink focus:outline-none" />
-                <Button type="submit" variant="ghost" size="icon" disabled={loading} aria-label={loading ? "Enviando enlace" : "Enviarme el enlace"} className="size-[38px] shrink-0 rounded-full bg-cover-warm text-cover-arrow hover:bg-cover-warm/90 hover:text-cover-arrow">
-                  <img src={coverArrow.url} alt="" width={20} height={20} className="size-5" />
+              <div data-active={email ? "" : undefined} className="group flex h-[52px] items-center gap-2 rounded-full border-2 border-cover-ink py-1 pl-6 pr-1.5 transition-colors hover:border-tiza hover:bg-tiza focus-within:border-tiza focus-within:bg-tiza data-[active]:border-tiza data-[active]:bg-tiza">
+                <input id="email" type="email" autoComplete="email" inputMode="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="INGRESÁ CON TU EMAIL" className="min-w-0 flex-1 bg-transparent text-base font-semibold uppercase leading-none text-cover-ink placeholder:text-cover-ink focus:outline-none group-hover:text-carbon group-hover:placeholder:text-avena group-focus-within:text-carbon group-focus-within:placeholder:text-avena group-data-[active]:text-carbon" />
+                <Button type="submit" variant="ghost" size="icon" disabled={loading} aria-label={loading ? "Enviando enlace" : "Enviarme el enlace"} className="size-[38px] shrink-0 rounded-full bg-cover-warm text-cover-arrow hover:bg-cover-warm/90 hover:text-cover-arrow group-hover:bg-salvia group-focus-within:bg-salvia group-data-[active]:bg-salvia group-hover:hover:bg-salvia/90">
+                  <img src={coverArrow.url} alt="" width={20} height={20} className="size-5 group-hover:brightness-0 group-hover:invert group-focus-within:brightness-0 group-focus-within:invert group-data-[active]:brightness-0 group-data-[active]:invert" />
                 </Button>
               </div>
               {error && <p role="alert" className="mt-3 text-sm font-medium text-cover-ink">{error}</p>}
