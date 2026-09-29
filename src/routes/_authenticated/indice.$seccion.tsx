@@ -11,7 +11,7 @@ export const Route = createFileRoute("/_authenticated/indice/$seccion")({
     return { i };
   },
   head: ({ loaderData }) => {
-    const t = `${loaderData ? LIBRO[loaderData.i].titulo : "Sección"} — Neurohack 21`;
+    const t = `${loaderData ? LIBRO[loaderData.i]?.titulo : "Sección"} — Neurohack 21`;
     return {
       meta: [
         { title: t },
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/_authenticated/indice/$seccion")({
 
 function Seccion() {
   const { i } = Route.useLoaderData();
-  const p = LIBRO[i];
+  const p = LIBRO[i]!;
   const prev = LIBRO[i - 1];
   const next = LIBRO[i + 1];
 
