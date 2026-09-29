@@ -147,6 +147,7 @@ export type Database = {
           email: string | null
           first_login_at: string | null
           id: string
+          onboarding_completed_at: string | null
           purchased_at: string | null
           updated_at: string
         }
@@ -156,6 +157,7 @@ export type Database = {
           email?: string | null
           first_login_at?: string | null
           id: string
+          onboarding_completed_at?: string | null
           purchased_at?: string | null
           updated_at?: string
         }
@@ -165,6 +167,7 @@ export type Database = {
           email?: string | null
           first_login_at?: string | null
           id?: string
+          onboarding_completed_at?: string | null
           purchased_at?: string | null
           updated_at?: string
         }
@@ -217,6 +220,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      complete_onboarding: { Args: never; Returns: undefined }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
