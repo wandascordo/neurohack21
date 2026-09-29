@@ -107,6 +107,36 @@ function Seccion() {
   );
 }
 
+function groupParagraphs(blocks: Block[]) {
+  const nodes: React.ReactNode[] = [];
+  let buf: { b: Block; idx: number }[] = [];
+  const flush = () => {
+    if (buf.length === 0) return;
+    if (buf.length === 1) {
+      nodes.push(<BlockView key={buf[0]!.idx} b={buf[0]!.b} />);
+    } else {
+      nodes.push(
+        <div key={`pg-${buf[0]!.idx}`} className="flex flex-col gap-5">
+          {buf.map(({ b, idx }) => (
+            <BlockView key={idx} b={b} />
+          ))}
+        </div>
+      );
+    }
+    buf = [];
+  };
+  blocks.forEach((b, idx) => {
+    if (b.type === "p") {
+      buf.push({ b, idx });
+    } else {
+      flush();
+      nodes.push(<BlockView key={idx} b={b} />);
+    }
+  });
+  flush();
+  return nodes;
+}
+
 function BlockView({ b }: { b: Block }) {
   const body = "text-base font-normal tracking-tight text-piedra";
   switch (b.type) {
