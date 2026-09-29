@@ -33,7 +33,6 @@ export const Route = createFileRoute("/_authenticated/indice/$seccion")({
 function Seccion() {
   const { i } = Route.useLoaderData();
   const p = LIBRO[i]!;
-  const prev = LIBRO[i - 1];
   const next = LIBRO[i + 1];
 
   useEffect(() => {
