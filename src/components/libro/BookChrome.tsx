@@ -47,7 +47,7 @@ function DarkMode() {
 
 export function TopBar({ onClose }: { onClose?: () => void }) {
   return (
-    <div className="flex h-fit flex-row items-center justify-center gap-10 self-stretch py-2.5">
+    <div className="relative flex h-fit flex-row items-center justify-between self-stretch py-2.5">
       {onClose ? (
         <button type="button" onClick={onClose} aria-label="Cerrar menú" className="h-7 w-7">
           <img className="h-7 w-7" src={menuClose.url} alt="" />
