@@ -1,4 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Placeholder } from "@/components/Placeholder";
 import { BookScreen, ProgressBar, TopBar, btnPrimary, btnSecondary } from "@/components/libro/BookChrome";
 import { LIBRO, type Block } from "@/lib/libro";
@@ -33,6 +35,11 @@ function Seccion() {
   const p = LIBRO[i]!;
   const prev = LIBRO[i - 1];
   const next = LIBRO[i + 1];
+
+  useEffect(() => {
+    void supabase.rpc("set_last_read", { _slug: p.slug });
+  }, [p.slug]);
+
 
   if (p.kind === "parte") {
     return (

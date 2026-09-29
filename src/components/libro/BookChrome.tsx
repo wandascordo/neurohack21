@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import logo from "@/assets/book-logo.svg.asset.json";
+import menuClose from "@/assets/menu-close.png.asset.json";
 
 function Menu() {
   return (
@@ -46,10 +47,16 @@ function DarkMode() {
   );
 }
 
-export function TopBar() {
+export function TopBar({ onClose }: { onClose?: () => void }) {
   return (
     <div className="flex h-fit flex-row items-center justify-center gap-10 self-stretch py-2.5">
-      <Menu />
+      {onClose ? (
+        <button type="button" onClick={onClose} aria-label="Cerrar menú" className="h-7 w-7">
+          <img className="h-7 w-7" src={menuClose.url} alt="" />
+        </button>
+      ) : (
+        <Menu />
+      )}
       <Header />
       <DarkMode />
     </div>
