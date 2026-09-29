@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Placeholder } from "@/components/Placeholder";
 import { BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
@@ -108,7 +108,7 @@ function Seccion() {
 }
 
 function groupParagraphs(blocks: Block[]) {
-  const nodes: React.ReactNode[] = [];
+  const nodes: ReactNode[] = [];
   let buf: { b: Block; idx: number }[] = [];
   const flush = () => {
     if (buf.length === 0) return;
