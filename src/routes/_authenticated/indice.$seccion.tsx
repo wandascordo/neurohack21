@@ -160,7 +160,7 @@ function BlockView({ b }: { b: Block }) {
   const body = "text-base font-normal tracking-tight text-piedra";
   switch (b.type) {
     case "h":
-      return <h2 id={anchorId(b.text)} className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{b.text}</h2>;
+      return <h2 id={anchorId(b.text)} style={{ scrollMarginTop: "40px" }} className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{b.text}</h2>;
     case "sumario":
       return (
         <div className="flex flex-col rounded-[10px] bg-carbon/3 p-3.5">
