@@ -19,6 +19,31 @@
  */
 
 @theme inline {
+  --animate-menu-in: menu-in 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-menu-out: menu-out 0.16s ease-in both;
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes menu-out {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
