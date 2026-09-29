@@ -95,24 +95,16 @@ function Seccion() {
             p.blocks.map((b, k) => <BlockView key={k} b={b} />)
           )}
         </article>
-        {p.slug === "prologo" && next && (
-          <Link to="/indice/$seccion" params={{ seccion: next.slug }} className={`${btnPrimary} w-full`}>Siguiente</Link>
+        {(next || !p.slug.startsWith("prologo")) && (
+          <Link
+            to={next ? "/indice/$seccion" : "/indice"}
+            params={next ? { seccion: next.slug } : undefined}
+            className={`${btnPrimary} w-full`}
+          >
+            {next ? "Siguiente" : "Índice"}
+          </Link>
         )}
       </div>
-      {p.slug !== "prologo" && <div className="fixed inset-x-0 bottom-0 bg-tiza/95 backdrop-blur">
-        <div className="mx-auto flex max-w-[400px] gap-2.5 px-5 py-4">
-          {prev ? (
-            <Link to="/indice/$seccion" params={{ seccion: prev.slug }} className={btnSecondary}>‹ Anterior</Link>
-          ) : (
-            <Link to="/indice" className={btnSecondary}>‹ Índice</Link>
-          )}
-          {next ? (
-            <Link to="/indice/$seccion" params={{ seccion: next.slug }} className={`${btnPrimary} flex-1`}>Siguiente ›</Link>
-          ) : (
-            <Link to="/indice" className={`${btnPrimary} flex-1`}>Índice</Link>
-          )}
-        </div>
-      </div>}
     </BookScreen>
   );
 }
