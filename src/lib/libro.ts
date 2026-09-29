@@ -1,14 +1,15 @@
 export type Block =
   | { type: "p"; text: string; lead?: string }
   | { type: "h"; text: string }
-  | { type: "ejemplo"; text: string }
-  | { type: "cierre"; items: string[] }
+  | { type: "sumario"; items: string[] }
+  | { type: "ejemplo"; title?: string; text: string }
+  | { type: "cierre"; items: string[]; ejercicio?: string }
   | { type: "lista"; intro: string; items: string[]; outro: string }
   | { type: "ejercicio"; title?: string; text: string };
 
 export type Pagina =
   | { slug: string; kind: "parte"; eyebrow: string; titulo: string; firstSlug: string }
-  | { slug: string; kind: "modulo"; eyebrow: string; titulo: string; blocks: Block[] }
+  | { slug: string; kind: "modulo"; eyebrow: string; titulo: string; tiempo?: string; blocks: Block[] }
   | { slug: string; kind: "reto"; eyebrow: string; titulo: string };
 
 const pend: Block[] = [{ type: "p", text: "El texto de esta sección se incorporará próximamente." }];
@@ -36,14 +37,57 @@ PROLOGO.splice(7, 0, {
   outro: "No vas a encontrar teoría sin práctica, ni práctica sin fundamento. Todo lo está pensado para que, al llegar al Día 21, no te quede una idea más sobre neurociencia, sino un método instalado que podés sostener el resto de tu vida.",
 });
 
+const MODULO1: Block[] = [
+  {
+    type: "sumario",
+    items: [
+      `Qué es el foco a nivel neurológico`,
+      `La Default Mode Network y el "modo automático"`,
+      `Dopamina, notificaciones y la economía de la atención`,
+      `El costo real de la interrupción`,
+      `Por qué esto no es un problema de voluntad`,
+    ],
+  },
+  { type: "h", text: `Qué es el foco a nivel neurológico` },
+  { type: "p", text: `Cuando hablamos de "foco", en realidad estamos hablando de un fenómeno neurológico muy concreto: la capacidad del cerebro de sostener la activación de una red específica (la red de atención ejecutiva) mientras suprime otra red que compite por los mismos recursos (la red neuronal por defecto, o Default Mode Network, DMN). No es una metáfora. Son dos sistemas cerebrales distintos que literalmente se turnan el protagonismo, y cuál de los dos domina en un momento dado determina si estás presente en lo que hacés o si tu mente "se fue a otro lado".` },
+  { type: "p", text: `Durante décadas se pensó que la DMN era simplemente el estado de "reposo" del cerebro, la red que se activa cuando no estás haciendo nada en particular. Investigaciones más recientes en neuroimagen mostraron algo más interesante: los lapsos de atención se asocian con incrementos de activación dentro de esta misma red, y estudios con registro neuronal de altísima precisión temporal encontraron que cuando necesitamos concentrarnos, esta red interfiere con la activación de otras neuronas especializadas cuando no logra desactivarse lo suficiente. Dicho en criollo: no es que "te distraigas" por débil o por indisciplinado. Es que una red cerebral entera, diseñada para la introspección y el pensamiento espontáneo, no bajó el volumen cuando necesitabas que lo hiciera.` },
+  { type: "p", text: `Esto tiene una implicancia directa para el reto que vas a hacer: entrenar el foco no es "esforzarte más". Es aprender a reconocer cuándo se activa esa red de fondo y desarrollar la capacidad de bajarla a voluntad. Eso es exactamente lo que trabajan las prácticas de regulación corporal que vas a incorporar desde el Día 1.` },
+  { type: "h", text: `La Default Mode Network y el "modo automático"` },
+  { type: "p", text: `Pensá en la DMN como el modo automático de un auto: se activa solo, sin que decidas conscientemente encenderlo, cada vez que no hay una tarea externa que exija tu atención completa. Repasás el pasado, anticipás el futuro, rumiás una conversación incómoda, planificás qué vas a cocinar. Todo eso es sano y necesario, es el sistema que te permite tener sentido de identidad y proyectarte en el tiempo.` },
+  { type: "p", text: `El problema aparece cuando ese modo automático se activa en el momento equivocado: mientras estás tratando de escribir un informe, leer un libro o simplemente escuchar a alguien. Ahí es cuando "te fuiste" sin darte cuenta. Y acá viene el dato que probablemente más te va a sorprender de este módulo.` },
+  { type: "p", text: `La investigadora Gloria Mark, de la Universidad de California en Irvine, lleva más de veinte años midiendo objetivamente cuánto tiempo sostiene una persona la atención en una pantalla antes de cambiar de foco, usando registros de actividad reales, no encuestas de autopercepción. En 2004 el promedio era de dos minutos y medio antes de cambiar de pantalla. Desde 2016 en adelante, ese promedio cayó a 47 segundos, y la mediana (el punto medio de todas las mediciones) es de 40 segundos, lo que significa que la mitad de las veces sostenemos el foco todavía menos tiempo.` },
+  { type: "p", text: `Es importante leer este dato con precisión, sin exagerarlo: no significa que tu cerebro tenga un límite biológico de 47 segundos, ni que sea imposible leer un párrafo largo sin distraerte. Significa que, en el entorno actual de estímulos constantes, el patrón de cambio de atención se volvió mucho más frecuente que hace veinte años, y ese patrón es justamente lo que este reto busca revertir: no cuánto "podés" concentrarte en el mejor de los casos, sino con qué frecuencia elegís hacerlo en el día a día.` },
+  { type: "h", text: `Dopamina, notificaciones y la economía de la atención` },
+  { type: "p", text: `La dopamina no es, como se suele simplificar, "la molécula del placer". Es, sobre todo, la molécula de la anticipación: se libera cuando el cerebro predice que algo relevante o novedoso está por pasar, más que cuando ese algo efectivamente ocurre. Una notificación en el celular es un disparador casi perfecto de este mecanismo: no sabés qué contiene hasta que la mirás, y esa incertidumbre es justamente lo que mantiene activa la anticipación.` },
+  { type: "p", text: `Cada vez que revisás el teléfono "solo un segundo" y ese segundo se convierte en cinco minutos, no es una falla de carácter. Es un circuito de recompensa haciendo exactamente lo que la evolución lo entrenó para hacer: orientarse hacia lo novedoso. El problema es que ese circuito no distingue entre una alerta genuinamente importante y un like en una foto. Trata a ambas con el mismo nivel de urgencia neuroquímica.` },
+  { type: "ejemplo", text: `Pensá en la última vez que te sentaste a hacer algo que requería concentración y dejaste el celular "a la vista, pero en silencio". La sola presencia visual del dispositivo, aunque no vibre ni suene, ya consume una porción de tus recursos atencionales, porque una parte de tu cerebro está monitoreando pasivamente la posibilidad de una notificación. Es una de las razones por las que en el Módulo 4 vas a trabajar con un protocolo concreto de "diseño del entorno" antes de cada sesión de foco: no se trata de tener más fuerza de voluntad, se trata de reducir la cantidad de disparadores dopaminérgicos disponibles mientras entrenás el circuito nuevo.` },
+  { type: "h", text: `El costo real de la interrupción` },
+  { type: "p", text: `Hay un segundo dato, tan importante como el anterior, que rara vez se menciona junto con las estadísticas de atención: el problema no es solo con qué frecuencia te distraés, sino cuánto cuesta volver. La misma línea de investigación de Gloria Mark documentó que, luego de una interrupción, el cerebro puede tardar hasta 25 minutos en recuperar el nivel de foco previo a esa interrupción.` },
+  { type: "p", text: `Esto cambia por completo la manera de pensar el problema. Si revisás el celular seis veces en una hora de trabajo, no perdiste seis veces "un segundo". Potencialmente perdiste la posibilidad entera de entrar en un estado de concentración profunda durante esa hora, porque cada interrupción reinicia el proceso de reingreso al foco antes de que llegue a completarse.` },
+  { type: "ejemplo", text: `Muchas personas dicen "trabajo mejor con música de fondo y el chat abierto, así respondo rápido y sigo". Lo que en realidad está pasando, según esta evidencia, es que cada respuesta rápida tiene un costo invisible mucho mayor a los segundos que toma escribirla. El reto de 21 días no te va a pedir que elimines toda comunicación de tu vida, pero sí que empieces a identificar, en tu Registro Diario, cuántas veces por sesión te interrumpís (o te interrumpen) y qué tan largo es el "regreso" a la tarea. Ese simple acto de registro, sin cambiar nada más todavía, ya empieza a entrenar la conciencia metacognitiva que necesitás para el resto del método.` },
+  { type: "h", text: `Por qué esto no es un problema de voluntad` },
+  { type: "p", text: `Es tentador leer todo lo anterior y sacar la conclusión de "tengo que tener más disciplina". Pero la neurociencia de la atención sugiere algo distinto: la fuerza de voluntad es un recurso limitado y fluctuante, mientras que los circuitos neuronales entrenados son estables y automáticos. Por eso la persona que "no tiene fuerza de voluntad" para dejar el celular en la mesa, muchas veces sí la tiene para sostener otras rutinas exigentes en otras áreas de su vida. No es un rasgo de carácter fijo, es un circuito específico, fortalecido por miles de repeticiones diarias durante años.` },
+  { type: "p", text: `La buena noticia, y acá es donde este módulo conecta con el resto del libro interactivo, es que si un circuito se fortalece por repetición, también se puede debilitar y reemplazar por repetición. Ese es exactamente el mecanismo que vas a activar durante los 21 días: no vas a "obligar" a tu cerebro a concentrarse mediante el esfuerzo puro, vas a diseñar condiciones y prácticas diarias que, repetidas con constancia, instalen un circuito nuevo.` },
+  {
+    type: "cierre",
+    items: [
+      `El foco es un fenómeno de dos redes cerebrales en competencia, no un rasgo fijo de personalidad.`,
+      `La frecuencia con la que cambiamos de atención se disparó en las últimas dos décadas, no porque el cerebro humano cambió biológicamente, sino porque el entorno de estímulos cambió radicalmente.`,
+      `Cada interrupción tiene un costo de reingreso mucho mayor a lo que sentimos conscientemente.`,
+      `El problema no es de voluntad, es de circuitos entrenados, y los circuitos se pueden reentrenar.`,
+    ],
+    ejercicio: `Durante las próximas 24 horas, sin cambiar todavía ningún hábito, llevá un registro simple: cada vez que notes que "volviste" de una distracción (el celular, un pensamiento, una notificación), anotá la hora y qué te distrajo. No juzgues el resultado, solo observá. Este registro va a ser tu línea base real, la que vas a comparar al cierre de cada semana del reto.`,
+  },
+];
+
 const mod = (n: number, parte: string, titulo: string): Pagina => ({
   slug: `modulo-${n}`, kind: "modulo", eyebrow: `${parte} / Módulo ${n}`, titulo, blocks: pend,
 });
 
 export const LIBRO: Pagina[] = [
-  { slug: "prologo", kind: "modulo", eyebrow: "Introducción", titulo: "Prólogo", blocks: PROLOGO },
+  { slug: "prologo", kind: "modulo", eyebrow: "Introducción", titulo: "Prólogo", tiempo: "4 min.", blocks: PROLOGO },
   { slug: "parte-1", kind: "parte", eyebrow: "Parte I", titulo: "El cerebro distraído", firstSlug: "modulo-1" },
-  mod(1, "Parte I", "La ciencia de la atención perdida"),
+  { slug: "modulo-1", kind: "modulo", eyebrow: "Parte I / Módulo 1", titulo: "La ciencia de la atención perdida", tiempo: "7 min.", blocks: MODULO1 },
   mod(2, "Parte I", "Neuroplasticidad, la puerta del cambio"),
   mod(3, "Parte I", "Dos mapas para un mismo territorio"),
   { slug: "parte-2", kind: "parte", eyebrow: "Parte II", titulo: "Los dos pilares del método", firstSlug: "modulo-4" },
