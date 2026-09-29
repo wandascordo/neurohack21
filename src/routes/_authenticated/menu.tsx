@@ -32,6 +32,8 @@ const items = [
 const row = "flex h-fit flex-row items-center gap-2.5 self-stretch border-b border-carbon-10/10 p-2.5";
 const title = "text-base font-normal tracking-tight text-carbon text-left";
 const sub = "text-sm font-normal tracking-tight text-carbon text-left";
+const staggerClass = "animate-menu-item";
+const stagger = (i: number) => ({ animationDelay: `${60 + i * 35}ms` });
 
 function Menu() {
   const navigate = useNavigate();
