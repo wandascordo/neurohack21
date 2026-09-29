@@ -76,25 +76,25 @@ function Menu() {
         {view === "main" ? (
           <div className="flex flex-1 flex-col items-center gap-[30px] self-stretch">
             <nav className="flex h-fit flex-col items-center gap-2.5 self-stretch">
-              <button type="button" onClick={() => setView("indice")} className={row}>
+              <button type="button" onClick={() => setView("indice")} className={`${row} ${staggerClass}`} style={stagger(0)}>
                 <img className="h-6 w-6" src={paginas.url} alt="" />
                 <span className={`${title} flex-1`}>Índice de Contenidos</span>
                 <img className="h-6 w-6" src={flecha.url} alt="" />
               </button>
-              {items.map((i) => (
-                <Link key={i.to} to={i.to} className={row}>
+              {items.map((i, idx) => (
+                <Link key={i.to} to={i.to} className={`${row} ${staggerClass}`} style={stagger(idx + 1)}>
                   <img className="h-6 w-6" src={i.icon} alt="" />
                   <span className={title}>{i.label}</span>
                 </Link>
               ))}
             </nav>
-            <Link to="/indice/$seccion" params={{ seccion: continuar }} className="flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-salvia px-6 py-4 text-center text-base font-semibold uppercase leading-none text-tiza">
+            <Link to="/indice/$seccion" params={{ seccion: continuar }} style={stagger(7)} className={`flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-salvia px-6 py-4 text-center text-base font-semibold uppercase leading-none text-tiza ${staggerClass}`}>
               Continuar leyendo
             </Link>
             <div className="flex flex-1 flex-col items-center justify-end self-stretch">
-              <Link to="/privacidad" className={`${row} ${sub}`}>Políticas de Privacidad</Link>
-              <Link to="/terminos" className={`${row} ${sub}`}>Términos de Uso</Link>
-              <button type="button" onClick={signOut} className={`${row} ${sub}`}>Logout</button>
+              <Link to="/privacidad" style={stagger(8)} className={`${row} ${sub} ${staggerClass}`}>Políticas de Privacidad</Link>
+              <Link to="/terminos" style={stagger(9)} className={`${row} ${sub} ${staggerClass}`}>Términos de Uso</Link>
+              <button type="button" onClick={signOut} style={stagger(10)} className={`${row} ${sub} ${staggerClass}`}>Logout</button>
             </div>
           </div>
         ) : (
@@ -104,8 +104,8 @@ function Menu() {
               <span className={sub}>Menú principal</span>
             </button>
             <nav className="flex h-fit flex-col items-center gap-2.5 self-stretch">
-              {INDICE.map((g) => (
-                <div key={g.titulo} className="flex h-fit flex-col justify-center gap-2.5 self-stretch border-b border-carbon-10/10 p-2.5">
+              {INDICE.map((g, idx) => (
+                <div key={g.titulo} style={stagger(idx)} className={`flex h-fit flex-col justify-center gap-2.5 self-stretch border-b border-carbon-10/10 p-2.5 ${staggerClass}`}>
                   <Link to="/indice/$seccion" params={{ seccion: g.slug ?? g.items[0]!.slug }} className={`${title} self-stretch`}>{g.titulo}</Link>
                   {g.items.length > 0 && g.titulo !== "Introducción" && g.items.map((it) => (
                     <Link key={it.slug} to="/indice/$seccion" params={{ seccion: it.slug }} className={`${sub} self-stretch px-2.5 pt-2.5`}>{it.label}</Link>
