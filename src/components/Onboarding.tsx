@@ -7,7 +7,6 @@ import chevron from "@/assets/ob-chevron.png.asset.json";
 const GUIAS = [
   {
     id: "ios",
-    icon: apple.url,
     label: "Instrucciones para iPhone",
     pasos: [
       "Abrí este link en Safari.",
@@ -18,7 +17,6 @@ const GUIAS = [
   },
   {
     id: "android",
-    icon: android.url,
     label: "Instrucciones para Android",
     pasos: [
       "Abrí este link en Chrome.",
