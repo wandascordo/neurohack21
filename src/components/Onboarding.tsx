@@ -72,7 +72,6 @@ export function Onboarding() {
               return (
                 <div key={g.id} className="self-stretch border-b border-carbon-10/10">
                   <button type="button" aria-expanded={isOpen} onClick={() => setAbierta(isOpen ? null : g.id)} className="flex w-full flex-row items-center gap-2.5 p-2.5 text-left">
-                    <img className="h-6 w-6" src={g.icon} alt="" />
                     <span className="flex-1 text-base font-normal tracking-tight text-carbon">{g.label}</span>
                     <img className={`h-6 w-6 transition-transform ${isOpen ? "-rotate-90" : "rotate-90"}`} src={chevron.url} alt="" />
                   </button>
