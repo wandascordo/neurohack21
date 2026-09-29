@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { meta } from "@/components/Placeholder";
 import coverArrow from "@/assets/cover-arrow.png.asset.json";
-import loginVideo from "@/assets/login-background.mp4.asset.json";
+import loginVideo from "@/assets/login-background-optimized.mp4.asset.json";
 import loginPoster from "@/assets/login-video-poster.jpg.asset.json";
 import logo from "@/assets/neurohack-21-logo.svg.asset.json";
 
