@@ -56,7 +56,7 @@ function Portada() {
   }
 
   const pill = "flex flex-row gap-2.5 items-center self-stretch h-[52px] bg-tiza/10 rounded-full border-2 border-cover-ink backdrop-blur-[50px] py-4 pr-1 pl-6 overflow-hidden";
-  const inputCls = "min-w-0 flex-1 bg-transparent text-base font-semibold leading-none text-cover-ink placeholder:uppercase placeholder:text-cover-ink focus:outline-none";
+  const inputCls = "min-w-0 flex-1 bg-transparent text-base font-semibold leading-none text-carbon placeholder:uppercase placeholder:text-cover-ink focus:outline-none";
 
   return (
     <main className="relative isolate min-h-[100svh] overflow-hidden bg-primary text-cover-ink font-cover">
