@@ -156,13 +156,33 @@ function BlockView({ b }: { b: Block }) {
           ))}
         </div>
       );
-    case "ejemplo":
+    case "ejemplo": {
+      const renderText = () => {
+        if (!b.links || b.links.length === 0) return b.text;
+        const parts: ReactNode[] = [];
+        let rest = b.text;
+        let key = 0;
+        for (const link of b.links) {
+          const i = rest.indexOf(link.text);
+          if (i < 0) continue;
+          if (i > 0) parts.push(rest.slice(0, i));
+          parts.push(
+            <Link key={key++} to={link.to} className="underline underline-offset-2 hover:text-carbon">
+              {link.text}
+            </Link>
+          );
+          rest = rest.slice(i + link.text.length);
+        }
+        if (rest) parts.push(rest);
+        return parts;
+      };
       return (
         <div className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
           <p className="text-base font-bold tracking-tight text-carbon">{b.title ?? "Ejemplo práctico"}</p>
-          <p className="text-base font-normal tracking-tight text-piedra">{b.text}</p>
+          <p className="text-base font-normal tracking-tight text-piedra">{renderText()}</p>
         </div>
       );
+    }
     case "cierre":
       return (
         <div className="flex flex-col gap-5 border-t border-piedra pt-10">
@@ -173,7 +193,7 @@ function BlockView({ b }: { b: Block }) {
                 <div className="flex h-5 w-5 flex-row items-center justify-center">
                   <div className="h-2 w-2 rounded-full bg-salvia" />
                 </div>
-                <p className="flex-1 text-base font-semibold tracking-tight text-piedra">{t}</p>
+                <p className="flex-1 text-base font-normal tracking-tight text-piedra">{t}</p>
               </div>
             ))}
           </div>
