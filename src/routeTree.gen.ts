@@ -10,33 +10,121 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as PrivacidadRouteImport } from './routes/privacidad'
+import { Route as TerminosRouteImport } from './routes/terminos'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedMenuRouteImport } from './routes/_authenticated/menu'
+import { Route as AuthenticatedIndiceIndexRouteImport } from './routes/_authenticated/indice.index'
+import { Route as AuthenticatedIndiceSeccionRouteImport } from './routes/_authenticated/indice.$seccion'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacidadRoute = PrivacidadRouteImport.update({
+  id: '/privacidad',
+  path: '/privacidad',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TerminosRoute = TerminosRouteImport.update({
+  id: '/terminos',
+  path: '/terminos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMenuRoute = AuthenticatedMenuRouteImport.update({
+  id: '/menu',
+  path: '/menu',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedIndiceIndexRoute =
+  AuthenticatedIndiceIndexRouteImport.update({
+    id: '/indice/',
+    path: '/indice/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedIndiceSeccionRoute =
+  AuthenticatedIndiceSeccionRouteImport.update({
+    id: '/indice/$seccion',
+    path: '/indice/$seccion',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/privacidad': typeof PrivacidadRoute
+  '/terminos': typeof TerminosRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/menu': typeof AuthenticatedMenuRoute
+  '/indice/$seccion': typeof AuthenticatedIndiceSeccionRoute
+  '/indice/': typeof AuthenticatedIndiceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/privacidad': typeof PrivacidadRoute
+  '/terminos': typeof TerminosRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/menu': typeof AuthenticatedMenuRoute
+  '/indice/$seccion': typeof AuthenticatedIndiceSeccionRoute
+  '/indice': typeof AuthenticatedIndiceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/privacidad': typeof PrivacidadRoute
+  '/terminos': typeof TerminosRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/menu': typeof AuthenticatedMenuRoute
+  '/_authenticated/indice/$seccion': typeof AuthenticatedIndiceSeccionRoute
+  '/_authenticated/indice/': typeof AuthenticatedIndiceIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/privacidad'
+    | '/terminos'
+    | '/admin'
+    | '/menu'
+    | '/indice/$seccion'
+    | '/indice/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/privacidad'
+    | '/terminos'
+    | '/admin'
+    | '/menu'
+    | '/indice/$seccion'
+    | '/indice'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/privacidad'
+    | '/terminos'
+    | '/_authenticated/admin'
+    | '/_authenticated/menu'
+    | '/_authenticated/indice/$seccion'
+    | '/_authenticated/indice/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  PrivacidadRoute: typeof PrivacidadRoute
+  TerminosRoute: typeof TerminosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +136,80 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacidad': {
+      id: '/privacidad'
+      path: '/privacidad'
+      fullPath: '/privacidad'
+      preLoaderRoute: typeof PrivacidadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terminos': {
+      id: '/terminos'
+      path: '/terminos'
+      fullPath: '/terminos'
+      preLoaderRoute: typeof TerminosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/menu': {
+      id: '/_authenticated/menu'
+      path: '/menu'
+      fullPath: '/menu'
+      preLoaderRoute: typeof AuthenticatedMenuRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/indice/': {
+      id: '/_authenticated/indice/'
+      path: '/indice'
+      fullPath: '/indice/'
+      preLoaderRoute: typeof AuthenticatedIndiceIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/indice/$seccion': {
+      id: '/_authenticated/indice/$seccion'
+      path: '/indice/$seccion'
+      fullPath: '/indice/$seccion'
+      preLoaderRoute: typeof AuthenticatedIndiceSeccionRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedMenuRoute: typeof AuthenticatedMenuRoute
+  AuthenticatedIndiceSeccionRoute: typeof AuthenticatedIndiceSeccionRoute
+  AuthenticatedIndiceIndexRoute: typeof AuthenticatedIndiceIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedMenuRoute: AuthenticatedMenuRoute,
+  AuthenticatedIndiceSeccionRoute: AuthenticatedIndiceSeccionRoute,
+  AuthenticatedIndiceIndexRoute: AuthenticatedIndiceIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  PrivacidadRoute: PrivacidadRoute,
+  TerminosRoute: TerminosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
