@@ -129,12 +129,14 @@ function groupParagraphs(blocks: Block[]) {
     grupo = null;
   };
   blocks.forEach((b, idx) => {
-    if (b.type === "p" && grupo) {
+    // "p" y "ejemplo" comparten grupo: la tarjeta de Ejemplo práctico queda a
+    // 20 px del párrafo anterior (mismo contenedor gap-5).
+    if ((b.type === "p" || b.type === "ejemplo") && grupo) {
       grupo.push({ b, idx });
     } else if (b.type === "h") {
       flush();
       grupo = [{ b, idx }];
-    } else if (b.type === "p") {
+    } else if (b.type === "p" || b.type === "ejemplo") {
       grupo = [{ b, idx }];
     } else {
       flush();
