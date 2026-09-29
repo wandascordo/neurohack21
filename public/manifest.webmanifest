@@ -1,0 +1,14 @@
+{
+  "name": "Neurohack 21",
+  "short_name": "Neurohack 21",
+  "description": "Libro interactivo del reto de 21 días de atención.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0f1424",
+  "theme_color": "#0f1424",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

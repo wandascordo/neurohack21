@@ -8,6 +8,13 @@
       "when": 1790703161148,
       "tag": "0000_neurohack_base_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790708794183,
+      "tag": "0001_onboarding_done",
+      "breakpoints": true
     }
   ]
 }
