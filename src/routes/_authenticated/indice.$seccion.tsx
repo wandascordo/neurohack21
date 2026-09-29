@@ -204,7 +204,7 @@ function BlockView({ b }: { b: Block }) {
     }
     case "cierre":
       return (
-        <div className="flex flex-col gap-5 border-t border-piedra pt-10">
+        <div className="flex flex-col gap-5 border-t border-carbon-10/10 pt-10">
           <h2 className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">Cierre del módulo: lo que te llevás</h2>
           <div className="flex flex-col gap-4">
             {b.items.map((t) => (
