@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Placeholder } from "@/components/Placeholder";
-import { BookScreen, ProgressBar, TopBar, btnPrimary, btnSecondary } from "@/components/libro/BookChrome";
+import { BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { LIBRO, type Block } from "@/lib/libro";
 import illustration from "@/assets/parte-1-illustration.png.asset.json";
 
@@ -33,7 +33,6 @@ export const Route = createFileRoute("/_authenticated/indice/$seccion")({
 function Seccion() {
   const { i } = Route.useLoaderData();
   const p = LIBRO[i]!;
-  const prev = LIBRO[i - 1];
   const next = LIBRO[i + 1];
 
   useEffect(() => {
@@ -68,7 +67,22 @@ function Seccion() {
         <ProgressBar value={(i + 1) / LIBRO.length} />
         <article className="flex flex-col gap-5 self-stretch py-5">
           <div className="flex flex-col gap-2.5">
-            <p className="text-base font-semibold leading-none text-piedra">{p.eyebrow}</p>
+            <p className="text-base font-semibold leading-none text-piedra">
+              {p.eyebrow.includes(" / ") ? (
+                (() => {
+                  const sep = p.eyebrow.lastIndexOf(" / ");
+                  return (
+                    <>
+                      {p.eyebrow.slice(0, sep)}
+                      {" / "}
+                      <span className="text-carbon">{p.eyebrow.slice(sep + 3)}</span>
+                    </>
+                  );
+                })()
+              ) : (
+                p.eyebrow
+              )}
+            </p>
             <h1 className="text-4xl font-normal leading-[1.1] tracking-[-2.00px] text-carbon">{p.titulo}</h1>
           </div>
           {p.kind === "reto" ? (
@@ -80,24 +94,12 @@ function Seccion() {
             p.blocks.map((b, k) => <BlockView key={k} b={b} />)
           )}
         </article>
-        {p.slug === "prologo" && next && (
+        {next ? (
           <Link to="/indice/$seccion" params={{ seccion: next.slug }} className={`${btnPrimary} w-full`}>Siguiente</Link>
+        ) : (
+          p.slug !== "prologo" && <Link to="/indice" className={`${btnPrimary} w-full`}>Índice</Link>
         )}
       </div>
-      {p.slug !== "prologo" && <div className="fixed inset-x-0 bottom-0 bg-tiza/95 backdrop-blur">
-        <div className="mx-auto flex max-w-[400px] gap-2.5 px-5 py-4">
-          {prev ? (
-            <Link to="/indice/$seccion" params={{ seccion: prev.slug }} className={btnSecondary}>‹ Anterior</Link>
-          ) : (
-            <Link to="/indice" className={btnSecondary}>‹ Índice</Link>
-          )}
-          {next ? (
-            <Link to="/indice/$seccion" params={{ seccion: next.slug }} className={`${btnPrimary} flex-1`}>Siguiente ›</Link>
-          ) : (
-            <Link to="/indice" className={`${btnPrimary} flex-1`}>Índice</Link>
-          )}
-        </div>
-      </div>}
     </BookScreen>
   );
 }
