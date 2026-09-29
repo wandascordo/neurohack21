@@ -6,7 +6,7 @@ import { SECCIONES } from "@/lib/secciones";
 export const Route = createFileRoute("/_authenticated/indice/")({
   head: () => meta("Índice de Contenidos", "Todas las partes y módulos de Neurohack 21."),
   component: () => (
-    <Placeholder title="Índice de Contenidos">
+    <Placeholder title="Índice de Contenidos" description="Recorré las partes del libro en el orden que prefieras.">
       <Onboarding />
       <ul className="space-y-2">
         {SECCIONES.map((s) => (
