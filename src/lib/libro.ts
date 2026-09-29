@@ -80,6 +80,30 @@ const MODULO1: Block[] = [
   },
 ];
 
+const MODULO2: Block[] = [
+  {
+    type: "sumario",
+    items: [
+      `Qué significa "las neuronas que se disparan juntas, se conectan juntas"`,
+      `Cómo se forman (y se rompen) los hábitos mentales`,
+      `El rol de la repetición consciente en el cambio de circuitos`,
+      `Neuroplasticidad y el argumento de Dispenza: una lectura cuidadosa`,
+    ],
+  },
+  { type: "h", text: `Qué significa "las neuronas que se disparan juntas, se conectan juntas"` },
+  { type: "p", text: `En 1949, el neuropsicólogo canadiense Donald Hebb propuso, en su libro The Organization of Behavior, un principio que cambió para siempre la forma de entender el aprendizaje: cuando una neurona activa repetidamente a otra, la conexión entre ambas se fortalece. Ese principio, conocido como el postulado de Hebb, fue resumido años después por la neurocientífica Carla Shatz en la frase que hoy es casi un lugar común: "las neuronas que se disparan juntas, se conectan juntas".` },
+  { type: "p", text: `Es importante entender qué significa esto en términos concretos, más allá de la frase pegadiza. Cada vez que dos neuronas se activan de forma simultánea o en secuencia cercana, ocurre un cambio bioquímico real en la sinapsis (el punto de conexión entre ambas) que hace que la próxima vez sea más fácil que se activen juntas de nuevo. Ese mecanismo, hoy respaldado por décadas de investigación en potenciación a largo plazo (LTP, por sus siglas en inglés), es la base biológica de absolutamente todo lo que aprendés: desde andar en bicicleta hasta el patrón de pensamiento que te lleva a revisar el celular apenas sentís un mínimo de incomodidad.` },
+  { type: "ejemplo", text: `Pensá en la primera vez que manejaste un auto. Cada movimiento (mirar el espejo, pisar el embrague, girar el volante) requería atención consciente y esfuerzo. Con la repetición, esas acciones se automatizaron: hoy las hacés sin pensar. Eso es la neuroplasticidad en acción, un circuito que se volvió tan eficiente que ya no necesita supervisión consciente. El problema es que este mismo mecanismo que te permitió automatizar el manejo es el que automatizó también el gesto de agarrar el celular cada vez que sentís un microsegundo de aburrimiento. El cerebro no distingue entre un hábito que te sirve y uno que te perjudica: fortalece por igual lo que repetís.` },
+  { type: "h", text: `Cómo se forman (y se rompen) los hábitos mentales` },
+  { type: "p", text: `Un hábito, visto desde la neurociencia, no es más que un circuito Hebbiano suficientemente entrenado como para activarse de forma automática ante una señal (un disparador) sin pasar por una decisión consciente. Esto explica por qué es tan difícil "decidir" dejar de distraerte: para cuando te das cuenta de que ya estás mirando el teléfono, el circuito ya se activó y ya ejecutó buena parte de la secuencia. La decisión consciente llegó tarde.` },
+  { type: "p", text: `Acá aparece la otra cara de la neuroplasticidad, tan importante como la primera: los circuitos que dejan de usarse se debilitan. Este principio se conoce en neurociencia como "use it or lose it" (lo que no usás, lo perdés), y significa que un circuito de distracción muy entrenado no desaparece de un día para el otro, pero sí pierde fuerza progresivamente cuando dejás de alimentarlo y, al mismo tiempo, fortalecés un circuito alternativo de manera consistente.` },
+  { type: "p", text: `Es la razón por la que este libro interactivo no te va a pedir que "elimines" la distracción de un día para el otro mediante pura fuerza de voluntad, sino que instales, día tras día, un circuito competidor: el de notar la distracción apenas aparece y redirigir la atención de forma consciente. Cada vez que hacés ese gesto (notar y redirigir), estás debilitando levemente el circuito viejo y fortaleciendo uno nuevo. Es un proceso gradual, no un interruptor de on/off, y por eso el reto está diseñado en 21 días y no en uno solo.` },
+  { type: "h", text: `El rol de la repetición consciente en el cambio de circuitos` },
+  { type: "p", text: `Hay un matiz clave que separa la neuroplasticidad "que te pasa" de la neuroplasticidad que podés dirigir de forma intencional: el nivel de atención con el que repetís algo. La investigación en aprendizaje motor y cognitivo muestra que la repetición mecánica, sin atención plena, produce cambios sinápticos mucho más débiles que la repetición hecha con atención consciente y con feedback sobre el propio desempeño. En otras palabras, no alcanza con "hacer" el ejercicio de foco de forma automática y distraída, la calidad de la atención con la que lo hacés es parte del mecanismo de cambio.` },
+  { type: "p", text: `Esto es exactamente lo que Joe Dispenza enfatiza cuando habla de "estar presente" durante la práctica: no como un concepto espiritual abstracto, sino como una condición necesaria para que la repetición efectivamente reconfigure el circuito. Si hacés el ejercicio de meditación del reto pensando en la lista de tareas del día, la práctica pierde buena parte de su efecto neuroplástico. La presencia consciente durante el ejercicio no es un detalle estético, es parte del mecanismo.` },
+  { type: "ejemplo", text: `Compará dos personas que hacen el mismo ejercicio de respiración de 5 minutos. La primera lo hace mientras repasa mentalmente su lista de pendientes. La segunda lo hace prestando atención real a cada inhalación y exhalación, notando cuándo la mente se va y trayéndola de vuelta. Ambas "cumplieron" con el ejercicio, pero solo la segunda está entrenando activamente el circuito de atención dirigida. Por eso, en cada práctica diaria del reto vas a encontrar una instrucción específica de "dónde poner la atención", no solo "qué hacer".` },
+];
+
 const mod = (n: number, parte: string, titulo: string): Pagina => ({
   slug: `modulo-${n}`, kind: "modulo", eyebrow: `${parte} / Módulo ${n}`, titulo, blocks: pend,
 });
@@ -88,7 +112,7 @@ export const LIBRO: Pagina[] = [
   { slug: "prologo", kind: "modulo", eyebrow: "Introducción", titulo: "Prólogo", tiempo: "4 min.", blocks: PROLOGO },
   { slug: "parte-1", kind: "parte", eyebrow: "Parte I", titulo: "El cerebro distraído", firstSlug: "modulo-1" },
   { slug: "modulo-1", kind: "modulo", eyebrow: "Parte I / Módulo 1", titulo: "La ciencia de la atención perdida", tiempo: "7 min.", blocks: MODULO1 },
-  mod(2, "Parte I", "Neuroplasticidad, la puerta del cambio"),
+  { slug: "modulo-2", kind: "modulo", eyebrow: "Parte I / Módulo 2", titulo: "Neuroplasticidad, la puerta del cambio", tiempo: "6 min.", blocks: MODULO2 },
   mod(3, "Parte I", "Dos mapas para un mismo territorio"),
   { slug: "parte-2", kind: "parte", eyebrow: "Parte II", titulo: "Los dos pilares del método", firstSlug: "modulo-4" },
   mod(4, "Parte II", "El pilar Dispenza"),
