@@ -84,6 +84,9 @@ function Seccion() {
               )}
             </p>
             <h1 className="text-4xl font-normal leading-[1.1] tracking-[-2.00px] text-carbon">{p.titulo}</h1>
+            {"tiempo" in p && p.tiempo && (
+              <p className="text-sm font-normal tracking-tight text-piedra">Tiempo de lectura: {p.tiempo}</p>
+            )}
           </div>
           {p.kind === "reto" ? (
             <>
@@ -108,14 +111,47 @@ function BlockView({ b }: { b: Block }) {
   const body = "text-base font-normal tracking-tight text-piedra";
   switch (b.type) {
     case "h":
-      return <h2 className="text-lg font-semibold tracking-tight text-carbon">{b.text}</h2>;
+      return <h2 className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{b.text}</h2>;
+    case "sumario":
+      return (
+        <div className="flex flex-col rounded-[10px] bg-carbon/3 p-3.5">
+          <p className="py-1 text-sm font-normal tracking-tight text-piedra">En este módulo:</p>
+          {b.items.map((item, idx) => (
+            <div key={item} className={`py-3.5 ${idx < b.items.length - 1 ? "border-t border-carbon-10/10" : ""}`}>
+              <ol className="list-decimal pl-4 text-lg font-semibold leading-[1.1] tracking-tight text-piedra">
+                <li>{item}</li>
+              </ol>
+            </div>
+          ))}
+        </div>
+      );
     case "ejemplo":
-      return <p className={`${body} border-l-2 border-salvia pl-4`}>{b.text}</p>;
+      return (
+        <div className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
+          <p className="text-base font-bold tracking-tight text-carbon">{b.title ?? "Ejemplo práctico"}</p>
+          <p className="text-base font-normal tracking-tight text-piedra">{b.text}</p>
+        </div>
+      );
     case "cierre":
       return (
-        <div className="rounded-2xl border border-carbon-10/10 p-5">
-          <p className="mb-3 font-semibold text-carbon">Cierre del módulo: lo que te llevás</p>
-          <ul className={`${body} list-disc space-y-2 pl-5`}>{b.items.map((t) => <li key={t}>{t}</li>)}</ul>
+        <div className="flex flex-col gap-5 border-t border-piedra pt-10">
+          <h2 className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">Cierre del módulo: lo que te llevás</h2>
+          <div className="flex flex-col gap-4">
+            {b.items.map((t) => (
+              <div key={t} className="flex flex-row items-start gap-1">
+                <div className="flex h-5 w-5 flex-row items-center justify-center">
+                  <div className="h-2 w-2 rounded-full bg-salvia" />
+                </div>
+                <p className="flex-1 text-base font-semibold tracking-tight text-piedra">{t}</p>
+              </div>
+            ))}
+          </div>
+          {b.ejercicio && (
+            <div className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
+              <p className="text-base font-bold tracking-tight text-carbon">Ejercicio de cierre de módulo</p>
+              <p className="text-base font-normal tracking-tight text-piedra">{b.ejercicio}</p>
+            </div>
+          )}
         </div>
       );
     case "lista":
