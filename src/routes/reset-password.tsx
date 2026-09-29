@@ -14,7 +14,6 @@ function ResetPassword() {
   const navigate = useNavigate();
   const [p1, setP1] = useState("");
   const [p2, setP2] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent) {
