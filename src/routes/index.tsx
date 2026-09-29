@@ -55,7 +55,7 @@ function Portada() {
     setInfo(`Te enviamos un email a ${email} para crear una nueva contraseña.`);
   }
 
-  const pillBase = "group flex flex-row gap-2.5 items-center self-stretch h-[52px] rounded-full border-2 border-cover-ink backdrop-blur-[50px] py-4 pr-1 pl-6 overflow-hidden";
+  const pillBase = "group flex flex-row gap-2.5 items-center self-stretch h-[52px] rounded-full border-2 border-cover-ink backdrop-blur-[10px] py-4 pr-1 pl-6 overflow-hidden";
   const inputCls = "min-w-0 flex-1 bg-transparent text-base font-semibold leading-none text-carbon placeholder:uppercase placeholder:text-cover-ink focus:outline-none";
   const activeField = "bg-white";
   const activeBtn = "bg-salvia hover:bg-salvia";
