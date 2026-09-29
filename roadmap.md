@@ -3,4 +3,4 @@
 - [x] Mantener la navegación y los metadatos de las páginas.
 - [x] Aplicar la portada Cover recibida de Figma sin cambiar el ingreso por email.
 - [x] Sustituir la foto de portada por el video enviado y el título por el SVG original.
-- [ ] Comprobar reproducción, encuadre y acceso en celular y computadora.
+- [x] Comprobar reproducción, encuadre y acceso en celular y computadora.
