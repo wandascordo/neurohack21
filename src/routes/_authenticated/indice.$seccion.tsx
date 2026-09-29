@@ -94,14 +94,10 @@ function Seccion() {
             p.blocks.map((b, k) => <BlockView key={k} b={b} />)
           )}
         </article>
-        {(next || !p.slug.startsWith("prologo")) && (
-          <Link
-            to={next ? "/indice/$seccion" : "/indice"}
-            params={next ? { seccion: next.slug } : undefined}
-            className={`${btnPrimary} w-full`}
-          >
-            {next ? "Siguiente" : "Índice"}
-          </Link>
+        {next ? (
+          <Link to="/indice/$seccion" params={{ seccion: next.slug }} className={`${btnPrimary} w-full`}>Siguiente</Link>
+        ) : (
+          p.slug !== "prologo" && <Link to="/indice" className={`${btnPrimary} w-full`}>Índice</Link>
         )}
       </div>
     </BookScreen>
