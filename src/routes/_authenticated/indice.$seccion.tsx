@@ -48,7 +48,7 @@ function Seccion() {
               <img className="h-[200px] self-stretch object-contain dark:invert" src={illustration.url} alt="" />
             </div>
           </div>
-          <Link to="/indice/$seccion" params={{ seccion: p.firstSlug }} className={btnPrimary}>Continuar</Link>
+          <Link to="/indice/$seccion" params={{ seccion: p.firstSlug }} className={`${btnPrimary} w-full`}>Continuar</Link>
         </div>
       </BookScreen>
     );
@@ -56,7 +56,7 @@ function Seccion() {
 
   return (
     <BookScreen>
-      <div className="flex w-full flex-col gap-5 pb-24">
+      <div className="flex w-full flex-col gap-5">
         <TopBar />
         <ProgressBar value={(i + 1) / LIBRO.length} />
         <article className="flex flex-col gap-5 self-stretch py-5">
@@ -73,8 +73,11 @@ function Seccion() {
             p.blocks.map((b, k) => <BlockView key={k} b={b} />)
           )}
         </article>
+        {p.slug === "prologo" && next && (
+          <Link to="/indice/$seccion" params={{ seccion: next.slug }} className={`${btnPrimary} w-full`}>Siguiente</Link>
+        )}
       </div>
-      <div className="fixed inset-x-0 bottom-0 bg-tiza/95 backdrop-blur">
+      {p.slug !== "prologo" && <div className="fixed inset-x-0 bottom-0 bg-tiza/95 backdrop-blur">
         <div className="mx-auto flex max-w-[400px] gap-2.5 px-5 py-4">
           {prev ? (
             <Link to="/indice/$seccion" params={{ seccion: prev.slug }} className={btnSecondary}>‹ Anterior</Link>
@@ -82,12 +85,12 @@ function Seccion() {
             <Link to="/indice" className={btnSecondary}>‹ Índice</Link>
           )}
           {next ? (
-            <Link to="/indice/$seccion" params={{ seccion: next.slug }} className={btnPrimary}>Siguiente ›</Link>
+            <Link to="/indice/$seccion" params={{ seccion: next.slug }} className={`${btnPrimary} flex-1`}>Siguiente ›</Link>
           ) : (
-            <Link to="/indice" className={btnPrimary}>Índice</Link>
+            <Link to="/indice" className={`${btnPrimary} flex-1`}>Índice</Link>
           )}
         </div>
-      </div>
+      </div>}
     </BookScreen>
   );
 }
@@ -104,6 +107,14 @@ function BlockView({ b }: { b: Block }) {
         <div className="rounded-2xl border border-carbon-10/10 p-5">
           <p className="mb-3 font-semibold text-carbon">Cierre del módulo: lo que te llevás</p>
           <ul className={`${body} list-disc space-y-2 pl-5`}>{b.items.map((t) => <li key={t}>{t}</li>)}</ul>
+        </div>
+      );
+    case "lista":
+      return (
+        <div className={body}>
+          <p>{b.intro}</p>
+          <ol className="list-decimal pl-4">{b.items.map((item) => <li key={item}>{item}</li>)}</ol>
+          <p>{b.outro}</p>
         </div>
       );
     case "ejercicio":
