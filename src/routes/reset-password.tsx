@@ -21,7 +21,7 @@ function ResetPassword() {
     if (p1.length < 8) return setError("La contraseña debe tener al menos 8 caracteres.");
     if (p1 !== p2) return setError("Las contraseñas no coinciden.");
     const { error } = await supabase.auth.updateUser({ password: p1 });
-    if (error) return setError("El link expiró. Pedí uno nuevo desde la portada.");
+    if (error) return setError("El link expiró. Pedí uno nuevo desde el login.");
     navigate({ to: "/menu" });
   }
 
