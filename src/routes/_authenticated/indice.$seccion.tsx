@@ -94,7 +94,7 @@ function Seccion() {
               <Link to="/registro-diario" className="text-base font-semibold text-salvia underline">Ir al Registro Diario →</Link>
             </>
           ) : (
-            p.blocks.map((b, k) => <BlockView key={k} b={b} />)
+            {groupParagraphs(p.blocks)}
           )}
         </article>
         {next ? (
