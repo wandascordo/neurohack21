@@ -141,17 +141,17 @@ function BlockView({ b }: { b: Block }) {
   const body = "text-base font-normal tracking-tight text-piedra";
   switch (b.type) {
     case "h":
-      return <h2 className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{b.text}</h2>;
+      return <h2 id={anchorId(b.text)} className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{b.text}</h2>;
     case "sumario":
       return (
         <div className="flex flex-col rounded-[10px] bg-carbon/3 p-3.5">
           <p className="py-1 text-sm font-normal tracking-tight text-piedra">En este módulo:</p>
-          {b.items.map((item) => (
+          {b.items.map((item, n) => (
             <div key={item} className="border-b border-carbon-10/10 py-3.5">
-              <div className="flex flex-row items-start gap-0.5 pl-4 text-lg font-semibold leading-[1.1] tracking-tight text-piedra">
-                <span>{b.items.indexOf(item) + 1}.</span>
+              <a href={`#${anchorId(item)}`} className="flex flex-row items-start gap-0.5 pl-4 text-lg font-normal leading-[1.1] tracking-tight text-piedra transition-colors hover:text-carbon">
+                <span>{n + 1}.</span>
                 <span>{item}</span>
-              </div>
+              </a>
             </div>
           ))}
         </div>
