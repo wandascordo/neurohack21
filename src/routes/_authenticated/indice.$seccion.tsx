@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Placeholder } from "@/components/Placeholder";
 import { BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
@@ -94,7 +94,7 @@ function Seccion() {
               <Link to="/registro-diario" className="text-base font-semibold text-salvia underline">Ir al Registro Diario →</Link>
             </>
           ) : (
-            p.blocks.map((b, k) => <BlockView key={k} b={b} />)
+            groupParagraphs(p.blocks)
           )}
         </article>
         {next ? (
@@ -105,6 +105,36 @@ function Seccion() {
       </div>
     </BookScreen>
   );
+}
+
+function groupParagraphs(blocks: Block[]) {
+  const nodes: ReactNode[] = [];
+  let buf: { b: Block; idx: number }[] = [];
+  const flush = () => {
+    if (buf.length === 0) return;
+    if (buf.length === 1) {
+      nodes.push(<BlockView key={buf[0]!.idx} b={buf[0]!.b} />);
+    } else {
+      nodes.push(
+        <div key={`pg-${buf[0]!.idx}`} className="flex flex-col gap-5">
+          {buf.map(({ b, idx }) => (
+            <BlockView key={idx} b={b} />
+          ))}
+        </div>
+      );
+    }
+    buf = [];
+  };
+  blocks.forEach((b, idx) => {
+    if (b.type === "p") {
+      buf.push({ b, idx });
+    } else {
+      flush();
+      nodes.push(<BlockView key={idx} b={b} />);
+    }
+  });
+  flush();
+  return nodes;
 }
 
 function BlockView({ b }: { b: Block }) {
