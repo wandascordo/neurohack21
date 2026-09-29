@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import closeX from "@/assets/close-x.png.asset.json";
-import apple from "@/assets/ob-apple.png.asset.json";
-import android from "@/assets/ob-android.png.asset.json";
 import chevron from "@/assets/ob-chevron.png.asset.json";
 
 const GUIAS = [
