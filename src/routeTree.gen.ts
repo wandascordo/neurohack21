@@ -14,7 +14,13 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedAutoevaluacionRouteImport } from './routes/_authenticated/autoevaluacion'
+import { Route as AuthenticatedGlosarioRouteImport } from './routes/_authenticated/glosario'
+import { Route as AuthenticatedGuionesRouteImport } from './routes/_authenticated/guiones'
+import { Route as AuthenticatedKitEmergenciaRouteImport } from './routes/_authenticated/kit-emergencia'
 import { Route as AuthenticatedMenuRouteImport } from './routes/_authenticated/menu'
+import { Route as AuthenticatedRegistroDiarioRouteImport } from './routes/_authenticated/registro-diario'
+import { Route as AuthenticatedTrackerRouteImport } from './routes/_authenticated/tracker'
 import { Route as AuthenticatedIndiceIndexRouteImport } from './routes/_authenticated/indice.index'
 import { Route as AuthenticatedIndiceSeccionRouteImport } from './routes/_authenticated/indice.$seccion'
 
@@ -42,9 +48,42 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAutoevaluacionRoute =
+  AuthenticatedAutoevaluacionRouteImport.update({
+    id: '/autoevaluacion',
+    path: '/autoevaluacion',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGlosarioRoute = AuthenticatedGlosarioRouteImport.update({
+  id: '/glosario',
+  path: '/glosario',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedGuionesRoute = AuthenticatedGuionesRouteImport.update({
+  id: '/guiones',
+  path: '/guiones',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedKitEmergenciaRoute =
+  AuthenticatedKitEmergenciaRouteImport.update({
+    id: '/kit-emergencia',
+    path: '/kit-emergencia',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedMenuRoute = AuthenticatedMenuRouteImport.update({
   id: '/menu',
   path: '/menu',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRegistroDiarioRoute =
+  AuthenticatedRegistroDiarioRouteImport.update({
+    id: '/registro-diario',
+    path: '/registro-diario',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedTrackerRoute = AuthenticatedTrackerRouteImport.update({
+  id: '/tracker',
+  path: '/tracker',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedIndiceIndexRoute =
@@ -65,7 +104,13 @@ export interface FileRoutesByFullPath {
   '/privacidad': typeof PrivacidadRoute
   '/terminos': typeof TerminosRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
+  '/glosario': typeof AuthenticatedGlosarioRoute
+  '/guiones': typeof AuthenticatedGuionesRoute
+  '/kit-emergencia': typeof AuthenticatedKitEmergenciaRoute
   '/menu': typeof AuthenticatedMenuRoute
+  '/registro-diario': typeof AuthenticatedRegistroDiarioRoute
+  '/tracker': typeof AuthenticatedTrackerRoute
   '/indice/$seccion': typeof AuthenticatedIndiceSeccionRoute
   '/indice/': typeof AuthenticatedIndiceIndexRoute
 }
@@ -74,7 +119,13 @@ export interface FileRoutesByTo {
   '/privacidad': typeof PrivacidadRoute
   '/terminos': typeof TerminosRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
+  '/glosario': typeof AuthenticatedGlosarioRoute
+  '/guiones': typeof AuthenticatedGuionesRoute
+  '/kit-emergencia': typeof AuthenticatedKitEmergenciaRoute
   '/menu': typeof AuthenticatedMenuRoute
+  '/registro-diario': typeof AuthenticatedRegistroDiarioRoute
+  '/tracker': typeof AuthenticatedTrackerRoute
   '/indice/$seccion': typeof AuthenticatedIndiceSeccionRoute
   '/indice': typeof AuthenticatedIndiceIndexRoute
 }
@@ -85,7 +136,13 @@ export interface FileRoutesById {
   '/privacidad': typeof PrivacidadRoute
   '/terminos': typeof TerminosRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
+  '/_authenticated/glosario': typeof AuthenticatedGlosarioRoute
+  '/_authenticated/guiones': typeof AuthenticatedGuionesRoute
+  '/_authenticated/kit-emergencia': typeof AuthenticatedKitEmergenciaRoute
   '/_authenticated/menu': typeof AuthenticatedMenuRoute
+  '/_authenticated/registro-diario': typeof AuthenticatedRegistroDiarioRoute
+  '/_authenticated/tracker': typeof AuthenticatedTrackerRoute
   '/_authenticated/indice/$seccion': typeof AuthenticatedIndiceSeccionRoute
   '/_authenticated/indice/': typeof AuthenticatedIndiceIndexRoute
 }
@@ -96,7 +153,13 @@ export interface FileRouteTypes {
     | '/privacidad'
     | '/terminos'
     | '/admin'
+    | '/autoevaluacion'
+    | '/glosario'
+    | '/guiones'
+    | '/kit-emergencia'
     | '/menu'
+    | '/registro-diario'
+    | '/tracker'
     | '/indice/$seccion'
     | '/indice/'
   fileRoutesByTo: FileRoutesByTo
@@ -105,7 +168,13 @@ export interface FileRouteTypes {
     | '/privacidad'
     | '/terminos'
     | '/admin'
+    | '/autoevaluacion'
+    | '/glosario'
+    | '/guiones'
+    | '/kit-emergencia'
     | '/menu'
+    | '/registro-diario'
+    | '/tracker'
     | '/indice/$seccion'
     | '/indice'
   id:
@@ -115,7 +184,13 @@ export interface FileRouteTypes {
     | '/privacidad'
     | '/terminos'
     | '/_authenticated/admin'
+    | '/_authenticated/autoevaluacion'
+    | '/_authenticated/glosario'
+    | '/_authenticated/guiones'
+    | '/_authenticated/kit-emergencia'
     | '/_authenticated/menu'
+    | '/_authenticated/registro-diario'
+    | '/_authenticated/tracker'
     | '/_authenticated/indice/$seccion'
     | '/_authenticated/indice/'
   fileRoutesById: FileRoutesById
@@ -164,11 +239,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/autoevaluacion': {
+      id: '/_authenticated/autoevaluacion'
+      path: '/autoevaluacion'
+      fullPath: '/autoevaluacion'
+      preLoaderRoute: typeof AuthenticatedAutoevaluacionRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/glosario': {
+      id: '/_authenticated/glosario'
+      path: '/glosario'
+      fullPath: '/glosario'
+      preLoaderRoute: typeof AuthenticatedGlosarioRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/guiones': {
+      id: '/_authenticated/guiones'
+      path: '/guiones'
+      fullPath: '/guiones'
+      preLoaderRoute: typeof AuthenticatedGuionesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/kit-emergencia': {
+      id: '/_authenticated/kit-emergencia'
+      path: '/kit-emergencia'
+      fullPath: '/kit-emergencia'
+      preLoaderRoute: typeof AuthenticatedKitEmergenciaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/menu': {
       id: '/_authenticated/menu'
       path: '/menu'
       fullPath: '/menu'
       preLoaderRoute: typeof AuthenticatedMenuRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/registro-diario': {
+      id: '/_authenticated/registro-diario'
+      path: '/registro-diario'
+      fullPath: '/registro-diario'
+      preLoaderRoute: typeof AuthenticatedRegistroDiarioRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tracker': {
+      id: '/_authenticated/tracker'
+      path: '/tracker'
+      fullPath: '/tracker'
+      preLoaderRoute: typeof AuthenticatedTrackerRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/indice/': {
@@ -190,14 +307,26 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedAutoevaluacionRoute: typeof AuthenticatedAutoevaluacionRoute
+  AuthenticatedGlosarioRoute: typeof AuthenticatedGlosarioRoute
+  AuthenticatedGuionesRoute: typeof AuthenticatedGuionesRoute
+  AuthenticatedKitEmergenciaRoute: typeof AuthenticatedKitEmergenciaRoute
   AuthenticatedMenuRoute: typeof AuthenticatedMenuRoute
+  AuthenticatedRegistroDiarioRoute: typeof AuthenticatedRegistroDiarioRoute
+  AuthenticatedTrackerRoute: typeof AuthenticatedTrackerRoute
   AuthenticatedIndiceSeccionRoute: typeof AuthenticatedIndiceSeccionRoute
   AuthenticatedIndiceIndexRoute: typeof AuthenticatedIndiceIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedAutoevaluacionRoute: AuthenticatedAutoevaluacionRoute,
+  AuthenticatedGlosarioRoute: AuthenticatedGlosarioRoute,
+  AuthenticatedGuionesRoute: AuthenticatedGuionesRoute,
+  AuthenticatedKitEmergenciaRoute: AuthenticatedKitEmergenciaRoute,
   AuthenticatedMenuRoute: AuthenticatedMenuRoute,
+  AuthenticatedRegistroDiarioRoute: AuthenticatedRegistroDiarioRoute,
+  AuthenticatedTrackerRoute: AuthenticatedTrackerRoute,
   AuthenticatedIndiceSeccionRoute: AuthenticatedIndiceSeccionRoute,
   AuthenticatedIndiceIndexRoute: AuthenticatedIndiceIndexRoute,
 }
