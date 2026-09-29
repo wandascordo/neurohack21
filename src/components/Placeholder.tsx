@@ -4,10 +4,12 @@ import type { ReactNode } from "react";
 export function Placeholder({
   title,
   back = "/menu",
+  description,
   children,
 }: {
   title: string;
   back?: string;
+  description?: string;
   children?: ReactNode;
 }) {
   return (
@@ -16,7 +18,7 @@ export function Placeholder({
         ← Volver
       </Link>
       <h1 className="mt-6 text-2xl font-semibold text-foreground">{title}</h1>
-      <p className="mt-2 text-sm text-muted-foreground">Pantalla en construcción.</p>
+      <p className="mt-3 text-sm leading-6 text-muted-foreground">{description ?? "Contenido pendiente."}</p>
       {children && <div className="mt-8">{children}</div>}
     </main>
   );
@@ -30,6 +32,8 @@ export function meta(title: string, description: string) {
       { name: "description", content: description },
       { property: "og:title", content: t },
       { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   };
 }
