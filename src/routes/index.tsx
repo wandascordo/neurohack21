@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { meta } from "@/components/Placeholder";
 import coverArrow from "@/assets/cover-arrow.png.asset.json";
 import loginVideo from "@/assets/login-background-optimized.mp4.asset.json";
+import loginVideoWebm from "@/assets/login-background.webm.asset.json";
 import loginPoster from "@/assets/login-video-poster.jpg.asset.json";
 import logo from "@/assets/neurohack-21-logo.svg.asset.json";
 
@@ -56,6 +57,7 @@ function Portada() {
     <main className="relative isolate min-h-[100svh] overflow-hidden bg-primary text-cover-ink font-cover">
       <img src={loginPoster.url} alt="" aria-hidden="true" className="absolute inset-0 -z-20 h-full w-full object-cover object-center" />
       <video autoPlay muted loop playsInline preload="metadata" poster={loginPoster.url} aria-hidden="true" className="absolute inset-0 -z-10 h-full w-full object-cover object-center motion-reduce:hidden">
+        <source src={loginVideoWebm.url} type="video/webm" />
         <source src={loginVideo.url} type="video/mp4" />
       </video>
       <div className="mx-auto flex min-h-[100svh] w-full max-w-5xl flex-col items-center px-5 pt-[max(4.75rem,8svh)] pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:px-8">
