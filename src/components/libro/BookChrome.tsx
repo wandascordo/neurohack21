@@ -75,6 +75,6 @@ export function BookScreen({ children, fill = false }: { children: ReactNode; fi
 }
 
 export const btnPrimary =
-  "flex h-fit flex-1 flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-salvia px-6 py-4 text-base font-semibold uppercase leading-none text-tiza";
+  "flex h-fit w-full shrink-0 flex-row items-center justify-center gap-2.5 overflow-hidden rounded-full bg-salvia px-6 py-4 text-base font-semibold uppercase leading-none text-tiza";
 export const btnSecondary =
   "flex h-fit flex-1 flex-row items-center justify-center gap-2.5 overflow-hidden rounded-full border border-salvia px-6 py-4 text-base font-semibold uppercase leading-none text-salvia";

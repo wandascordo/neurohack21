@@ -4,3 +4,6 @@
 - [x] Aplicar la portada Cover recibida de Figma sin cambiar el ingreso por email.
 - [x] Sustituir la foto de portada por el video enviado y el título por el SVG original.
 - [x] Comprobar reproducción, encuadre y acceso en celular y computadora.
+- [ ] Igualar el texto y la lista del Prólogo al export de Figma.
+- [ ] Quitar “Cómo usar” del recorrido y dejar solo Siguiente al final del Prólogo hacia Parte I.
+- [ ] Corregir la altura del botón de la portada Parte I y comprobar la navegación.
