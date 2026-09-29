@@ -8,3 +8,8 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Neurohack 21 decisions
+- All user state lives in Lovable Cloud tables with per-user RLS (no localStorage) — progress must sync across devices.
+- Signed-in screens live under src/routes/_authenticated/ (client-only gate redirecting to /); admin panel at /admin checks has_role('admin') from user_roles — roles never stored on profiles.
+- Placeholder screens use src/components/Placeholder.tsx until Figma designs arrive — no invented visual style.
