@@ -1,3 +1,4 @@
 - [x] Aclarar que no existe una referencia Figma recibida todavía.
 - [x] Dar estructura provisional y sobria a las secciones pendientes, sin simular funciones ni contenido final.
 - [x] Mantener la navegación y los metadatos de las páginas.
+- [x] Aplicar la portada Cover recibida de Figma sin cambiar el ingreso por email.

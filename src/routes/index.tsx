@@ -1,10 +1,10 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { meta } from "@/components/Placeholder";
+import coverPhoto from "@/assets/cover-landscape.jpg";
+import coverArrow from "@/assets/cover-arrow.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => meta("Portada", "Neurohack 21: libro interactivo del reto de 21 días de Destello Interior."),
@@ -51,28 +51,33 @@ function Portada() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center px-6">
-      <h1 className="text-3xl font-semibold text-foreground">Neurohack 21</h1>
-      {sent ? (
-        <p className="mt-8 text-sm text-foreground">
-          Te enviamos un enlace a <strong>{email}</strong>. Abrilo desde este dispositivo para ingresar.
-        </p>
-      ) : (
-        <form onSubmit={onSubmit} className="mt-8 space-y-4">
-          <div className="space-y-1">
-            <Label htmlFor="email">Ingresá con tu email</Label>
-            <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-          </div>
-          {error && <p className="text-sm text-destructive">{error}</p>}
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Enviando…" : "Enviarme el enlace"}
-          </Button>
-        </form>
-      )}
-      <p className="mt-10 text-xs text-muted-foreground">Producto desarrollado por Destello Interior</p>
-      <div className="mt-4 flex gap-4 text-xs text-muted-foreground">
-        <Link to="/privacidad" className="underline">Privacidad</Link>
-        <Link to="/terminos" className="underline">Términos</Link>
+    <main className="relative isolate min-h-[100svh] overflow-hidden bg-primary text-cover-ink font-cover">
+      <img src={coverPhoto} alt="Mujer de espaldas frente a un paisaje de montaña" width={1024} height={1792} className="absolute inset-0 -z-10 h-full w-full object-cover object-center" />
+      <div className="mx-auto flex min-h-[100svh] w-full max-w-5xl flex-col items-center px-5 pt-[max(4.75rem,8svh)] pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:px-8">
+        <h1 className="whitespace-nowrap text-center text-[42px] font-normal leading-none text-cover-ink md:text-[72px]">
+          Neurohack 21<sup className="ml-1 align-top text-[11px] leading-none md:text-base">™</sup>
+        </h1>
+        <div className="mt-auto w-full max-w-2xl">
+          {sent ? (
+            <div role="status" className="rounded-[2rem] border-2 border-cover-ink px-6 py-4 text-base leading-snug text-cover-ink backdrop-blur-sm">
+              Te enviamos un enlace a <strong>{email}</strong>. Abrilo desde este dispositivo para ingresar.
+            </div>
+          ) : (
+            <form onSubmit={onSubmit} className="w-full">
+              <label htmlFor="email" className="sr-only">Ingresá con tu email</label>
+              <div className="flex h-[52px] items-center gap-2 rounded-full border-2 border-cover-ink py-1 pl-6 pr-1.5 focus-within:ring-2 focus-within:ring-cover-warm">
+                <input id="email" type="email" autoComplete="email" inputMode="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="INGRESÁ CON TU EMAIL" className="min-w-0 flex-1 bg-transparent text-base font-semibold uppercase leading-none text-cover-ink placeholder:text-cover-ink focus:outline-none" />
+                <Button type="submit" variant="ghost" size="icon" disabled={loading} aria-label={loading ? "Enviando enlace" : "Enviarme el enlace"} className="size-[38px] shrink-0 rounded-full bg-cover-warm text-cover-arrow hover:bg-cover-warm/90 hover:text-cover-arrow">
+                  <img src={coverArrow.url} alt="" width={20} height={20} className="size-5" />
+                </Button>
+              </div>
+              {error && <p role="alert" className="mt-3 text-sm font-medium text-cover-ink">{error}</p>}
+            </form>
+          )}
+          <p className="mt-[clamp(2rem,7svh,4rem)] text-center text-xs font-normal text-cover-ink md:text-sm">
+            Producto desarrollado por <span className="underline underline-offset-4">Destello Interior</span>
+          </p>
+        </div>
       </div>
     </main>
   );
