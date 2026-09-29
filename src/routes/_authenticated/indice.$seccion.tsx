@@ -65,7 +65,7 @@ function Seccion() {
       <div className="flex w-full flex-col gap-5">
         <TopBar />
         <ProgressBar value={(i + 1) / LIBRO.length} />
-        <article className="flex flex-col gap-5 self-stretch py-5">
+        <article className="flex flex-col gap-10 self-stretch py-5">
           <div className="flex flex-col gap-2.5">
             <p className="text-base font-semibold leading-none text-piedra">
               {p.eyebrow.includes(" / ") ? (
@@ -116,10 +116,10 @@ function BlockView({ b }: { b: Block }) {
       return (
         <div className="flex flex-col rounded-[10px] bg-carbon/3 p-3.5">
           <p className="py-1 text-sm font-normal tracking-tight text-piedra">En este módulo:</p>
-          {b.items.map((item, idx) => (
-            <div key={item} className={`py-3.5 ${idx < b.items.length - 1 ? "border-t border-carbon-10/10" : ""}`}>
+          {b.items.map((item) => (
+            <div key={item} className="border-b border-carbon-10/10 py-3.5">
               <div className="flex flex-row items-start gap-0.5 pl-4 text-lg font-semibold leading-[1.1] tracking-tight text-piedra">
-                <span>{idx + 1}.</span>
+                <span>{b.items.indexOf(item) + 1}.</span>
                 <span>{item}</span>
               </div>
             </div>
