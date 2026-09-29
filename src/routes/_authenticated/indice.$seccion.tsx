@@ -94,7 +94,7 @@ function Seccion() {
               <Link to="/registro-diario" className="text-base font-semibold text-salvia underline">Ir al Registro Diario →</Link>
             </>
           ) : (
-            {groupParagraphs(p.blocks)}
+            groupParagraphs(p.blocks)
           )}
         </article>
         {next ? (
