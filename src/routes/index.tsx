@@ -25,7 +25,11 @@ function Login() {
   useEffect(() => {
     async function route(_userId: string) {
       await supabase.rpc("mark_first_login");
-      
+      const next = new URLSearchParams(window.location.search).get("next");
+      if (next && next.startsWith("/") && !next.startsWith("//")) {
+        window.location.replace(next);
+        return;
+      }
       navigate({ to: "/inicio", replace: true });
     }
     supabase.auth.getUser().then(({ data }) => { if (data.user) route(data.user.id); });

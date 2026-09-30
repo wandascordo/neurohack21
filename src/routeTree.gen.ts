@@ -12,9 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as BienvenidaRouteImport } from './routes/bienvenida'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TerminosRouteImport } from './routes/terminos'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAutoevaluacionRouteImport } from './routes/_authenticated/autoevaluacion'
 import { Route as AuthenticatedGlosarioRouteImport } from './routes/_authenticated/glosario'
@@ -24,6 +26,7 @@ import { Route as AuthenticatedKitEmergenciaRouteImport } from './routes/_authen
 import { Route as AuthenticatedMenuRouteImport } from './routes/_authenticated/menu'
 import { Route as AuthenticatedRegistroDiarioRouteImport } from './routes/_authenticated/registro-diario'
 import { Route as AuthenticatedTrackerRouteImport } from './routes/_authenticated/tracker'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as AuthenticatedIndiceIndexRouteImport } from './routes/_authenticated/indice.index'
 import { Route as AuthenticatedIndiceSeccionRouteImport } from './routes/_authenticated/indice.$seccion'
 
@@ -41,6 +44,11 @@ const BienvenidaRoute = BienvenidaRouteImport.update({
   path: '/bienvenida',
   getParentRoute: () => rootRouteImport,
 } as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacidadRoute = PrivacidadRouteImport.update({
   id: '/privacidad',
   path: '/privacidad',
@@ -56,6 +64,12 @@ const TerminosRoute = TerminosRouteImport.update({
   path: '/terminos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -104,6 +118,11 @@ const AuthenticatedTrackerRoute = AuthenticatedTrackerRouteImport.update({
   path: '/tracker',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedIndiceIndexRoute =
   AuthenticatedIndiceIndexRouteImport.update({
     id: '/indice/',
@@ -120,9 +139,11 @@ const AuthenticatedIndiceSeccionRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bienvenida': typeof BienvenidaRoute
+  '/mcp': typeof McpRoute
   '/privacidad': typeof PrivacidadRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terminos': typeof TerminosRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
   '/glosario': typeof AuthenticatedGlosarioRoute
@@ -132,15 +153,18 @@ export interface FileRoutesByFullPath {
   '/menu': typeof AuthenticatedMenuRoute
   '/registro-diario': typeof AuthenticatedRegistroDiarioRoute
   '/tracker': typeof AuthenticatedTrackerRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/indice/$seccion': typeof AuthenticatedIndiceSeccionRoute
   '/indice/': typeof AuthenticatedIndiceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bienvenida': typeof BienvenidaRoute
+  '/mcp': typeof McpRoute
   '/privacidad': typeof PrivacidadRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terminos': typeof TerminosRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
   '/glosario': typeof AuthenticatedGlosarioRoute
@@ -150,6 +174,7 @@ export interface FileRoutesByTo {
   '/menu': typeof AuthenticatedMenuRoute
   '/registro-diario': typeof AuthenticatedRegistroDiarioRoute
   '/tracker': typeof AuthenticatedTrackerRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/indice/$seccion': typeof AuthenticatedIndiceSeccionRoute
   '/indice': typeof AuthenticatedIndiceIndexRoute
 }
@@ -158,9 +183,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/bienvenida': typeof BienvenidaRoute
+  '/mcp': typeof McpRoute
   '/privacidad': typeof PrivacidadRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terminos': typeof TerminosRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
   '/_authenticated/glosario': typeof AuthenticatedGlosarioRoute
@@ -170,6 +197,7 @@ export interface FileRoutesById {
   '/_authenticated/menu': typeof AuthenticatedMenuRoute
   '/_authenticated/registro-diario': typeof AuthenticatedRegistroDiarioRoute
   '/_authenticated/tracker': typeof AuthenticatedTrackerRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/_authenticated/indice/$seccion': typeof AuthenticatedIndiceSeccionRoute
   '/_authenticated/indice/': typeof AuthenticatedIndiceIndexRoute
 }
@@ -178,9 +206,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/bienvenida'
+    | '/mcp'
     | '/privacidad'
     | '/reset-password'
     | '/terminos'
+    | '/.well-known/oauth-protected-resource'
     | '/admin'
     | '/autoevaluacion'
     | '/glosario'
@@ -190,15 +220,18 @@ export interface FileRouteTypes {
     | '/menu'
     | '/registro-diario'
     | '/tracker'
+    | '/.lovable/oauth/consent'
     | '/indice/$seccion'
     | '/indice/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/bienvenida'
+    | '/mcp'
     | '/privacidad'
     | '/reset-password'
     | '/terminos'
+    | '/.well-known/oauth-protected-resource'
     | '/admin'
     | '/autoevaluacion'
     | '/glosario'
@@ -208,6 +241,7 @@ export interface FileRouteTypes {
     | '/menu'
     | '/registro-diario'
     | '/tracker'
+    | '/.lovable/oauth/consent'
     | '/indice/$seccion'
     | '/indice'
   id:
@@ -215,9 +249,11 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/bienvenida'
+    | '/mcp'
     | '/privacidad'
     | '/reset-password'
     | '/terminos'
+    | '/.well-known/oauth-protected-resource'
     | '/_authenticated/admin'
     | '/_authenticated/autoevaluacion'
     | '/_authenticated/glosario'
@@ -227,6 +263,7 @@ export interface FileRouteTypes {
     | '/_authenticated/menu'
     | '/_authenticated/registro-diario'
     | '/_authenticated/tracker'
+    | '/.lovable/oauth/consent'
     | '/_authenticated/indice/$seccion'
     | '/_authenticated/indice/'
   fileRoutesById: FileRoutesById
@@ -235,9 +272,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   BienvenidaRoute: typeof BienvenidaRoute
+  McpRoute: typeof McpRoute
   PrivacidadRoute: typeof PrivacidadRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TerminosRoute: typeof TerminosRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -263,6 +303,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BienvenidaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacidad': {
       id: '/privacidad'
       path: '/privacidad'
@@ -282,6 +329,13 @@ declare module '@tanstack/react-router' {
       path: '/terminos'
       fullPath: '/terminos'
       preLoaderRoute: typeof TerminosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -347,6 +401,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTrackerRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/indice/': {
       id: '/_authenticated/indice/'
       path: '/indice'
@@ -399,9 +460,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   BienvenidaRoute: BienvenidaRoute,
+  McpRoute: McpRoute,
   PrivacidadRoute: PrivacidadRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TerminosRoute: TerminosRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
