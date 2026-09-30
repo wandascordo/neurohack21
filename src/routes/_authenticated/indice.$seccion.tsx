@@ -264,7 +264,7 @@ function BlockView({ b }: { b: Block }) {
           {b.items.map((item, index) => (
             <li key={item.title} className="flex flex-col gap-2.5">
               <h3 className="pl-4 text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{index + 1}. {item.title}</h3>
-              <div className="flex flex-col gap-2.5 pl-[26px]">
+              <div className="flex flex-col gap-2.5 pl-4">
                 {item.paragraphs.map((paragraph) => <p key={paragraph} className={body}>{paragraph}</p>)}
               </div>
             </li>
