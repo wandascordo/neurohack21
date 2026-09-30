@@ -15,8 +15,8 @@ function Menu() {
 function Header() {
   return (
     <Link
-      to="/indice"
-      aria-label="Neurohack 21 — Ir al Índice de Contenidos"
+      to="/inicio"
+      aria-label="Neurohack 21 — Ir al Inicio"
       className="absolute left-1/2 top-1/2 block h-3 w-[100px] -translate-x-1/2 -translate-y-1/2 bg-carbon"
       style={{ mask: `url(${logo.url}) center / contain no-repeat`, WebkitMask: `url(${logo.url}) center / contain no-repeat` }}
     />
