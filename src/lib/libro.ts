@@ -178,5 +178,5 @@ export const INDICE: IndiceGrupo[] = [
 
 function itemMod(n: number) {
   const p = LIBRO.find((x) => x.slug === `modulo-${n}`)!;
-  return { slug: p.slug, label: `Módulo ${n}: ${p.titulo}` };
+  return { slug: p.slug, label: `Módulo ${n}: ${n === 4 ? "El pilar Dispenza" : p.titulo}` };
 }
