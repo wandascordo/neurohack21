@@ -23,7 +23,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    async function route(userId: string) {
+    async function route(_userId: string) {
       await supabase.rpc("mark_first_login");
       
       navigate({ to: "/inicio", replace: true });

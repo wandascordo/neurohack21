@@ -19,6 +19,7 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedAutoevaluacionRouteImport } from './routes/_authenticated/autoevaluacion'
 import { Route as AuthenticatedGlosarioRouteImport } from './routes/_authenticated/glosario'
 import { Route as AuthenticatedGuionesRouteImport } from './routes/_authenticated/guiones'
+import { Route as AuthenticatedInicioRouteImport } from './routes/_authenticated/inicio'
 import { Route as AuthenticatedKitEmergenciaRouteImport } from './routes/_authenticated/kit-emergencia'
 import { Route as AuthenticatedMenuRouteImport } from './routes/_authenticated/menu'
 import { Route as AuthenticatedRegistroDiarioRouteImport } from './routes/_authenticated/registro-diario'
@@ -76,6 +77,11 @@ const AuthenticatedGuionesRoute = AuthenticatedGuionesRouteImport.update({
   path: '/guiones',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedInicioRoute = AuthenticatedInicioRouteImport.update({
+  id: '/inicio',
+  path: '/inicio',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedKitEmergenciaRoute =
   AuthenticatedKitEmergenciaRouteImport.update({
     id: '/kit-emergencia',
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
   '/glosario': typeof AuthenticatedGlosarioRoute
   '/guiones': typeof AuthenticatedGuionesRoute
+  '/inicio': typeof AuthenticatedInicioRoute
   '/kit-emergencia': typeof AuthenticatedKitEmergenciaRoute
   '/menu': typeof AuthenticatedMenuRoute
   '/registro-diario': typeof AuthenticatedRegistroDiarioRoute
@@ -138,6 +145,7 @@ export interface FileRoutesByTo {
   '/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
   '/glosario': typeof AuthenticatedGlosarioRoute
   '/guiones': typeof AuthenticatedGuionesRoute
+  '/inicio': typeof AuthenticatedInicioRoute
   '/kit-emergencia': typeof AuthenticatedKitEmergenciaRoute
   '/menu': typeof AuthenticatedMenuRoute
   '/registro-diario': typeof AuthenticatedRegistroDiarioRoute
@@ -157,6 +165,7 @@ export interface FileRoutesById {
   '/_authenticated/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
   '/_authenticated/glosario': typeof AuthenticatedGlosarioRoute
   '/_authenticated/guiones': typeof AuthenticatedGuionesRoute
+  '/_authenticated/inicio': typeof AuthenticatedInicioRoute
   '/_authenticated/kit-emergencia': typeof AuthenticatedKitEmergenciaRoute
   '/_authenticated/menu': typeof AuthenticatedMenuRoute
   '/_authenticated/registro-diario': typeof AuthenticatedRegistroDiarioRoute
@@ -176,6 +185,7 @@ export interface FileRouteTypes {
     | '/autoevaluacion'
     | '/glosario'
     | '/guiones'
+    | '/inicio'
     | '/kit-emergencia'
     | '/menu'
     | '/registro-diario'
@@ -193,6 +203,7 @@ export interface FileRouteTypes {
     | '/autoevaluacion'
     | '/glosario'
     | '/guiones'
+    | '/inicio'
     | '/kit-emergencia'
     | '/menu'
     | '/registro-diario'
@@ -211,6 +222,7 @@ export interface FileRouteTypes {
     | '/_authenticated/autoevaluacion'
     | '/_authenticated/glosario'
     | '/_authenticated/guiones'
+    | '/_authenticated/inicio'
     | '/_authenticated/kit-emergencia'
     | '/_authenticated/menu'
     | '/_authenticated/registro-diario'
@@ -300,6 +312,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedGuionesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/inicio': {
+      id: '/_authenticated/inicio'
+      path: '/inicio'
+      fullPath: '/inicio'
+      preLoaderRoute: typeof AuthenticatedInicioRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/kit-emergencia': {
       id: '/_authenticated/kit-emergencia'
       path: '/kit-emergencia'
@@ -350,6 +369,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAutoevaluacionRoute: typeof AuthenticatedAutoevaluacionRoute
   AuthenticatedGlosarioRoute: typeof AuthenticatedGlosarioRoute
   AuthenticatedGuionesRoute: typeof AuthenticatedGuionesRoute
+  AuthenticatedInicioRoute: typeof AuthenticatedInicioRoute
   AuthenticatedKitEmergenciaRoute: typeof AuthenticatedKitEmergenciaRoute
   AuthenticatedMenuRoute: typeof AuthenticatedMenuRoute
   AuthenticatedRegistroDiarioRoute: typeof AuthenticatedRegistroDiarioRoute
@@ -363,6 +383,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAutoevaluacionRoute: AuthenticatedAutoevaluacionRoute,
   AuthenticatedGlosarioRoute: AuthenticatedGlosarioRoute,
   AuthenticatedGuionesRoute: AuthenticatedGuionesRoute,
+  AuthenticatedInicioRoute: AuthenticatedInicioRoute,
   AuthenticatedKitEmergenciaRoute: AuthenticatedKitEmergenciaRoute,
   AuthenticatedMenuRoute: AuthenticatedMenuRoute,
   AuthenticatedRegistroDiarioRoute: AuthenticatedRegistroDiarioRoute,
