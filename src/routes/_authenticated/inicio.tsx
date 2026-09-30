@@ -88,14 +88,16 @@ function Inicio() {
               </>
             )}
           </div>
-          <div className="flex h-fit flex-col items-center gap-2.5 self-stretch rounded-[10px] border border-carbon-10/10 p-5">
+          <div className="flex h-fit flex-col items-start gap-2.5 self-stretch">
             <p className="h-fit self-stretch text-left text-base font-semibold tracking-tight text-carbon">Tus recursos</p>
-            {recursos.map((r) => (
-              <Link key={r.to} to={r.to} className="flex h-fit flex-row items-center gap-2.5 self-stretch border-b border-carbon-10/10 p-2.5">
-                <img className="h-6 w-6" src={r.icon} alt="" />
-                <span className="text-left text-base font-normal tracking-tight text-carbon">{r.label}</span>
-              </Link>
-            ))}
+            <div className="grid w-full grid-cols-2 gap-2.5">
+              {recursos.map((r) => (
+                <Link key={r.to} to={r.to} className="flex min-h-[120px] flex-col items-start justify-between gap-4 rounded-[10px] border border-carbon-10/10 p-4">
+                  <img className="h-6 w-6" src={r.icon} alt="" />
+                  <span className="text-left text-base font-normal leading-snug tracking-tight text-carbon">{r.label}</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>
