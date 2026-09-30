@@ -4,7 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Placeholder } from "@/components/Placeholder";
 import { BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { LIBRO, type Block } from "@/lib/libro";
-import illustration from "@/assets/parte-1-illustration.png.asset.json";
+import parte1Illustration from "@/assets/parte-1-illustration.png.asset.json";
+import parte2Illustration from "@/assets/parte-2-illustration.png.asset.json";
 
 export const Route = createFileRoute("/_authenticated/indice/$seccion")({
   loader: ({ params }) => {
@@ -77,7 +78,13 @@ function Seccion() {
               <h1 className="self-stretch text-left text-4xl font-normal leading-[1.1] tracking-[-2.00px] text-carbon">{p.titulo}</h1>
             </div>
             <div className="flex flex-1 flex-col items-center justify-center self-stretch">
-              <img className="h-[200px] self-stretch object-contain dark:invert" src={illustration.url} alt="" />
+              {(p.slug === "parte-1" || p.slug === "parte-2") && (
+                <img
+                  className="h-[200px] self-stretch object-contain dark:invert"
+                  src={p.slug === "parte-2" ? parte2Illustration.url : parte1Illustration.url}
+                  alt=""
+                />
+              )}
             </div>
           </div>
           <button type="button" onClick={() => goNext(p.firstSlug)} className={`${btnPrimary} w-full`}>Continuar</button>
