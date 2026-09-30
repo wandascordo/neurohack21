@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { meta } from "@/components/Placeholder";
-import { Onboarding } from "@/components/Onboarding";
 import { BookScreen, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { INDICE } from "@/lib/libro";
 
@@ -12,7 +11,6 @@ export const Route = createFileRoute("/_authenticated/indice/")({
 function Indice() {
   return (
     <BookScreen fill>
-      <Onboarding />
       <div className="flex w-full flex-1 flex-col gap-9">
         <TopBar />
         <div className="flex flex-1 flex-col items-center gap-2.5 self-stretch">
