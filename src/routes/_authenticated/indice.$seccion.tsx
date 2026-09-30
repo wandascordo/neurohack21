@@ -51,9 +51,15 @@ function Seccion() {
     }, 300);
   };
 
+  // La ruta reutiliza el componente al cambiar de sección: reiniciar el fade.
   useEffect(() => {
-    setEntered(true);
-  }, []);
+    setLeaving(false);
+    setEntered(false);
+    const id = window.requestAnimationFrame(() =>
+      window.requestAnimationFrame(() => setEntered(true)),
+    );
+    return () => window.cancelAnimationFrame(id);
+  }, [p.slug]);
 
   useEffect(() => {
     void supabase.rpc("set_last_read", { _slug: p.slug });
