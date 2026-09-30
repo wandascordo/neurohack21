@@ -4,8 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Placeholder } from "@/components/Placeholder";
 import { BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { LIBRO, type Block } from "@/lib/libro";
-import parte1Illustration from "@/assets/parte-1-illustration.png.asset.json";
-import parte2Illustration from "@/assets/parte-2-illustration.png.asset.json";
+import parte1Illustration from "@/assets/parte-1-illustration.svg.asset.json";
+import parte2Illustration from "@/assets/parte-2-illustration.svg.asset.json";
 
 export const Route = createFileRoute("/_authenticated/indice/$seccion")({
   loader: ({ params }) => {
@@ -80,7 +80,7 @@ function Seccion() {
             <div className="flex flex-1 flex-col items-center justify-center self-stretch">
               {(p.slug === "parte-1" || p.slug === "parte-2") && (
                 <img
-                  className="h-[200px] self-stretch object-contain dark:invert"
+                  className="-mx-5 h-[200px] w-[calc(100%+2.5rem)] max-w-none object-cover dark:invert"
                   src={p.slug === "parte-2" ? parte2Illustration.url : parte1Illustration.url}
                   alt=""
                 />
