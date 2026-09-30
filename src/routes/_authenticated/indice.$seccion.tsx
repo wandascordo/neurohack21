@@ -162,9 +162,8 @@ function groupParagraphs(blocks: Block[]) {
     grupo = null;
   };
   blocks.forEach((b, idx) => {
-    // "p" y "ejemplo" comparten grupo: la tarjeta de Ejemplo práctico queda a
-    // 20 px del párrafo anterior (mismo contenedor gap-5).
-    if ((b.type === "p" || b.type === "ejemplo") && grupo) {
+    // Párrafos, pasos y ejemplos comparten el ritmo interno de 20 px.
+    if ((b.type === "p" || b.type === "ejemplo" || b.type === "pasos") && grupo) {
       grupo.push({ b, idx });
     } else if (b.type === "h") {
       flush();
