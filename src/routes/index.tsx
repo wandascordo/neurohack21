@@ -25,8 +25,8 @@ function Login() {
   useEffect(() => {
     async function route(userId: string) {
       await supabase.rpc("mark_first_login");
-      const { data } = await supabase.from("profiles").select("onboarding_completed_at").eq("id", userId).maybeSingle();
-      navigate({ to: data?.onboarding_completed_at ? "/menu" : "/indice", replace: true });
+      
+      navigate({ to: "/inicio", replace: true });
     }
     supabase.auth.getUser().then(({ data }) => { if (data.user) route(data.user.id); });
     const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
