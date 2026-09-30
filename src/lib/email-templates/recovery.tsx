@@ -20,25 +20,26 @@ export const RecoveryEmail = ({
   siteName,
   confirmationUrl,
 }: RecoveryEmailProps) => (
-  <Html lang="en" dir="ltr">
-    <Head>
-      <style>{darkModeCss}</style>
-    </Head>
-    <Preview>Reset your password for {siteName}</Preview>
+  <Html lang="es" dir="ltr">
+    <Head />
+    <Preview>Restablecé tu contraseña de {siteName}</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Heading style={h1}>Reset your password</Heading>
+        <Text style={eyebrow}>{siteName}</Text>
+        <Heading style={h1}>Restablecé tu contraseña</Heading>
         <Text style={text}>
-          We received a request to reset your password for {siteName}. Click
-          the button below to choose a new password.
+          Recibimos una solicitud para restablecer la contraseña de tu cuenta
+          en {siteName}. Hacé clic en el botón para elegir una nueva
+          contraseña.
         </Text>
-        <Button className="dm-btn" style={button} href={confirmationUrl}>
-          Reset Password
+        <Button style={button} href={confirmationUrl}>
+          Restablecer contraseña
         </Button>
         <Text style={footer}>
-          If you didn't request a password reset, you can safely ignore this
-          email. Your password will not be changed.
+          Si no pediste restablecer tu contraseña, podés ignorar este correo.
+          Tu contraseña no va a cambiar.
         </Text>
+        <Text style={credit}>Producto desarrollado por Destello Interior</Text>
       </Container>
     </Body>
   </Html>
@@ -47,11 +48,18 @@ export const RecoveryEmail = ({
 export default RecoveryEmail
 
 const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif' }
-const container = { padding: '20px 25px' }
+const container = { padding: '32px 25px' }
+const eyebrow = {
+  fontSize: '12px',
+  letterSpacing: '2px',
+  textTransform: 'uppercase' as const,
+  color: '#6b7469',
+  margin: '0 0 12px',
+}
 const h1 = {
   fontSize: '22px',
   fontWeight: 'bold' as const,
-  color: '#000000',
+  color: '#1c1c1c',
   margin: '0 0 20px',
 }
 const text = {
@@ -61,20 +69,12 @@ const text = {
   margin: '0 0 25px',
 }
 const button = {
-  backgroundColor: '#000000',
+  backgroundColor: '#6b7469',
   color: '#ffffff',
   fontSize: '14px',
-  border: '1px solid #000000',
-  borderRadius: '8px',
-  padding: '12px 20px',
+  borderRadius: '999px',
+  padding: '14px 28px',
   textDecoration: 'none',
 }
 const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
-// Rendered as a text child, which React may HTML-escape: keep this CSS free of >, &, and quotes.
-const darkModeCss = `
-  @media (prefers-color-scheme: dark) {
-    .dm-btn { background-color: #ffffff !important; color: #000000 !important; }
-  }
-  [data-ogsc] .dm-btn { background-color: #ffffff !important; color: #000000 !important; }
-  [data-ogsb] .dm-btn { background-color: #ffffff !important; color: #000000 !important; }
-`
+const credit = { fontSize: '11px', color: '#b5b5b5', margin: '16px 0 0' }
