@@ -162,9 +162,8 @@ function groupParagraphs(blocks: Block[]) {
     grupo = null;
   };
   blocks.forEach((b, idx) => {
-    // "p" y "ejemplo" comparten grupo: la tarjeta de Ejemplo práctico queda a
-    // 20 px del párrafo anterior (mismo contenedor gap-5).
-    if ((b.type === "p" || b.type === "ejemplo") && grupo) {
+    // Párrafos, pasos y ejemplos comparten el ritmo interno de 20 px.
+    if ((b.type === "p" || b.type === "ejemplo" || b.type === "pasos") && grupo) {
       grupo.push({ b, idx });
     } else if (b.type === "h") {
       flush();
@@ -254,9 +253,23 @@ function BlockView({ b }: { b: Block }) {
             <div className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
               <p className="text-base font-bold tracking-tight text-carbon">Ejercicio de cierre de módulo</p>
               <p className="text-base font-normal tracking-tight text-piedra">{b.ejercicio}</p>
+                {b.ejercicioExtra && <p className="text-base font-normal tracking-tight text-piedra">{b.ejercicioExtra}</p>}
             </div>
           )}
         </div>
+      );
+    case "pasos":
+      return (
+        <ol className="flex flex-col gap-5">
+          {b.items.map((item, index) => (
+            <li key={item.title} className="flex flex-col gap-2.5">
+              <h3 className="pl-4 text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{index + 1}. {item.title}</h3>
+              <div className="flex flex-col gap-2.5 pl-[26px]">
+                {item.paragraphs.map((paragraph) => <p key={paragraph} className={body}>{paragraph}</p>)}
+              </div>
+            </li>
+          ))}
+        </ol>
       );
     case "lista":
       return (
