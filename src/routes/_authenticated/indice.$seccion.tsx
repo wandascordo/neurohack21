@@ -1,5 +1,5 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Placeholder } from "@/components/Placeholder";
 import { BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
@@ -34,6 +34,26 @@ function Seccion() {
   const { i } = Route.useLoaderData();
   const p = LIBRO[i]!;
   const next = LIBRO[i + 1];
+  const navigate = useNavigate();
+  const [entered, setEntered] = useState(false);
+  const [leaving, setLeaving] = useState(false);
+  const fade = `transition-opacity duration-300 ${leaving || !entered ? "opacity-0" : "opacity-100"}`;
+
+  // Fade out al salir: el contenido se desvanece, recién entonces se navega
+  // (con scroll instantáneo a top mientras está invisible, sin scroll up).
+  const goNext = (seccion?: string) => {
+    if (leaving) return;
+    setLeaving(true);
+    window.setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+      if (seccion) void navigate({ to: "/indice/$seccion", params: { seccion } });
+      else void navigate({ to: "/indice" });
+    }, 300);
+  };
+
+  useEffect(() => {
+    setEntered(true);
+  }, []);
 
   useEffect(() => {
     void supabase.rpc("set_last_read", { _slug: p.slug });
@@ -43,7 +63,7 @@ function Seccion() {
   if (p.kind === "parte") {
     return (
       <BookScreen fill>
-        <div className="flex w-full flex-1 flex-col gap-5">
+        <div className={`flex w-full flex-1 flex-col gap-5 ${fade}`}>
           <TopBar />
           <div className="flex flex-1 flex-col items-center justify-between self-stretch py-[50px]">
             <div className="flex h-fit flex-col items-center gap-2.5 self-stretch">
@@ -54,7 +74,7 @@ function Seccion() {
               <img className="h-[200px] self-stretch object-contain dark:invert" src={illustration.url} alt="" />
             </div>
           </div>
-          <Link to="/indice/$seccion" params={{ seccion: p.firstSlug }} className={`${btnPrimary} w-full`}>Continuar</Link>
+          <button type="button" onClick={() => goNext(p.firstSlug)} className={`${btnPrimary} w-full`}>Continuar</button>
         </div>
       </BookScreen>
     );
@@ -62,7 +82,7 @@ function Seccion() {
 
   return (
     <BookScreen>
-      <div className="flex w-full flex-col gap-5">
+      <div className={`flex w-full flex-col gap-5 ${fade}`}>
         <TopBar />
         <ProgressBar value={(i + 1) / LIBRO.length} />
         <article className="flex flex-col gap-10 self-stretch py-5">
@@ -98,9 +118,9 @@ function Seccion() {
           )}
         </article>
         {next ? (
-          <Link to="/indice/$seccion" params={{ seccion: next.slug }} className={`${btnPrimary} w-full`}>Siguiente</Link>
+          <button type="button" onClick={() => goNext(next.slug)} className={`${btnPrimary} w-full`}>Siguiente</button>
         ) : (
-          p.slug !== "prologo" && <Link to="/indice" className={`${btnPrimary} w-full`}>Índice</Link>
+          p.slug !== "prologo" && <button type="button" onClick={() => goNext()} className={`${btnPrimary} w-full`}>Índice</button>
         )}
       </div>
     </BookScreen>
