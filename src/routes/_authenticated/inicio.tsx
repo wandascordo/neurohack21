@@ -43,8 +43,6 @@ function Inicio() {
       return { slug: data?.last_read_slug ?? null, email: data?.email ?? u.user.email ?? "" };
     },
   });
-  const raw = data?.email?.split("@")[0]?.split(/[._-]/)[0] ?? "";
-  const name = raw ? raw.charAt(0).toUpperCase() + raw.slice(1) : "";
   const idx = data?.slug ? LIBRO.findIndex((p) => p.slug === data.slug) : -1;
   const pagina = idx >= 0 ? LIBRO[idx] : null;
   const pct = idx >= 0 ? Math.round(((idx + 1) / LIBRO.length) * 100) : 0;
