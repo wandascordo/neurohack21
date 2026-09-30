@@ -198,7 +198,7 @@ function BlockView({ b }: { b: Block }) {
         <div className="flex flex-col rounded-[10px] bg-carbon/3 p-3.5">
           <p className="py-1 text-sm font-normal tracking-tight text-piedra">En este módulo:</p>
           {b.items.map((item, n) => (
-            <div key={item} className="border-b border-carbon-10/10 py-2.5">
+            <div key={item} className="border-b border-carbon-10/10 py-[5px]">
               <a href={`#${anchorId(item)}`} className="flex flex-row items-start gap-0.5 pl-4 text-sm font-normal tracking-tight text-piedra transition-colors hover:text-carbon">
                 <span>{n + 1}.</span>
                 <span>{item}</span>
