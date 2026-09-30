@@ -1,9 +1,12 @@
+import { MODULO4 } from "./modulo4";
+
 export type Block =
   | { type: "p"; text: string; lead?: string }
   | { type: "h"; text: string }
   | { type: "sumario"; items: string[] }
   | { type: "ejemplo"; title?: string; text: string; extra?: string; links?: { text: string; to: string }[] }
-  | { type: "cierre"; items: string[]; ejercicio?: string }
+  | { type: "cierre"; items: string[]; ejercicio?: string; ejercicioExtra?: string }
+  | { type: "pasos"; items: { title: string; paragraphs: string[] }[] }
   | { type: "lista"; intro: string; items: string[]; outro: string }
   | { type: "ejercicio"; title?: string; text: string };
 
@@ -149,7 +152,7 @@ export const LIBRO: Pagina[] = [
   { slug: "modulo-2", kind: "modulo", eyebrow: "Parte I / Módulo 2", titulo: "Neuroplasticidad, la puerta del cambio", tiempo: "6 min.", blocks: MODULO2 },
   { slug: "modulo-3", kind: "modulo", eyebrow: "Parte I / Módulo 3", titulo: "Dos mapas para un mismo territorio", tiempo: "6 min.", blocks: MODULO3 },
   { slug: "parte-2", kind: "parte", eyebrow: "Parte II", titulo: "Los dos pilares del método", firstSlug: "modulo-4" },
-  mod(4, "Parte II", "El pilar Dispenza"),
+  { slug: "modulo-4", kind: "modulo", eyebrow: "Parte II / Módulo 4", titulo: "El pilar Dispenza. Cambiar el estado para cambiar la mente", tiempo: "7 min.", blocks: MODULO4 },
   mod(5, "Parte II", "El pilar Jung"),
   mod(6, "Parte II", "El diseño del reto"),
   { slug: "parte-3", kind: "parte", eyebrow: "Parte III", titulo: "El reto Neurohack 21", firstSlug: "reto" },

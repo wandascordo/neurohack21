@@ -15,3 +15,4 @@
 - Undelivered screens use neutral structure with titles, known content hierarchy and navigation only; each Figma plugin export becomes the exact reference for its corresponding screen after explicit receipt confirmation — avoids inventing final content or design.
 - The Cover export governs only the public portada; preserve the existing email-link authentication and layout, using the user-provided video background and SVG logo with a video still as fallback.
 - Reading progress: profiles.last_read_slug updated via set_last_read() RPC on each book page — powers 'Continuar leyendo' across devices.
+- Store long Figma module transcriptions in dedicated src/lib/moduloN.ts files and render them with the shared book block renderer — keeps exact chapter text separate from navigation and preserves the established reading layout.
