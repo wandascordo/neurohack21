@@ -57,7 +57,8 @@ function Inicio() {
           <h1 className="h-fit shrink-0 self-stretch text-left text-[28px] font-normal leading-[1.1] tracking-[-1.50px] text-carbon">
             {saludo()}
           </h1>
-          <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-4 self-stretch rounded-[10px] border border-carbon-10/10 bg-salvia p-4">
+          <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-4 self-stretch rounded-[10px] relative isolate overflow-hidden border border-carbon-10/10 bg-salvia p-4 [&>*:not(.glow)]:relative [&>*:not(.glow)]:z-10">
+            <div aria-hidden className="glow pointer-events-none absolute left-1/2 top-[70%] -z-0 h-[372px] w-[372px] -translate-x-1/2 rounded-full bg-tiza opacity-40 blur-[100px]" />
             {pagina ? (
               <>
                 <p className="h-fit self-stretch text-left text-base font-semibold tracking-tight text-tiza">Tu progreso de lectura: {pct}%</p>
