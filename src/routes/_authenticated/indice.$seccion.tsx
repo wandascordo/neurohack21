@@ -225,6 +225,7 @@ function BlockView({ b }: { b: Block }) {
         <div className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
           <p className="text-base font-bold tracking-tight text-carbon">{b.title ?? "Ejemplo práctico"}</p>
           <p className="text-base font-normal tracking-tight text-piedra">{renderText()}</p>
+          {b.extra && <p className="text-base font-normal tracking-tight text-piedra">{b.extra}</p>}
         </div>
       );
     }
