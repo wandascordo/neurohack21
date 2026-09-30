@@ -27,7 +27,7 @@ function key(): string {
   if (set) {
     try {
       const parsed = JSON.parse(set) as Record<string, unknown>;
-      const found = [parsed.default, ...Object.values(parsed)].find(
+      const found = [parsed["default"], ...Object.values(parsed)].find(
         (v): v is string => typeof v === "string" && v.startsWith("sb_publishable_"),
       );
       if (found) return found;
