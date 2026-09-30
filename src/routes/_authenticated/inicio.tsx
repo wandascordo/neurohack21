@@ -55,7 +55,7 @@ function Inicio() {
         <TopBar />
         <div className="flex flex-1 flex-col items-center gap-5 self-stretch">
           <h1 className="h-fit shrink-0 self-stretch text-left text-[28px] font-normal leading-[1.1] tracking-[-1.50px] text-carbon">
-            {saludo()}{name ? `, ${name}` : ""}
+            {saludo()}
           </h1>
           <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-4 self-stretch rounded-[10px] border border-carbon-10/10 bg-salvia p-4">
             {pagina ? (
