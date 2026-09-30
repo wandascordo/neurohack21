@@ -43,8 +43,6 @@ function Inicio() {
       return { slug: data?.last_read_slug ?? null, email: data?.email ?? u.user.email ?? "" };
     },
   });
-  const raw = data?.email?.split("@")[0]?.split(/[._-]/)[0] ?? "";
-  const name = raw ? raw.charAt(0).toUpperCase() + raw.slice(1) : "";
   const idx = data?.slug ? LIBRO.findIndex((p) => p.slug === data.slug) : -1;
   const pagina = idx >= 0 ? LIBRO[idx] : null;
   const pct = idx >= 0 ? Math.round(((idx + 1) / LIBRO.length) * 100) : 0;
@@ -57,7 +55,7 @@ function Inicio() {
         <TopBar />
         <div className="flex flex-1 flex-col items-center gap-5 self-stretch">
           <h1 className="h-fit shrink-0 self-stretch text-left text-[28px] font-normal leading-[1.1] tracking-[-1.50px] text-carbon">
-            {saludo()}{name ? `, ${name}` : ""}
+            {saludo()}
           </h1>
           <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-4 self-stretch rounded-[10px] border border-carbon-10/10 bg-salvia p-4">
             {pagina ? (
