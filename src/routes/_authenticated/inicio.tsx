@@ -19,7 +19,7 @@ export const Route = createFileRoute("/_authenticated/inicio")({
 
 const recursos = [
   { to: "/autoevaluacion", label: "Autoevaluación de Foco", icon: foco.url },
-  { to: "/kit-emergencia", label: "Botón de Anti-Distracción", icon: siren.url },
+  { to: "/kit-emergencia", label: "Botón Anti-Distracción", icon: siren.url },
   { to: "/registro-diario", label: "Registro Diario de 21 Días", icon: calendario.url },
   { to: "/tracker", label: "Tracker Visual de 21 Días", icon: chart.url },
   { to: "/guiones", label: "Guiones Listos para Proteger tu Foco", icon: postits.url },
