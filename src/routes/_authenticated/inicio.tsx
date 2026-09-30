@@ -51,15 +51,15 @@ function Inicio() {
   const [parte, ...resto] = pagina ? pagina.eyebrow.split(" / ") : [];
 
   return (
-    <BookScreen fill>
+    <BookScreen exact>
       <Onboarding />
-      <div className="flex w-full flex-1 flex-col gap-9">
+      <div className="flex w-full flex-1 flex-col gap-5">
         <TopBar />
-        <div className="flex flex-1 flex-col items-center gap-9 self-stretch">
-          <h1 className="h-fit self-stretch text-left text-[28px] font-normal leading-[1.1] tracking-[-1.50px] text-carbon">
+        <div className="flex flex-1 flex-col items-center gap-5 self-stretch">
+          <h1 className="h-fit shrink-0 self-stretch text-left text-[28px] font-normal leading-[1.1] tracking-[-1.50px] text-carbon">
             {saludo()}{name ? `, ${name}` : ""}
           </h1>
-          <div className="flex h-fit flex-col items-center justify-center gap-5 self-stretch rounded-[10px] border border-carbon-10/10 bg-salvia p-5">
+          <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-4 self-stretch rounded-[10px] border border-carbon-10/10 bg-salvia p-4">
             {pagina ? (
               <>
                 <p className="h-fit self-stretch text-left text-base font-semibold tracking-tight text-tiza">Tu progreso de lectura: {pct}%</p>
@@ -88,11 +88,11 @@ function Inicio() {
               </>
             )}
           </div>
-          <div className="flex h-fit flex-col items-start gap-2.5 self-stretch">
-            <p className="h-fit self-stretch text-left text-base font-semibold tracking-tight text-carbon">Tus recursos</p>
-            <div className="grid w-full grid-cols-2 gap-2.5">
+          <div className="flex min-h-0 flex-1 flex-col items-start gap-2.5 self-stretch">
+            <p className="h-fit shrink-0 self-stretch text-left text-base font-semibold tracking-tight text-carbon">Tus recursos</p>
+            <div className="grid w-full min-h-0 flex-1 grid-cols-2 grid-rows-3 gap-2.5">
               {recursos.map((r) => (
-                <Link key={r.to} to={r.to} className="flex min-h-[120px] flex-col items-start justify-between gap-4 rounded-[10px] border border-carbon-10/10 p-4">
+                <Link key={r.to} to={r.to} className="flex min-h-[104px] flex-col items-start justify-between gap-3 rounded-[10px] border border-carbon-10/10 bg-blanco p-3.5">
                   <img className="h-6 w-6" src={r.icon} alt="" />
                   <span className="text-left text-base font-normal leading-snug tracking-tight text-carbon">{r.label}</span>
                 </Link>
