@@ -3,6 +3,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Placeholder } from "@/components/Placeholder";
 import { BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
+import { InstructivoLink } from "@/components/libro/InstructivoModal";
 import { LIBRO, type Block } from "@/lib/libro";
 import parte1Illustration from "@/assets/parte-1-illustration.svg.asset.json";
 import parte2Illustration from "@/assets/parte-2-illustration.svg.asset.json";
@@ -130,6 +131,9 @@ function Seccion() {
             groupParagraphs(p.blocks)
           )}
         </article>
+        {p.kind === "modulo" && p.autoevaluacion && (
+          <Link to="/autoevaluacion" className="flex h-fit w-full flex-row items-center justify-center gap-2.5 overflow-hidden rounded-full bg-carbon-10/10 px-6 py-4 text-center text-base font-semibold uppercase leading-none text-piedra">Realizar Autoevaluación de Foco</Link>
+        )}
         {next ? (
           <button type="button" onClick={() => goNext(next.slug)} className={`${btnPrimary} w-full`}>Siguiente</button>
         ) : (
@@ -262,6 +266,7 @@ function BlockView({ b }: { b: Block }) {
               <p className="text-base font-bold tracking-tight text-carbon">Ejercicio de cierre de módulo</p>
               <p className="text-base font-normal tracking-tight text-piedra">{withLinks(b.ejercicio, b.ejercicioLinks)}</p>
                 {b.ejercicioExtra && <p className="text-base font-normal tracking-tight text-piedra">{b.ejercicioExtra}</p>}
+              {b.instructivo && <InstructivoLink />}
             </div>
           )}
         </div>

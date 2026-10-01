@@ -1,5 +1,6 @@
 import { MODULO4 } from "./modulo4";
 import { MODULO5 } from "./modulo5";
+import { MODULO6 } from "./modulo6";
 
 export type Enlace = { text: string; to: string };
 
@@ -9,7 +10,7 @@ export type Block =
   | { type: "sumario"; items: string[] }
   | { type: "bullets"; items: string[] }
   | { type: "ejemplo"; title?: string; text: string; extra?: string; links?: Enlace[] }
-  | { type: "cierre"; items: string[]; ejercicio?: string; ejercicioExtra?: string; ejercicioLinks?: Enlace[] }
+  | { type: "cierre"; items: string[]; ejercicio?: string; ejercicioExtra?: string; ejercicioLinks?: Enlace[]; instructivo?: boolean }
   | { type: "pasos"; items: { title: string; paragraphs: string[] }[] }
   | { type: "lista"; intro: string; items: string[]; outro: string }
   | { type: "ejercicio"; title?: string; text: string };
@@ -17,7 +18,7 @@ export type Block =
 
 export type Pagina =
   | { slug: string; kind: "parte"; eyebrow: string; titulo: string; firstSlug: string }
-  | { slug: string; kind: "modulo"; eyebrow: string; titulo: string; tiempo?: string; blocks: Block[] }
+  | { slug: string; kind: "modulo"; eyebrow: string; titulo: string; tiempo?: string; blocks: Block[]; autoevaluacion?: boolean }
   | { slug: string; kind: "reto"; eyebrow: string; titulo: string };
 
 const pend: Block[] = [{ type: "p", text: "El texto de esta sección se incorporará próximamente." }];
@@ -159,7 +160,7 @@ export const LIBRO: Pagina[] = [
   { slug: "parte-2", kind: "parte", eyebrow: "Parte II", titulo: "Los dos pilares del método", firstSlug: "modulo-4" },
   { slug: "modulo-4", kind: "modulo", eyebrow: "Parte II / Módulo 4", titulo: "El pilar Dispenza. Cambiar el estado para cambiar la mente", tiempo: "7 min.", blocks: MODULO4 },
   { slug: "modulo-5", kind: "modulo", eyebrow: "Parte II / Módulo 5", titulo: "El pilar Jung. Iluminar lo inconsciente", tiempo: "6 min.", blocks: MODULO5 },
-  mod(6, "Parte II", "El diseño del reto"),
+  { slug: "modulo-6", kind: "modulo", eyebrow: "Parte II / Módulo 6", titulo: "El diseño del reto", tiempo: "9 min.", blocks: MODULO6, autoevaluacion: true },
   { slug: "parte-3", kind: "parte", eyebrow: "Parte III", titulo: "El reto Neurohack 21", firstSlug: "reto" },
   { slug: "reto", kind: "reto", eyebrow: "Parte III", titulo: "El reto de 21 días" },
   { slug: "parte-4", kind: "parte", eyebrow: "Parte IV", titulo: "Sostener el cambio", firstSlug: "modulo-7" },
