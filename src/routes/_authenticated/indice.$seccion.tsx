@@ -260,7 +260,7 @@ function BlockView({ b }: { b: Block }) {
           {b.ejercicio && (
             <div className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
               <p className="text-base font-bold tracking-tight text-carbon">Ejercicio de cierre de módulo</p>
-              <p className="text-base font-normal tracking-tight text-piedra">{b.ejercicio}</p>
+              <p className="text-base font-normal tracking-tight text-piedra">{withLinks(b.ejercicio, b.ejercicioLinks)}</p>
                 {b.ejercicioExtra && <p className="text-base font-normal tracking-tight text-piedra">{b.ejercicioExtra}</p>}
             </div>
           )}
