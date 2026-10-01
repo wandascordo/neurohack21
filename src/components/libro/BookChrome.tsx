@@ -62,9 +62,14 @@ export function TopBar({ onClose }: { onClose?: () => void }) {
 }
 
 export function ProgressBar({ value }: { value: number }) {
+  const [shown, setShown] = useState(0);
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => requestAnimationFrame(() => setShown(value)));
+    return () => cancelAnimationFrame(raf);
+  }, [value]);
   return (
     <div className="flex h-fit flex-row items-center self-stretch overflow-hidden rounded-full bg-carbon-10/10" role="progressbar" aria-valuenow={Math.round(value * 100)}>
-      <div className="relative h-1 min-w-7 rounded-full bg-salvia transition-all" style={{ width: `${value * 100}%` }} />
+      <div className="relative h-1 min-w-7 rounded-full bg-salvia transition-[width] duration-1000 ease-linear" style={{ width: `${shown * 100}%` }} />
     </div>
   );
 }
