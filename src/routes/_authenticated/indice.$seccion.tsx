@@ -188,11 +188,38 @@ function anchorId(text: string) {
     .replace(/^-+|-+$/g, "");
 }
 
+function withLinks(text: string, links?: { text: string; to: string }[]): ReactNode {
+  if (!links || links.length === 0) return text;
+  const parts: ReactNode[] = [];
+  let rest = text;
+  let key = 0;
+  for (const link of links) {
+    const i = rest.indexOf(link.text);
+    if (i < 0) continue;
+    if (i > 0) parts.push(rest.slice(0, i));
+    parts.push(
+      <Link key={key++} to={link.to} className="underline underline-offset-2 hover:text-carbon">
+        {link.text}
+      </Link>
+    );
+    rest = rest.slice(i + link.text.length);
+  }
+  if (rest) parts.push(rest);
+  return parts;
+}
+
 function BlockView({ b }: { b: Block }) {
   const body = "text-base font-normal tracking-tight text-piedra";
   switch (b.type) {
     case "h":
       return <h2 id={anchorId(b.text)} style={{ scrollMarginTop: "40px" }} className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{b.text}</h2>;
+    case "bullets":
+      return (
+        <ul className={`list-disc pl-4 ${body} flex flex-col gap-2.5`}>
+          {b.items.map((item) => <li key={item}>{item}</li>)}
+        </ul>
+      );
+
     case "sumario":
       return (
         <div className="flex flex-col rounded-[10px] bg-carbon/3 p-3.5">
