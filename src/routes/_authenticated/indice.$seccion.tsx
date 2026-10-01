@@ -234,34 +234,15 @@ function BlockView({ b }: { b: Block }) {
           ))}
         </div>
       );
-    case "ejemplo": {
-      const renderText = () => {
-        if (!b.links || b.links.length === 0) return b.text;
-        const parts: ReactNode[] = [];
-        let rest = b.text;
-        let key = 0;
-        for (const link of b.links) {
-          const i = rest.indexOf(link.text);
-          if (i < 0) continue;
-          if (i > 0) parts.push(rest.slice(0, i));
-          parts.push(
-            <Link key={key++} to={link.to} className="underline underline-offset-2 hover:text-carbon">
-              {link.text}
-            </Link>
-          );
-          rest = rest.slice(i + link.text.length);
-        }
-        if (rest) parts.push(rest);
-        return parts;
-      };
+    case "ejemplo":
       return (
         <div className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
           <p className="text-base font-bold tracking-tight text-carbon">{b.title ?? "Ejemplo práctico"}</p>
-          <p className="text-base font-normal tracking-tight text-piedra">{renderText()}</p>
+          <p className="text-base font-normal tracking-tight text-piedra">{withLinks(b.text, b.links)}</p>
           {b.extra && <p className="text-base font-normal tracking-tight text-piedra">{b.extra}</p>}
         </div>
       );
-    }
+
     case "cierre":
       return (
         <div className="flex flex-col gap-5 border-t border-carbon-10/10 pt-10">
