@@ -1,14 +1,19 @@
 import { MODULO4 } from "./modulo4";
+import { MODULO5 } from "./modulo5";
+
+export type Enlace = { text: string; to: string };
 
 export type Block =
-  | { type: "p"; text: string; lead?: string }
+  | { type: "p"; text: string; lead?: string; links?: Enlace[] }
   | { type: "h"; text: string }
   | { type: "sumario"; items: string[] }
-  | { type: "ejemplo"; title?: string; text: string; extra?: string; links?: { text: string; to: string }[] }
-  | { type: "cierre"; items: string[]; ejercicio?: string; ejercicioExtra?: string }
+  | { type: "bullets"; items: string[] }
+  | { type: "ejemplo"; title?: string; text: string; extra?: string; links?: Enlace[] }
+  | { type: "cierre"; items: string[]; ejercicio?: string; ejercicioExtra?: string; ejercicioLinks?: Enlace[] }
   | { type: "pasos"; items: { title: string; paragraphs: string[] }[] }
   | { type: "lista"; intro: string; items: string[]; outro: string }
   | { type: "ejercicio"; title?: string; text: string };
+
 
 export type Pagina =
   | { slug: string; kind: "parte"; eyebrow: string; titulo: string; firstSlug: string }
