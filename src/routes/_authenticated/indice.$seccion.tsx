@@ -163,7 +163,7 @@ function groupParagraphs(blocks: Block[]) {
   };
   blocks.forEach((b, idx) => {
     // Párrafos, pasos y ejemplos comparten el ritmo interno de 20 px.
-    if ((b.type === "p" || b.type === "ejemplo" || b.type === "pasos") && grupo) {
+    if ((b.type === "p" || b.type === "ejemplo" || b.type === "pasos" || b.type === "bullets") && grupo) {
       grupo.push({ b, idx });
     } else if (b.type === "h") {
       flush();
@@ -188,11 +188,38 @@ function anchorId(text: string) {
     .replace(/^-+|-+$/g, "");
 }
 
+function withLinks(text: string, links?: { text: string; to: string }[]): ReactNode {
+  if (!links || links.length === 0) return text;
+  const parts: ReactNode[] = [];
+  let rest = text;
+  let key = 0;
+  for (const link of links) {
+    const i = rest.indexOf(link.text);
+    if (i < 0) continue;
+    if (i > 0) parts.push(rest.slice(0, i));
+    parts.push(
+      <Link key={key++} to={link.to} className="underline underline-offset-2 hover:text-carbon">
+        {link.text}
+      </Link>
+    );
+    rest = rest.slice(i + link.text.length);
+  }
+  if (rest) parts.push(rest);
+  return parts;
+}
+
 function BlockView({ b }: { b: Block }) {
   const body = "text-base font-normal tracking-tight text-piedra";
   switch (b.type) {
     case "h":
       return <h2 id={anchorId(b.text)} style={{ scrollMarginTop: "40px" }} className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{b.text}</h2>;
+    case "bullets":
+      return (
+        <ul className={`list-disc pl-4 ${body} flex flex-col gap-2.5`}>
+          {b.items.map((item) => <li key={item}>{item}</li>)}
+        </ul>
+      );
+
     case "sumario":
       return (
         <div className="flex flex-col rounded-[10px] bg-carbon/3 p-3.5">
@@ -207,34 +234,15 @@ function BlockView({ b }: { b: Block }) {
           ))}
         </div>
       );
-    case "ejemplo": {
-      const renderText = () => {
-        if (!b.links || b.links.length === 0) return b.text;
-        const parts: ReactNode[] = [];
-        let rest = b.text;
-        let key = 0;
-        for (const link of b.links) {
-          const i = rest.indexOf(link.text);
-          if (i < 0) continue;
-          if (i > 0) parts.push(rest.slice(0, i));
-          parts.push(
-            <Link key={key++} to={link.to} className="underline underline-offset-2 hover:text-carbon">
-              {link.text}
-            </Link>
-          );
-          rest = rest.slice(i + link.text.length);
-        }
-        if (rest) parts.push(rest);
-        return parts;
-      };
+    case "ejemplo":
       return (
         <div className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
           <p className="text-base font-bold tracking-tight text-carbon">{b.title ?? "Ejemplo práctico"}</p>
-          <p className="text-base font-normal tracking-tight text-piedra">{renderText()}</p>
+          <p className="text-base font-normal tracking-tight text-piedra">{withLinks(b.text, b.links)}</p>
           {b.extra && <p className="text-base font-normal tracking-tight text-piedra">{b.extra}</p>}
         </div>
       );
-    }
+
     case "cierre":
       return (
         <div className="flex flex-col gap-5 border-t border-carbon-10/10 pt-10">
@@ -252,7 +260,7 @@ function BlockView({ b }: { b: Block }) {
           {b.ejercicio && (
             <div className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
               <p className="text-base font-bold tracking-tight text-carbon">Ejercicio de cierre de módulo</p>
-              <p className="text-base font-normal tracking-tight text-piedra">{b.ejercicio}</p>
+              <p className="text-base font-normal tracking-tight text-piedra">{withLinks(b.ejercicio, b.ejercicioLinks)}</p>
                 {b.ejercicioExtra && <p className="text-base font-normal tracking-tight text-piedra">{b.ejercicioExtra}</p>}
             </div>
           )}
@@ -290,7 +298,7 @@ function BlockView({ b }: { b: Block }) {
       return (
         <p className={body}>
           {b.lead && <strong className="font-semibold text-carbon">{b.lead} </strong>}
-          {b.text}
+          {withLinks(b.text, b.links)}
         </p>
       );
   }

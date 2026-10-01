@@ -1,14 +1,19 @@
 import { MODULO4 } from "./modulo4";
+import { MODULO5 } from "./modulo5";
+
+export type Enlace = { text: string; to: string };
 
 export type Block =
-  | { type: "p"; text: string; lead?: string }
+  | { type: "p"; text: string; lead?: string; links?: Enlace[] }
   | { type: "h"; text: string }
   | { type: "sumario"; items: string[] }
-  | { type: "ejemplo"; title?: string; text: string; extra?: string; links?: { text: string; to: string }[] }
-  | { type: "cierre"; items: string[]; ejercicio?: string; ejercicioExtra?: string }
+  | { type: "bullets"; items: string[] }
+  | { type: "ejemplo"; title?: string; text: string; extra?: string; links?: Enlace[] }
+  | { type: "cierre"; items: string[]; ejercicio?: string; ejercicioExtra?: string; ejercicioLinks?: Enlace[] }
   | { type: "pasos"; items: { title: string; paragraphs: string[] }[] }
   | { type: "lista"; intro: string; items: string[]; outro: string }
   | { type: "ejercicio"; title?: string; text: string };
+
 
 export type Pagina =
   | { slug: string; kind: "parte"; eyebrow: string; titulo: string; firstSlug: string }
@@ -153,7 +158,7 @@ export const LIBRO: Pagina[] = [
   { slug: "modulo-3", kind: "modulo", eyebrow: "Parte I / Módulo 3", titulo: "Dos mapas para un mismo territorio", tiempo: "6 min.", blocks: MODULO3 },
   { slug: "parte-2", kind: "parte", eyebrow: "Parte II", titulo: "Los dos pilares del método", firstSlug: "modulo-4" },
   { slug: "modulo-4", kind: "modulo", eyebrow: "Parte II / Módulo 4", titulo: "El pilar Dispenza. Cambiar el estado para cambiar la mente", tiempo: "7 min.", blocks: MODULO4 },
-  mod(5, "Parte II", "El pilar Jung"),
+  { slug: "modulo-5", kind: "modulo", eyebrow: "Parte II / Módulo 5", titulo: "El pilar Jung. Iluminar lo inconsciente", tiempo: "6 min.", blocks: MODULO5 },
   mod(6, "Parte II", "El diseño del reto"),
   { slug: "parte-3", kind: "parte", eyebrow: "Parte III", titulo: "El reto Neurohack 21", firstSlug: "reto" },
   { slug: "reto", kind: "reto", eyebrow: "Parte III", titulo: "El reto de 21 días" },
@@ -178,5 +183,7 @@ export const INDICE: IndiceGrupo[] = [
 
 function itemMod(n: number) {
   const p = LIBRO.find((x) => x.slug === `modulo-${n}`)!;
-  return { slug: p.slug, label: `Módulo ${n}: ${n === 4 ? "El pilar Dispenza" : p.titulo}` };
+  const corto: Record<number, string> = { 4: "El pilar Dispenza", 5: "El pilar Jung" };
+  return { slug: p.slug, label: `Módulo ${n}: ${corto[n] ?? p.titulo}` };
+
 }
