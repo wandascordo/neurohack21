@@ -158,12 +158,12 @@
 
 .dark {
   --token-tiza: hsl(0 0% 11%);
-  --token-blanco: hsl(0 0% 14%);
-  --token-carbon: hsl(40 60% 99%);
-  --token-avena: hsl(53 4% 65%);
-  --token-carbon-10: hsl(40 60% 99%);
+  --token-blanco: hsl(0 0% 0%);
+  --token-carbon: hsl(37 29% 88%);
+  --token-avena: hsl(40 60% 99% / 0.1);
+  --token-carbon-10: hsl(40 60% 99% / 0.1);
   --token-salvia: hsl(124 9% 61%);
-  --token-piedra: hsl(37 29% 88%);
+  --token-piedra: hsl(53 4% 65%);
   --cover-ink: oklch(0.993 0.004 80);
   --cover-warm: oklch(0.91 0.019 76);
   --cover-arrow: oklch(0.22 0 0);
