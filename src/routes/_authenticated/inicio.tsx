@@ -47,6 +47,11 @@ function Inicio() {
   const pagina = idx >= 0 ? LIBRO[idx] : null;
   const pct = idx >= 0 ? Math.round(((idx + 1) / LIBRO.length) * 100) : 0;
   const [parte, ...resto] = pagina ? pagina.eyebrow.split(" / ") : [];
+  const [shownPct, setShownPct] = useState(0);
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => requestAnimationFrame(() => setShownPct(pct)));
+    return () => cancelAnimationFrame(raf);
+  }, [pct]);
 
   return (
     <BookScreen exact>
