@@ -19,7 +19,7 @@ const AFIRMACIONES = [
 const MOMENTOS = ["Antes del Día 1", "Cierre Semana 1 (Día 7)", "Cierre Semana 2 (Día 14)", "Cierre del reto (Día 21)"];
 
 const p = "self-stretch text-left text-base font-normal tracking-tight text-piedra";
-const cell = "border border-carbon-10/10 px-1.5 py-1 text-left text-[10px] font-normal tracking-tight whitespace-nowrap";
+const cell = "border border-carbon-10/10 px-1.5 py-1 text-left text-[12px] font-normal tracking-tight whitespace-nowrap";
 
 export function InstructivoLink() {
   const [open, setOpen] = useState(false);
