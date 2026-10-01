@@ -163,7 +163,7 @@ function groupParagraphs(blocks: Block[]) {
   };
   blocks.forEach((b, idx) => {
     // Párrafos, pasos y ejemplos comparten el ritmo interno de 20 px.
-    if ((b.type === "p" || b.type === "ejemplo" || b.type === "pasos") && grupo) {
+    if ((b.type === "p" || b.type === "ejemplo" || b.type === "pasos" || b.type === "bullets") && grupo) {
       grupo.push({ b, idx });
     } else if (b.type === "h") {
       flush();
@@ -298,7 +298,7 @@ function BlockView({ b }: { b: Block }) {
       return (
         <p className={body}>
           {b.lead && <strong className="font-semibold text-carbon">{b.lead} </strong>}
-          {b.text}
+          {withLinks(b.text, b.links)}
         </p>
       );
   }
