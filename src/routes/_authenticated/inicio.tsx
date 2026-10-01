@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { meta } from "@/components/Placeholder";
 import { Onboarding } from "@/components/Onboarding";
@@ -47,6 +48,11 @@ function Inicio() {
   const pagina = idx >= 0 ? LIBRO[idx] : null;
   const pct = idx >= 0 ? Math.round(((idx + 1) / LIBRO.length) * 100) : 0;
   const [parte, ...resto] = pagina ? pagina.eyebrow.split(" / ") : [];
+  const [shownPct, setShownPct] = useState(0);
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => requestAnimationFrame(() => setShownPct(pct)));
+    return () => cancelAnimationFrame(raf);
+  }, [pct]);
 
   return (
     <BookScreen exact>
@@ -63,7 +69,7 @@ function Inicio() {
               <>
                 <p className="h-fit self-stretch text-left text-base font-semibold tracking-tight text-tiza">Tu progreso de lectura: {pct}%</p>
                 <div className="flex h-1 flex-row self-stretch overflow-hidden rounded-full bg-carbon-10/10">
-                  <div className="self-stretch rounded-full bg-tiza" style={{ width: `${pct}%` }} />
+                  <div className="self-stretch rounded-full bg-tiza transition-[width] duration-1000 ease-linear" style={{ width: `${shownPct}%` }} />
                 </div>
                 <div className="flex h-fit flex-col items-start gap-2.5 self-stretch">
                   <p className="h-fit self-stretch text-left text-base font-semibold leading-none">
