@@ -74,7 +74,7 @@ export function InstructivoLink() {
             <p className={p}>Si preferís de todas formas hacerla con lápiz y papel antes de cargarla, estas son las diez afirmaciones:</p>
             <ol className="flex flex-col self-stretch">
               {AFIRMACIONES.map((a, i) => (
-                <li key={a} className="flex gap-1 border border-carbon-10/10 p-2.5 text-base font-semibold tracking-tight text-piedra">
+                <li key={a} className="flex gap-1 border-b border-carbon-10/10 p-2.5 text-base font-semibold tracking-tight text-piedra">
                   <span>{i + 1}.</span>
                   <span className="flex-1">{a}</span>
                 </li>
