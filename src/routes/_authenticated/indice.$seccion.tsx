@@ -7,6 +7,13 @@ import { InstructivoLink } from "@/components/libro/InstructivoModal";
 import { LIBRO, type Block } from "@/lib/libro";
 import parte1Illustration from "@/assets/parte-1-illustration.svg.asset.json";
 import parte2Illustration from "@/assets/parte-2-illustration.svg.asset.json";
+import parte3Illustration from "@/assets/parte-3.png.asset.json";
+
+const parteIllustrations: Record<string, string> = {
+  "parte-1": parte1Illustration.url,
+  "parte-2": parte2Illustration.url,
+  "parte-3": parte3Illustration.url,
+};
 
 export const Route = createFileRoute("/_authenticated/indice/$seccion")({
   loader: ({ params }) => {
@@ -79,10 +86,10 @@ function Seccion() {
               <h1 className="self-stretch text-left text-4xl font-normal leading-[1.1] tracking-[-2.00px] text-carbon">{p.titulo}</h1>
             </div>
             <div className="flex flex-1 flex-col items-center justify-center self-stretch">
-              {(p.slug === "parte-1" || p.slug === "parte-2") && (
+              {parteIllustrations[p.slug] && (
                 <img
                   className="-mx-5 h-[200px] w-[calc(100%+2.5rem)] max-w-none object-cover dark:invert"
-                  src={p.slug === "parte-2" ? parte2Illustration.url : parte1Illustration.url}
+                  src={parteIllustrations[p.slug]}
                   alt=""
                 />
               )}
