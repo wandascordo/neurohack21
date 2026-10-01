@@ -19,7 +19,7 @@ const AFIRMACIONES = [
 const MOMENTOS = ["Antes del Día 1", "Cierre Semana 1 (Día 7)", "Cierre Semana 2 (Día 14)", "Cierre del reto (Día 21)"];
 
 const p = "self-stretch text-left text-base font-normal tracking-tight text-piedra";
-const cell = "border border-carbon-10/10 px-1.5 py-1 text-left text-[10px] font-normal tracking-tight";
+const cell = "border border-carbon-10/10 px-1.5 py-1 text-left text-[10px] font-normal tracking-tight whitespace-nowrap";
 
 export function InstructivoLink() {
   const [open, setOpen] = useState(false);
@@ -84,9 +84,9 @@ export function InstructivoLink() {
             <table className="w-full shrink-0 border-collapse self-stretch">
               <thead>
                 <tr className="bg-carbon/3 text-piedra">
-                  <th className={`${cell} w-[120px]`}>Momento</th>
-                  <th className={cell}>Fecha</th>
-                  <th className={`${cell} w-[82px] text-center`}>Puntaje (10-50)</th>
+                  <th className={cell}>Momento</th>
+                  <th className={`${cell} w-[56px]`}>Fecha</th>
+                  <th className={`${cell} text-center`}>Puntaje (10-50)</th>
                 </tr>
               </thead>
               <tbody>
