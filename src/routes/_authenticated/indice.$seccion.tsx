@@ -284,7 +284,17 @@ function BlockView({ b }: { b: Block }) {
           <div className="flex flex-col gap-5">
             {b.items.map((item) => (
               <div key={item.title} className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
-                <h3 className="text-base font-bold tracking-tight text-carbon">{item.title}</h3>
+                <h3 className="text-base font-bold tracking-tight text-carbon">
+                  {item.title.includes(" / ") ? (() => {
+                    const sep = item.title.lastIndexOf(" / ");
+                    return (
+                      <>
+                        {item.title.slice(0, sep)}
+                        <span className="text-piedra"> {item.title.slice(sep + 1)}</span>
+                      </>
+                    );
+                  })() : item.title}
+                </h3>
                 {item.paragraphs.map((paragraph) => <p key={paragraph} className={body}>{paragraph}</p>)}
               </div>
             ))}
