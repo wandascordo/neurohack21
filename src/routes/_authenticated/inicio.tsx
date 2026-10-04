@@ -100,7 +100,7 @@ function Inicio() {
               </>
             ) : (
               <>
-                <p className="h-fit self-stretch text-left text-base font-normal tracking-tight text-tiza">
+                <p className="h-fit self-stretch text-left text-base font-normal tracking-tight text-tiza dark:text-carbon">
                   Acá vas a ver tu progreso a medida que vayas avanzando con la lectura del libro, ¿empezamos?
                 </p>
                 <Link to="/indice" onClick={() => logEvent("iniciar_lectura")} className="flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-tiza px-6 py-4 text-center text-base font-semibold uppercase leading-none text-salvia">
@@ -113,7 +113,7 @@ function Inicio() {
             <p className="h-[30px] self-stretch text-left text-base font-semibold tracking-tight text-carbon">Tus recursos</p>
             <div className="grid w-full grid-cols-3 gap-2.5">
               {recursos.map((r) => (
-                <Link key={r.to} to={r.to} onClick={() => logEvent("recurso_abierto", { metadata: { recurso: r.to, desde: "inicio" } })} className="flex h-[120px] flex-col items-start justify-between rounded-[20px] border border-carbon-10/10 bg-carbon-10/[0.03] p-2.5">
+                <Link key={r.to} to={r.to} onClick={() => logEvent("recurso_abierto", { metadata: { recurso: r.to, desde: "inicio" } })} className="flex h-[120px] flex-col items-start justify-between rounded-[20px] border border-carbon-10/10 bg-carbon/[0.03] p-2.5">
                   <img className={r.to === "/autoevaluacion" ? "h-[30px] w-[30px]" : "h-6 w-6"} src={r.icon} alt="" />
                   <span className="self-stretch text-left text-xs font-normal tracking-tight text-carbon">{r.label}</span>
                 </Link>
