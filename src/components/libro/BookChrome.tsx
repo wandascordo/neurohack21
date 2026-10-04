@@ -73,7 +73,10 @@ function TopBarRow({ onClose }: { onClose?: () => void }) {
     <>
       {onClose ? (
         <button type="button" onClick={onClose} aria-label="Cerrar menú" className="h-7 w-7">
-          <img className="h-7 w-7" src={menuClose.url} alt="" />
+          <span
+            className="block h-7 w-7 bg-carbon"
+            style={{ mask: `url(${menuClose.url}) center / contain no-repeat`, WebkitMask: `url(${menuClose.url}) center / contain no-repeat` }}
+          />
         </button>
       ) : (
         <Menu />
