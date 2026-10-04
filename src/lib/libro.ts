@@ -186,7 +186,7 @@ export const INDICE: IndiceGrupo[] = [
     { slug: "semana-3", label: "Semana 3: Integrar" },
   ] },
   { titulo: "Parte IV: Sostener el cambio", slug: "parte-4", items: [7, 8].map(itemMod) },
-  { titulo: "Conclusiones", slug: "conclusiones", items: [] },
+  { titulo: "Parte V: Conclusiones", slug: "conclusiones", items: [] },
   { titulo: "Bibliografía", slug: "bibliografia", items: [] },
 ];
 
