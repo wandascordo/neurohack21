@@ -9,11 +9,15 @@ import { LIBRO, type Block } from "@/lib/libro";
 import parte1Illustration from "@/assets/parte-1-illustration.svg.asset.json";
 import parte2Illustration from "@/assets/parte-2-illustration.svg.asset.json";
 import parte3Illustration from "@/assets/parte-3.png.asset.json";
+import parte4Illustration from "@/assets/parte-4.png.asset.json";
+import conclusionesIllustration from "@/assets/conclusiones.png.asset.json";
 
 const parteIllustrations: Record<string, string> = {
   "parte-1": parte1Illustration.url,
   "parte-2": parte2Illustration.url,
   "parte-3": parte3Illustration.url,
+  "parte-4": parte4Illustration.url,
+  conclusiones: conclusionesIllustration.url,
 };
 
 export const Route = createFileRoute("/_authenticated/indice/$seccion")({
@@ -84,11 +88,15 @@ function Seccion() {
         <div className={`flex w-full flex-1 flex-col gap-5 ${fade}`}>
           <div className="flex flex-1 flex-col items-center justify-between self-stretch py-[50px]">
             <div className="flex h-fit flex-col items-center gap-2.5 self-stretch">
-              <p className="self-stretch text-left text-base font-semibold leading-none text-carbon">{p.eyebrow}</p>
+              <p className={`self-stretch text-left text-base font-semibold leading-none ${p.slug === "conclusiones" ? "text-piedra" : "text-carbon"}`}>{p.eyebrow}</p>
               <h1 className="self-stretch text-left text-4xl font-normal leading-[1.1] tracking-[-2.00px] text-carbon">{p.titulo}</h1>
             </div>
             <div className="flex flex-1 flex-col items-center justify-center self-stretch">
-              {parteIllustrations[p.slug] && (
+              {p.slug === "conclusiones" ? (
+                <div className="flex flex-col items-center justify-center self-stretch py-[60px] pr-[60px]">
+                  <img className="-ml-5 h-[250px] w-[calc(100%+1.25rem)] max-w-none object-contain object-left dark:invert" src={parteIllustrations[p.slug]} alt="" />
+                </div>
+              ) : parteIllustrations[p.slug] && (
                 <img
                   className="-mx-5 h-[200px] w-[calc(100%+2.5rem)] max-w-none object-cover dark:invert"
                   src={parteIllustrations[p.slug]}
@@ -234,11 +242,35 @@ function BlockView({ b }: { b: Block }) {
       return <h2 id={anchorId(b.text)} style={{ scrollMarginTop: "40px" }} className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{b.text}</h2>;
     case "bullets":
       return (
-        <ul className={`list-disc pl-4 ${body} flex flex-col gap-2.5`}>
+        <ul className={`list-disc pl-4 ${body} ${b.bold ? "font-semibold" : ""} flex flex-col gap-2.5`}>
           {b.items.map((item) => <li key={item}>{item}</li>)}
         </ul>
       );
 
+    case "senales":
+      return (
+        <ul className="flex list-disc flex-col gap-5 pl-4 tracking-tight text-piedra">
+          {b.items.map((it) => (
+            <li key={it.title}>
+              <p className="text-base font-semibold">{it.title}</p>
+              <p className="text-sm font-normal">{it.text}</p>
+            </li>
+          ))}
+        </ul>
+      );
+    case "ritual":
+      return (
+        <div className="flex flex-col pl-2.5">
+          {b.grupos.map((g, n) => (
+            <div key={g.label} className="flex flex-col gap-2.5 border-l-2 border-carbon-10/10 py-1 pl-3.5">
+              <p className="text-sm font-normal tracking-tight text-piedra">{g.label}</p>
+              <ol start={n + 1} className="list-decimal pl-4 text-base font-normal tracking-tight text-piedra">
+                <li>{g.item}</li>
+              </ol>
+            </div>
+          ))}
+        </div>
+      );
     case "sumario":
       return (
         <div className="flex flex-col rounded-[10px] bg-carbon/3 p-3.5">

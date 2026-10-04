@@ -51,6 +51,5 @@ export const MODULO7: Block[] = [
       "Hay señales concretas de consolidación del cambio (velocidad de detección de la distracción, velocidad de recuperación después de una recaída, aplicación automática del método) que no dependen solo de cómo te sentís un día puntual.",
     ],
     ejercicio: "Registrá tu ritual mínimo de mantenimiento (una práctica de no más de dos minutos) y tus dos o tres intenciones de implementación con formato \"si pasa X, entonces hago Y\".",
-    instructivo: true,
   },
 ];
