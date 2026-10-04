@@ -1,6 +1,8 @@
 import { MODULO4 } from "./modulo4";
 import { MODULO5 } from "./modulo5";
 import { MODULO6 } from "./modulo6";
+import { MODULO7 } from "./modulo7";
+import { MODULO8 } from "./modulo8";
 
 export type Enlace = { text: string; to: string };
 
@@ -8,7 +10,9 @@ export type Block =
   | { type: "p"; text: string; lead?: string; links?: Enlace[] }
   | { type: "h"; text: string }
   | { type: "sumario"; items: string[] }
-  | { type: "bullets"; items: string[] }
+  | { type: "bullets"; items: string[]; bold?: boolean }
+  | { type: "senales"; items: { title: string; text: string }[] }
+  | { type: "ritual"; grupos: { label: string; item: string }[] }
   | { type: "ejemplo"; title?: string; text: string; extra?: string; links?: Enlace[] }
   | { type: "cierre"; items: string[]; ejercicio?: string; ejercicioExtra?: string; ejercicioLinks?: Enlace[]; instructivo?: boolean }
   | { type: "pasos"; card?: boolean; items: { title: string; paragraphs: string[] }[] }
@@ -147,9 +151,6 @@ const MODULO3: Block[] = [
   {"type": "cierre", "items": ["La falta de foco tiene una capa corporal y neurológica (lo que trabaja Dispenza) y una capa psicológica e inconsciente (lo que trabaja Jung).", "Regular solo el cuerpo, sin mirar qué se evita, suele dar resultados temporales. Mirar solo el patrón inconsciente, sin regular el cuerpo, da claridad sin sostén fisiológico.", "La pregunta clave que vas a repetir durante el reto no es solo \"¿cómo me concentro?\", sino también \"¿qué parte de mí se beneficia de no hacerlo?\".", "Ambos marcos se usan acá de forma acotada y honesta, sin forzar equivalencias que no corresponden entre neurociencia y psicología simbólica."], "ejercicio": "Pensá en la tarea que más postergás últimamente, la que \"siempre encontrás una excusa\" para no hacer. Sin juzgarte, registrá una respuesta honesta a esta pregunta: si postergar esta tarea me estuviera protegiendo de sentir algo incómodo, ¿qué sería? No busques la respuesta \"correcta\", dejá que aparezca lo primero que se te ocurra, aunque parezca ilógico. Esa respuesta va a ser un primer indicio del tipo de contenido que vas a trabajar con las herramientas junguianas del Módulo 5."},
 ];
 
-const mod = (n: number, parte: string, titulo: string): Pagina => ({
-  slug: `modulo-${n}`, kind: "modulo", eyebrow: `${parte} / Módulo ${n}`, titulo, blocks: pend,
-});
 
 export const LIBRO: Pagina[] = [
   { slug: "prologo", kind: "modulo", eyebrow: "Introducción", titulo: "Prólogo", tiempo: "4 min.", blocks: PROLOGO },
@@ -167,9 +168,9 @@ export const LIBRO: Pagina[] = [
   { slug: "semana-2", kind: "reto", eyebrow: "Parte III / Semana 2 (Días 8 a 14)", titulo: "Reprogramar", vista: 2 },
   { slug: "semana-3", kind: "reto", eyebrow: "Parte III / Semana 3 (Días 15 a 21)", titulo: "Integrar", vista: 3 },
   { slug: "parte-4", kind: "parte", eyebrow: "Parte IV", titulo: "Sostener el cambio", firstSlug: "modulo-7" },
-  mod(7, "Parte IV", "Qué hacer después del día 21"),
-  mod(8, "Parte IV", "Foco en el mundo real"),
-  { slug: "conclusiones", kind: "modulo", eyebrow: "Parte Final", titulo: "Conclusiones", blocks: pend },
+  { slug: "modulo-7", kind: "modulo", eyebrow: "Parte IV / Módulo 7", titulo: "Qué hacer después del día 21", tiempo: "7 min.", blocks: MODULO7 },
+  { slug: "modulo-8", kind: "modulo", eyebrow: "Parte IV / Módulo 8", titulo: "Foco en el mundo real", tiempo: "6 min.", blocks: MODULO8 },
+  { slug: "conclusiones", kind: "parte", eyebrow: "Parte Final", titulo: "Conclusiones", firstSlug: "bibliografia" },
   { slug: "bibliografia", kind: "modulo", eyebrow: "Bibliografía", titulo: "Bibliografía", blocks: pend },
 ];
 
