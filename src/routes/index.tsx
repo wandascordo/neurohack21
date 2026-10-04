@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { logEvent } from "@/lib/progreso";
 import { Button } from "@/components/ui/button";
 import { meta } from "@/components/Placeholder";
 import coverArrow from "@/assets/cover-arrow.png.asset.json";
@@ -25,6 +26,7 @@ function Login() {
   useEffect(() => {
     async function route(_userId: string) {
       await supabase.rpc("mark_first_login");
+      logEvent("ingreso");
       const next = new URLSearchParams(window.location.search).get("next");
       if (next && next.startsWith("/") && !next.startsWith("//")) {
         window.location.replace(next);

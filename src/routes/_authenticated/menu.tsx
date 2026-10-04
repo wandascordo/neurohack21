@@ -81,7 +81,7 @@ function Menu() {
                 <img className="h-6 w-6" src={flecha.url} alt="" />
               </button>
               {items.map((i, idx) => (
-                <Link key={i.to} to={i.to} className={`${row} ${staggerClass}`} style={stagger(idx + 1)}>
+                <Link key={i.to} to={i.to} onClick={() => logEvent("recurso_abierto", { metadata: { recurso: i.to, desde: "menu" } })} className={`${row} ${staggerClass}`} style={stagger(idx + 1)}>
                   <img className="h-6 w-6" src={i.icon} alt="" />
                   <span className={title}>{i.label}</span>
                 </Link>
