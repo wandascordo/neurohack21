@@ -96,7 +96,6 @@ function Dia({ d }: { d: RetoDia }) {
         </div>
       </div>
       <div className="flex flex-col items-start gap-5 p-2.5">
-        {d.autoevaluacion && <Link to="/autoevaluacion" className={linkSalvia}>Autoevaluación de Foco</Link>}
         <Link to="/registro-diario" className={linkSalvia}>Mi registro diario</Link>
       </div>
     </div>
