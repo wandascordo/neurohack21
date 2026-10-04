@@ -67,31 +67,31 @@ function Inicio() {
             {completo ? (
               <div className="flex flex-col items-center justify-center gap-2.5 self-stretch p-1">
                 <div className="flex h-fit flex-row items-start justify-center gap-5 self-stretch">
-                  <p className="h-fit flex-1 text-left text-base font-semibold tracking-tight text-tiza">Tu progreso de lectura: 100%</p>
+                  <p className="h-fit flex-1 text-left text-base font-semibold tracking-tight text-tiza dark:text-carbon">Tu progreso de lectura: 100%</p>
                   <img className="h-5 w-5" src={check.url} alt="Lectura completa" />
                 </div>
                 <div className="flex h-fit flex-col items-start gap-2.5 self-stretch pb-2.5">
-                  <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza">Llegaste hasta el final de tu aprendizaje, ahora es momento de llevar a la práctica todo lo aprendido.</p>
-                  <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza">Cuando quieras, podés volver a repasar los contenidos de este libro y reforzar los conceptos que trabajamos acá.</p>
+                  <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza dark:text-carbon">Llegaste hasta el final de tu aprendizaje, ahora es momento de llevar a la práctica todo lo aprendido.</p>
+                  <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza dark:text-carbon">Cuando quieras, podés volver a repasar los contenidos de este libro y reforzar los conceptos que trabajamos acá.</p>
                 </div>
-                <Link to="/indice/$seccion" params={{ seccion: "prologo" }} onClick={() => logEvent("leer_de_nuevo")} className="flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full border-2 border-tiza px-6 py-4 text-center text-base font-semibold uppercase leading-none text-tiza">
+                <Link to="/indice/$seccion" params={{ seccion: "prologo" }} onClick={() => logEvent("leer_de_nuevo")} className="flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full border-2 border-tiza px-6 py-4 text-center text-base font-semibold uppercase leading-none text-tiza dark:border-carbon dark:text-carbon">
                   Leer de nuevo
                 </Link>
               </div>
             ) : pagina ? (
               <>
-                <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza">Tu progreso de lectura: {pct}%</p>
+                <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza dark:text-carbon">Tu progreso de lectura: {pct}%</p>
                 <div className="flex h-1 flex-row self-stretch overflow-hidden rounded-full bg-carbon-10/10">
                   <div className="self-stretch rounded-full bg-tiza transition-[width] duration-1000 ease-linear" style={{ width: `${shownPct}%` }} />
                 </div>
                 <div className="flex h-fit flex-col items-start gap-2.5 self-stretch">
                   <p className="h-fit self-stretch text-left text-base font-semibold leading-none">
-                    <span className="text-avena">{parte}{resto.length ? " / " : ""}</span>
-                    {resto.length > 0 && <span className="text-tiza">{resto.join(" / ")}</span>}
+                    <span className="text-tiza dark:text-carbon">{parte}{resto.length ? " / " : ""}</span>
+                    {resto.length > 0 && <span className="text-tiza dark:text-carbon">{resto.join(" / ")}</span>}
                   </p>
-                  <p className="h-fit self-stretch text-left text-[22px] font-normal leading-[1.1] tracking-[-1.00px] text-tiza">{pagina.titulo}</p>
+                  <p className="h-fit self-stretch text-left text-[22px] font-normal leading-[1.1] tracking-[-1.00px] text-tiza dark:text-carbon">{pagina.titulo}</p>
                   {data?.anchorLabel && (
-                    <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-avena">{data.anchorLabel}</p>
+                    <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza dark:text-carbon">{data.anchorLabel}</p>
                   )}
                 </div>
                 <Link to="/indice/$seccion" params={{ seccion: pagina.slug }} {...(hash ? { hash: hash } : {})} onClick={() => logEvent("continuar_leyendo", { slug: pagina.slug, anchor: hash, metadata: { desde: "inicio" } })} className="flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-tiza px-6 py-4 text-center text-base font-semibold uppercase leading-none text-salvia">
