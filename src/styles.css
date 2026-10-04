@@ -208,10 +208,13 @@
 
   html {
     scroll-behavior: smooth;
+    overscroll-behavior: none;
+    background-color: var(--color-background);
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    overscroll-behavior-y: none;
   }
 }
