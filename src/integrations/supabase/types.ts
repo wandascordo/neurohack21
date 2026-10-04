@@ -153,6 +153,7 @@ export type Database = {
           last_read_slug: string | null
           onboarding_completed_at: string | null
           purchased_at: string | null
+          theme: string
           updated_at: string
         }
         Insert: {
@@ -167,6 +168,7 @@ export type Database = {
           last_read_slug?: string | null
           onboarding_completed_at?: string | null
           purchased_at?: string | null
+          theme?: string
           updated_at?: string
         }
         Update: {
@@ -181,6 +183,7 @@ export type Database = {
           last_read_slug?: string | null
           onboarding_completed_at?: string | null
           purchased_at?: string | null
+          theme?: string
           updated_at?: string
         }
         Relationships: []

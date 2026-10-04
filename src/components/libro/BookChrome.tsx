@@ -3,6 +3,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import logo from "@/assets/book-logo.svg.asset.json";
 import menuClose from "@/assets/menu-close.png.asset.json";
 import backIcon from "@/assets/menu-back.png.asset.json";
+import { getTema, setTema, suscribirTema } from "@/lib/tema";
 
 // Botón "volver" con el mismo formato que "Menú principal" del índice.
 export function BackButton({ label, onClick }: { label: string; onClick: () => void }) {
@@ -35,20 +36,14 @@ function Header() {
 }
 
 function DarkMode() {
-  const [on, setOn] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    setOn(document.documentElement.classList.contains("dark") || mq.matches);
-  }, []);
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", on);
-  }, [on]);
+  const [on, setOn] = useState(() => getTema() === "dark");
+  useEffect(() => suscribirTema((t) => setOn(t === "dark")), []);
   return (
     <button
       type="button"
       aria-label="Modo oscuro"
       aria-pressed={on}
-      onClick={() => setOn((v) => !v)}
+      onClick={() => setTema(on ? "light" : "dark")}
       className={`flex h-fit w-[46px] cursor-pointer flex-row items-center gap-2.5 overflow-hidden rounded-full bg-avena p-1 ${on ? "justify-end" : ""}`}
     >
       <div className="relative h-5 w-5 overflow-hidden rounded-full bg-tiza" />
