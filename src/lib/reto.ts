@@ -9,7 +9,7 @@ export const RETO_LINKS: Record<string, "/registro-diario" | "/autoevaluacion" |
 
 export type RetoItem = { text: string; note?: string };
 export type RetoGrupo = { label: string; items: RetoItem[] };
-export type RetoDia = { n: number; grupos: RetoGrupo[]; autoevaluacion?: boolean };
+export type RetoDia = { n: number; grupos: RetoGrupo[] };
 export type Semana = {
   numero: 1 | 2 | 3;
   dias: string;
