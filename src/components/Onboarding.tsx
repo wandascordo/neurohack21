@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { logEvent } from "@/lib/progreso";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import closeX from "@/assets/close-x.png.asset.json";
 import chevron from "@/assets/ob-chevron.png.asset.json";
@@ -45,10 +46,16 @@ export function Onboarding() {
   function close() {
     sessionStorage.setItem("nh21-onboarding-closed", "1");
     setOpen(false);
+    logEvent("onboarding_cerrado");
   }
-  function finish() {
+  // «No volver a mostrar»: queda guardado en la cuenta (la consulta debe
+  // ejecutarse con await; si no, nunca se envía).
+  async function finish() {
     setOpen(false);
-    void supabase.rpc("complete_onboarding");
+    sessionStorage.setItem("nh21-onboarding-closed", "1");
+    const { error } = await supabase.rpc("complete_onboarding");
+    if (error) console.warn("complete_onboarding", error.message);
+    logEvent("onboarding_no_volver_a_mostrar");
   }
 
   return (
