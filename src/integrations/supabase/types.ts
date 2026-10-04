@@ -147,6 +147,9 @@ export type Database = {
           email: string | null
           first_login_at: string | null
           id: string
+          last_read_anchor: string | null
+          last_read_anchor_label: string | null
+          last_read_at: string | null
           last_read_slug: string | null
           onboarding_completed_at: string | null
           purchased_at: string | null
@@ -158,6 +161,9 @@ export type Database = {
           email?: string | null
           first_login_at?: string | null
           id: string
+          last_read_anchor?: string | null
+          last_read_anchor_label?: string | null
+          last_read_at?: string | null
           last_read_slug?: string | null
           onboarding_completed_at?: string | null
           purchased_at?: string | null
@@ -169,10 +175,31 @@ export type Database = {
           email?: string | null
           first_login_at?: string | null
           id?: string
+          last_read_anchor?: string | null
+          last_read_anchor_label?: string | null
+          last_read_at?: string | null
           last_read_slug?: string | null
           onboarding_completed_at?: string | null
           purchased_at?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      reading_progress: {
+        Row: {
+          completed_at: string
+          slug: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          slug: string
+          user_id?: string
+        }
+        Update: {
+          completed_at?: string
+          slug?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -196,6 +223,36 @@ export type Database = {
           id?: string
           resource_name?: string
           resource_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_activity_events: {
+        Row: {
+          anchor: string | null
+          created_at: string
+          event_type: string
+          id: string
+          metadata: Json
+          slug: string | null
+          user_id: string
+        }
+        Insert: {
+          anchor?: string | null
+          created_at?: string
+          event_type: string
+          id?: string
+          metadata?: Json
+          slug?: string | null
+          user_id?: string
+        }
+        Update: {
+          anchor?: string | null
+          created_at?: string
+          event_type?: string
+          id?: string
+          metadata?: Json
+          slug?: string | null
           user_id?: string
         }
         Relationships: []
@@ -232,7 +289,10 @@ export type Database = {
         Returns: boolean
       }
       mark_first_login: { Args: never; Returns: undefined }
-      set_last_read: { Args: { _slug: string }; Returns: undefined }
+      set_last_read: {
+        Args: { _anchor?: string; _anchor_label?: string; _slug: string }
+        Returns: undefined
+      }
     }
     Enums: {
       access_status: "activo" | "pendiente" | "revocado"

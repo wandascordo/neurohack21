@@ -4,7 +4,8 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { meta } from "@/components/Placeholder";
 import { BookScreen, TopBar } from "@/components/libro/BookChrome";
-import { INDICE, LIBRO } from "@/lib/libro";
+import { INDICE } from "@/lib/libro";
+import { fetchProgreso, logEvent } from "@/lib/progreso";
 import paginas from "@/assets/menu-paginas.png.asset.json";
 import flecha from "@/assets/menu-flecha.png.asset.json";
 import foco from "@/assets/menu-foco.png.asset.json";
@@ -42,16 +43,14 @@ function Menu() {
   const [view, setView] = useState<"main" | "indice">("main");
   const [closing, setClosing] = useState(false);
 
-  const { data: lastSlug } = useQuery({
-    queryKey: ["last-read"],
-    queryFn: async () => {
-      const { data: u } = await supabase.auth.getUser();
-      if (!u.user) return null;
-      const { data } = await supabase.from("profiles").select("last_read_slug").eq("id", u.user.id).maybeSingle();
-      return data?.last_read_slug ?? null;
-    },
+  const { data: progreso } = useQuery({
+    queryKey: ["progreso-lectura"],
+    queryFn: fetchProgreso,
+    staleTime: 0,
+    refetchOnMount: "always",
   });
-  const continuar = lastSlug && LIBRO.some((p) => p.slug === lastSlug) ? lastSlug : "prologo";
+  const continuar = progreso?.slug ?? "prologo";
+  const continuarHash = progreso?.anchor ?? undefined;
 
   function closeMenu() {
     if (closing) return;
@@ -82,13 +81,13 @@ function Menu() {
                 <img className="h-6 w-6" src={flecha.url} alt="" />
               </button>
               {items.map((i, idx) => (
-                <Link key={i.to} to={i.to} className={`${row} ${staggerClass}`} style={stagger(idx + 1)}>
+                <Link key={i.to} to={i.to} onClick={() => logEvent("recurso_abierto", { metadata: { recurso: i.to, desde: "menu" } })} className={`${row} ${staggerClass}`} style={stagger(idx + 1)}>
                   <img className="h-6 w-6" src={i.icon} alt="" />
                   <span className={title}>{i.label}</span>
                 </Link>
               ))}
             </nav>
-            <Link to="/indice/$seccion" params={{ seccion: continuar }} style={stagger(7)} className={`flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-salvia px-6 py-4 text-center text-base font-semibold uppercase leading-none text-tiza ${staggerClass}`}>
+            <Link to="/indice/$seccion" params={{ seccion: continuar }} {...(continuarHash ? { hash: continuarHash } : {})} onClick={() => logEvent("continuar_leyendo", { slug: continuar, anchor: continuarHash, metadata: { desde: "menu" } })} style={stagger(7)} className={`flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-salvia px-6 py-4 text-center text-base font-semibold uppercase leading-none text-tiza ${staggerClass}`}>
               Continuar leyendo
             </Link>
             <div className="flex flex-1 flex-col items-center justify-end self-stretch">

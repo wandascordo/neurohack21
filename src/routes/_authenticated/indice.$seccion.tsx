@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { guardarPosicion, logEvent, marcarCompletada } from "@/lib/progreso";
 import { Placeholder } from "@/components/Placeholder";
 import { BackButton, BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { Recapitulando, SemanaView } from "@/components/libro/Reto";
@@ -77,9 +77,76 @@ function Seccion() {
     return () => window.cancelAnimationFrame(id);
   }, [p.slug]);
 
+  // Memoria de lectura: guarda módulo + último subtítulo visible, y lo
+  // restaura al volver (Continuar leyendo llega con #anchor en la URL).
   useEffect(() => {
-    void supabase.rpc("set_last_read", { _slug: p.slug });
+    const slug = p.slug;
+    const hash = decodeURIComponent(window.location.hash.slice(1));
+    let current: { id: string; label: string } | null = null;
+    let saved = "";
+    let timer: number | undefined;
+
+    if (hash) {
+      const el = document.getElementById(hash);
+      if (el) {
+        current = { id: hash, label: el.textContent ?? "" };
+        window.requestAnimationFrame(() => el.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "start" }));
+      }
+    }
+
+    const save = () => {
+      const key = `${slug}#${current?.id ?? ""}`;
+      if (key === saved) return;
+      saved = key;
+      void guardarPosicion(slug, current?.id ?? null, current?.label ?? null);
+    };
+    save();
+    logEvent("seccion_abierta", { slug, anchor: current?.id });
+
+    const onScroll = () => {
+      const heads = Array.from(document.querySelectorAll<HTMLElement>("article h2[id]"));
+      let found: HTMLElement | null = null;
+      for (const h of heads) {
+        if (h.getBoundingClientRect().top <= 140) found = h;
+        else break;
+      }
+      current = found ? { id: found.id, label: found.textContent ?? "" } : null;
+      window.clearTimeout(timer);
+      timer = window.setTimeout(save, 800);
+    };
+    const flush = () => { window.clearTimeout(timer); save(); };
+    const onVis = () => { if (document.visibilityState === "hidden") flush(); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("pagehide", flush);
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("pagehide", flush);
+      document.removeEventListener("visibilitychange", onVis);
+      // Si se pasa a otra sección, esa sección guarda su propia posición.
+      const path = window.location.pathname;
+      if (!(path.startsWith("/indice/") && path !== `/indice/${slug}`)) flush();
+      else window.clearTimeout(timer);
+    };
   }, [p.slug]);
+
+  // Sección leída: al llegar al final de la página.
+  const endRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = endRef.current;
+    if (!el) return;
+    let done = false;
+    const io = new IntersectionObserver((entries) => {
+      if (!done && entries.some((e) => e.isIntersecting)) {
+        done = true;
+        void marcarCompletada(p.slug);
+        io.disconnect();
+      }
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [p.slug]);
+
 
 
   if (p.kind === "parte") {
@@ -132,6 +199,7 @@ function Seccion() {
               </div>
             ))}
           </article>
+          <div ref={endRef} aria-hidden className="h-px" />
         </div>
       </BookScreen>
     );
@@ -180,6 +248,7 @@ function Seccion() {
             groupParagraphs(p.blocks)
           )}
         </article>
+        <div ref={endRef} aria-hidden className="-mt-5 h-px" />
         {p.kind === "modulo" && p.autoevaluacion && (
           <Link to="/autoevaluacion" className="flex h-fit w-full flex-row items-center justify-center gap-2.5 overflow-hidden rounded-full bg-carbon-10/10 px-6 py-4 text-center text-base font-semibold uppercase leading-none text-piedra">Realizar Autoevaluación de Foco</Link>
         )}
