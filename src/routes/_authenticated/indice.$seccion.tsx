@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-ro
 import { useEffect, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Placeholder } from "@/components/Placeholder";
-import { BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
+import { BackButton, BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { InstructivoLink } from "@/components/libro/InstructivoModal";
 import { LIBRO, type Block } from "@/lib/libro";
 import parte1Illustration from "@/assets/parte-1-illustration.svg.asset.json";
