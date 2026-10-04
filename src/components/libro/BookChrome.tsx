@@ -45,9 +45,26 @@ function DarkMode() {
   );
 }
 
-export function TopBar({ onClose }: { onClose?: () => void }) {
+function useHideOnScrollDown() {
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < 80) setHidden(false);
+      else if (y > last + 4) setHidden(true);
+      else if (y < last - 4) setHidden(false);
+      last = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return hidden;
+}
+
+function TopBarRow({ onClose }: { onClose?: () => void }) {
   return (
-    <div className="relative flex h-fit flex-row items-center justify-between self-stretch py-2.5">
+    <>
       {onClose ? (
         <button type="button" onClick={onClose} aria-label="Cerrar menú" className="h-7 w-7">
           <img className="h-7 w-7" src={menuClose.url} alt="" />
@@ -57,7 +74,34 @@ export function TopBar({ onClose }: { onClose?: () => void }) {
       )}
       <Header />
       <DarkMode />
-    </div>
+    </>
+  );
+}
+
+export function TopBar({ onClose }: { onClose?: () => void }) {
+  if (onClose) {
+    return (
+      <div className="relative flex h-fit flex-row items-center justify-between self-stretch py-2.5">
+        <TopBarRow onClose={onClose} />
+      </div>
+    );
+  }
+  return <FixedTopBar />;
+}
+
+function FixedTopBar() {
+  const hidden = useHideOnScrollDown();
+  return (
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-40 bg-tiza transition-transform duration-300 ease-out ${hidden ? "-translate-y-full" : "translate-y-0"}`}
+      >
+        <div className="mx-auto flex w-full max-w-[400px] flex-row items-center justify-between px-5 py-2.5">
+          <TopBarRow />
+        </div>
+      </header>
+      <div className="h-12 shrink-0" aria-hidden="true" />
+    </>
   );
 }
 
