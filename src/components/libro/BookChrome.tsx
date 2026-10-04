@@ -2,6 +2,17 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import logo from "@/assets/book-logo.svg.asset.json";
 import menuClose from "@/assets/menu-close.png.asset.json";
+import backIcon from "@/assets/menu-back.png.asset.json";
+
+// Botón "volver" con el mismo formato que "Menú principal" del índice.
+export function BackButton({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button type="button" onClick={onClick} className="flex h-11 flex-row items-center gap-1 self-stretch py-2.5">
+      <img className="h-5 w-5" src={backIcon.url} alt="" />
+      <span className="text-sm font-normal tracking-tight text-carbon text-left">{label}</span>
+    </button>
+  );
+}
 
 function Menu() {
   return (
