@@ -42,6 +42,7 @@ export const Route = createFileRoute("/_authenticated/indice/$seccion")({
 function Seccion() {
   const { i } = Route.useLoaderData();
   const p = LIBRO[i]!;
+  const prev = LIBRO[i - 1];
   const next = LIBRO[i + 1];
   const navigate = useNavigate();
   const [entered, setEntered] = useState(false);
@@ -106,6 +107,7 @@ function Seccion() {
       <TopBar />
       <div className={`flex w-full flex-col gap-5 ${fade}`}>
         <ProgressBar value={(i + 1) / LIBRO.length} />
+        {prev && <BackButton label="Módulo anterior" onClick={() => goNext(prev.slug)} />}
         <article className="flex flex-col gap-10 self-stretch py-5">
           <div className="flex flex-col gap-2.5">
             <p className="text-base font-semibold leading-none text-piedra">
