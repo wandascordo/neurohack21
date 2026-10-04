@@ -6,6 +6,7 @@ import { BackButton, BookScreen, ProgressBar, TopBar, btnPrimary } from "@/compo
 import { Recapitulando, SemanaView } from "@/components/libro/Reto";
 import { InstructivoLink } from "@/components/libro/InstructivoModal";
 import { LIBRO, type Block } from "@/lib/libro";
+import { BIBLIOGRAFIA, BIBLIOGRAFIA_INTRO } from "@/lib/conclusiones";
 import parte1Illustration from "@/assets/parte-1-illustration.svg.asset.json";
 import parte2Illustration from "@/assets/parte-2-illustration.svg.asset.json";
 import parte3Illustration from "@/assets/parte-3.png.asset.json";
@@ -111,6 +112,31 @@ function Seccion() {
     );
   }
 
+  if (p.kind === "biblio") {
+    return (
+      <BookScreen>
+        <TopBar />
+        <div className={`flex w-full flex-col gap-5 pb-5 ${fade}`}>
+          {prev && <BackButton label="Módulo anterior" onClick={() => goNext(prev.slug)} />}
+          <article className="flex flex-col gap-10 self-stretch border-b border-carbon-10/10 pb-10 pt-5">
+            <div className="flex flex-col gap-2.5">
+              <h1 className="text-[28px] font-normal leading-[1.1] tracking-[-1.50px] text-carbon">{p.titulo}</h1>
+              <p className="text-base font-normal tracking-tight text-piedra">{BIBLIOGRAFIA_INTRO}</p>
+            </div>
+            {BIBLIOGRAFIA.map((g) => (
+              <div key={g.tema} className="flex flex-col gap-2.5">
+                <h2 className="text-lg font-semibold leading-[1.1] tracking-tight text-piedra">{g.tema}</h2>
+                <ul className="flex list-disc flex-col gap-2.5 pl-4 text-base font-normal tracking-tight text-piedra">
+                  {g.items.map((it) => <li key={it}>{it}</li>)}
+                </ul>
+              </div>
+            ))}
+          </article>
+        </div>
+      </BookScreen>
+    );
+  }
+
   return (
     <BookScreen>
       <TopBar />
@@ -158,7 +184,7 @@ function Seccion() {
           <Link to="/autoevaluacion" className="flex h-fit w-full flex-row items-center justify-center gap-2.5 overflow-hidden rounded-full bg-carbon-10/10 px-6 py-4 text-center text-base font-semibold uppercase leading-none text-piedra">Realizar Autoevaluación de Foco</Link>
         )}
         {next ? (
-          <button type="button" onClick={() => goNext(next.slug)} className={`${btnPrimary} w-full`}>{p.kind === "reto" && p.vista === "recap" ? "Continuar" : "Siguiente"}</button>
+          <button type="button" onClick={() => goNext(next.slug)} className={`${btnPrimary} w-full`}>{p.kind === "reto" && p.vista === "recap" ? "Continuar" : next.kind === "biblio" ? "Bibliografía" : "Siguiente"}</button>
         ) : (
           p.slug !== "prologo" && <button type="button" onClick={() => goNext()} className={`${btnPrimary} w-full`}>Índice</button>
         )}
