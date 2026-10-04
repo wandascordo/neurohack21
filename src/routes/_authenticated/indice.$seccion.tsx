@@ -190,7 +190,7 @@ function groupParagraphs(blocks: Block[]) {
   };
   blocks.forEach((b, idx) => {
     // Párrafos, pasos y ejemplos comparten el ritmo interno de 20 px.
-    if ((b.type === "p" || b.type === "ejemplo" || b.type === "pasos" || b.type === "bullets") && grupo) {
+    if ((b.type === "p" || b.type === "ejemplo" || b.type === "pasos" || b.type === "bullets" || b.type === "senales" || b.type === "ritual") && grupo) {
       grupo.push({ b, idx });
     } else if (b.type === "h") {
       flush();
@@ -242,7 +242,7 @@ function BlockView({ b }: { b: Block }) {
       return <h2 id={anchorId(b.text)} style={{ scrollMarginTop: "40px" }} className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{b.text}</h2>;
     case "bullets":
       return (
-        <ul className={`list-disc pl-4 ${body} ${b.bold ? "font-semibold" : ""} flex flex-col gap-2.5`}>
+        <ul className={`list-disc pl-4 text-base tracking-tight text-piedra ${b.bold ? "font-semibold" : "font-normal"} flex flex-col gap-2.5`}>
           {b.items.map((item) => <li key={item}>{item}</li>)}
         </ul>
       );

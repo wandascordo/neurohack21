@@ -151,9 +151,6 @@ const MODULO3: Block[] = [
   {"type": "cierre", "items": ["La falta de foco tiene una capa corporal y neurológica (lo que trabaja Dispenza) y una capa psicológica e inconsciente (lo que trabaja Jung).", "Regular solo el cuerpo, sin mirar qué se evita, suele dar resultados temporales. Mirar solo el patrón inconsciente, sin regular el cuerpo, da claridad sin sostén fisiológico.", "La pregunta clave que vas a repetir durante el reto no es solo \"¿cómo me concentro?\", sino también \"¿qué parte de mí se beneficia de no hacerlo?\".", "Ambos marcos se usan acá de forma acotada y honesta, sin forzar equivalencias que no corresponden entre neurociencia y psicología simbólica."], "ejercicio": "Pensá en la tarea que más postergás últimamente, la que \"siempre encontrás una excusa\" para no hacer. Sin juzgarte, registrá una respuesta honesta a esta pregunta: si postergar esta tarea me estuviera protegiendo de sentir algo incómodo, ¿qué sería? No busques la respuesta \"correcta\", dejá que aparezca lo primero que se te ocurra, aunque parezca ilógico. Esa respuesta va a ser un primer indicio del tipo de contenido que vas a trabajar con las herramientas junguianas del Módulo 5."},
 ];
 
-const mod = (n: number, parte: string, titulo: string): Pagina => ({
-  slug: `modulo-${n}`, kind: "modulo", eyebrow: `${parte} / Módulo ${n}`, titulo, blocks: pend,
-});
 
 export const LIBRO: Pagina[] = [
   { slug: "prologo", kind: "modulo", eyebrow: "Introducción", titulo: "Prólogo", tiempo: "4 min.", blocks: PROLOGO },
