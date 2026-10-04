@@ -3,6 +3,7 @@ import { MODULO5 } from "./modulo5";
 import { MODULO6 } from "./modulo6";
 import { MODULO7 } from "./modulo7";
 import { MODULO8 } from "./modulo8";
+import { CONCLUSIONES } from "./conclusiones";
 
 export type Enlace = { text: string; to: string };
 
@@ -23,9 +24,9 @@ export type Block =
 export type Pagina =
   | { slug: string; kind: "parte"; eyebrow: string; titulo: string; firstSlug: string }
   | { slug: string; kind: "modulo"; eyebrow: string; titulo: string; tiempo?: string; blocks: Block[]; autoevaluacion?: boolean }
+  | { slug: string; kind: "biblio"; eyebrow: string; titulo: string }
   | { slug: string; kind: "reto"; eyebrow: string; titulo: string; vista: "recap" | 1 | 2 | 3 };
 
-const pend: Block[] = [{ type: "p", text: "El texto de esta sección se incorporará próximamente." }];
 
 const PROLOGO = [
   `Son las 7 de la mañana. Agarrás el celular "solo para ver la hora" y cuarenta minutos después seguís scrolleando, sin saber muy bien cómo llegaste hasta ahí. Te sentás a trabajar en algo importante y a los cinco minutos ya estás revisando el mail, después una notificación, después un pensamiento que te lleva a otro, y otro más. Al final del día sentís que hiciste mucho, pero avanzaste poco. Si esto te suena familiar, no estás roto. Tu cerebro está haciendo exactamente lo que fue entrenado para hacer.`,
@@ -170,8 +171,8 @@ export const LIBRO: Pagina[] = [
   { slug: "parte-4", kind: "parte", eyebrow: "Parte IV", titulo: "Sostener el cambio", firstSlug: "modulo-7" },
   { slug: "modulo-7", kind: "modulo", eyebrow: "Parte IV / Módulo 7", titulo: "Qué hacer después del día 21", tiempo: "7 min.", blocks: MODULO7 },
   { slug: "modulo-8", kind: "modulo", eyebrow: "Parte IV / Módulo 8", titulo: "Foco en el mundo real", tiempo: "6 min.", blocks: MODULO8 },
-  { slug: "conclusiones", kind: "parte", eyebrow: "Parte Final", titulo: "Conclusiones", firstSlug: "bibliografia" },
-  { slug: "bibliografia", kind: "modulo", eyebrow: "Bibliografía", titulo: "Bibliografía", blocks: pend },
+  { slug: "conclusiones", kind: "modulo", eyebrow: "Parte V", titulo: "Conclusiones", tiempo: "4 min.", blocks: CONCLUSIONES },
+  { slug: "bibliografia", kind: "biblio", eyebrow: "", titulo: "Bibliografía y Fuentes Citadas" },
 ];
 
 export type IndiceGrupo = { titulo: string; slug?: string; items: { slug: string; label: string }[] };
