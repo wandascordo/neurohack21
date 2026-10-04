@@ -114,7 +114,19 @@ function Inicio() {
             <div className="grid w-full grid-cols-3 gap-2.5">
               {recursos.map((r) => (
                 <Link key={r.to} to={r.to} onClick={() => logEvent("recurso_abierto", { metadata: { recurso: r.to, desde: "inicio" } })} className="flex h-[120px] flex-col items-start justify-between rounded-[20px] border border-carbon-10/10 bg-carbon/[0.03] p-2.5">
-                  <img className={r.to === "/autoevaluacion" ? "h-[30px] w-[30px]" : "h-6 w-6"} src={r.icon} alt="" />
+                  <span
+                    className={r.to === "/autoevaluacion" ? "h-[30px] w-[30px] bg-salvia" : "h-6 w-6 bg-salvia"}
+                    style={{
+                      maskImage: `url(${r.icon})`,
+                      WebkitMaskImage: `url(${r.icon})`,
+                      maskSize: "contain",
+                      WebkitMaskSize: "contain",
+                      maskRepeat: "no-repeat",
+                      WebkitMaskRepeat: "no-repeat",
+                      maskPosition: "center",
+                      WebkitMaskPosition: "center",
+                    }}
+                  />
                   <span className="self-stretch text-left text-xs font-normal tracking-tight text-carbon">{r.label}</span>
                 </Link>
               ))}
