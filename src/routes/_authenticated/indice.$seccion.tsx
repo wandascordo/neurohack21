@@ -78,8 +78,8 @@ function Seccion() {
   if (p.kind === "parte") {
     return (
       <BookScreen fill>
+        <TopBar />
         <div className={`flex w-full flex-1 flex-col gap-5 ${fade}`}>
-          <TopBar />
           <div className="flex flex-1 flex-col items-center justify-between self-stretch py-[50px]">
             <div className="flex h-fit flex-col items-center gap-2.5 self-stretch">
               <p className="self-stretch text-left text-base font-semibold leading-none text-carbon">{p.eyebrow}</p>
@@ -103,8 +103,8 @@ function Seccion() {
 
   return (
     <BookScreen>
+      <TopBar />
       <div className={`flex w-full flex-col gap-5 ${fade}`}>
-        <TopBar />
         <ProgressBar value={(i + 1) / LIBRO.length} />
         <article className="flex flex-col gap-10 self-stretch py-5">
           <div className="flex flex-col gap-2.5">
