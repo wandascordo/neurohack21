@@ -45,7 +45,7 @@ export function InstructivoLink() {
             e.preventDefault();
             window.scrollTo({ top: scrollY.current, behavior: "instant" as ScrollBehavior });
           }}
-          className="flex max-h-[calc(100svh-2.5rem)] w-[calc(100%-30px)] max-w-[370px] flex-col gap-5 overflow-hidden rounded-[20px] border border-carbon-10/10 bg-white px-5 pb-[30px] pt-5 font-rethink-sans shadow-[3px_3px_10px_0px_rgb(29_29_29_/_0.1)] sm:rounded-[20px] [&>button:last-child]:hidden"
+          className="flex max-h-[calc(100svh-2.5rem)] w-[calc(100%-30px)] max-w-[370px] flex-col gap-5 overflow-hidden rounded-[20px] border border-carbon-10/10 bg-blanco px-5 pb-[30px] pt-5 font-rethink-sans shadow-[3px_3px_10px_0px_rgb(29_29_29_/_0.1)] sm:rounded-[20px] [&>button:last-child]:hidden"
         >
           <div className="w-fit rounded-full bg-carbon-10/10 px-4 py-2">
             <p className="text-center text-base font-semibold leading-none text-salvia">Autoevaluación de Foco</p>
