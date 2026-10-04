@@ -19,7 +19,7 @@ export type Block =
 export type Pagina =
   | { slug: string; kind: "parte"; eyebrow: string; titulo: string; firstSlug: string }
   | { slug: string; kind: "modulo"; eyebrow: string; titulo: string; tiempo?: string; blocks: Block[]; autoevaluacion?: boolean }
-  | { slug: string; kind: "reto"; eyebrow: string; titulo: string };
+  | { slug: string; kind: "reto"; eyebrow: string; titulo: string; vista: "recap" | 1 | 2 | 3 };
 
 const pend: Block[] = [{ type: "p", text: "El texto de esta sección se incorporará próximamente." }];
 
@@ -161,8 +161,11 @@ export const LIBRO: Pagina[] = [
   { slug: "modulo-4", kind: "modulo", eyebrow: "Parte II / Módulo 4", titulo: "El pilar Dispenza", tiempo: "7 min.", blocks: MODULO4 },
   { slug: "modulo-5", kind: "modulo", eyebrow: "Parte II / Módulo 5", titulo: "El pilar Jung", tiempo: "6 min.", blocks: MODULO5 },
   { slug: "modulo-6", kind: "modulo", eyebrow: "Parte II / Módulo 6", titulo: "El diseño del reto", tiempo: "9 min.", blocks: MODULO6, autoevaluacion: true },
-  { slug: "parte-3", kind: "parte", eyebrow: "Parte III", titulo: "El reto Neurohack 21", firstSlug: "reto" },
-  { slug: "reto", kind: "reto", eyebrow: "Parte III", titulo: "El reto de 21 días" },
+  { slug: "parte-3", kind: "parte", eyebrow: "Parte III", titulo: "El reto Neurohack 21", firstSlug: "recapitulando" },
+  { slug: "recapitulando", kind: "reto", eyebrow: "Parte III", titulo: "Recapitulando", vista: "recap" },
+  { slug: "semana-1", kind: "reto", eyebrow: "Parte III / Semana 1 (Días 1 a 7)", titulo: "Desprogramar", vista: 1 },
+  { slug: "semana-2", kind: "reto", eyebrow: "Parte III / Semana 2 (Días 8 a 14)", titulo: "Reprogramar", vista: 2 },
+  { slug: "semana-3", kind: "reto", eyebrow: "Parte III / Semana 3 (Días 15 a 21)", titulo: "Integrar", vista: 3 },
   { slug: "parte-4", kind: "parte", eyebrow: "Parte IV", titulo: "Sostener el cambio", firstSlug: "modulo-7" },
   mod(7, "Parte IV", "Qué hacer después del día 21"),
   mod(8, "Parte IV", "Foco en el mundo real"),
@@ -176,7 +179,12 @@ export const INDICE: IndiceGrupo[] = [
   { titulo: "Introducción", items: [{ slug: "prologo", label: "Prólogo" }] },
   { titulo: "Parte I: El cerebro distraído", slug: "parte-1", items: [1, 2, 3].map(itemMod) },
   { titulo: "Parte II: Los dos pilares del método", slug: "parte-2", items: [4, 5, 6].map(itemMod) },
-  { titulo: "Parte III: El reto Neurohack 21", slug: "parte-3", items: [] },
+  { titulo: "Parte III: El reto Neurohack 21", slug: "parte-3", items: [
+    { slug: "recapitulando", label: "Recapitulando" },
+    { slug: "semana-1", label: "Semana 1: Desprogramar" },
+    { slug: "semana-2", label: "Semana 2: Reprogramar" },
+    { slug: "semana-3", label: "Semana 3: Integrar" },
+  ] },
   { titulo: "Parte IV: Sostener el cambio", slug: "parte-4", items: [7, 8].map(itemMod) },
   { titulo: "Conclusiones", slug: "conclusiones", items: [] },
   { titulo: "Bibliografía", slug: "bibliografia", items: [] },
