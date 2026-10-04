@@ -96,11 +96,11 @@ function FixedTopBar() {
       <header
         className={`fixed inset-x-0 top-0 z-40 bg-tiza transition-transform duration-300 ease-out ${hidden ? "-translate-y-full" : "translate-y-0"}`}
       >
-        <div className="mx-auto flex w-full max-w-[400px] flex-row items-center justify-between px-5 py-2.5">
+        <div className="mx-auto flex w-full max-w-[400px] flex-row items-center justify-between px-5 py-5">
           <TopBarRow />
         </div>
       </header>
-      <div className="h-12 shrink-0" aria-hidden="true" />
+      <div className="h-[68px] shrink-0" aria-hidden="true" />
     </>
   );
 }
