@@ -1,7 +1,7 @@
 // Contenido de la Parte III (exports de Figma «Parte III – Recapitulando / Semana 1-3»).
 // Marcado de texto: **negrita**, *cursiva*, {Texto del enlace} (ver RETO_LINKS).
 
-export const RETO_LINKS: Record<string, string> = {
+export const RETO_LINKS: Record<string, "/registro-diario" | "/autoevaluacion" | "/tracker"> = {
   "Registro Diario": "/registro-diario",
   "Autoevaluación de Foco": "/autoevaluacion",
   "Tracker Visual de 21 Días": "/tracker",

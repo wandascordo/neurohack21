@@ -3,6 +3,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Placeholder } from "@/components/Placeholder";
 import { BackButton, BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
+import { Recapitulando, SemanaView } from "@/components/libro/Reto";
 import { InstructivoLink } from "@/components/libro/InstructivoModal";
 import { LIBRO, type Block } from "@/lib/libro";
 import parte1Illustration from "@/assets/parte-1-illustration.svg.asset.json";
@@ -108,7 +109,7 @@ function Seccion() {
       <div className={`flex w-full flex-col gap-5 ${fade}`}>
         <ProgressBar value={(i + 1) / LIBRO.length} />
         {prev && <BackButton label="Módulo anterior" onClick={() => goNext(prev.slug)} />}
-        <article className="flex flex-col gap-10 self-stretch py-5">
+        <article className={`flex flex-col self-stretch py-5 ${p.kind === "reto" && p.vista === "recap" ? "gap-5" : "gap-10"}`}>
           <div className="flex flex-col gap-2.5">
             <p className="text-base font-semibold leading-none text-piedra">
               {p.eyebrow.includes(" / ") ? (
@@ -118,7 +119,15 @@ function Seccion() {
                     <>
                       {p.eyebrow.slice(0, sep)}
                       {" / "}
-                      <span className="text-carbon">{p.eyebrow.slice(sep + 3)}</span>
+                      {(() => {
+                        const tail = p.eyebrow.slice(sep + 3);
+                        const k = tail.indexOf(" (");
+                        return k < 0 ? (
+                          <span className="text-carbon">{tail}</span>
+                        ) : (
+                          <span className="text-carbon">{tail.slice(0, k)}<span className="font-normal">{tail.slice(k)}</span></span>
+                        );
+                      })()}
                     </>
                   );
                 })()
@@ -132,10 +141,7 @@ function Seccion() {
             )}
           </div>
           {p.kind === "reto" ? (
-            <>
-              <p className="text-base tracking-tight text-piedra">Tus prácticas diarias y reflexiones del reto van a vivir en el Registro Diario. Esta sección se completará más adelante.</p>
-              <Link to="/registro-diario" className="text-base font-semibold text-salvia underline">Ir al Registro Diario →</Link>
-            </>
+            p.vista === "recap" ? <Recapitulando /> : <SemanaView numero={p.vista} />
           ) : (
             groupParagraphs(p.blocks)
           )}
@@ -144,7 +150,7 @@ function Seccion() {
           <Link to="/autoevaluacion" className="flex h-fit w-full flex-row items-center justify-center gap-2.5 overflow-hidden rounded-full bg-carbon-10/10 px-6 py-4 text-center text-base font-semibold uppercase leading-none text-piedra">Realizar Autoevaluación de Foco</Link>
         )}
         {next ? (
-          <button type="button" onClick={() => goNext(next.slug)} className={`${btnPrimary} w-full`}>Siguiente</button>
+          <button type="button" onClick={() => goNext(next.slug)} className={`${btnPrimary} w-full`}>{p.kind === "reto" && p.vista === "recap" ? "Continuar" : "Siguiente"}</button>
         ) : (
           p.slug !== "prologo" && <button type="button" onClick={() => goNext()} className={`${btnPrimary} w-full`}>Índice</button>
         )}
