@@ -32,7 +32,7 @@ export async function fetchProgreso(): Promise<Progreso | null> {
 }
 
 /** Registra una acción del usuario (no bloquea la interfaz). */
-export function logEvent(event_type: string, data: { slug?: string; anchor?: string; metadata?: Record<string, Json> } = {}) {
+export function logEvent(event_type: string, data: { slug?: string | undefined; anchor?: string | undefined; metadata?: Record<string, Json> } = {}) {
   supabase
     .from("user_activity_events")
     .insert({ event_type, slug: data.slug ?? null, anchor: data.anchor ?? null, metadata: data.metadata ?? {} })
@@ -40,7 +40,10 @@ export function logEvent(event_type: string, data: { slug?: string; anchor?: str
 }
 
 export async function guardarPosicion(slug: string, anchor: string | null, anchorLabel: string | null) {
-  const { error } = await supabase.rpc("set_last_read", { _slug: slug, _anchor: anchor ?? undefined, _anchor_label: anchorLabel ?? undefined });
+  const args: { _slug: string; _anchor?: string; _anchor_label?: string } = { _slug: slug };
+  if (anchor) args._anchor = anchor;
+  if (anchorLabel) args._anchor_label = anchorLabel;
+  const { error } = await supabase.rpc("set_last_read", args);
   if (error) console.warn("set_last_read", error.message);
 }
 

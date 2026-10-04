@@ -94,7 +94,7 @@ function Inicio() {
                     <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-avena">{data.anchorLabel}</p>
                   )}
                 </div>
-                <Link to="/indice/$seccion" params={{ seccion: pagina.slug }} hash={hash} onClick={() => logEvent("continuar_leyendo", { slug: pagina.slug, anchor: hash, metadata: { desde: "inicio" } })} className="flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-tiza px-6 py-4 text-center text-base font-semibold uppercase leading-none text-salvia">
+                <Link to="/indice/$seccion" params={{ seccion: pagina.slug }} {...(hash ? { hash: hash } : {})} onClick={() => logEvent("continuar_leyendo", { slug: pagina.slug, anchor: hash, metadata: { desde: "inicio" } })} className="flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-tiza px-6 py-4 text-center text-base font-semibold uppercase leading-none text-salvia">
                   Continuar leyendo
                 </Link>
               </>
