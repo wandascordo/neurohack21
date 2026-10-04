@@ -1,0 +1,56 @@
+import type { Block } from "./libro";
+
+export const MODULO7: Block[] = [
+  {
+    type: "sumario",
+    items: [
+      "Por qué este módulo es tan importante como los otros seis",
+      "Cómo evitar la recaída en el \"cerebro por defecto\"",
+      "Rituales mínimos de mantenimiento (micro-hábitos)",
+      "Diseñá tus propias intenciones de implementación",
+      "Señales de que el cambio se está consolidando",
+      "Qué hacer si notás que el patrón viejo está volviendo con fuerza",
+    ],
+  },
+  { type: "h", text: "Por qué este módulo es tan importante como los otros seis" },
+  { type: "p", text: "Si algo dejó claro el Módulo 6, es que 21 días alcanzan para atravesar la parte más empinada de la curva de cambio, pero no para completar la automatización de un hábito complejo. Esto significa que el momento más frágil de todo el proceso no es el Día 1, es el Día 22: el día en que se termina la estructura del reto y la persona queda, por primera vez, sin un plan escrito que le diga qué hacer. Es exactamente en ese punto donde la mayoría de los procesos de cambio personal se diluyen, no por falta de resultados durante el reto, sino por falta de un puente hacia la vida sin reto." },
+  { type: "p", text: "Este módulo existe para construir ese puente antes de que lo necesites, no después de haberlo perdido." },
+  { type: "h", text: "Cómo evitar la recaída en el \"cerebro por defecto\"" },
+  { type: "p", text: "La recaída, en términos del Módulo 1, es simplemente el regreso a la dominancia de la Default Mode Network sobre la red de atención dirigida, un regreso al patrón viejo por la vía de menor resistencia neurológica. La buena noticia, que ya vimos en el Módulo 2, es que un circuito entrenado durante 21 días no desaparece de un día para el otro cuando dejás de practicar. Pero sí es cierto que un circuito reciente es más frágil que uno de toda la vida, y necesita algo de mantenimiento activo para consolidarse en lugar de debilitarse." },
+  { type: "p", text: "La herramienta con mayor respaldo empírico para sostener un cambio de conducta en el tiempo, con una magnitud de efecto considerada de moderada a alta según un metaanálisis de 94 estudios independientes, es lo que el psicólogo Peter Gollwitzer llamó \"intenciones de implementación\": planes con la estructura \"si pasa X, entonces voy a hacer Y\". A diferencia de una intención general (\"quiero enfocarme más\"), este tipo de plan conecta una situación concreta con una respuesta concreta, y la investigación muestra que ese vínculo hace que la respuesta se active de forma mucho más automática cuando aparece la situación, incluso bajo estrés o carga cognitiva alta." },
+  { type: "ejemplo", text: "En lugar de proponerte algo vago como \"voy a seguir concentrándome mejor\", diseñá planes específicos: \"si me siento a trabajar y siento el impulso de agarrar el celular, entonces voy a hacer 3 respiraciones de coherencia cardíaca antes de decidir si lo agarro o no\". O: \"si noto que llevo más de 10 minutos evitando una tarea, entonces voy a escribir dos líneas de diálogo interno preguntándome qué estoy evitando sentir\".", extra: "Estos planes son mucho más fáciles de sostener que \"voy a tener disciplina\", porque no dependen de acordarte de una intención abstracta en el momento, dependen de una señal concreta que dispara una acción ya decidida de antemano." },
+  { type: "h", text: "Rituales mínimos de mantenimiento (micro-hábitos)" },
+  { type: "p", text: "Después del día 21, no hace falta sostener la secuencia completa de 8 a 10 minutos todos los días para mantener el progreso. Lo que sí conviene sostener es una versión mínima, lo suficientemente breve como para que no compita con la resistencia natural a agregar una obligación más a un día ya ocupado." },
+  { type: "p", text: "Un ritual mínimo razonable, basado en lo que trabajaste durante las tres semanas, podría ser:" },
+  { type: "ritual", grupos: [
+    { label: "Práctica corporal", item: "Respiración de coherencia cardíaca antes del primer bloque de trabajo del día (1 min)" },
+    { label: "Reflexión escrita", item: "Una línea escrita al final del día respondiendo: ¿qué noté hoy sobre mi foco?" },
+  ] },
+  { type: "p", text: "Esto no reemplaza la profundidad del trabajo hecho durante el reto, pero mantiene activo el circuito de auto-observación, que es la base de todo lo demás. Es preferible un ritual de un minuto que se sostiene todos los días, a uno de diez minutos que se abandona a la semana." },
+  { type: "ejemplo", text: "Sofía, después de terminar su propio reto, decide que su ritual mínimo va a ser: respiración de coherencia cardíaca de un minuto antes de abrir el mail cada mañana, y la pregunta \"¿qué evité hoy y por qué?\" registrada en una nota rápida antes de cerrar la laptop. No es el programa completo del reto, pero es sostenible a largo plazo, y eso es lo que importa." },
+  { type: "h", text: "Diseñá tus propias intenciones de implementación" },
+  { type: "p", text: "Antes de seguir, tomá lo que registraste en el Día 20 (los ejercicios que más te sirvieron) y convertilos en dos o tres planes concretos con formato \"si pasa X, entonces hago Y\"." },
+  { type: "p", text: "Vas a poder guardarlos al final de tu Registro Diario, donde los puedas repasar semanalmente durante el primer mes después del reto. Este es, probablemente, el ejercicio más importante de todo este módulo.", links: [{ text: "Registro Diario", to: "/registro-diario" }] },
+  { type: "h", text: "Señales de que el cambio se está consolidando" },
+  { type: "p", text: "Es útil saber qué buscar para no depender solo de la sensación subjetiva de \"estoy mejor\" o \"estoy peor\", que puede variar mucho de un día a otro sin reflejar el progreso real. Algunas señales concretas, coherentes con lo que trabajaste en el reto:" },
+  { type: "senales", items: [
+    { title: "Notás la distracción más rápido", text: "No que dejaste de distraerte (eso no es realista ni es el objetivo), sino que el tiempo entre que empezás a distraerte y que lo notás se acorta. Pasar de notarlo a los 20 minutos a notarlo a los 3 minutos es un cambio real, aunque la distracción en sí siga apareciendo." },
+    { title: "El ritual mínimo se siente como algo propio, no como una obligación pendiente", text: "Cuando una práctica pasa de sentirse como \"tengo que hacer esto\" a sentirse como \"esto es simplemente lo que hago antes de empezar a trabajar\", es una señal de que el circuito se está consolidando, tal como vimos en el Módulo 2 con el ejemplo de aprender a manejar." },
+    { title: "Las recaídas se recuperan más rápido", text: "No vas a dejar de tener días de mucha distracción, eso le pasa a todo el mundo. La diferencia está en cuánto tardás en volver al ritual mínimo después de un mal día o una semana difícil. Si antes del reto una mala racha se extendía semanas, y ahora se corta en uno o dos días, ese es un indicador muy concreto de consolidación." },
+    { title: "Podés aplicar el método sin pensarlo conscientemente", text: "Cuando te encontrás haciendo tres respiraciones antes de una reunión difícil sin haberlo decidido de forma deliberada en ese momento, es la señal más clara de que el circuito pasó de ser una técnica aprendida a ser, como dijimos en el Módulo 2, parte de tu comportamiento automático." },
+  ] },
+  { type: "h", text: "Qué hacer si notás que el patrón viejo está volviendo con fuerza" },
+  { type: "p", text: "Si después de unas semanas notás que volviste casi por completo al patrón de distracción anterior, no lo tomes como un fracaso del método, tomalo como una señal de que ese contenido de fondo (el que trabajaste en el Módulo 5) necesita más atención de la que le diste durante el reto." },
+  { type: "p", text: "En ese caso, lo más efectivo no es repetir mecánicamente el reto completo desde el Día 1, sino volver puntualmente a los ejercicios de escritura de sombra y diálogo interno durante una semana, con la base corporal ya entrenada, para revisar si apareció un contenido nuevo o si el original quedó sin resolver del todo." },
+  {
+    type: "cierre",
+    items: [
+      "El momento más frágil del proceso de cambio no es el inicio del reto, es el día después de que termina, cuando desaparece la estructura guiada.",
+      "Los planes \"si pasa X, entonces hago Y\" (intenciones de implementación) tienen respaldo científico sólido para sostener un cambio de conducta en el tiempo, más que las intenciones generales tipo \"voy a tener más disciplina\".",
+      "Un ritual mínimo sostenible todos los días es más efectivo a largo plazo que una práctica larga que se abandona a la semana.",
+      "Hay señales concretas de consolidación del cambio (velocidad de detección de la distracción, velocidad de recuperación después de una recaída, aplicación automática del método) que no dependen solo de cómo te sentís un día puntual.",
+    ],
+    ejercicio: "Registrá tu ritual mínimo de mantenimiento (una práctica de no más de dos minutos) y tus dos o tres intenciones de implementación con formato \"si pasa X, entonces hago Y\".",
+    instructivo: true,
+  },
+];
