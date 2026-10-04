@@ -84,7 +84,7 @@ export const SEMANAS: Record<1 | 2 | 3, Semana> = {
         ] },
         CIERRE,
       ] },
-      { n: 7, autoevaluacion: true, grupos: [
+      { n: 7, grupos: [
         PC(),
         { label: "Reflexión escrita (5 min)", items: [
           { text: "Respondé: ¿qué cambió, aunque sea levemente, en tu capacidad de notar la distracción a tiempo? ¿Qué no cambió todavía, y está bien que no haya cambiado?" },
@@ -147,7 +147,7 @@ export const SEMANAS: Record<1 | 2 | 3, Semana> = {
         ] },
         CIERRE,
       ] },
-      { n: 14, autoevaluacion: true, grupos: [
+      { n: 14, grupos: [
         PC("Práctica corporal (8-10 min), reduciendo la guía paso a paso. **Intentá hacerla de memoria**, sin releer las instrucciones."),
         { label: "Reflexión escrita (5 min)", items: [
           { text: "Cierre de semana. Repasá todo lo escrito en los días 8 a 13. ¿Qué contenido inconsciente (miedo, vergüenza, necesidad no reconocida) aparece de forma más consistente detrás de tu distracción principal?" },
@@ -225,7 +225,7 @@ export const SEMANAS: Record<1 | 2 | 3, Semana> = {
         ] },
         CIERRE,
       ] },
-      { n: 21, autoevaluacion: true, grupos: [
+      { n: 21, grupos: [
         PC("Práctica corporal, secuencia completa (8-10 min)"),
         { label: "Reflexión escrita (5 min)", items: [
           { text: "Cierre final. Respondé: ¿qué cambió realmente en estos 21 días? ¿Qué frase registraste en el Módulo 6 sobre tus expectativas, y qué tan cerca estás de eso hoy? ¿Qué te llevás para seguir sosteniendo después de hoy?" },
