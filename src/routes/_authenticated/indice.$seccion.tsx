@@ -279,6 +279,18 @@ function BlockView({ b }: { b: Block }) {
         </div>
       );
     case "pasos":
+      if (b.card) {
+        return (
+          <div className="flex flex-col gap-5">
+            {b.items.map((item) => (
+              <div key={item.title} className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
+                <h3 className="text-base font-bold tracking-tight text-carbon">{item.title}</h3>
+                {item.paragraphs.map((paragraph) => <p key={paragraph} className={body}>{paragraph}</p>)}
+              </div>
+            ))}
+          </div>
+        );
+      }
       return (
         <ol className="flex flex-col gap-5">
           {b.items.map((item, index) => (

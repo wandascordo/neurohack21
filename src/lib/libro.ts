@@ -11,7 +11,7 @@ export type Block =
   | { type: "bullets"; items: string[] }
   | { type: "ejemplo"; title?: string; text: string; extra?: string; links?: Enlace[] }
   | { type: "cierre"; items: string[]; ejercicio?: string; ejercicioExtra?: string; ejercicioLinks?: Enlace[]; instructivo?: boolean }
-  | { type: "pasos"; items: { title: string; paragraphs: string[] }[] }
+  | { type: "pasos"; card?: boolean; items: { title: string; paragraphs: string[] }[] }
   | { type: "lista"; intro: string; items: string[]; outro: string }
   | { type: "ejercicio"; title?: string; text: string };
 
