@@ -21,10 +21,10 @@ export const Route = createFileRoute("/_authenticated/inicio")({
 
 const recursos = [
   { to: "/autoevaluacion", label: "Autoevaluación de Foco", icon: foco.url },
-  { to: "/kit-emergencia", label: "Botón Anti-Distracción", icon: siren.url },
   { to: "/registro-diario", label: "Registro Diario de 21 Días", icon: calendario.url },
   { to: "/tracker", label: "Tracker Visual de 21 Días", icon: chart.url },
-  { to: "/guiones", label: "Guiones Listos para Proteger tu Foco", icon: postits.url },
+  { to: "/kit-emergencia", label: "Botón Anti-Distracción", icon: siren.url },
+  { to: "/guiones", label: "Guiones para Proteger tu Foco", icon: postits.url },
   { to: "/glosario", label: "Glosario de Términos", icon: glosario.url },
 ] as const;
 
@@ -58,12 +58,12 @@ function Inicio() {
       <Onboarding />
       <div className="flex w-full flex-1 flex-col gap-5">
         <TopBar />
-        <div className="flex flex-1 flex-col items-center gap-5 self-stretch">
+        <div className="flex flex-col items-center gap-10 self-stretch pt-4">
           <h1 className="h-fit shrink-0 self-stretch text-left text-[28px] font-normal leading-[1.1] tracking-[-1.50px] text-carbon">
             {saludo()}
           </h1>
-          <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-4 self-stretch rounded-[10px] relative isolate overflow-hidden border border-carbon-10/10 bg-salvia p-4 [&>*:not(.glow)]:relative [&>*:not(.glow)]:z-10">
-            <div aria-hidden className="glow pointer-events-none absolute left-1/2 top-[70%] -z-0 h-[372px] w-[372px] -translate-x-1/2 rounded-full bg-tiza opacity-40 blur-[100px]" />
+          <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-5 self-stretch rounded-t-[20px] rounded-b-[40px] relative isolate overflow-hidden border border-carbon-10/10 bg-salvia p-5 [&>*:not(.glow)]:relative [&>*:not(.glow)]:z-10">
+            <div aria-hidden className="glow pointer-events-none absolute left-[-6px] top-[125px] -z-0 h-[372px] w-[372px] bg-tiza opacity-40 blur-[100px]" />
             {completo ? (
               <div className="flex flex-col items-center justify-center gap-2.5 self-stretch p-1">
                 <div className="flex h-fit flex-row items-start justify-center gap-5 self-stretch">
@@ -80,7 +80,7 @@ function Inicio() {
               </div>
             ) : pagina ? (
               <>
-                <p className="h-fit self-stretch text-left text-base font-semibold tracking-tight text-tiza">Tu progreso de lectura: {pct}%</p>
+                <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza">Tu progreso de lectura: {pct}%</p>
                 <div className="flex h-1 flex-row self-stretch overflow-hidden rounded-full bg-carbon-10/10">
                   <div className="self-stretch rounded-full bg-tiza transition-[width] duration-1000 ease-linear" style={{ width: `${shownPct}%` }} />
                 </div>
@@ -109,16 +109,20 @@ function Inicio() {
               </>
             )}
           </div>
-          <div className="flex min-h-0 flex-1 flex-col items-start gap-2.5 self-stretch">
-            <p className="h-fit shrink-0 self-stretch text-left text-base font-semibold tracking-tight text-carbon">Tus recursos</p>
-            <div className="grid w-full min-h-0 flex-1 grid-cols-2 grid-rows-3 gap-2.5">
+          <div className="flex h-fit flex-col items-center gap-2.5 self-stretch">
+            <p className="h-[30px] self-stretch text-left text-base font-semibold tracking-tight text-carbon">Tus recursos</p>
+            <div className="grid w-full grid-cols-3 gap-2.5">
               {recursos.map((r) => (
-                <Link key={r.to} to={r.to} onClick={() => logEvent("recurso_abierto", { metadata: { recurso: r.to, desde: "inicio" } })} className="flex min-h-[104px] flex-col items-start justify-between gap-3 rounded-[10px] border border-carbon-10/10 bg-blanco p-3.5">
-                  <img className="h-6 w-6" src={r.icon} alt="" />
-                  <span className="text-left text-base font-normal leading-snug tracking-tight text-carbon">{r.label}</span>
+                <Link key={r.to} to={r.to} onClick={() => logEvent("recurso_abierto", { metadata: { recurso: r.to, desde: "inicio" } })} className="flex h-[120px] flex-col items-start justify-between rounded-[20px] border border-carbon-10/10 bg-carbon-10/[0.03] p-2.5">
+                  <img className={r.to === "/autoevaluacion" ? "h-[30px] w-[30px]" : "h-6 w-6"} src={r.icon} alt="" />
+                  <span className="self-stretch text-left text-xs font-normal tracking-tight text-carbon">{r.label}</span>
                 </Link>
               ))}
             </div>
+          </div>
+          <div className="flex h-11 flex-row items-end justify-center gap-2.5 self-stretch border-t border-carbon-10/10">
+            <Link to="/privacidad" className="p-2.5 text-[10px] font-normal tracking-tight text-carbon">Políticas de Privacidad</Link>
+            <Link to="/terminos" className="p-2.5 text-[10px] font-normal tracking-tight text-carbon">Términos de Uso</Link>
           </div>
         </div>
       </div>
