@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { guardarPosicion, logEvent, marcarCompletada } from "@/lib/progreso";
 import { Placeholder } from "@/components/Placeholder";
 import { BackButton, BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { Recapitulando, SemanaView } from "@/components/libro/Reto";
@@ -123,7 +123,10 @@ function Seccion() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pagehide", flush);
       document.removeEventListener("visibilitychange", onVis);
-      flush();
+      // Si se pasa a otra sección, esa sección guarda su propia posición.
+      const path = window.location.pathname;
+      if (!(path.startsWith("/indice/") && path !== `/indice/${slug}`)) flush();
+      else window.clearTimeout(timer);
     };
   }, [p.slug]);
 
@@ -196,6 +199,7 @@ function Seccion() {
               </div>
             ))}
           </article>
+          <div ref={endRef} aria-hidden className="h-px" />
         </div>
       </BookScreen>
     );
@@ -244,6 +248,7 @@ function Seccion() {
             groupParagraphs(p.blocks)
           )}
         </article>
+        <div ref={endRef} aria-hidden className="-mt-5 h-px" />
         {p.kind === "modulo" && p.autoevaluacion && (
           <Link to="/autoevaluacion" className="flex h-fit w-full flex-row items-center justify-center gap-2.5 overflow-hidden rounded-full bg-carbon-10/10 px-6 py-4 text-center text-base font-semibold uppercase leading-none text-piedra">Realizar Autoevaluación de Foco</Link>
         )}
