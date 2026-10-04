@@ -101,7 +101,7 @@ function Inicio() {
             ) : (
               <>
                 <p className="h-fit self-stretch text-left text-base font-normal tracking-tight text-tiza">
-                  Acá vas a ver tu progreso a medida que vayas avanzando con la lectura del libro, ¿estás listo/a para empezar?
+                  Acá vas a ver tu progreso a medida que vayas avanzando con la lectura del libro, ¿empezamos?
                 </p>
                 <Link to="/indice" onClick={() => logEvent("iniciar_lectura")} className="flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-tiza px-6 py-4 text-center text-base font-semibold uppercase leading-none text-salvia">
                   Iniciar lectura
