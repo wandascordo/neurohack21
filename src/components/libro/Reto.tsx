@@ -74,7 +74,7 @@ function Dia({ d }: { d: RetoDia }) {
     <div className="flex flex-col gap-5 self-stretch">
       <h2 id={`dia-${d.n}`} className="text-[22px] font-normal leading-[1.1] tracking-[-1.00px] text-carbon">Día {d.n}</h2>
       <div className="flex flex-col self-stretch pl-2.5">
-        <div className="flex flex-col gap-2.5 border-l border-carbon-10/10 py-1 pl-3.5">
+        <div className="flex flex-col gap-2.5 border-l-2 border-carbon-10/10 py-1 pl-3.5">
           {d.grupos.map((g) => (
             <div key={g.label} className="flex flex-col gap-2.5">
               <p className="text-sm font-normal tracking-tight text-piedra"><Rich text={g.label} /></p>
