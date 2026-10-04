@@ -161,7 +161,7 @@
   --token-blanco: hsl(0 0% 0%);
   --token-carbon: hsl(37 29% 88%);
   --token-avena: hsl(40 60% 99% / 0.1);
-  --token-carbon-10: hsl(40 60% 99% / 0.1);
+  --token-carbon-10: hsl(40 60% 99%);
   --token-salvia: hsl(124 9% 61%);
   --token-piedra: hsl(53 4% 65%);
   --cover-ink: oklch(0.993 0.004 80);
