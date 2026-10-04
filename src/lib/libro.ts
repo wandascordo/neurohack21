@@ -159,7 +159,7 @@ export const LIBRO: Pagina[] = [
   { slug: "modulo-3", kind: "modulo", eyebrow: "Parte I / Módulo 3", titulo: "Dos mapas para un mismo territorio", tiempo: "6 min.", blocks: MODULO3 },
   { slug: "parte-2", kind: "parte", eyebrow: "Parte II", titulo: "Los dos pilares del método", firstSlug: "modulo-4" },
   { slug: "modulo-4", kind: "modulo", eyebrow: "Parte II / Módulo 4", titulo: "El pilar Dispenza", tiempo: "7 min.", blocks: MODULO4 },
-  { slug: "modulo-5", kind: "modulo", eyebrow: "Parte II / Módulo 5", titulo: "El pilar Jung. Iluminar lo inconsciente", tiempo: "6 min.", blocks: MODULO5 },
+  { slug: "modulo-5", kind: "modulo", eyebrow: "Parte II / Módulo 5", titulo: "El pilar Jung", tiempo: "6 min.", blocks: MODULO5 },
   { slug: "modulo-6", kind: "modulo", eyebrow: "Parte II / Módulo 6", titulo: "El diseño del reto", tiempo: "9 min.", blocks: MODULO6, autoevaluacion: true },
   { slug: "parte-3", kind: "parte", eyebrow: "Parte III", titulo: "El reto Neurohack 21", firstSlug: "reto" },
   { slug: "reto", kind: "reto", eyebrow: "Parte III", titulo: "El reto de 21 días" },
