@@ -50,7 +50,7 @@ export function InstructivoLink() {
           <div className="w-fit rounded-full bg-carbon-10/10 px-4 py-2">
             <p className="text-center text-base font-semibold leading-none text-salvia">Autoevaluación de Foco</p>
           </div>
-          <div className="flex min-h-0 flex-1 flex-col gap-3.5 overflow-y-auto py-2.5">
+          <div className="flex min-h-0 flex-1 flex-col gap-3.5 overflow-y-auto overscroll-none py-2.5">
             <div className="flex flex-col gap-1 self-stretch">
               <DialogTitle className="text-left text-[22px] font-normal leading-[1.1] tracking-[-1.00px] text-carbon">Sobre la Autoevaluación de Foco</DialogTitle>
               <p className="text-left text-lg font-normal leading-[1.1] tracking-tight text-carbon">(para quien prefiera lápiz y papel)</p>
