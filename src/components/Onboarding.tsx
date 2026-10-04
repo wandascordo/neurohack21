@@ -61,7 +61,7 @@ export function Onboarding() {
   return (
     <Dialog open={open} onOpenChange={(o) => !o && close()}>
       <DialogContent className="flex max-h-[calc(100svh-2.5rem)] w-[calc(100%-30px)] max-w-[370px] flex-col gap-2.5 overflow-hidden rounded-[20px] border border-carbon-10/10 bg-blanco px-5 pb-[30px] pt-5 font-rethink-sans shadow-[3px_3px_10px_0px_rgb(29_29_29_/_0.1)] sm:rounded-[20px] [&>button:last-child]:hidden">
-        <div className="flex min-h-0 flex-1 flex-col justify-center gap-5 overflow-y-auto pt-10">
+        <div className="flex min-h-0 flex-1 flex-col justify-center gap-5 overflow-y-auto overscroll-none pt-10">
           <div className="flex h-fit flex-col items-start gap-2.5 self-stretch">
             <p className="self-stretch text-left text-base font-semibold leading-none text-piedra">Antes de empezar</p>
             <DialogTitle className="self-stretch text-left text-[28px] font-normal leading-[1.1] tracking-[-1.50px] text-carbon">Te damos la bienvenida a Neurohack 21</DialogTitle>

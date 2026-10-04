@@ -130,7 +130,7 @@ export function ProgressBar({ value }: { value: number }) {
 export function BookScreen({ children, fill = false, exact = false }: { children: ReactNode; fill?: boolean; exact?: boolean }) {
   return (
     <div className="min-h-screen bg-tiza font-rethink-sans">
-      <div className={`mx-auto flex w-full max-w-[400px] flex-col items-start bg-tiza px-5 pb-10 pt-[30px] ${exact ? "h-[100dvh] overflow-y-auto" : fill ? "min-h-screen" : ""}`}>
+      <div className={`mx-auto flex w-full max-w-[400px] flex-col items-start bg-tiza px-5 pb-10 pt-[30px] ${exact ? "h-[100dvh] overflow-y-auto overscroll-none" : fill ? "min-h-screen" : ""}`}>
         {children}
       </div>
     </div>

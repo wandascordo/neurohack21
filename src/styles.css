@@ -204,6 +204,7 @@
 @layer base {
   * {
     border-color: var(--color-border);
+    overscroll-behavior: none;
   }
 
   html {
