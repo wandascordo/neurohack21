@@ -1,0 +1,2 @@
+ALTER TABLE public.focus_assessments ALTER COLUMN total_score DROP EXPRESSION;
+ALTER TABLE public.focus_assessments ADD CONSTRAINT focus_total_score_range CHECK (total_score BETWEEN 10 AND 50) NOT VALID;
