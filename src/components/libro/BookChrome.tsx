@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import logo from "@/assets/book-logo.svg.asset.json";
-import menuClose from "@/assets/menu-close.png.asset.json";
 import backIcon from "@/assets/menu-back.png.asset.json";
 import { getTema, setTema, suscribirTema } from "@/lib/tema";
 
@@ -68,16 +67,28 @@ function useHideOnScrollDown() {
   return hidden;
 }
 
-function TopBarRow({ onClose }: { onClose?: () => void }) {
+function MenuX({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const line =
+    "absolute left-1/2 top-1/2 block h-px w-7 bg-carbon transition-all duration-300 ease-out";
+  return (
+    <button type="button" onClick={onClose} aria-label="Cerrar menú" className="relative block h-7 w-7">
+      <span
+        className={`${line} ${open ? "-translate-x-1/2 -translate-y-1/2 rotate-45" : "-translate-x-1/2 -translate-y-[5.5px]"}`}
+        style={{ transitionDelay: open ? "120ms" : "0ms" }}
+      />
+      <span
+        className={`${line} ${open ? "-translate-x-1/2 -translate-y-1/2 -rotate-45" : "-translate-x-1/2 translate-y-[4.5px]"}`}
+        style={{ transitionDelay: open ? "120ms" : "0ms" }}
+      />
+    </button>
+  );
+}
+
+function TopBarRow({ onClose, x = true }: { onClose?: () => void; x?: boolean }) {
   return (
     <>
       {onClose ? (
-        <button type="button" onClick={onClose} aria-label="Cerrar menú" className="h-7 w-7">
-          <span
-            className="block h-7 w-7 bg-carbon"
-            style={{ mask: `url(${menuClose.url}) center / contain no-repeat`, WebkitMask: `url(${menuClose.url}) center / contain no-repeat` }}
-          />
-        </button>
+        <MenuX open={x} onClose={onClose} />
       ) : (
         <Menu />
       )}
@@ -87,11 +98,20 @@ function TopBarRow({ onClose }: { onClose?: () => void }) {
   );
 }
 
-export function TopBar({ onClose }: { onClose?: () => void }) {
+export function TopBar({ onClose, closing }: { onClose?: () => void; closing?: boolean }) {
+  const [x, setX] = useState(false);
+  useEffect(() => {
+    if (!onClose || closing) {
+      setX(false);
+      return;
+    }
+    const raf = requestAnimationFrame(() => requestAnimationFrame(() => setX(true)));
+    return () => cancelAnimationFrame(raf);
+  }, [onClose, closing]);
   if (onClose) {
     return (
-      <div className="relative flex h-fit flex-row items-center justify-between self-stretch py-2.5">
-        <TopBarRow onClose={onClose} />
+      <div className="relative -mt-2.5 flex h-fit flex-row items-center justify-between self-stretch pb-2.5">
+        <TopBarRow onClose={onClose} x={x} />
       </div>
     );
   }

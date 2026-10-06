@@ -71,7 +71,7 @@ function Menu() {
   return (
     <BookScreen fill>
       <div className={`flex w-full flex-1 flex-col gap-5 ${closing ? "animate-menu-out" : "animate-menu-in"}`}>
-        <TopBar onClose={closeMenu} />
+        <TopBar onClose={closeMenu} closing={closing} />
         {view === "main" ? (
           <div className="flex flex-1 flex-col items-center gap-[30px] self-stretch">
             <nav className="flex h-fit flex-col items-center gap-2.5 self-stretch">
