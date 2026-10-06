@@ -222,3 +222,41 @@
     overscroll-behavior-y: none;
   }
 }
+
+/* Luz lunar: iluminación cálida y suave que emana desde abajo de la tarjeta, como en el logo. */
+@keyframes glow-lunar {
+  0%,
+  100% {
+    transform: translate(-50%, 12px) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(-50%, -6px) scale(1.06);
+    opacity: 0.72;
+  }
+}
+
+.glow-lunar {
+  position: absolute;
+  left: 50%;
+  bottom: -190px;
+  width: 560px;
+  max-width: 180%;
+  height: 300px;
+  border-radius: 9999px;
+  background: radial-gradient(ellipse closest-side, var(--color-luz) 0%, transparent 72%);
+  filter: blur(44px);
+  opacity: 0.55;
+  animation: glow-lunar 9s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.dark .glow-lunar {
+  opacity: 0.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-lunar {
+    animation: none;
+  }
+}
