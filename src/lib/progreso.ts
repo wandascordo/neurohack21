@@ -59,3 +59,9 @@ export async function marcarCompletada(slug: string) {
   if (error) console.warn("reading_progress", error.message);
   else logEvent("seccion_completada", { slug });
 }
+
+/** Borra todo el progreso de lectura y la última posición guardada. */
+export async function reiniciarLectura() {
+  const { error } = await supabase.rpc("reiniciar_lectura");
+  if (error) console.warn("reiniciar_lectura", error.message);
+}

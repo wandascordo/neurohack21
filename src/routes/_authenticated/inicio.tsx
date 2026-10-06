@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { fetchProgreso, logEvent } from "@/lib/progreso";
+import { fetchProgreso, logEvent, reiniciarLectura } from "@/lib/progreso";
 import check from "@/assets/inicio-check.png.asset.json";
 import { meta } from "@/components/Placeholder";
 import { Onboarding } from "@/components/Onboarding";
@@ -36,6 +36,7 @@ function saludo() {
 }
 
 function Inicio() {
+  const queryClient = useQueryClient();
   const { data } = useQuery({
     queryKey: ["progreso-lectura"],
     queryFn: fetchProgreso,
@@ -74,7 +75,15 @@ function Inicio() {
                   <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza">Llegaste hasta el final de tu aprendizaje, ahora es momento de llevar a la práctica todo lo aprendido.</p>
                   <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza">Cuando quieras, podés volver a repasar los contenidos de este libro y reforzar los conceptos que trabajamos acá.</p>
                 </div>
-                <Link to="/indice/$seccion" params={{ seccion: "prologo" }} onClick={() => logEvent("leer_de_nuevo")} className="flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full border-2 border-tiza px-6 py-4 text-center text-base font-semibold uppercase leading-none text-tiza">
+                <Link
+                  to="/indice/$seccion"
+                  params={{ seccion: "prologo" }}
+                  onClick={() => {
+                    logEvent("leer_de_nuevo");
+                    void reiniciarLectura().then(() => queryClient.invalidateQueries({ queryKey: ["progreso-lectura"] }));
+                  }}
+                  className="flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full border-2 border-tiza px-6 py-4 text-center text-base font-semibold uppercase leading-none text-tiza"
+                >
                   Leer de nuevo
                 </Link>
               </div>
