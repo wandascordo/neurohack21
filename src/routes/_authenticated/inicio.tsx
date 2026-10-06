@@ -64,7 +64,7 @@ function Inicio() {
             {saludo()}
           </h1>
           <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-5 self-stretch rounded-t-[20px] rounded-b-[40px] relative isolate overflow-hidden border border-carbon-10/10 bg-salvia p-5 [&>*:not(.glow)]:relative [&>*:not(.glow)]:z-10">
-            <div aria-hidden className="glow pointer-events-none absolute left-[-6px] top-[125px] -z-0 h-[372px] w-[372px] bg-tiza opacity-40 blur-[100px]" />
+            <div aria-hidden className="glow glow-lunar" />
             {completo ? (
               <div className="flex flex-col items-center justify-center gap-2.5 self-stretch p-1">
                 <div className="flex h-fit flex-row items-start justify-center gap-5 self-stretch">
