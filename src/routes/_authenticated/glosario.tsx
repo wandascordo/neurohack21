@@ -116,9 +116,9 @@ function GlosarioDeTrminos() {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Buscar un término"
+              placeholder="Buscar"
               aria-label="Buscar un término"
-              className="w-full bg-transparent text-sm font-normal text-left text-carbon tracking-tight outline-none placeholder:text-piedra [&::-webkit-search-cancel-button]:hidden"
+              className="w-full bg-transparent text-sm font-normal text-left text-carbon tracking-tight outline-none placeholder:text-carbon-10/10 [&::-webkit-search-cancel-button]:hidden"
             />
           </div>
           <span
