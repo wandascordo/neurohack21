@@ -239,13 +239,14 @@
 .glow-lunar {
   position: absolute;
   left: 50%;
-  bottom: -190px;
-  width: 560px;
-  max-width: 180%;
-  height: 300px;
+  bottom: -62%;
+  width: 135%;
+  max-width: 620px;
+  aspect-ratio: 2 / 1;
+  height: auto;
   border-radius: 9999px;
   background: radial-gradient(ellipse closest-side, var(--color-luz) 0%, transparent 72%);
-  filter: blur(44px);
+  filter: blur(40px);
   opacity: 0.55;
   animation: glow-lunar 9s ease-in-out infinite;
   will-change: transform, opacity;
