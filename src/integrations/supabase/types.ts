@@ -292,6 +292,7 @@ export type Database = {
         Returns: boolean
       }
       mark_first_login: { Args: never; Returns: undefined }
+      reiniciar_lectura: { Args: never; Returns: undefined }
       set_last_read: {
         Args: { _anchor?: string; _anchor_label?: string; _slug: string }
         Returns: undefined
