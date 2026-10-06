@@ -186,7 +186,7 @@ function ResultadoVista({ score, fecha, children }: { score: number; fecha?: str
         </div>
         <div className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
           <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{r.titular}</p>
-          <p className="text-base leading-none tracking-tight text-piedra">{r.cuerpo}</p>
+          <p className="text-base leading-[1.1] tracking-tight text-piedra">{r.cuerpo}</p>
         </div>
       </div>
       <div className="flex flex-col gap-10">
