@@ -71,11 +71,13 @@ function Autoevaluacion() {
     <BookScreen fill>
       <TopBar />
       <Chip />
-      {vista.v === "intro" && <Intro setVista={setVista} />}
-      {vista.v === "preguntas" && <Preguntas onExit={() => setVista({ v: "intro" })} onDone={(a) => setVista({ v: "resultado", answers: a })} />}
-      {vista.v === "resultado" && <ResultadoNuevo answers={vista.answers} onSaved={() => setVista({ v: "lista" })} />}
-      {vista.v === "lista" && <Lista onBack={() => setVista({ v: "intro" })} onOpen={(r) => setVista({ v: "detalle", r })} />}
-      {vista.v === "detalle" && <Detalle r={vista.r} onBack={() => setVista({ v: "lista" })} />}
+      <div key={vista.v} className="flex flex-1 animate-fade-in flex-col self-stretch">
+        {vista.v === "intro" && <Intro setVista={setVista} />}
+        {vista.v === "preguntas" && <Preguntas onExit={() => setVista({ v: "intro" })} onDone={(a) => setVista({ v: "resultado", answers: a })} />}
+        {vista.v === "resultado" && <ResultadoNuevo answers={vista.answers} onSaved={() => setVista({ v: "lista" })} />}
+        {vista.v === "lista" && <Lista onBack={() => setVista({ v: "intro" })} onOpen={(r) => setVista({ v: "detalle", r })} />}
+        {vista.v === "detalle" && <Detalle r={vista.r} onBack={() => setVista({ v: "lista" })} />}
+      </div>
     </BookScreen>
   );
 }
@@ -121,7 +123,7 @@ function Preguntas({ onExit, onDone }: { onExit: () => void; onDone: (a: number[
         <Volver onClick={() => (i === 0 ? onExit() : setI(i - 1))} />
         <span className="rounded-full border border-piedra px-2.5 py-1 text-xs tracking-tight text-piedra">{i + 1}/10</span>
       </div>
-      <p className="text-center text-[28px] leading-[1.1] tracking-[-1.5px] text-carbon">"{AFIRMACIONES[i]}"</p>
+      <p className="flex min-h-[155px] items-center justify-center text-center text-[28px] leading-[1.1] tracking-[-1.5px] text-carbon">"{AFIRMACIONES[i]}"</p>
       <div className="flex justify-center gap-1 py-2.5">
         {AFIRMACIONES.map((_, k) => (
           <span key={k} className={`h-1 w-1 rounded-full ${k === i ? "bg-salvia" : "bg-carbon-10/10"}`} />
