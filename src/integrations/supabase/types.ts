@@ -72,24 +72,27 @@ export type Database = {
         Row: {
           answers: number[]
           assessed_at: string
+          created_at: string
           id: string
-          moment: Database["public"]["Enums"]["assessment_moment"]
+          moment: Database["public"]["Enums"]["assessment_moment"] | null
           total_score: number | null
           user_id: string
         }
         Insert: {
           answers: number[]
           assessed_at?: string
+          created_at?: string
           id?: string
-          moment: Database["public"]["Enums"]["assessment_moment"]
+          moment?: Database["public"]["Enums"]["assessment_moment"] | null
           total_score?: number | null
           user_id?: string
         }
         Update: {
           answers?: number[]
           assessed_at?: string
+          created_at?: string
           id?: string
-          moment?: Database["public"]["Enums"]["assessment_moment"]
+          moment?: Database["public"]["Enums"]["assessment_moment"] | null
           total_score?: number | null
           user_id?: string
         }
