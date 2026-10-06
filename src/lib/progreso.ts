@@ -4,6 +4,8 @@ import { LIBRO } from "@/lib/libro";
 
 /** Páginas que cuentan para el progreso de lectura (sin portadas de Parte ni Bibliografía). */
 export const PAGINAS_LECTURA = LIBRO.filter((p) => p.kind === "modulo" || p.kind === "reto").map((p) => p.slug);
+/** Al abrir esta página la lectura se considera completa (100%). */
+export const PAGINA_FINAL = "conclusiones";
 
 export type Progreso = {
   slug: string | null;
@@ -22,12 +24,16 @@ export async function fetchProgreso(): Promise<Progreso | null> {
   ]);
   const completadas = (rows ?? []).map((r) => r.slug).filter((s) => PAGINAS_LECTURA.includes(s));
   const slug = prof?.last_read_slug && LIBRO.some((p) => p.slug === prof.last_read_slug) ? prof.last_read_slug : null;
+  // Llegar a Conclusiones = lectura completa; Conclusiones no suma como página propia.
+  const llegoAlFinal = completadas.includes(PAGINA_FINAL);
+  const contables = PAGINAS_LECTURA.filter((s) => s !== PAGINA_FINAL);
+  const leidas = completadas.filter((s) => s !== PAGINA_FINAL).length;
   return {
     slug,
     anchor: slug ? prof?.last_read_anchor ?? null : null,
     anchorLabel: slug ? prof?.last_read_anchor_label ?? null : null,
     completadas,
-    pct: Math.round((completadas.length / PAGINAS_LECTURA.length) * 100),
+    pct: llegoAlFinal ? 100 : Math.min(99, Math.round((leidas / contables.length) * 100)),
   };
 }
 

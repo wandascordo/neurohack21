@@ -102,6 +102,8 @@ function Seccion() {
     };
     save();
     logEvent("seccion_abierta", { slug, anchor: current?.id });
+    // Llegar a Conclusiones ya cuenta como lectura completa.
+    if (slug === "conclusiones") void marcarCompletada(slug);
 
     const onScroll = () => {
       const heads = Array.from(document.querySelectorAll<HTMLElement>("article h2[id]"));
