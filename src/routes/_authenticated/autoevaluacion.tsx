@@ -185,8 +185,7 @@ function ResultadoNuevo({ answers, onSaved }: { answers: number[]; onSaved: () =
   const [saving, setSaving] = useState(false);
   const guardar = async () => {
     setSaving(true);
-    const { data: u } = await supabase.auth.getUser();
-    const { error } = await supabase.from("focus_assessments").insert({ user_id: u.user?.id, answers, total_score: score });
+    const { error } = await supabase.from("focus_assessments").insert({ answers, total_score: score });
     setSaving(false);
     if (error) { toast("No pudimos guardar tu resultado. Probá de nuevo."); return; }
     await qc.invalidateQueries({ queryKey: ["focus-assessments"] });
