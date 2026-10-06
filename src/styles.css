@@ -103,6 +103,7 @@
   --font-rethink-sans: "Rethink Sans", sans-serif;
   --color-tiza: var(--token-tiza);
   --color-blanco: var(--token-blanco);
+  --color-luz: var(--token-luz);
   --color-carbon: var(--token-carbon);
   --color-avena: var(--token-avena);
   --color-carbon-10: var(--token-carbon-10);
@@ -112,6 +113,7 @@
 
 :root {
   --token-tiza: hsl(40 60% 99%);
+  --token-luz: hsl(40 60% 99%);
   --token-blanco: hsl(0 0% 100%);
   --token-carbon: hsl(0 0% 11%);
   --token-avena: hsl(37 29% 88%);
@@ -158,6 +160,7 @@
 
 .dark {
   --token-tiza: hsl(0 0% 11%);
+  --token-luz: hsl(40 45% 96%);
   --token-blanco: hsl(0 0% 0%);
   --token-carbon: hsl(37 29% 88%);
   --token-avena: hsl(40 60% 99% / 0.1);
