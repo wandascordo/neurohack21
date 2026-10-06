@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { meta } from "@/components/Placeholder";
@@ -145,25 +145,43 @@ function Preguntas({ onExit, onDone }: { onExit: () => void; onDone: (a: number[
   );
 }
 
-function Arco({ score }: { score: number }) {
+function useCountUp(target: number, duracion = 1000) {
+  const [valor, setValor] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const p = Math.min((t - t0) / duracion, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setValor(target * eased);
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, duracion]);
+  return valor;
+}
+
+function Arco({ progreso }: { progreso: number }) {
   const d = "M 7.5 147 A 139.5 139.5 0 0 1 286.5 147";
   return (
     <svg viewBox="0 0 294 147" className="absolute left-1/2 top-[38px] h-[147px] w-[294px] -translate-x-1/2" aria-hidden>
       <path d={d} fill="none" strokeWidth="15" pathLength={100} className="stroke-carbon-10/10" />
-      <path d={d} fill="none" strokeWidth="15" pathLength={100} strokeDasharray={`${(score / 50) * 100} 100`} className="stroke-salvia" />
+      <path d={d} fill="none" strokeWidth="15" pathLength={100} strokeDasharray={`${(progreso / 50) * 100} 100`} className="stroke-salvia" />
     </svg>
   );
 }
 
 function ResultadoVista({ score, fecha, children }: { score: number; fecha?: string; children: React.ReactNode }) {
   const r = rango(score);
+  const animado = useCountUp(score);
   return (
     <div className="flex flex-1 flex-col justify-between gap-10 self-stretch py-5">
       <div className="flex flex-col gap-10">
         {fecha && <p className="-mb-6 text-center text-sm tracking-tight text-piedra">{fecha}</p>}
         <div className="relative flex flex-col items-center gap-2.5 px-5 pb-5 pt-[100px]">
-          <Arco score={score} />
-          <p className="relative text-center text-carbon"><span className="text-5xl leading-none tracking-tight">{score}</span><span className="text-lg text-piedra">/50</span></p>
+          <Arco progreso={animado} />
+          <p className="relative text-center text-carbon"><span className="text-5xl leading-none tracking-tight">{Math.round(animado)}</span><span className="text-lg text-piedra">/50</span></p>
           <p className="relative text-base font-semibold leading-none text-piedra">{fecha ? "Tu puntaje" : "Tu puntaje de hoy"}</p>
         </div>
         <div className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
