@@ -110,7 +110,7 @@ function GlosarioDeTrminos() {
       </div>
 
       <div className="mt-2.5 flex flex-col gap-5 items-start self-stretch flex-1">
-        <label className="sticky top-[78px] z-10 flex flex-row justify-end items-center self-stretch h-fit bg-white rounded-[10px] border border-carbon-10/10 p-2.5 overflow-hidden">
+        <label className="sticky top-[78px] z-10 flex flex-row justify-end items-center self-stretch h-fit bg-white dark:bg-tiza rounded-[10px] border border-carbon-10/10 p-2.5 overflow-hidden">
           <div className="flex flex-col gap-2.5 justify-end items-center flex-1 h-fit p-1">
             <input
               type="search"
