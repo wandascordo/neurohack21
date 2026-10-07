@@ -31,12 +31,12 @@ function MaskIcon({ url, className }: { url: string; className: string }) {
   return <span aria-hidden className={`block shrink-0 ${className}`} style={{ mask: m, WebkitMask: m }} />;
 }
 
-function Chip() {
+function Chip({ onHome }: { onHome: () => void }) {
   return (
     <div className="flex self-stretch justify-center py-2.5">
-      <div className="rounded-full bg-carbon-10/10 px-4 py-2">
+      <button type="button" onClick={onHome} className="cursor-pointer rounded-full bg-carbon-10/10 px-4 py-2">
         <p className="text-base font-semibold leading-none text-salvia">Autoevaluación de Foco</p>
-      </div>
+      </button>
     </div>
   );
 }
@@ -70,7 +70,7 @@ function Autoevaluacion() {
   return (
     <BookScreen fill>
       <TopBar />
-      <Chip />
+      <Chip onHome={() => setVista({ v: "intro" })} />
       <div key={vista.v} className="flex flex-1 animate-fade-in flex-col self-stretch">
         {vista.v === "intro" && <Intro setVista={setVista} />}
         {vista.v === "preguntas" && <Preguntas onExit={() => setVista({ v: "intro" })} onDone={(a) => setVista({ v: "resultado", answers: a })} />}
