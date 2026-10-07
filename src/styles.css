@@ -122,6 +122,8 @@
 }
 
 :root {
+  --toast-surface: oklch(1 0 0);
+  --toast-shadow: 0 4px 16px oklch(0 0 0 / 5%);
   --token-tiza: hsl(40 60% 99%);
   --token-luz: hsl(40 60% 99%);
   --token-blanco: hsl(0 0% 100%);
@@ -169,6 +171,8 @@
 }
 
 .dark {
+  --toast-surface: oklch(0 0 0);
+  --toast-shadow: 0 4px 16px oklch(1 0 0 / 5%);
   --token-tiza: hsl(0 0% 11%);
   --token-luz: hsl(40 45% 96%);
   --token-blanco: hsl(0 0% 0%);
@@ -231,6 +235,15 @@
     color: var(--color-foreground);
     overscroll-behavior-y: none;
   }
+}
+
+[data-sonner-toaster] [data-sonner-toast].app-toast {
+  border-radius: 20px;
+  background: var(--toast-surface);
+  color: var(--token-carbon);
+  border-color: transparent;
+  box-shadow: var(--toast-shadow);
+  font-family: var(--font-rethink-sans);
 }
 
 /* Luz lunar: iluminación cálida y suave que emana desde abajo de la tarjeta, como en el logo. */

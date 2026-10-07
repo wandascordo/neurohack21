@@ -21,7 +21,7 @@ const ICONOS: Record<CategoriaGuiones["id"], ComponentType<{ className?: string;
 function TextoGuion({ texto }: { texto: string }) {
   const partes = texto.split(/(\[[^\]]*\])/g);
   return (
-    <p className="text-lg font-semibold text-left text-carbon leading-[1.1] tracking-tight self-stretch h-fit">
+    <p className="text-lg font-normal text-left text-carbon leading-[1.1] tracking-tight self-stretch h-fit">
       {partes.map((p, i) => (p.startsWith("[") && p.endsWith("]") ? <span key={i} className="font-normal text-piedra">{p}</span> : p))}
     </p>
   );
@@ -52,7 +52,7 @@ function Tarjeta({ g, copiable }: { g: Guion; copiable: boolean }) {
     }
   };
   return (
-    <div className="flex flex-col items-end self-stretch h-fit bg-blanco rounded-[10px] border border-carbon-10/10 p-2.5 overflow-hidden">
+    <div className="flex touch-pan-y flex-col items-end self-stretch h-fit bg-blanco rounded-[10px] border border-carbon-10/10 p-2.5 overflow-clip">
       <div className="flex flex-col gap-2.5 justify-end items-center self-stretch h-fit p-1">
         <p className="text-xs font-normal text-left text-piedra tracking-tight self-stretch h-fit">{g.situacion}</p>
         <TextoGuion texto={g.texto} />
@@ -73,12 +73,13 @@ function Tarjeta({ g, copiable }: { g: Guion; copiable: boolean }) {
 
 function GuionesParaProtegerTuFoco() {
   const [activa, setActiva] = useState<CategoriaGuiones["id"]>("trabajo");
-  const cat = GUIONES.find((c) => c.id === activa)!;
+  const cat = GUIONES.find((c) => c.id === activa) ?? GUIONES[0];
+  if (!cat) return null;
   return (
     <BookScreen fill>
       <TopBar />
       <div className="flex flex-col gap-10 items-center self-stretch h-fit py-2.5">
-        <div className="flex flex-col gap-2.5 items-center w-fit h-fit bg-carbon-10/10 rounded-full py-2 px-4">
+        <div className="flex select-none flex-col gap-2.5 items-center w-fit h-fit bg-carbon-10/10 rounded-full py-2 px-4">
           <p className="text-base font-semibold text-center text-salvia leading-none self-stretch h-fit">Guiones para Proteger tu Foco</p>
         </div>
       </div>

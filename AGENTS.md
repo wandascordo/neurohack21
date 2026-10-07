@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Neurohack 21 decisions
+- Global notification appearance is centralized in the shared Sonner wrapper and theme tokens — all resources must use the same toast styling.
 - All user state lives in Lovable Cloud tables with per-user RLS (no localStorage) — progress must sync across devices.
 - Signed-in screens live under src/routes/_authenticated/ (client-only gate redirecting to /); admin panel at /admin checks has_role('admin') from user_roles — roles never stored on profiles.
 - Undelivered screens use neutral structure with titles, known content hierarchy and navigation only; each Figma plugin export becomes the exact reference for its corresponding screen after explicit receipt confirmation — avoids inventing final content or design.
