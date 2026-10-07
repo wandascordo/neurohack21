@@ -110,7 +110,7 @@ export function TopBar({ onClose, closing }: { onClose?: () => void; closing?: b
   }, [onClose, closing]);
   if (onClose) {
     return (
-      <div className="relative -mt-2.5 flex h-fit flex-row items-center justify-between self-stretch pb-2.5">
+      <div className="relative flex h-fit flex-row items-center justify-between self-stretch pb-5 pt-5">
         <TopBarRow onClose={onClose} x={x} />
       </div>
     );
@@ -150,7 +150,7 @@ export function ProgressBar({ value }: { value: number }) {
 export function BookScreen({ children, fill = false, exact = false }: { children: ReactNode; fill?: boolean; exact?: boolean }) {
   return (
     <div className="min-h-screen bg-tiza font-rethink-sans">
-      <div className={`mx-auto flex w-full max-w-[400px] flex-col items-start bg-tiza px-5 pb-10 pt-[30px] ${exact ? "h-[100dvh] overflow-y-auto overscroll-none" : fill ? "min-h-screen" : ""}`}>
+      <div className={`mx-auto flex w-full max-w-[400px] flex-col items-start bg-tiza px-5 pb-10 pt-0 ${exact ? "h-[100dvh] overflow-y-auto overscroll-none" : fill ? "min-h-screen" : ""}`}>
         {children}
       </div>
     </div>
