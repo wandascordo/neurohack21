@@ -50,7 +50,10 @@ function Menu() {
     refetchOnMount: "always",
   });
   const continuar = progreso?.slug ?? "prologo";
-  const continuarHash = progreso?.anchor ?? undefined;
+  // Con 0% o 100% de lectura el botón invita a empezar de nuevo desde el Prólogo.
+  const iniciar = !!progreso && (progreso.pct === 0 || progreso.pct === 100);
+  const destino = iniciar ? "prologo" : continuar;
+  const continuarHash = iniciar ? undefined : progreso?.anchor ?? undefined;
 
   function closeMenu() {
     if (closing) return;
@@ -87,8 +90,8 @@ function Menu() {
                 </Link>
               ))}
             </nav>
-            <Link to="/indice/$seccion" params={{ seccion: continuar }} {...(continuarHash ? { hash: continuarHash } : {})} onClick={() => logEvent("continuar_leyendo", { slug: continuar, anchor: continuarHash, metadata: { desde: "menu" } })} style={stagger(7)} className={`flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-salvia px-6 py-4 text-center text-base font-semibold uppercase leading-none text-tiza ${staggerClass}`}>
-              Continuar leyendo
+            <Link to="/indice/$seccion" params={{ seccion: destino }} {...(continuarHash ? { hash: continuarHash } : {})} onClick={() => logEvent(iniciar ? "iniciar_lectura" : "continuar_leyendo", { slug: destino, anchor: continuarHash, metadata: { desde: "menu" } })} style={stagger(7)} className={`flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-salvia px-6 py-4 text-center text-base font-semibold uppercase leading-none text-tiza ${staggerClass}`}>
+              {iniciar ? "Iniciar lectura" : "Continuar leyendo"}
             </Link>
             <div className="flex flex-1 flex-col items-center justify-end self-stretch">
               <Link to="/privacidad" style={stagger(8)} className={`${row} ${sub} ${staggerClass}`}>Políticas de Privacidad</Link>
