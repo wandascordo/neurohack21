@@ -138,7 +138,7 @@ function BotonAntiDistraccion() {
                 style={{ width: s, height: s, opacity: [0.4, 0.3, 0.2, 0.1, 0.05][i], animationDelay: `${i * 0.25}s` }} />
             ))}
             <button type="button" onClick={() => { registrado.current = false; setPantalla(1); }}
-              className="relative flex h-[180px] w-[180px] items-center justify-center rounded-full bg-salvia px-6 py-4">
+              className="relative flex h-[180px] w-[180px] cursor-pointer items-center justify-center rounded-full bg-salvia px-6 py-4">
               <span className="text-lg font-semibold text-center text-tiza leading-[1.1] tracking-tight">Botón<br />Anti-Distracción</span>
             </button>
           </div>
