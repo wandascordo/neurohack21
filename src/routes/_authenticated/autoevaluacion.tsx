@@ -261,7 +261,7 @@ function Detalle({ r, onBack }: { r: Registro; onBack: () => void }) {
     if (error) { toast.error("No pudimos eliminar el resultado. Probá de nuevo."); return; }
     setOpen(false);
     await qc.invalidateQueries({ queryKey: ["focus-assessments"] });
-    toast("Resultado eliminado");
+    toast.success("Resultado eliminado");
     onBack();
   };
   return (
