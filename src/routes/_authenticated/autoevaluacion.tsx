@@ -68,7 +68,7 @@ function useResultados() {
 function Autoevaluacion() {
   const [vista, setVista] = useState<Vista>({ v: "intro" });
   return (
-    <BookScreen fill>
+    <BookScreen fill navGap={false}>
       <TopBar />
       <Chip />
       <div key={vista.v} className="flex flex-1 animate-fade-in flex-col self-stretch">
