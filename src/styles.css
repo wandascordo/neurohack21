@@ -21,6 +21,11 @@
 @theme inline {
   --animate-menu-in: menu-in 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-fade-in: fade-in 0.3s ease-out both;
+  --animate-anillo: anillo 3s ease-in-out infinite;
+  @keyframes anillo {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+  }
 
   @keyframes fade-in {
     from {
