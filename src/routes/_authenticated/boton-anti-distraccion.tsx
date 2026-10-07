@@ -19,6 +19,9 @@ const PASOS: Paso[] = [
   { n: 3, titulo: "Decidir", seg: 5, pie: "5 segundos", cuerpo: <>Con el cuerpo un poco más regulado y la pregunta hecha, elegí conscientemente: <strong className="font-semibold">¿vuelvo a la tarea, o me tomo 2 minutos de pausa?</strong> Cualquiera de las dos está bien, siempre que sea una decisión y no un arrastre automático.</> },
 ];
 
+/** El aro es acumulado: representa el avance sobre la duración total del ejercicio (30 + 10 + 5 = 45 s). */
+const TOTAL = PASOS.reduce((a, b) => a + b.seg, 0);
+
 function Etiqueta() {
   return (
     <div className="flex flex-col items-center self-stretch h-fit py-2.5">
