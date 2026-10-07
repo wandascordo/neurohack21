@@ -213,6 +213,7 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          resource: string | null
           resource_name: string
           resource_type: string
           user_id: string
@@ -220,13 +221,15 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
-          resource_name: string
-          resource_type: string
+          resource?: string | null
+          resource_name?: string
+          resource_type?: string
           user_id?: string
         }
         Update: {
           created_at?: string
           id?: string
+          resource?: string | null
           resource_name?: string
           resource_type?: string
           user_id?: string

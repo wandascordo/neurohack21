@@ -19,6 +19,7 @@ import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAutoevaluacionRouteImport } from './routes/_authenticated/autoevaluacion'
+import { Route as AuthenticatedBotonAntiDistraccionRouteImport } from './routes/_authenticated/boton-anti-distraccion'
 import { Route as AuthenticatedGlosarioRouteImport } from './routes/_authenticated/glosario'
 import { Route as AuthenticatedGuionesRouteImport } from './routes/_authenticated/guiones'
 import { Route as AuthenticatedInicioRouteImport } from './routes/_authenticated/inicio'
@@ -81,6 +82,12 @@ const AuthenticatedAutoevaluacionRoute =
   AuthenticatedAutoevaluacionRouteImport.update({
     id: '/autoevaluacion',
     path: '/autoevaluacion',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedBotonAntiDistraccionRoute =
+  AuthenticatedBotonAntiDistraccionRouteImport.update({
+    id: '/boton-anti-distraccion',
+    path: '/boton-anti-distraccion',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedGlosarioRoute = AuthenticatedGlosarioRouteImport.update({
@@ -158,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
+  '/boton-anti-distraccion': typeof AuthenticatedBotonAntiDistraccionRoute
   '/glosario': typeof AuthenticatedGlosarioRoute
   '/guiones': typeof AuthenticatedGuionesRoute
   '/inicio': typeof AuthenticatedInicioRoute
@@ -181,6 +189,7 @@ export interface FileRoutesByTo {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
+  '/boton-anti-distraccion': typeof AuthenticatedBotonAntiDistraccionRoute
   '/glosario': typeof AuthenticatedGlosarioRoute
   '/guiones': typeof AuthenticatedGuionesRoute
   '/inicio': typeof AuthenticatedInicioRoute
@@ -206,6 +215,7 @@ export interface FileRoutesById {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
+  '/_authenticated/boton-anti-distraccion': typeof AuthenticatedBotonAntiDistraccionRoute
   '/_authenticated/glosario': typeof AuthenticatedGlosarioRoute
   '/_authenticated/guiones': typeof AuthenticatedGuionesRoute
   '/_authenticated/inicio': typeof AuthenticatedInicioRoute
@@ -231,6 +241,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/admin'
     | '/autoevaluacion'
+    | '/boton-anti-distraccion'
     | '/glosario'
     | '/guiones'
     | '/inicio'
@@ -254,6 +265,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/admin'
     | '/autoevaluacion'
+    | '/boton-anti-distraccion'
     | '/glosario'
     | '/guiones'
     | '/inicio'
@@ -278,6 +290,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/_authenticated/admin'
     | '/_authenticated/autoevaluacion'
+    | '/_authenticated/boton-anti-distraccion'
     | '/_authenticated/glosario'
     | '/_authenticated/guiones'
     | '/_authenticated/inicio'
@@ -378,6 +391,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAutoevaluacionRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/boton-anti-distraccion': {
+      id: '/_authenticated/boton-anti-distraccion'
+      path: '/boton-anti-distraccion'
+      fullPath: '/boton-anti-distraccion'
+      preLoaderRoute: typeof AuthenticatedBotonAntiDistraccionRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/glosario': {
       id: '/_authenticated/glosario'
       path: '/glosario'
@@ -468,6 +488,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedAutoevaluacionRoute: typeof AuthenticatedAutoevaluacionRoute
+  AuthenticatedBotonAntiDistraccionRoute: typeof AuthenticatedBotonAntiDistraccionRoute
   AuthenticatedGlosarioRoute: typeof AuthenticatedGlosarioRoute
   AuthenticatedGuionesRoute: typeof AuthenticatedGuionesRoute
   AuthenticatedInicioRoute: typeof AuthenticatedInicioRoute
@@ -482,6 +503,8 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedAutoevaluacionRoute: AuthenticatedAutoevaluacionRoute,
+  AuthenticatedBotonAntiDistraccionRoute:
+    AuthenticatedBotonAntiDistraccionRoute,
   AuthenticatedGlosarioRoute: AuthenticatedGlosarioRoute,
   AuthenticatedGuionesRoute: AuthenticatedGuionesRoute,
   AuthenticatedInicioRoute: AuthenticatedInicioRoute,

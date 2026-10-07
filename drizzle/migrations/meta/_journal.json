@@ -43,6 +43,13 @@
       "when": 1791331023729,
       "tag": "0005_focus_total_score_plain",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1791335487000,
+      "tag": "0006_resource_usage_resource_column",
+      "breakpoints": true
     }
   ]
 }
