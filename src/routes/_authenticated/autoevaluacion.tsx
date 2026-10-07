@@ -207,7 +207,7 @@ function ResultadoNuevo({ answers, onSaved }: { answers: number[]; onSaved: () =
     setSaving(true);
     const { error } = await supabase.from("focus_assessments").insert({ answers, total_score: score });
     setSaving(false);
-    if (error) { toast("No pudimos guardar tu resultado. Probá de nuevo."); return; }
+    if (error) { toast.error("No pudimos guardar tu resultado. Probá de nuevo."); return; }
     await qc.invalidateQueries({ queryKey: ["focus-assessments"] });
     onSaved();
   };
@@ -258,10 +258,10 @@ function Detalle({ r, onBack }: { r: Registro; onBack: () => void }) {
     setBusy(true);
     const { error } = await supabase.from("focus_assessments").delete().eq("id", r.id);
     setBusy(false);
-    if (error) { toast("No pudimos eliminar el resultado. Probá de nuevo."); return; }
+    if (error) { toast.error("No pudimos eliminar el resultado. Probá de nuevo."); return; }
     setOpen(false);
     await qc.invalidateQueries({ queryKey: ["focus-assessments"] });
-    toast("Resultado eliminado");
+    toast.success("Resultado eliminado");
     onBack();
   };
   return (

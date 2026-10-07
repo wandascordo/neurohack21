@@ -44,11 +44,11 @@ function Tarjeta({ g, copiable }: { g: Guion; copiable: boolean }) {
   const onCopy = async () => {
     if (await copiar(g.texto)) {
       setOk(true);
-      toast("Copiado");
+      toast.success("Copiado");
       window.clearTimeout(t.current);
       t.current = window.setTimeout(() => setOk(false), 2000);
     } else {
-      toast("No pudimos copiar. Mantené presionado el texto para copiarlo.");
+      toast.error("No pudimos copiar. Mantené presionado el texto para copiarlo.");
     }
   };
   return (
