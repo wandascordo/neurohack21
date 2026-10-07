@@ -57,7 +57,7 @@ function Inicio() {
   return (
     <BookScreen exact>
       <Onboarding />
-      <div className="flex w-full flex-1 flex-col gap-5">
+      <div className="flex w-full flex-1 flex-col">
         <TopBar />
         <div className="flex flex-col items-center gap-10 self-stretch pt-1.5">
           <h1 className="h-fit shrink-0 self-stretch text-left text-[28px] font-normal leading-[1.1] tracking-[-1.50px] text-carbon">
