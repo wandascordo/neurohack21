@@ -50,7 +50,10 @@ function Menu() {
     refetchOnMount: "always",
   });
   const continuar = progreso?.slug ?? "prologo";
-  const continuarHash = progreso?.anchor ?? undefined;
+  // Con 0% o 100% de lectura el botón invita a empezar de nuevo desde el Prólogo.
+  const iniciar = !!progreso && (progreso.pct === 0 || progreso.pct === 100);
+  const destino = iniciar ? "prologo" : continuar;
+  const continuarHash = iniciar ? undefined : progreso?.anchor ?? undefined;
 
   function closeMenu() {
     if (closing) return;
