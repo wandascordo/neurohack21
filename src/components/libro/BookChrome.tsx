@@ -110,7 +110,7 @@ export function TopBar({ onClose, closing }: { onClose?: () => void; closing?: b
   }, [onClose, closing]);
   if (onClose) {
     return (
-      <div className="relative -mt-2.5 flex h-fit flex-row items-center justify-between self-stretch pb-2.5">
+      <div className="relative flex h-fit flex-row items-center justify-between self-stretch pb-5 pt-5">
         <TopBarRow onClose={onClose} x={x} />
       </div>
     );
