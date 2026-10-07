@@ -92,17 +92,21 @@ function PantallaAro({ p, chico, titulo, cuerpo, pie, punto, boton, primario, on
   );
 }
 
-function PasoView({ paso, autoInicio, onSiguiente }: { paso: Paso; autoInicio: boolean; onSiguiente: () => void }) {
-  const [inicio, setInicio] = useState<number | null>(autoInicio ? Date.now() : null);
+function PasoView({ paso, onSiguiente }: { paso: Paso; onSiguiente: () => void }) {
+  const [inicio, setInicio] = useState<number | null>(null);
   const fr = useProgreso(inicio, paso.seg);
   const corriendo = inicio != null && fr < 1;
   const sinIniciar = inicio == null;
+  // Al completarse el aro, se pasa automáticamente al siguiente paso.
+  useEffect(() => {
+    if (inicio != null && fr >= 1) onSiguiente();
+  }, [inicio, fr, onSiguiente]);
   // El aro es acumulado: arranca donde terminó el paso anterior.
   const base = PASOS.slice(0, paso.n - 1).reduce((a, b) => a + b.seg, 0);
   const p = (base + fr * paso.seg) / TOTAL;
   return (
     <PantallaAro p={p} chico={`Paso ${paso.n}`} titulo={paso.titulo} cuerpo={paso.cuerpo} pie={paso.pie} punto={paso.n}
-      boton={sinIniciar ? "Iniciar" : "Siguiente"} primario={!corriendo}
+      boton={sinIniciar && paso.n === 1 ? "Iniciar" : "Siguiente"} primario={!corriendo && !sinIniciar}
       onBoton={() => (sinIniciar ? setInicio(Date.now()) : onSiguiente())} />
   );
 }
@@ -148,7 +152,7 @@ function BotonAntiDistraccion() {
         </div>
       )}
       {pantalla >= 1 && pantalla <= 3 && (
-        <PasoView key={pantalla} paso={PASOS[pantalla - 1]!} autoInicio={pantalla > 1} onSiguiente={() => setPantalla(pantalla + 1)} />
+        <PasoView key={pantalla} paso={PASOS[pantalla - 1]!} onSiguiente={() => setPantalla(pantalla + 1)} />
       )}
       {pantalla === 4 && (
         <PantallaAro p={1} chico="Ejercicio completado" titulo="Listo"
