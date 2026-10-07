@@ -94,9 +94,12 @@ function PantallaAro({ p, chico, titulo, cuerpo, pie, punto, boton, primario, on
 
 function PasoView({ paso, autoInicio, onSiguiente }: { paso: Paso; autoInicio: boolean; onSiguiente: () => void }) {
   const [inicio, setInicio] = useState<number | null>(autoInicio ? Date.now() : null);
-  const p = useProgreso(inicio, paso.seg);
-  const corriendo = inicio != null && p < 1;
+  const fr = useProgreso(inicio, paso.seg);
+  const corriendo = inicio != null && fr < 1;
   const sinIniciar = inicio == null;
+  // El aro es acumulado: arranca donde terminó el paso anterior.
+  const base = PASOS.slice(0, paso.n - 1).reduce((a, b) => a + b.seg, 0);
+  const p = (base + fr * paso.seg) / TOTAL;
   return (
     <PantallaAro p={p} chico={`Paso ${paso.n}`} titulo={paso.titulo} cuerpo={paso.cuerpo} pie={paso.pie} punto={paso.n}
       boton={sinIniciar ? "Iniciar" : "Siguiente"} primario={!corriendo}
