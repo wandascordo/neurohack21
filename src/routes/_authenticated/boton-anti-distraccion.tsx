@@ -147,7 +147,7 @@ function BotonAntiDistraccion() {
       {pantalla === 4 && (
         <PantallaAro p={1} chico="Ejercicio completado" titulo="Listo"
           cuerpo="Respiraste, nombraste lo que estabas evitando y elegiste. Esta vez el impulso no decidió por vos."
-          pie="Podés volver cuando lo necesites" punto={3} boton="Listo" primario onBoton={() => setPantalla(0)} />
+          pie="Podés volver cuando lo necesites" punto={3} boton="Finalizar" primario onBoton={() => setPantalla(0)} />
       )}
     </BookScreen>
   );
