@@ -50,7 +50,7 @@ export const MODULO5: Block[] = [
       "La escritura expresiva cuenta con una línea de investigación amplia, con efectos modestos, y es una vía práctica y accesible de trabajo junguiano.",
       "El orden recomendado es regular primero el cuerpo, y recién después hacer el trabajo de introspección escrita, para evitar caer en rumiación.",
     ],
-    ejercicio: "Elegí la tarea que identificaste en el Módulo 3 como la que más postergás. Después de tu secuencia de regulación corporal (Módulo 4), escribí cinco minutos de diálogo interno dándole voz en primera persona a la parte de vos que te lleva a postergarla. No busques resolver nada ni llegar a una conclusión ordenada, dejá que el ejercicio sea exploratorio. Anotalo en Mis Notas, dentro de tu Registro Diario. En el Día 9 del reto vas a escribir un diálogo interno más completo, y en el Día 11 vas a retomarlo.",
+    ejercicio: "Elegí la tarea que identificaste en el Módulo 3 como la que más postergás. Después de tu secuencia de regulación corporal (Módulo 4), escribí cinco minutos de diálogo interno dándole voz en primera persona a la parte de vos que te lleva a postergarla. No busques resolver nada ni llegar a una conclusión ordenada, dejá que el ejercicio sea exploratorio. Anotalo donde te resulte más cómodo: en un papel, en las notas de tu celular o en Mis Notas. En el Día 9 del reto vas a escribir un diálogo interno más completo, esta vez sobre tu patrón de distracción principal, y en el Día 11 lo vas a retomar. Guardá lo que escribas en un lugar al que puedas volver.",
     ejercicioLinks: [{ text: "Registro Diario", to: "/registro-diario" }],
   },
 ];

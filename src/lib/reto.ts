@@ -44,7 +44,7 @@ export const SEMANAS: Record<1 | 2 | 3, Semana> = {
           { text: "Respiración de coherencia cardíaca (3 min)", note: "Inhalar 5 segundos por nariz, exhalar 5 segundos por la boca." },
         ]),
         { label: "Reflexión escrita (5 min)", items: [
-          { text: "Retomá lo que anotaste en las últimas 24 horas (lo tenés en {Mis Notas}, Módulo 1). Elegí el patrón de distracción que más se repitió." },
+          { text: "Retomá lo que anotaste en las últimas 24 horas (Módulo 1), ya sea en tu papel, en las notas de tu celular o en {Mis Notas}. Elegí el patrón de distracción que más se repitió." },
           { text: "Escribí: ¿en qué momento del día aparece con más frecuencia?" },
         ] },
         CIERRE,
@@ -83,7 +83,7 @@ export const SEMANAS: Record<1 | 2 | 3, Semana> = {
       { n: 6, grupos: [
         PC("Práctica corporal (8-10 min) **en un horario distinto al habitual**, para notar si el estado de partida cambia según el momento del día."),
         { label: "Reflexión escrita (5 min)", items: [
-          { text: "Repasá tus notas de los días 1 a 5 en tu {Registro Diario}. ¿Qué patrón se repite con más claridad?", note: "Escribilo en una sola frase." },
+          { text: "Repasá lo que escribiste en los días 1 a 5, en tu {Registro Diario} o donde lo hayas anotado. ¿Qué patrón se repite con más claridad?", note: "Escribilo en una sola frase." },
         ] },
         CIERRE,
       ] },
@@ -118,7 +118,7 @@ export const SEMANAS: Record<1 | 2 | 3, Semana> = {
       { n: 9, grupos: [
         PC(),
         { label: "Reflexión escrita (5 min)", items: [
-          { text: "Diálogo interno. Escribí una conversación en primera persona con la parte de vos que genera tu distracción principal, empezando con: *“Yo, la parte que te hace [tu patrón principal], existo porque…”*", note: "Dejá que la escritura fluya sin corregirte." },
+          { text: "Diálogo interno. Escribí una conversación en primera persona con la parte de vos que genera tu distracción principal, empezando con: *“Yo, la parte que te hace [tu patrón principal], existo porque…”*", note: "Dejá que la escritura fluya sin corregirte. Anotalo donde te resulte más cómodo (papel, notas del celular o {Mis Notas}) y guardalo, porque en el Día 11 vas a retomarlo." },
         ] },
         CIERRE,
       ] },
