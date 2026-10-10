@@ -10,3 +10,5 @@
 - [x] Aplicar las correcciones de textos del Prólogo, módulos, reto, conclusiones, bibliografía y glosario.
 - [x] Enlazar Mis Notas y Mi plan de mantenimiento y agregar solamente sus páginas vacías.
 - [x] Retirar el instructivo de Autoevaluación del Módulo 6 y verificar cada cambio solicitado.
+- [ ] Corregir cierres de Módulos 1–6 y Días 1, 6 y 9 para reflejar que Mis Notas es opcional.
+- [ ] Verificar enlaces internos del proyecto y separación visual de descripciones en Días 1, 9 y 11.
