@@ -35,7 +35,7 @@ export const CONCLUSIONES: Block[] = [
   },
   {
     "type": "p",
-    "text": "Hay una idea que vale la pena que te lleves por encima de todas las demás, porque es la que va a sostenerte mucho después de haber terminado este libro interactivo: el foco no es un lugar al que se llega y en el que uno se queda para siempre. Es una práctica que se sostiene, se pierde un poco, se recupera, y se vuelve a sostener. No existe una versión de vos mismo que un día \"termine\" de trabajar su atención y quede inmune a la distracción de por vida, y quiero ser honesto con vos en esto tal como lo fui a lo largo de todo el recorrido, incluso cuando la promesa más chica es menos vendible que la promesa más grande."
+    "text": "Hay una idea que vale la pena que te lleves por encima de todas las demás, porque es la que va a sostenerte mucho después de haber terminado este libro interactivo: el foco no es un lugar al que se llega y en el que uno se queda para siempre. Es una práctica que se sostiene, se pierde un poco, se recupera, y se vuelve a sostener. No existe una versión de vos mismo que un día \"termine\" de trabajar su atención y quede inmune a la distracción de por vida, y quiero ser transparente con vos en esto tal como lo fui a lo largo de todo el recorrido, incluso cuando la promesa más chica es menos vendible que la promesa más grande."
   },
   {
     "type": "p",
@@ -43,7 +43,7 @@ export const CONCLUSIONES: Block[] = [
   },
   {
     "type": "p",
-    "text": "Cada vez que sientas que \"recayó\" del todo tu foco, recordá lo que aprendiste en el Módulo 7: no es un fracaso del método, ni tuyo, es una señal de que hay algo que todavía pide atención, y ya sabés exactamente cómo mirarlo."
+    "text": "Cada vez que sientas que tu foco \"recayó\" del todo, recordá lo que aprendiste en el Módulo 7: no es un fracaso del método, ni tuyo, es una señal de que hay algo que todavía pide atención, y ya sabés exactamente cómo mirarlo."
   },
   {
     "type": "h",
@@ -63,7 +63,7 @@ export const CONCLUSIONES: Block[] = [
   },
   {
     "type": "p",
-    "text": "Esta es la última pantalla del libro, pero es apenas el comienzo de tu propio Neurohack. Tus recursos (el Botón de Anti-Distracción, el Registro Diario, el Tracker Visual, los Guiones y el Glosario) van a seguir ahí, siempre a un toque de distancia, para cuando los necesites."
+    "text": "Esta es la última pantalla del libro, pero es apenas el comienzo de tu propio Neurohack. Tus recursos (la Autoevaluación de Foco, el Botón Anti-Distracción, el Registro Diario, el Tracker Visual, los Guiones y el Glosario) van a seguir ahí, siempre a un toque de distancia, para cuando los necesites."
   }
 ];
 
@@ -81,7 +81,8 @@ export const BIBLIOGRAFIA: { tema: string; items: string[] }[] = [
   {
     "tema": "Fragmentación atencional y costo de la interrupción",
     "items": [
-      "Mark, G. (2023). Attention Span: A Groundbreaking Way to Restore Balance, Happiness and Productivity. Hanover Square Press."
+      "Mark, G. (2023). Attention Span: A Groundbreaking Way to Restore Balance, Happiness and Productivity. Hanover Square Press.",
+      "Mark, G., Gonzalez, V. M., & Harris, J. (2005). No task left behind? Examining the nature of fragmented work. Proceedings of CHI 2005."
     ]
   },
   {
@@ -93,7 +94,9 @@ export const BIBLIOGRAFIA: { tema: string; items: string[] }[] = [
   {
     "tema": "Formación de hábitos",
     "items": [
-      "Lally, P., Van Jaarsveld, C. H. M., Potts, H. W. W., & Wardle, J. (2010). How are habits formed: Modelling habit formation in the real world. European Journal of Social Psychology, 40(6), 998-1009."
+      "Lally, P., Van Jaarsveld, C. H. M., Potts, H. W. W., & Wardle, J. (2010). How are habits formed: Modelling habit formation in the real world. European Journal of Social Psychology, 40(6), 998-1009.",
+      "Singh, B., Murphy, A., Maher, C., & Smith, A. E. (2024). Time to form a habit: A systematic review and meta-analysis of health behaviour habit formation and its determinants. Healthcare, diciembre de 2024. https://pmc.ncbi.nlm.nih.gov/articles/PMC11641623/",
+      "Maltz, M. (1960). Psycho-Cybernetics. Prentice-Hall."
     ]
   },
   {
@@ -124,7 +127,7 @@ export const BIBLIOGRAFIA: { tema: string; items: string[] }[] = [
   {
     "tema": "Meditación y regulación del sistema nervioso",
     "items": [
-      "Sevoz-Couche, C., & Laborde, S. (2022). Heart rate variability and slow-paced breathing: Do context and habit matter?. Journal of Clinical Medicine."
+      "Sevoz-Couche, C., & Laborde, S. (2022). Heart rate variability and slow-paced breathing: When coherence meets resonance. Neuroscience & Biobehavioral Reviews, 135, 104576."
     ]
   }
 ];
