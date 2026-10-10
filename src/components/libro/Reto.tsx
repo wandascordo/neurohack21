@@ -45,13 +45,13 @@ export function Recapitulando() {
           <li><strong className="font-semibold">Integrar</strong> (Días 15 a 21)</li>
         </ol>
       </div>
-      <p className={body}>Necesitarás entre 15 y 25 minutos diarios, sin interrupciones.</p>
+      <p className={body}>Necesitarás entre 10 y 20 minutos diarios, sin interrupciones.</p>
       <div className={body}>
         Cada día combina:
         <ul className="list-disc pl-4">
           <li><strong className="font-semibold">Una práctica corporal breve</strong> (antes de tu primer bloque de trabajo del día)</li>
-          <li><strong className="font-semibold">Una reflexión escrita guiada</strong> (escritura de sombra)</li>
-          <li><strong className="font-semibold">Un cierre de autoevaluación</strong> de un minuto</li>
+          <li><strong className="font-semibold">Una reflexión escrita guiada</strong></li>
+          <li><strong className="font-semibold">Un cierre</strong> de un minuto</li>
         </ul>
       </div>
       <div className={body}>
@@ -61,6 +61,9 @@ export function Recapitulando() {
           <li><strong className="font-semibold">Exhalar 5 segundos por la boca</strong></li>
         </ul>
       </div>
+      <p className={body}>
+        Si en algún momento del reto sentís el impulso de distraerte, tenés el <Rich text="{Botón Anti-Distracción}" /> siempre disponible en el menú: una guía de rescate de menos de un minuto.
+      </p>
       <p className={body}>
         A continuación veremos qué hacer cada día, pero recordá que todo lo podés realizar dentro de tu <Rich text="{Registro Diario}" />.
       </p>
