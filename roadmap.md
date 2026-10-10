@@ -7,3 +7,6 @@
 - [x] Igualar el texto y la lista del Prólogo al export de Figma.
 - [x] Quitar “Cómo usar” del recorrido y dejar solo Siguiente al final del Prólogo hacia Parte I.
 - [x] Corregir la altura del botón de la portada Parte I y comprobar la navegación.
+- [ ] Aplicar las correcciones de textos del Prólogo, módulos, reto, conclusiones, bibliografía y glosario.
+- [ ] Enlazar Mis Notas y Mi plan de mantenimiento y agregar solamente sus páginas vacías.
+- [ ] Retirar el instructivo de Autoevaluación del Módulo 6 y verificar cada cambio solicitado.
