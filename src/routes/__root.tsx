@@ -135,6 +135,23 @@ function RootComponent() {
     initInstallPrompt();
   }, []);
 
+  // Si una pantalla falla al cargar por una versión desactualizada, recargar una sola vez.
+  useEffect(() => {
+    const KEY = "nh21-preload-reload";
+    const onPreloadError = (e: Event) => {
+      if (sessionStorage.getItem(KEY)) return;
+      e.preventDefault();
+      sessionStorage.setItem(KEY, "1");
+      window.location.reload();
+    };
+    const t = window.setTimeout(() => sessionStorage.removeItem(KEY), 10000);
+    window.addEventListener("vite:preloadError", onPreloadError);
+    return () => {
+      window.clearTimeout(t);
+      window.removeEventListener("vite:preloadError", onPreloadError);
+    };
+  }, []);
+
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((event) => {
       if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
