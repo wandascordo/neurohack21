@@ -107,8 +107,8 @@ export const SEMANAS: Record<1 | 2 | 3, Semana> = {
       { n: 8, grupos: [
         PC(),
         { label: "Reflexión escrita (5 min)", items: [
-          { text: "Respondé por escrito, sin corregirte: ¿qué es lo que más me molesta de alguien cercano?" },
-          { text: "Después preguntate: ¿hay algo de eso que yo mismo hago o temo hacer?" },
+          { text: "Retomá lo que anotaste en las últimas 24 horas (Módulo 1). Elegí el patrón de distracción que más se repitió." },
+          { text: "Escribí: ¿en qué momento del día aparece con más frecuencia?" },
         ] },
         CIERRE,
       ] },
