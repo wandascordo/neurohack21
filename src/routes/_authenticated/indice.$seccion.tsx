@@ -4,7 +4,6 @@ import { guardarPosicion, logEvent, marcarCompletada } from "@/lib/progreso";
 import { Placeholder } from "@/components/Placeholder";
 import { BackButton, BookScreen, ProgressBar, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { Recapitulando, SemanaView } from "@/components/libro/Reto";
-import { InstructivoLink } from "@/components/libro/InstructivoModal";
 import { LIBRO, type Block } from "@/lib/libro";
 import { BIBLIOGRAFIA, BIBLIOGRAFIA_INTRO } from "@/lib/conclusiones";
 import parte1Illustration from "@/assets/parte-1-illustration.svg.asset.json";
@@ -313,13 +312,21 @@ function anchorId(text: string) {
 }
 
 function withLinks(text: string, links?: { text: string; to: string }[]): ReactNode {
-  if (!links || links.length === 0) return text;
+  const destinations = [
+    { text: "Mis Notas", to: "/registro-diario/notas" },
+    { text: "Mi plan de mantenimiento", to: "/registro-diario/plan" },
+    ...(links ?? []).filter((link) => link.text !== "Mis Notas" && link.text !== "Mi plan de mantenimiento"),
+  ];
   const parts: ReactNode[] = [];
   let rest = text;
   let key = 0;
-  for (const link of links) {
-    const i = rest.indexOf(link.text);
-    if (i < 0) continue;
+  while (rest) {
+    const match = destinations
+      .map((link) => ({ link, index: rest.indexOf(link.text) }))
+      .filter(({ index }) => index >= 0)
+      .sort((a, b) => a.index - b.index)[0];
+    if (!match) break;
+    const { link, index: i } = match;
     if (i > 0) parts.push(rest.slice(0, i));
     parts.push(
       <Link key={key++} to={link.to} className="underline underline-offset-2 hover:text-carbon">
@@ -409,8 +416,7 @@ function BlockView({ b }: { b: Block }) {
             <div className="flex flex-col gap-2.5 rounded-[10px] border border-carbon-10/10 p-3.5">
               <p className="text-base font-bold tracking-tight text-carbon">Ejercicio de cierre de módulo</p>
               <p className="text-base font-normal tracking-tight text-piedra">{withLinks(b.ejercicio, b.ejercicioLinks)}</p>
-                {b.ejercicioExtra && <p className="text-base font-normal tracking-tight text-piedra">{b.ejercicioExtra}</p>}
-              {b.instructivo && <InstructivoLink />}
+                {b.ejercicioExtra && <p className="text-base font-normal tracking-tight text-piedra">{withLinks(b.ejercicioExtra)}</p>}
             </div>
           )}
         </div>

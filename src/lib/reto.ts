@@ -1,8 +1,11 @@
 // Contenido de la Parte III (exports de Figma «Parte III – Recapitulando / Semana 1-3»).
 // Marcado de texto: **negrita**, *cursiva*, {Texto del enlace} (ver RETO_LINKS).
 
-export const RETO_LINKS: Record<string, "/registro-diario" | "/autoevaluacion" | "/tracker"> = {
+export const RETO_LINKS: Record<string, "/registro-diario" | "/registro-diario/notas" | "/registro-diario/plan" | "/boton-anti-distraccion" | "/autoevaluacion" | "/tracker"> = {
   "Registro Diario": "/registro-diario",
+  "Mis Notas": "/registro-diario/notas",
+  "Mi plan de mantenimiento": "/registro-diario/plan",
+  "Botón Anti-Distracción": "/boton-anti-distraccion",
   "Autoevaluación de Foco": "/autoevaluacion",
   "Tracker Visual de 21 Días": "/tracker",
 };
@@ -41,8 +44,8 @@ export const SEMANAS: Record<1 | 2 | 3, Semana> = {
           { text: "Respiración de coherencia cardíaca (3 min)", note: "Inhalar 5 segundos por nariz, exhalar 5 segundos por la boca." },
         ]),
         { label: "Reflexión escrita (5 min)", items: [
-          { text: "Respondé por escrito, sin corregirte: **¿qué es lo que más me molesta de alguien cercano?**" },
-          { text: "Después preguntate: **¿hay algo de eso que yo mismo hago o temo hacer?**" },
+          { text: "Retomá lo que anotaste en las últimas 24 horas (lo tenés en {Mis Notas}, Módulo 1). Elegí el patrón de distracción que más se repitió." },
+          { text: "Escribí: ¿en qué momento del día aparece con más frecuencia?" },
         ] },
         CIERRE,
       ] },
@@ -66,7 +69,7 @@ export const SEMANAS: Record<1 | 2 | 3, Semana> = {
       { n: 4, grupos: [
         PC(undefined, [{ text: "Escaneo corporal", note: "Hoy, durante el escaneo corporal, prestá especial atención a la mandíbula y los hombros." }, RESP, VIS]),
         { label: "Reflexión escrita (5 min)", items: [
-          { text: "Retomá la pregunta del Módulo 3: si postergar esta tarea me estuviera protegiendo de sentir algo incómodo, ¿qué sería?", note: "Escribí sobre la misma tarea que identificaste entonces, sumando cualquier detalle nuevo que haya aparecido esta semana." },
+          { text: "Retomá la pregunta del Módulo 3: si postergar esta tarea me estuviera protegiendo de sentir algo incómodo, ¿qué sería?", note: "Escribí sobre la misma tarea que identificaste entonces (la tenés anotada en {Mis Notas}), sumando cualquier detalle nuevo que haya aparecido esta semana." },
         ] },
         CIERRE,
       ] },
@@ -107,15 +110,15 @@ export const SEMANAS: Record<1 | 2 | 3, Semana> = {
       { n: 8, grupos: [
         PC(),
         { label: "Reflexión escrita (5 min)", items: [
-          { text: "Retomá lo que anotaste en las últimas 24 horas (Módulo 1). Elegí el patrón de distracción que más se repitió." },
-          { text: "Escribí: ¿en qué momento del día aparece con más frecuencia?" },
+          { text: "Escritura de sombra. Respondé por escrito, sin corregirte: ¿qué es lo que más me molesta de alguien cercano?" },
+          { text: "Después preguntate: ¿hay algo de eso que yo mismo hago o temo hacer?" },
         ] },
         CIERRE,
       ] },
       { n: 9, grupos: [
         PC(),
         { label: "Reflexión escrita (5 min)", items: [
-          { text: "Diálogo interno. Escribí una conversación en primera persona con la parte de vos que genera tu distracción principal, empezando con: *”Yo, la parte que te hace [tu patrón principal], existo porque…”*", note: "Dejá que la escritura fluya sin corregirte." },
+          { text: "Diálogo interno. Escribí una conversación en primera persona con la parte de vos que genera tu distracción principal, empezando con: *“Yo, la parte que te hace [tu patrón principal], existo porque…”*", note: "Dejá que la escritura fluya sin corregirte." },
         ] },
         CIERRE,
       ] },
@@ -174,14 +177,14 @@ export const SEMANAS: Record<1 | 2 | 3, Semana> = {
           { text: "Elegí la tarea que más solés postergar y hacé el primer bloque de trabajo del día directamente sobre ella, inmediatamente después de la práctica corporal." },
         ] },
         { label: "Reflexión escrita (5 min)", items: [
-          { text: "¿Cómo fue empezar esa tarea hoy, comparado con cómo la describiste en el Módulo 3?" },
+          { text: "¿Cómo fue empezar esa tarea hoy, comparado con lo que anotaste en {Mis Notas} cuando hiciste el ejercicio del Módulo 3?" },
         ] },
         CIERRE,
       ] },
       { n: 16, grupos: [
         BREVE(),
         { label: "Aplicación práctica (2 min)", items: [
-          { text: "Notá una situación real del día (una reunión, una conversación, una tarea doméstica) donde apliques la pausa de ”notar y redirigir” sin necesidad de la secuencia completa de regulación." },
+          { text: "Notá una situación real del día (una reunión, una conversación, una tarea doméstica) donde apliques la pausa de “notar y redirigir” sin necesidad de la secuencia completa de regulación." },
         ] },
         { label: "Reflexión escrita (5 min)", items: [
           { text: "Describí esa situación y qué hiciste distinto a como hubieras reaccionado hace tres semanas." },
@@ -228,10 +231,10 @@ export const SEMANAS: Record<1 | 2 | 3, Semana> = {
       { n: 21, grupos: [
         PC("Práctica corporal, secuencia completa (8-10 min)"),
         { label: "Reflexión escrita (5 min)", items: [
-          { text: "Cierre final. Respondé: ¿qué cambió realmente en estos 21 días? ¿Qué frase registraste en el Módulo 6 sobre tus expectativas, y qué tan cerca estás de eso hoy? ¿Qué te llevás para seguir sosteniendo después de hoy?" },
+          { text: "Cierre final. Respondé: ¿qué cambió realmente en estos 21 días? ¿Qué tan cerca estás hoy de lo que esperabas lograr cuando empezaste? ¿Qué te llevás para seguir sosteniendo después de hoy?" },
         ] },
         { label: "Cierre (1 min)", items: [
-          { text: "Repetí la {Autoevaluación de Foco} por última vez.", note: "Vas a ver esta comparación gráfica reflejada automáticamente en tu {Tracker Visual de 21 Días}. Guardá esta comparación en mente, porque en el Módulo 7 vas a usarla como punto de partida para diseñar tu plan de sostenimiento." },
+          { text: "Repetí la {Autoevaluación de Foco} por última vez.", note: "Vas a ver esta comparación gráfica reflejada automáticamente en tu {Tracker Visual de 21 Días}. Tomá nota de cómo cambió tu puntaje: en el Módulo 7 vas a diseñar tu plan para sostener lo que lograste." },
         ] },
       ] },
     ],

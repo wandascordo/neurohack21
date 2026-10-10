@@ -19,3 +19,4 @@
 - User actions are logged to user_activity_events via logEvent() in src/lib/progreso.ts — one append-only audit trail readable by the user and admins.
 - Supabase query builders are lazy: always await or .then() rpc/insert calls, never `void` them — un-awaited calls are never sent.
 - Store long Figma module transcriptions in dedicated src/lib/moduloN.ts files and render them with the shared book block renderer — keeps exact chapter text separate from navigation and preserves the established reading layout.
+- Notes and maintenance-plan placeholder routes use non-nested file routes under the authenticated layout and shared BookChrome — keeps the existing Registro Diario screen unchanged while rendering each destination independently.

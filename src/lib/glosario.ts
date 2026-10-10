@@ -208,7 +208,7 @@ export const TERMINOS: Termino[] = [
   "id": "escritura-expresiva",
   "nombre": "Escritura expresiva",
   "sub": null,
-  "def": "Técnica desarrollada por el psicólogo James Pennebaker que consiste en escribir libremente sobre pensamientos y emociones profundas durante 15 a 20 minutos, con respaldo científico en la reducción de la carga cognitiva de contenidos emocionales no procesados.",
+  "def": "Técnica desarrollada por el psicólogo James Pennebaker que consiste en escribir libremente sobre pensamientos y emociones profundas durante 15 a 20 minutos. Cuenta con una línea de investigación amplia, con efectos generalmente modestos y resultados que varían según el estudio.",
   "nota": "Base de los ejercicios de introspección del Módulo 5.",
   "links": [
    {

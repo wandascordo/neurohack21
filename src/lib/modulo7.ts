@@ -26,11 +26,11 @@ export const MODULO7: Block[] = [
     { label: "Práctica corporal", item: "Respiración de coherencia cardíaca antes del primer bloque de trabajo del día (1 min)" },
     { label: "Reflexión escrita", item: "Una línea escrita al final del día respondiendo: ¿qué noté hoy sobre mi foco?" },
   ] },
-  { type: "p", text: "Esto no reemplaza la profundidad del trabajo hecho durante el reto, pero mantiene activo el circuito de auto-observación, que es la base de todo lo demás. Es preferible un ritual de un minuto que se sostiene todos los días, a uno de diez minutos que se abandona a la semana." },
+  { type: "p", text: "Esto no reemplaza la profundidad del trabajo hecho durante el reto, pero mantiene activo el circuito de autoobservación, que es la base de todo lo demás. Es preferible un ritual de un minuto que se sostiene todos los días, a uno de diez minutos que se abandona a la semana." },
   { type: "ejemplo", text: "Sofía, después de terminar su propio reto, decide que su ritual mínimo va a ser: respiración de coherencia cardíaca de un minuto antes de abrir el mail cada mañana, y la pregunta \"¿qué evité hoy y por qué?\" registrada en una nota rápida antes de cerrar la laptop. No es el programa completo del reto, pero es sostenible a largo plazo, y eso es lo que importa." },
   { type: "h", text: "Diseñá tus propias intenciones de implementación" },
   { type: "p", text: "Antes de seguir, tomá lo que registraste en el Día 20 (los ejercicios que más te sirvieron) y convertilos en dos o tres planes concretos con formato \"si pasa X, entonces hago Y\"." },
-  { type: "p", text: "Vas a poder guardarlos al final de tu Registro Diario, donde los puedas repasar semanalmente durante el primer mes después del reto. Este es, probablemente, el ejercicio más importante de todo este módulo.", links: [{ text: "Registro Diario", to: "/registro-diario" }] },
+  { type: "p", text: "Vas a poder guardarlos en Mi plan de mantenimiento, dentro de tu Registro Diario, donde los puedas repasar semanalmente durante el primer mes después del reto. Este es, probablemente, el ejercicio más importante de todo este módulo.", links: [{ text: "Registro Diario", to: "/registro-diario" }] },
   { type: "h", text: "Señales de que el cambio se está consolidando" },
   { type: "p", text: "Es útil saber qué buscar para no depender solo de la sensación subjetiva de \"estoy mejor\" o \"estoy peor\", que puede variar mucho de un día a otro sin reflejar el progreso real. Algunas señales concretas, coherentes con lo que trabajaste en el reto:" },
   { type: "senales", items: [
@@ -50,6 +50,6 @@ export const MODULO7: Block[] = [
       "Un ritual mínimo sostenible todos los días es más efectivo a largo plazo que una práctica larga que se abandona a la semana.",
       "Hay señales concretas de consolidación del cambio (velocidad de detección de la distracción, velocidad de recuperación después de una recaída, aplicación automática del método) que no dependen solo de cómo te sentís un día puntual.",
     ],
-    ejercicio: "Registrá tu ritual mínimo de mantenimiento (una práctica de no más de dos minutos) y tus dos o tres intenciones de implementación con formato \"si pasa X, entonces hago Y\".",
+    ejercicio: "Registrá en Mi plan de mantenimiento, dentro de tu Registro Diario, tu ritual mínimo de mantenimiento (una práctica de no más de dos minutos) y tus dos o tres intenciones de implementación con formato \"si pasa X, entonces hago Y\".",
   },
 ];
