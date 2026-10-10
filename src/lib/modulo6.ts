@@ -46,7 +46,7 @@ export const MODULO6: Block[] = [
       "El reto de 21 días es un punto de partida honesto: cubre la parte más intensa de la curva de cambio, no la totalidad del proceso, y por eso este libro interactivo incluye un módulo específico sobre cómo sostener el cambio después del día 21.",
       "Faltar un día de práctica no reinicia el proceso, retomar al día siguiente tiene un costo mucho menor de lo que solemos suponer.",
     ],
-    ejercicio: "Antes de empezar el Día 1, necesitás una primera medición de tu punto de partida. Para eso está el recurso Autoevaluación de Foco, disponible siempre en tus recursos. Dentro del recurso también vas a encontrar cómo funciona la evaluación y una versión para hacerla en papel, si preferís.",
+    ejercicio: "Antes de empezar el Día 1, necesitás una primera medición de tu punto de partida. Para eso está el recurso Autoevaluación de Foco, disponible siempre en tus recursos. Dentro del recurso también vas a encontrar cómo funciona la evaluación y una versión para hacerla en papel, si preferís. Si la hacés en papel, respondé también la evaluación dentro de la app, para que tu resultado quede guardado y aparezca en tu Tracker Visual.",
     ejercicioLinks: [{ text: "Autoevaluación de Foco", to: "/autoevaluacion" }],
   },
 ];
