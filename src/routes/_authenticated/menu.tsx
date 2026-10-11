@@ -26,7 +26,7 @@ const items = [
   { to: "/registro-diario", label: "Registro Diario de 21 Días", icon: calendario.url },
   { to: "/tracker", label: "Tracker Visual de 21 Días", icon: chart.url },
   { to: "/boton-anti-distraccion", label: "Botón Anti-Distracción", icon: siren.url },
-  { to: "/guiones", label: "Guiones Listos para Proteger tu Foco", icon: postits.url },
+  { to: "/guiones", label: "Guiones para Proteger tu Foco", icon: postits.url },
   { to: "/glosario", label: "Glosario de Términos", icon: glosario.url },
 ] as const;
 
