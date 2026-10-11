@@ -1,11 +1,9 @@
-import type { LucideIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { Calendar, Check, Trophy } from "lucide-react";
+import { Check } from "lucide-react";
+import { IconoMascara } from "@/components/IconoMascara";
 import stickyNote from "@/assets/registro-sticky-note-02.png.asset.json";
-
-function StickyNoteIcon() {
-  return <span aria-hidden="true" className="block h-6 w-6 bg-current" style={{ mask: `url(${stickyNote.url}) center / contain no-repeat`, WebkitMask: `url(${stickyNote.url}) center / contain no-repeat` }} />;
-}
+import calendario21 from "@/assets/iconocalendario-21.png.asset.json";
+import champion from "@/assets/iconochampion.png.asset.json";
 
 export function Pill() {
   return (
@@ -17,26 +15,12 @@ export function Pill() {
   );
 }
 
-const TAB_ICON_PX = 24;
-const TAB_ICON_STROKE = 1.5;
-
-// Un único componente para los tres íconos: SVG renderizado exactamente de
-// TAB_ICON_PX × TAB_ICON_PX, mismo trazo, sin padding interno.
-function TabIcon({ icon: Icon, overlay }: { icon: LucideIcon | typeof StickyNoteIcon; overlay?: string | undefined }) {
-  return (
-    <span className="relative inline-flex h-6 w-6 items-center justify-center">
-      {Icon === StickyNoteIcon ? <StickyNoteIcon /> : <Icon size={TAB_ICON_PX} width={TAB_ICON_PX} height={TAB_ICON_PX} strokeWidth={TAB_ICON_STROKE} className="block" />}
-      {overlay && (
-        <span className="absolute inset-x-0 bottom-[3px] text-center text-[8px] font-semibold leading-none">{overlay}</span>
-      )}
-    </span>
-  );
-}
-
+// Íconos de la librería de Figma del usuario: los tres usan el mismo componente
+// y el mismo tamaño (24 × 24), sin padding interno, iguales en activo e inactivo.
 const TABS = [
-  { to: "/registro-diario/notas", label: "Mis notas", icon: StickyNoteIcon, overlay: undefined },
-  { to: "/registro-diario", label: "Registro Diario", icon: Calendar, overlay: "21" },
-  { to: "/registro-diario/plan", label: "Mantenimiento", icon: Trophy, overlay: undefined },
+  { to: "/registro-diario/notas", label: "Mis notas", asset: stickyNote },
+  { to: "/registro-diario", label: "Registro Diario", asset: calendario21 },
+  { to: "/registro-diario/plan", label: "Mantenimiento", asset: champion },
 ] as const;
 
 // Mismo estilo y comportamiento que la barra flotante de Guiones.
@@ -49,14 +33,14 @@ export function RegistroBottomNav() {
         className="fixed inset-x-0 z-40 mx-auto flex w-[calc(100%-20px)] max-w-[380px] flex-row gap-2.5 items-start bg-tiza rounded-full border border-carbon-10/10 p-2.5"
         style={{ bottom: "calc(20px + env(safe-area-inset-bottom))" }}
       >
-        {TABS.map(({ to, label, icon, overlay }) => (
+        {TABS.map(({ to, label, asset }) => (
           <Link
             key={to}
             to={to}
             activeOptions={{ exact: true }}
             className="flex flex-col gap-0.5 justify-center items-center flex-1 h-[60px] rounded-full p-4 overflow-hidden transition-colors bg-carbon-10/[0.03] text-piedra data-[status=active]:bg-salvia data-[status=active]:text-tiza"
           >
-            <TabIcon icon={icon} overlay={overlay} />
+            <IconoMascara asset={asset} className="h-6 w-6" />
             <span className="text-xs font-normal text-center tracking-tight whitespace-nowrap">{label}</span>
           </Link>
         ))}
