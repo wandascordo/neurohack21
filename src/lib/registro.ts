@@ -206,3 +206,10 @@ export async function guardarFeedback(rating: number) {
 }
 
 export const INSTRUCTIVO_PDF = "/downloads/instructivo-registro-diario.pdf";
+
+export const logsQuery = { queryKey: ["registro-logs"], queryFn: cargarLogs };
+
+export function estadoDe(n: number, logs: LogDia[]): "completado" | "actual" | "pendiente" {
+  if (logs.some((l) => l.day_number === n && l.status === "completed")) return "completado";
+  return n === diaActual(logs) ? "actual" : "pendiente";
+}

@@ -5,20 +5,13 @@ import { NotebookPen, Star } from "lucide-react";
 import { toast } from "sonner";
 import { meta } from "@/components/Placeholder";
 import { BookScreen, TopBar, btnPrimary } from "@/components/libro/BookChrome";
-import { CirculoDia, Pill, RegistroBottomNav, type EstadoDia } from "@/components/registro/RegistroUI";
-import { INSTRUCTIVO_PDF, cargarFeedback, cargarLogs, diaActual, guardarFeedback, type LogDia } from "@/lib/registro";
+import { CirculoDia, Pill, RegistroBottomNav } from "@/components/registro/RegistroUI";
+import { INSTRUCTIVO_PDF, cargarFeedback, diaActual, estadoDe, guardarFeedback, logsQuery } from "@/lib/registro";
 
 export const Route = createFileRoute("/_authenticated/registro-diario")({
   head: () => meta("Registro Diario de 21 Días", "Registrá tu práctica y reflexión de cada día del reto."),
   component: RegistroInicio,
 });
-
-export const logsQuery = { queryKey: ["registro-logs"], queryFn: cargarLogs };
-
-export function estadoDe(n: number, logs: LogDia[]): EstadoDia {
-  if (logs.some((l) => l.day_number === n && l.status === "completed")) return "completado";
-  return n === diaActual(logs) ? "actual" : "pendiente";
-}
 
 const SEMANAS = [
   { titulo: "Desprogramar", sub: "Semana 1", dias: [1, 2, 3, 4, 5, 6, 7] },
