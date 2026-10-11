@@ -102,6 +102,18 @@ export function diaConfig(n: number): DiaConfig {
 export type Respuesta = { selected?: string[] | string | null; other?: string; note?: string; text?: string; done?: boolean };
 export type Respuestas = Record<string, Respuesta>;
 
+export function textoRespuesta(p: Pregunta, r?: Respuesta): string[] {
+  if (!r) return [];
+  if (p.tipo === "text") return r.text?.trim() ? [r.text.trim()] : [];
+  if (p.tipo === "check") return r.done ? ["Lo hice"] : [];
+  const ids = Array.isArray(r.selected) ? r.selected : typeof r.selected === "string" ? [r.selected] : [];
+  const labels = ids.filter((id) => id !== "otro").map((id) => p.opciones.find((o) => o.id === id)?.label).filter((s): s is string => !!s);
+  if (r.other?.trim()) labels.push(r.other.trim());
+  const out = labels.length ? [labels.join(", ")] : [];
+  if (r.note?.trim()) out.push(r.note.trim());
+  return out;
+}
+
 export function tieneRespuesta(p: Pregunta, r?: Respuesta): boolean {
   if (!r) return false;
   if (p.tipo === "chips") {
