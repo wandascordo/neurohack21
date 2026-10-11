@@ -14,12 +14,34 @@ export type Database = {
   }
   public: {
     Tables: {
+      challenge_feedback: {
+        Row: {
+          created_at: string
+          rating: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          rating: number
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          rating?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       daily_logs: {
         Row: {
           arrival_other: string | null
           arrival_tags: string[]
           body_scan: boolean
           coherence_breathing: boolean
+          completed_at: string | null
           created_at: string
           day_number: number
           focus_level: number | null
@@ -27,8 +49,13 @@ export type Database = {
           how_resumed: string | null
           id: string
           logged_at: string
+          logged_on: string
           missed_practice: boolean
+          practica_completa: boolean
+          practice_items: Json
           reflection: string | null
+          responses: Json
+          status: string
           updated_at: string
           user_id: string
         }
@@ -37,6 +64,7 @@ export type Database = {
           arrival_tags?: string[]
           body_scan?: boolean
           coherence_breathing?: boolean
+          completed_at?: string | null
           created_at?: string
           day_number: number
           focus_level?: number | null
@@ -44,8 +72,13 @@ export type Database = {
           how_resumed?: string | null
           id?: string
           logged_at?: string
+          logged_on?: string
           missed_practice?: boolean
+          practica_completa?: boolean
+          practice_items?: Json
           reflection?: string | null
+          responses?: Json
+          status?: string
           updated_at?: string
           user_id?: string
         }
@@ -54,6 +87,7 @@ export type Database = {
           arrival_tags?: string[]
           body_scan?: boolean
           coherence_breathing?: boolean
+          completed_at?: string | null
           created_at?: string
           day_number?: number
           focus_level?: number | null
@@ -61,8 +95,13 @@ export type Database = {
           how_resumed?: string | null
           id?: string
           logged_at?: string
+          logged_on?: string
           missed_practice?: boolean
+          practica_completa?: boolean
+          practice_items?: Json
           reflection?: string | null
+          responses?: Json
+          status?: string
           updated_at?: string
           user_id?: string
         }
