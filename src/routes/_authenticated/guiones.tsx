@@ -109,7 +109,7 @@ function GuionesParaProtegerTuFoco() {
                 setActiva(c.id);
                 window.scrollTo({ top: 0 });
               }}
-              className={`flex flex-col gap-0.5 justify-center items-center flex-1 h-[60px] rounded-full p-4 overflow-hidden transition-colors ${sel ? "bg-salvia text-tiza" : "bg-carbon-10/10 text-piedra"}`}
+              className={`flex flex-col gap-0.5 justify-center items-center flex-1 h-[60px] rounded-full p-4 overflow-hidden transition-colors ${sel ? "bg-salvia text-tiza" : "bg-carbon-10/[0.03] text-piedra"}`}
             >
               <Icono className="h-6 w-6 shrink-0" strokeWidth={1.5} />
               <span className="text-xs font-normal text-center tracking-tight whitespace-nowrap">{c.tab}</span>

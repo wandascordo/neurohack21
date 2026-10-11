@@ -4,7 +4,7 @@ import { Calendar, Check, Trophy } from "lucide-react";
 import stickyNote from "@/assets/registro-sticky-note-02.png.asset.json";
 
 function StickyNoteIcon() {
-  return <span aria-hidden="true" className="block h-7 w-7 bg-current" style={{ mask: `url(${stickyNote.url}) center / contain no-repeat`, WebkitMask: `url(${stickyNote.url}) center / contain no-repeat` }} />;
+  return <span aria-hidden="true" className="block h-6 w-6 bg-current" style={{ mask: `url(${stickyNote.url}) center / contain no-repeat`, WebkitMask: `url(${stickyNote.url}) center / contain no-repeat` }} />;
 }
 
 export function Pill() {
@@ -17,14 +17,14 @@ export function Pill() {
   );
 }
 
-const TAB_ICON_PX = 28;
+const TAB_ICON_PX = 24;
 const TAB_ICON_STROKE = 1.5;
 
 // Un único componente para los tres íconos: SVG renderizado exactamente de
 // TAB_ICON_PX × TAB_ICON_PX, mismo trazo, sin padding interno.
 function TabIcon({ icon: Icon, overlay }: { icon: LucideIcon | typeof StickyNoteIcon; overlay?: string | undefined }) {
   return (
-    <span className="relative inline-flex h-7 w-7 items-center justify-center">
+    <span className="relative inline-flex h-6 w-6 items-center justify-center">
       {Icon === StickyNoteIcon ? <StickyNoteIcon /> : <Icon size={TAB_ICON_PX} width={TAB_ICON_PX} height={TAB_ICON_PX} strokeWidth={TAB_ICON_STROKE} className="block" />}
       {overlay && (
         <span className="absolute inset-x-0 bottom-[3px] text-center text-[8px] font-semibold leading-none">{overlay}</span>
@@ -54,7 +54,7 @@ export function RegistroBottomNav() {
             key={to}
             to={to}
             activeOptions={{ exact: true }}
-            className="flex flex-col gap-0.5 justify-center items-center flex-1 h-[60px] rounded-full p-4 overflow-hidden transition-colors bg-carbon-10/10 text-piedra data-[status=active]:bg-salvia data-[status=active]:text-tiza"
+            className="flex flex-col gap-0.5 justify-center items-center flex-1 h-[60px] rounded-full p-4 overflow-hidden transition-colors bg-carbon-10/[0.03] text-piedra data-[status=active]:bg-salvia data-[status=active]:text-tiza"
           >
             <TabIcon icon={icon} overlay={overlay} />
             <span className="text-xs font-normal text-center tracking-tight whitespace-nowrap">{label}</span>
