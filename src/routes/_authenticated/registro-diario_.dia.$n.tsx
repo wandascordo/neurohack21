@@ -227,8 +227,8 @@ function FilaCheck({ titulo, desc, hecho, onToggle }: { titulo: string; desc?: s
 
 const inputBox = "self-stretch rounded-[10px] border border-carbon-10/10 bg-blanco p-2.5 text-base tracking-tight text-carbon placeholder:text-piedra/60 outline-none focus:border-salvia/50";
 
-function CampoPregunta({ p, i, r, pendiente, onResp }: { p: Pregunta; i: number; r?: Respuesta | undefined; pendiente: boolean; onResp: (r: Respuesta, inmediato?: boolean) => void }) {
-  const titulo = <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{i + 1}. {p.enunciado}</p>;
+function CampoPregunta({ p, i, total, r, pendiente, onResp }: { p: Pregunta; i: number; total: number; r?: Respuesta | undefined; pendiente: boolean; onResp: (r: Respuesta, inmediato?: boolean) => void }) {
+  const titulo = <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{total > 1 ? `${i + 1}. ` : ""}{p.enunciado}</p>;
   if (p.tipo === "chips") {
     const sel = Array.isArray(r?.selected) ? r.selected : [];
     const toggle = (id: string) => {
@@ -306,19 +306,10 @@ function Edicion({ cfg, b, falta, pendiente, onFecha, onItem, onResp, onFoco }: 
   cfg: DiaConfig; b: Borrador; falta: Faltante[]; pendiente: boolean;
   onFecha: (v: string) => void; onItem: (id: string) => void; onResp: (id: string, r: Respuesta, inmediato?: boolean) => void; onFoco: (v: number) => void;
 }) {
-  const fechaRef = useRef<HTMLInputElement>(null);
   return (
     <div className="mt-5 flex flex-col gap-10 self-stretch">
       <Seccion titulo="Fecha">
-        <label className="relative flex flex-row items-center gap-1 self-stretch rounded-[10px] border border-carbon-10/10 bg-blanco p-2" onClick={() => fechaRef.current?.showPicker?.()}>
-          <span className="flex-1 text-base tracking-tight text-carbon">{fechaLarga(b.logged_on)}</span>
-          <ChevronDown className="h-5 w-5 text-piedra" strokeWidth={1.5} />
-          <input
-            ref={fechaRef} type="date" value={b.logged_on} max={hoyLocal()} aria-label="Fecha"
-            onChange={(e) => e.target.value && onFecha(e.target.value)}
-            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-          />
-        </label>
+        <SelectorFecha value={b.logged_on} onChange={onFecha} />
       </Seccion>
       {cfg.practica.length > 0 && (
         <Seccion titulo="Práctica corporal" marcado={falta.includes("practica")}>
@@ -337,7 +328,7 @@ function Edicion({ cfg, b, falta, pendiente, onFecha, onItem, onResp, onFoco }: 
       {cfg.preguntas.length > 0 && (
         <Seccion titulo="Reflexión escrita" marcado={falta.includes("reflexion")}>
           {cfg.preguntas.map((p, i) => (
-            <CampoPregunta key={p.id} p={p} i={i} r={b.responses[p.id]} pendiente={pendiente} onResp={(r, inm) => onResp(p.id, r, inm)} />
+            <CampoPregunta key={p.id} p={p} i={i} total={cfg.preguntas.length} r={b.responses[p.id]} pendiente={pendiente} onResp={(r, inm) => onResp(p.id, r, inm)} />
           ))}
         </Seccion>
       )}
