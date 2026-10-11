@@ -1,6 +1,11 @@
 import type { LucideIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { Calendar, Check, NotebookPen, Trophy } from "lucide-react";
+import { Calendar, Check, Trophy } from "lucide-react";
+import stickyNote from "@/assets/registro-sticky-note-02.png.asset.json";
+
+function StickyNoteIcon() {
+  return <span aria-hidden="true" className="block h-7 w-7 bg-current" style={{ mask: `url(${stickyNote.url}) center / contain no-repeat`, WebkitMask: `url(${stickyNote.url}) center / contain no-repeat` }} />;
+}
 
 export function Pill() {
   return (
@@ -17,10 +22,10 @@ const TAB_ICON_STROKE = 1.5;
 
 // Un único componente para los tres íconos: SVG renderizado exactamente de
 // TAB_ICON_PX × TAB_ICON_PX, mismo trazo, sin padding interno.
-function TabIcon({ icon: Icon, overlay }: { icon: LucideIcon; overlay?: string | undefined }) {
+function TabIcon({ icon: Icon, overlay }: { icon: LucideIcon | typeof StickyNoteIcon; overlay?: string | undefined }) {
   return (
     <span className="relative inline-flex h-7 w-7 items-center justify-center">
-      <Icon size={TAB_ICON_PX} width={TAB_ICON_PX} height={TAB_ICON_PX} strokeWidth={TAB_ICON_STROKE} className="block" />
+      {Icon === StickyNoteIcon ? <StickyNoteIcon /> : <Icon size={TAB_ICON_PX} width={TAB_ICON_PX} height={TAB_ICON_PX} strokeWidth={TAB_ICON_STROKE} className="block" />}
       {overlay && (
         <span className="absolute inset-x-0 bottom-[3px] text-center text-[8px] font-semibold leading-none">{overlay}</span>
       )}
@@ -29,7 +34,7 @@ function TabIcon({ icon: Icon, overlay }: { icon: LucideIcon; overlay?: string |
 }
 
 const TABS = [
-  { to: "/registro-diario/notas", label: "Mis notas", icon: NotebookPen, overlay: undefined },
+  { to: "/registro-diario/notas", label: "Mis notas", icon: StickyNoteIcon, overlay: undefined },
   { to: "/registro-diario", label: "Registro Diario", icon: Calendar, overlay: "21" },
   { to: "/registro-diario/plan", label: "Mantenimiento", icon: Trophy, overlay: undefined },
 ] as const;
