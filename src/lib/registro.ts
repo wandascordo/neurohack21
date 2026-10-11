@@ -2,6 +2,7 @@
 // Los enunciados salen de SEMANAS (src/lib/reto.ts), la misma fuente que usa el libro.
 import { supabase } from "@/integrations/supabase/client";
 import { SEMANAS, type RetoGrupo } from "@/lib/reto";
+import { contenidoDia } from "@/lib/registro-contenido";
 
 export type Opcion = { id: string; label: string };
 export type Pregunta =
@@ -10,14 +11,21 @@ export type Pregunta =
   | { id: string; tipo: "text"; enunciado: string; placeholder?: string | undefined; opcional?: boolean }
   | { id: string; tipo: "check"; enunciado: string; opcional?: boolean };
 export type ItemPractica = { id: string; titulo: string; desc?: string | undefined };
-export type Extra = { id: string; seccion: string; titulo: string; desc?: string | undefined };
+export type Extra = { id: string; seccion: string; titulo: string; desc?: string | undefined; pregunta?: Pregunta };
+export type Referencia =
+  | { tipo: "nota"; key: string; titulo: string }
+  | { tipo: "respuesta"; dia: number; preguntaId: string; titulo: string }
+  | { tipo: "dias"; dias: number[]; titulo: string };
 export type DiaConfig = {
   n: number;
   practica: ItemPractica[];
   extras: Extra[];
   preguntas: Pregunta[];
-  referencia?: { titulo: string; dia: number; preguntaId: string };
-  autoevaluacion?: { texto: string; boton: string };
+  referencias?: Referencia[];
+  practicaNota?: string;
+  reflexionNota?: string;
+  enlacePlan?: boolean;
+  autoevaluacion?: { texto: string; boton: string; moment: "cierre_semana1" | "cierre_semana2" | "dia21" };
 };
 
 export const slug = (s: string) =>
@@ -87,7 +95,7 @@ const OVERRIDES: Record<number, Partial<DiaConfig>> = {
 };
 
 export function diaConfig(n: number): DiaConfig {
-  return { ...porDefecto(n), ...OVERRIDES[n] };
+  return contenidoDia(n) ?? { ...porDefecto(n), ...OVERRIDES[n] };
 }
 
 // ---------- Respuestas ----------
@@ -96,8 +104,13 @@ export type Respuestas = Record<string, Respuesta>;
 
 export function tieneRespuesta(p: Pregunta, r?: Respuesta): boolean {
   if (!r) return false;
-  if (p.tipo === "chips") return (Array.isArray(r.selected) && r.selected.length > 0) || !!r.other?.trim();
-  if (p.tipo === "options") return (typeof r.selected === "string" && !!r.selected) || !!r.note?.trim();
+  if (p.tipo === "chips") {
+    const sel = Array.isArray(r.selected) ? r.selected : [];
+    // Día 8 conserva el campo Otro y su completitud original.
+    if (p.id.startsWith("d08.")) return sel.length > 0 || !!r.other?.trim();
+    return sel.length > 0 && (!p.maxSelect || sel.length <= p.maxSelect) && sel.every((id) => p.opciones.some((o) => o.id === id));
+  }
+  if (p.tipo === "options") return (typeof r.selected === "string" && p.opciones.some((o) => o.id === r.selected)) || (p.id.startsWith("d08.") && !!r.note?.trim());
   if (p.tipo === "text") return !!r.text?.trim();
   return !!r.done;
 }
@@ -116,7 +129,7 @@ export type Faltante = "practica" | "extras" | "reflexion" | "foco";
 export function faltantes(cfg: DiaConfig, b: Borrador): Faltante[] {
   const f: Faltante[] = [];
   if (COMPLETION_RULES.practicaCompleta && !cfg.practica.every((i) => b.practice_items.includes(i.id))) f.push("practica");
-  if (COMPLETION_RULES.extrasCompletos && !cfg.extras.every((e) => b.practice_items.includes(e.id))) f.push("extras");
+  if (COMPLETION_RULES.extrasCompletos && !cfg.extras.every((e) => e.pregunta ? tieneRespuesta(e.pregunta, b.responses[e.id]) : b.practice_items.includes(e.id))) f.push("extras");
   if (COMPLETION_RULES.reflexionCompleta && !cfg.preguntas.every((p) => p.opcional || tieneRespuesta(p, b.responses[p.id]))) f.push("reflexion");
   if (COMPLETION_RULES.focoRequerido && !b.focus) f.push("foco");
   return f;
@@ -181,7 +194,7 @@ export async function guardarDia(n: number, b: Borrador, status: "draft" | "comp
       day_number: n,
       status,
       logged_on: b.logged_on,
-      practice_items: b.practice_items,
+      practice_items: [...b.practice_items, ...cfg.extras.filter((e) => e.pregunta && tieneRespuesta(e.pregunta, b.responses[e.id]) && !b.practice_items.includes(e.id)).map((e) => e.id)],
       practica_completa: cfg.practica.length > 0 && cfg.practica.every((i) => b.practice_items.includes(i.id)),
       responses: b.responses as never,
       focus_level: b.focus,
