@@ -12,4 +12,4 @@
 - [x] Retirar el instructivo de Autoevaluación del Módulo 6 y verificar cada cambio solicitado.
 - [x] Corregir cierres de Módulos 1–6 y Días 1, 6 y 9 para reflejar que Mis Notas es opcional.
 - [x] Verificar enlaces internos del proyecto y separación visual de descripciones en Días 1, 9 y 11.
-- [ ] Corregir ícono Mis notas, tarjetas vacías y botón Agregar intención; verificar sin dejar datos de prueba.
+- [x] Corregir ícono Mis notas, tarjetas vacías y botón Agregar intención; verificar sin dejar datos de prueba.
