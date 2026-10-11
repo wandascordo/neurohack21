@@ -1,21 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ComponentType } from "react";
-import { Briefcase, CircleCheck, Copy, HouseHeart, SmilePlus, UsersRound } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { CircleCheck, Copy } from "lucide-react";
 import { toast } from "sonner";
 import { meta } from "@/components/Placeholder";
 import { BookScreen, TopBar } from "@/components/libro/BookChrome";
 import { GUIONES, type CategoriaGuiones, type Guion } from "@/lib/guiones";
+import { IconoMascara, type AssetPuntero } from "@/components/IconoMascara";
+import trabajoIcon from "@/assets/iconotrabajo.png.asset.json";
+import hogarIcon from "@/assets/iconohogar.png.asset.json";
+import socialIcon from "@/assets/iconosocial.png.asset.json";
+import unoMismoIcon from "@/assets/iconouno-mismo.png.asset.json";
 
 export const Route = createFileRoute("/_authenticated/guiones")({
   head: () => meta("Guiones para Proteger tu Foco", "Mensajes listos para cuidar tu atención en el trabajo, en casa, en redes y con vos."),
   component: GuionesParaProtegerTuFoco,
 });
 
-const ICONOS: Record<CategoriaGuiones["id"], ComponentType<{ className?: string; strokeWidth?: number }>> = {
-  trabajo: Briefcase,
-  hogar: HouseHeart,
-  social: UsersRound,
-  yo: SmilePlus,
+// Íconos de la librería de Figma del usuario, renderizados como máscara CSS.
+const ICONOS: Record<CategoriaGuiones["id"], AssetPuntero> = {
+  trabajo: trabajoIcon,
+  hogar: hogarIcon,
+  social: socialIcon,
+  yo: unoMismoIcon,
 };
 
 function TextoGuion({ texto }: { texto: string }) {
@@ -111,7 +117,7 @@ function GuionesParaProtegerTuFoco() {
               }}
               className={`flex flex-col gap-0.5 justify-center items-center flex-1 h-[60px] rounded-full p-4 overflow-hidden transition-colors ${sel ? "bg-salvia text-tiza" : "bg-carbon-10/[0.03] text-piedra"}`}
             >
-              <Icono className="h-6 w-6 shrink-0" strokeWidth={1.5} />
+              <IconoMascara asset={Icono} className="h-6 w-6" />
               <span className="text-xs font-normal text-center tracking-tight whitespace-nowrap">{c.tab}</span>
             </button>
           );
