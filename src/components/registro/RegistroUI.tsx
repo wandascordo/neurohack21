@@ -17,7 +17,7 @@ const TAB_ICON_STROKE = 1.5;
 
 // Un único componente para los tres íconos: SVG renderizado exactamente de
 // TAB_ICON_PX × TAB_ICON_PX, mismo trazo, sin padding interno.
-function TabIcon({ icon: Icon, overlay }: { icon: LucideIcon; overlay?: string }) {
+function TabIcon({ icon: Icon, overlay }: { icon: LucideIcon; overlay?: string | undefined }) {
   return (
     <span className="relative inline-flex h-7 w-7 items-center justify-center">
       <Icon size={TAB_ICON_PX} width={TAB_ICON_PX} height={TAB_ICON_PX} strokeWidth={TAB_ICON_STROKE} className="block" />
