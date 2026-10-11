@@ -1,14 +1,14 @@
 import { createFileRoute, Link, redirect, useBlocker, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import { ChevronDown, Minus, Plus } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, Minus, Plus } from "lucide-react";
 import { toast } from "sonner";
 import backIcon from "@/assets/menu-back.png.asset.json";
 import { meta } from "@/components/Placeholder";
 import { BookScreen, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { CheckLleno, CheckVacio, CirculoDia, Pill } from "@/components/registro/RegistroUI";
 import {
-  FALTANTE_LABEL, diaActual, diaConfig, estadoDe, faltantes, fechaLarga, guardarDia, hoyLocal, logsQuery,
+  FALTANTE_LABEL, MESES, diaActual, diaConfig, estadoDe, faltantes, fechaLarga, guardarDia, hoyLocal, logsQuery,
   type Borrador, type DiaConfig, type Faltante, type LogDia, type Pregunta, type Respuesta,
 } from "@/lib/registro";
 
@@ -214,7 +214,7 @@ function FilaCheck({ titulo, desc, hecho, onToggle }: { titulo: string; desc?: s
           {abierto ? <Minus className="h-4 w-4" strokeWidth={1.5} /> : <Plus className="h-4 w-4" strokeWidth={1.5} />}
         </span>
         <span className="flex flex-1 flex-col gap-0.5">
-          <span className={`text-base tracking-tight text-carbon ${abierto ? "font-semibold" : "font-normal"}`}>{titulo}</span>
+          <span className="text-base font-normal tracking-tight text-carbon">{titulo}</span>
           {abierto && desc && <span className="text-xs tracking-tight text-piedra">{desc}</span>}
         </span>
       </button>

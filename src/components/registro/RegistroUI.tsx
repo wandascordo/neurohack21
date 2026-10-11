@@ -21,9 +21,9 @@ function Calendario21({ className }: { className?: string }) {
 }
 
 const TABS = [
-  { to: "/registro-diario/notas", label: "Mis notas", Icon: () => <NotebookPen className="h-6 w-6" strokeWidth={1.5} /> },
+  { to: "/registro-diario/notas", label: "Mis notas", Icon: () => <NotebookPen className="h-7 w-7" strokeWidth={1.5} /> },
   { to: "/registro-diario", label: "Registro Diario", Icon: () => <Calendario21 /> },
-  { to: "/registro-diario/plan", label: "Mantenimiento", Icon: () => <Trophy className="h-6 w-6" strokeWidth={1.5} /> },
+  { to: "/registro-diario/plan", label: "Mantenimiento", Icon: () => <Trophy className="h-7 w-7" strokeWidth={1.5} /> },
 ] as const;
 
 // Mismo estilo y comportamiento que la barra flotante de Guiones.

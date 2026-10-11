@@ -134,7 +134,7 @@ export function hoyLocal(): string {
   const d = new Date();
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
-const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+export const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
 export function fechaLarga(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
   return `${d} de ${MESES[(m ?? 1) - 1]} de ${y}`;
