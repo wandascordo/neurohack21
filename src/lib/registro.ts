@@ -6,11 +6,11 @@ import { SEMANAS, type RetoGrupo } from "@/lib/reto";
 export type Opcion = { id: string; label: string };
 export type Pregunta =
   | { id: string; tipo: "chips"; enunciado: string; opciones: Opcion[]; maxSelect?: number; opcional?: boolean }
-  | { id: string; tipo: "options"; enunciado: string; opciones: Opcion[]; placeholder?: string; opcional?: boolean }
-  | { id: string; tipo: "text"; enunciado: string; placeholder?: string; opcional?: boolean }
+  | { id: string; tipo: "options"; enunciado: string; opciones: Opcion[]; placeholder?: string | undefined; opcional?: boolean }
+  | { id: string; tipo: "text"; enunciado: string; placeholder?: string | undefined; opcional?: boolean }
   | { id: string; tipo: "check"; enunciado: string; opcional?: boolean };
-export type ItemPractica = { id: string; titulo: string; desc?: string };
-export type Extra = { id: string; seccion: string; titulo: string; desc?: string };
+export type ItemPractica = { id: string; titulo: string; desc?: string | undefined };
+export type Extra = { id: string; seccion: string; titulo: string; desc?: string | undefined };
 export type DiaConfig = {
   n: number;
   practica: ItemPractica[];

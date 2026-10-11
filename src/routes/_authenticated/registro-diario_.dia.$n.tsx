@@ -205,7 +205,7 @@ function Seccion({ titulo, marcado, children }: { titulo: string; marcado?: bool
   );
 }
 
-function FilaCheck({ titulo, desc, hecho, onToggle }: { titulo: string; desc?: string; hecho: boolean; onToggle: () => void }) {
+function FilaCheck({ titulo, desc, hecho, onToggle }: { titulo: string; desc?: string | undefined; hecho: boolean; onToggle: () => void }) {
   const [abierto, setAbierto] = useState(false);
   return (
     <div className="flex flex-row items-start gap-1 self-stretch border-b border-carbon-10/10 pb-2.5 pl-1 pr-2.5 pt-2.5">
@@ -227,7 +227,7 @@ function FilaCheck({ titulo, desc, hecho, onToggle }: { titulo: string; desc?: s
 
 const inputBox = "self-stretch rounded-[10px] border border-carbon-10/10 bg-blanco p-2.5 text-base tracking-tight text-carbon placeholder:text-piedra/60 outline-none focus:border-salvia/50";
 
-function CampoPregunta({ p, i, r, pendiente, onResp }: { p: Pregunta; i: number; r?: Respuesta; pendiente: boolean; onResp: (r: Respuesta, inmediato?: boolean) => void }) {
+function CampoPregunta({ p, i, r, pendiente, onResp }: { p: Pregunta; i: number; r?: Respuesta | undefined; pendiente: boolean; onResp: (r: Respuesta, inmediato?: boolean) => void }) {
   const titulo = <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{i + 1}. {p.enunciado}</p>;
   if (p.tipo === "chips") {
     const sel = Array.isArray(r?.selected) ? r.selected : [];
@@ -293,7 +293,7 @@ function CampoPregunta({ p, i, r, pendiente, onResp }: { p: Pregunta; i: number;
   );
 }
 
-function AreaTexto({ value, placeholder, guardado, onChange }: { value: string; placeholder?: string; guardado: boolean; onChange: (v: string) => void }) {
+function AreaTexto({ value, placeholder, guardado, onChange }: { value: string; placeholder?: string | undefined; guardado: boolean; onChange: (v: string) => void }) {
   return (
     <div className="relative self-stretch">
       <textarea value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} rows={7} className={`${inputBox} w-full resize-none pr-9`} />
