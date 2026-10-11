@@ -198,7 +198,7 @@ function Dia({ n, logs }: { n: number; logs: LogDia[] }) {
 // ---------- Modo edición ----------
 function Seccion({ titulo, marcado, children }: { titulo: string; marcado?: boolean; children: ReactNode }) {
   return (
-    <div className={`flex flex-col gap-2.5 self-stretch rounded-[10px] transition-shadow ${marcado ? "ring-1 ring-salvia/60 ring-offset-8 ring-offset-tiza" : ""}`}>
+    <div className={`flex flex-col gap-2.5 self-stretch rounded-[10px] transition-shadow ${marcado ? "-m-3 p-3 ring-1 ring-salvia/60" : ""}`}>
       <p className="text-sm font-normal tracking-tight text-piedra">{titulo}</p>
       {children}
     </div>
