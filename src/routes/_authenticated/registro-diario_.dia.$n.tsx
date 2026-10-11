@@ -205,8 +205,8 @@ function SelectorFecha({ value, onChange }: { value: string; onChange: (v: strin
   const hoyDate = new Date();
   const mesActual = new Date(hoyDate.getFullYear(), hoyDate.getMonth(), 1);
   const [mes, setMes] = useState(() => {
-    const [y, m] = value.split("-").map(Number);
-    return new Date(y, (m ?? 1) - 1, 1);
+    const [y = 0, m = 1] = value.split("-").map(Number);
+    return new Date(y, m - 1, 1);
   });
 
   const y = mes.getFullYear();
