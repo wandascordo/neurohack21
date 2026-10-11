@@ -365,7 +365,7 @@ function CampoPregunta({ p, i, total, r, pendiente, onResp }: { p: Pregunta; i: 
           {p.opciones.map((o) => {
             const on = sel === o.id;
             return (
-              <Button variant="ghost" key={o.id} type="button" aria-pressed={on} onClick={() => onResp({ ...r, selected: on ? null : o.id, note: r?.note ?? "" }, true)} className="h-auto justify-start whitespace-normal rounded-none p-1 text-left hover:bg-transparent [&_span]:shrink-0">
+              <Button variant="ghost" key={o.id} type="button" aria-pressed={on} onClick={() => onResp({ ...r, selected: on ? null : o.id, note: r?.note ?? "" }, true)} className="h-auto items-start justify-start gap-2.5 whitespace-normal rounded-none p-1 text-left font-normal hover:bg-transparent [&_span]:shrink-0">
                 {on ? <CheckLleno /> : <CheckVacio />}
                 <span className={`flex-1 text-base tracking-tight ${on ? "text-carbon" : "text-piedra"}`}>{o.label}</span>
               </Button>
@@ -433,7 +433,7 @@ function Edicion({ cfg, b, logs, falta, pendiente, onFecha, onItem, onResp, onFo
       )}
       {cfg.extras.map((e) => (
         <Seccion key={e.id} titulo={e.seccion} marcado={falta.includes("extras")}>
-          {e.pregunta ? <CampoPregunta p={e.pregunta} i={0} total={1} r={b.responses[e.id]} pendiente={pendiente} onResp={(r, inm) => onResp(e.id, r, inm)} /> : <FilaCheck titulo={e.titulo} desc={e.desc} hecho={b.practice_items.includes(e.id)} onToggle={() => onItem(e.id)} />}
+          {e.pregunta ? <><div className="flex justify-end">{textoRespuesta(e.pregunta, b.responses[e.id]).length ? <CheckLleno /> : <CheckVacio />}</div><CampoPregunta p={e.pregunta} i={0} total={1} r={b.responses[e.id]} pendiente={pendiente} onResp={(r, inm) => onResp(e.id, r, inm)} /></> : <FilaCheck titulo={e.titulo} desc={e.desc} hecho={b.practice_items.includes(e.id)} onToggle={() => onItem(e.id)} />}
         </Seccion>
       ))}
       <ReferenciasDia cfg={cfg} logs={logs} />
@@ -483,6 +483,7 @@ function Resumen({ cfg, b, logs }: { cfg: DiaConfig; b: Borrador | null; logs: L
               const pregunta = cfg.extras.find((e) => e.id === it.id)?.pregunta;
               return <div key={it.id} className="flex flex-col gap-1"><p className="text-sm tracking-tight text-piedra">{it.titulo}</p>{pregunta && b && textoRespuesta(pregunta, b.responses[it.id]).map((t, i) => <p key={i} className="text-base text-salvia">{t}</p>)}</div>;
             })}
+            {cfg.practicaNota && <p className="text-sm text-piedra">{cfg.practicaNota}</p>}
           </div>
         </div>
       )}
@@ -502,6 +503,8 @@ function Resumen({ cfg, b, logs }: { cfg: DiaConfig; b: Borrador | null; logs: L
                 ))}
               </div>
             ))}
+            {cfg.reflexionNota && <p className="text-sm text-piedra"><TextoConsigna texto={cfg.reflexionNota} /></p>}
+            {cfg.enlacePlan && <Link to="/registro-diario/plan" className="text-sm text-salvia underline underline-offset-2">Cuando termines el reto vas a poder armar tu plan en Mantenimiento.</Link>}
           </div>
         </div>
       )}
