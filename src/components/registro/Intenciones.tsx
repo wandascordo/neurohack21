@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Copy, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import { BookScreen, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { Pill } from "@/components/registro/RegistroUI";
 import { Chip, ChipEstatico, Confirmar, Encabezado, IrAlModulo, Volver, inputBox } from "@/components/registro/PlanUI";
@@ -82,6 +83,7 @@ export function PantallaIntenciones({ mod }: { mod: 7 | 8 }) {
     setEdit({ ...i, paso: mod === 8 && !i.context ? "contexto" : "si" });
   };
   const crear = () => {
+    if (edit || lista.length >= MAX_INTENCIONES[mod]) return;
     idRef.current = null;
     const pos = lista.reduce((m, i) => Math.max(m, i.position), 0) + 1;
     setEdit({
@@ -116,7 +118,7 @@ export function PantallaIntenciones({ mod }: { mod: 7 | 8 }) {
     }
   };
 
-  const enMax = lista.length >= MAX_INTENCIONES[mod] && !(edit && edit.id === null);
+  const enMax = lista.length >= MAX_INTENCIONES[mod];
   const nuevaAbierta = edit && (edit.id === null || !lista.some((i) => i.id === edit.id));
 
   return (
@@ -144,11 +146,11 @@ export function PantallaIntenciones({ mod }: { mod: 7 | 8 }) {
             {enMax && !edit ? (
               <p className="pt-3.5 text-base tracking-tight text-piedra">{t.max}</p>
             ) : (
-              !enMax && (
+              !enMax && !edit && (
                 <div className="pt-3.5">
-                  <button type="button" onClick={crear} disabled={!!edit} className={`${btnPrimary} w-fit px-5 py-2.5 disabled:opacity-40`}>
-                    Crear intención
-                  </button>
+                  <Button type="button" onClick={crear} variant="ghost" className={`${btnPrimary} h-auto w-fit px-5 py-2.5 hover:bg-salvia hover:text-tiza`}>
+                    Agregar intención
+                  </Button>
                 </div>
               )
             )}

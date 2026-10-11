@@ -12,7 +12,6 @@ export const Route = createFileRoute("/_authenticated/registro-diario_/plan")({
 });
 
 const caja = "flex flex-col gap-2.5 self-stretch rounded-[10px] bg-carbon/[0.04] p-2.5";
-const vacio = "text-base tracking-tight text-piedra";
 
 function Cita({ children }: { children: string }) {
   return (
@@ -38,16 +37,14 @@ function Plan() {
         <Encabezado titulo="Mi plan de mantenimiento" subChico sub="Lo que vas a sostener después del Día 21. Se arma con los Módulos 7 y 8 y podés editarlo cuando quieras." />
         <div className="flex flex-col gap-2.5 self-stretch">
           <TarjetaLink to="/registro-diario/plan/ritual" eyebrow="Módulo 7" titulo="Mi ritual mínimo">
-            <div className={`${caja} !flex-row flex-wrap items-center`}>
-              {practica || cuando ? (
+            {practica && cuando && (
+              <div className={`${caja} !flex-row flex-wrap items-center`}>
                 <>
                   {practica && <span className="text-base tracking-tight text-carbon">{practica}</span>}
                   {cuando && <ChipEstatico>{cuando}</ChipEstatico>}
                 </>
-              ) : (
-                <span className={vacio}>Sin completar</span>
-              )}
-            </div>
+              </div>
+            )}
           </TarjetaLink>
           <TarjetaLink to="/registro-diario/plan/intenciones" eyebrow="Módulo 7" titulo="Mis intenciones de implementación">
             {m7.length ? (
@@ -57,9 +54,7 @@ function Plan() {
                   return f ? <Cita key={i.id}>{f}</Cita> : null;
                 })}
               </div>
-            ) : (
-              <div className={caja}><span className={vacio}>Todavía no creaste intenciones</span></div>
-            )}
+            ) : null}
           </TarjetaLink>
           <TarjetaLink to="/registro-diario/plan/mundo-real" eyebrow="Módulo 8" titulo="Mi intención para el mundo real">
             {f8 && m8 ? (
@@ -67,9 +62,7 @@ function Plan() {
                 <ChipEstatico>{CONTEXTOS.find((c) => c.id === m8.context)?.label}</ChipEstatico>
                 <p className="border-l-2 border-piedra/70 pl-3 text-base tracking-tight text-carbon">{f8}</p>
               </div>
-            ) : (
-              <div className={caja}><span className={vacio}>Sin completar</span></div>
-            )}
+            ) : null}
           </TarjetaLink>
         </div>
       </div>
