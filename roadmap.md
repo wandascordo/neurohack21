@@ -13,3 +13,6 @@
 - [x] Corregir cierres de Módulos 1–6 y Días 1, 6 y 9 para reflejar que Mis Notas es opcional.
 - [x] Verificar enlaces internos del proyecto y separación visual de descripciones en Días 1, 9 y 11.
 - [x] Corregir ícono Mis notas, tarjetas vacías y botón Agregar intención; verificar sin dejar datos de prueba.
+- [x] Cargar configuración de Días 1 a 21, conservando Día 8.
+- [x] Integrar referencias, autoevaluación y ayuda de foco anterior sin cambiar diseño ni base de datos.
+- [x] Verificar tipos de campos, completitud y listar cantidades por día.

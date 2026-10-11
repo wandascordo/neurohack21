@@ -7,8 +7,10 @@ import backIcon from "@/assets/menu-back.png.asset.json";
 import { meta } from "@/components/Placeholder";
 import { BookScreen, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { CheckLleno, CheckVacio, CirculoDia, Pill } from "@/components/registro/RegistroUI";
+import { AutoevaluacionDia, ReferenciasDia } from "@/components/registro/ReferenciasDia";
+import { Button } from "@/components/ui/button";
 import {
-  FALTANTE_LABEL, MESES, diaActual, diaConfig, estadoDe, faltantes, fechaLarga, guardarDia, hoyLocal, logsQuery,
+  FALTANTE_LABEL, MESES, diaActual, diaConfig, estadoDe, faltantes, fechaLarga, guardarDia, hoyLocal, logsQuery, textoRespuesta,
   type Borrador, type DiaConfig, type Faltante, type LogDia, type Pregunta, type Respuesta,
 } from "@/lib/registro";
 
@@ -148,13 +150,13 @@ function Dia({ n, logs }: { n: number; logs: LogDia[] }) {
       </p>
       {modo === "edicion" ? (
         <Edicion
-          cfg={cfg} b={b} falta={falta} pendiente={pendiente}
+          cfg={cfg} b={b} logs={logs} falta={falta} pendiente={pendiente}
           onFecha={(v) => cambiar((p) => ({ ...p, logged_on: v }), true)}
           onItem={toggleItem} onResp={setResp}
           onFoco={(v) => cambiar((p) => ({ ...p, focus: v }), true)}
         />
       ) : (
-        <Resumen cfg={cfg} b={modo === "compacto" ? b : null} />
+        <Resumen cfg={cfg} logs={logs} b={modo === "compacto" ? b : null} />
       )}
       <div className="mt-10 flex flex-col gap-2.5 self-stretch">
         {modo === "edicion" && falta.length > 0 && (
@@ -244,7 +246,7 @@ function SelectorFecha({ value, onChange }: { value: string; onChange: (v: strin
               >
                 <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
               </button>
-              <p className="text-base font-semibold capitalize tracking-tight text-carbon">
+              <p className="text-base font-semibold tracking-tight text-carbon">
                 {MESES[m]} {y}
               </p>
               <button
@@ -328,7 +330,7 @@ function FilaCheck({ titulo, desc, hecho, onToggle }: { titulo: string; desc?: s
 const inputBox = "self-stretch rounded-[10px] border border-carbon-10/10 bg-blanco p-2.5 text-base tracking-tight text-carbon placeholder:text-piedra/60 outline-none focus:border-salvia/50";
 
 function CampoPregunta({ p, i, total, r, pendiente, onResp }: { p: Pregunta; i: number; total: number; r?: Respuesta | undefined; pendiente: boolean; onResp: (r: Respuesta, inmediato?: boolean) => void }) {
-  const titulo = <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{total > 1 ? `${i + 1}. ` : ""}{p.enunciado}</p>;
+  const titulo = <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{total > 1 ? `${i + 1}. ` : ""}<TextoConsigna texto={p.enunciado} />{p.opcional && <span className="text-sm font-normal text-piedra"> (opcional)</span>}</p>;
   if (p.tipo === "chips") {
     const sel = Array.isArray(r?.selected) ? r.selected : [];
     const toggle = (id: string) => {
@@ -344,13 +346,13 @@ function CampoPregunta({ p, i, total, r, pendiente, onResp }: { p: Pregunta; i: 
           {p.opciones.map((o) => {
             const on = sel.includes(o.id);
             return (
-              <button key={o.id} type="button" aria-pressed={on} onClick={() => toggle(o.id)} className={`rounded-full px-2.5 py-1 text-sm tracking-tight transition-colors ${on ? "bg-salvia text-tiza" : "bg-carbon/[0.04] text-piedra"}`}>
+              <Button variant="ghost" key={o.id} type="button" aria-pressed={on} onClick={() => toggle(o.id)} className={`h-auto rounded-full px-2.5 py-1 text-sm font-normal tracking-tight transition-colors ${on ? "bg-salvia text-tiza hover:bg-salvia hover:text-tiza" : "bg-carbon/[0.04] text-piedra hover:bg-carbon/[0.04] hover:text-piedra"}`}>
                 {o.label}
-              </button>
+              </Button>
             );
           })}
         </div>
-        <input value={r?.other ?? ""} onChange={(e) => onResp({ ...r, selected: sel, other: e.target.value })} placeholder="Otro (opcional)" className={inputBox} />
+        {(p.id.startsWith("d08.") || sel.includes("otro")) && <input value={r?.other ?? ""} onChange={(e) => onResp({ ...r, selected: sel, other: e.target.value })} placeholder="Otro (opcional)" className={inputBox} />}
       </div>
     );
   }
@@ -363,14 +365,15 @@ function CampoPregunta({ p, i, total, r, pendiente, onResp }: { p: Pregunta; i: 
           {p.opciones.map((o) => {
             const on = sel === o.id;
             return (
-              <button key={o.id} type="button" aria-pressed={on} onClick={() => onResp({ ...r, selected: on ? null : o.id, note: r?.note ?? "" }, true)} className="flex flex-row items-start gap-2.5 p-1 text-left">
+              <Button variant="ghost" key={o.id} type="button" aria-pressed={on} onClick={() => onResp({ ...r, selected: on ? null : o.id, note: r?.note ?? "" }, true)} className="h-auto items-start justify-start gap-2.5 whitespace-normal rounded-none p-1 text-left font-normal hover:bg-transparent [&_span]:shrink-0">
                 {on ? <CheckLleno /> : <CheckVacio />}
                 <span className={`flex-1 text-base tracking-tight ${on ? "text-carbon" : "text-piedra"}`}>{o.label}</span>
-              </button>
+              </Button>
             );
           })}
         </div>
-        <AreaTexto value={r?.note ?? ""} placeholder={p.placeholder} guardado={!pendiente && !!r?.note?.trim()} onChange={(v) => onResp({ ...r, selected: sel, note: v })} />
+        {p.id.startsWith("d08.") && <AreaTexto value={r?.note ?? ""} placeholder={p.placeholder} guardado={!pendiente && !!r?.note?.trim()} onChange={(v) => onResp({ ...r, selected: sel, note: v })} />}
+        {!p.id.startsWith("d08.") && sel === "otro" && <input value={r?.other ?? ""} onChange={(e) => onResp({ ...r, selected: sel, other: e.target.value })} placeholder="Otro (opcional)" className={inputBox} />}
       </div>
     );
   }
@@ -378,7 +381,7 @@ function CampoPregunta({ p, i, total, r, pendiente, onResp }: { p: Pregunta; i: 
     return (
       <div className="flex flex-col gap-2.5 self-stretch py-2.5">
         {titulo}
-        <AreaTexto value={r?.text ?? ""} placeholder={p.placeholder} guardado={!pendiente && !!r?.text?.trim()} onChange={(v) => onResp({ text: v })} />
+        <AreaTexto value={r?.text ?? ""} placeholder={p.placeholder} rows={p.id === "d09.r1" ? 12 : 7} guardado={!pendiente && !!r?.text?.trim()} onChange={(v) => onResp({ text: v })} />
       </div>
     );
   }
@@ -393,17 +396,24 @@ function CampoPregunta({ p, i, total, r, pendiente, onResp }: { p: Pregunta; i: 
   );
 }
 
-function AreaTexto({ value, placeholder, guardado, onChange }: { value: string; placeholder?: string | undefined; guardado: boolean; onChange: (v: string) => void }) {
+function AreaTexto({ value, placeholder, rows = 7, guardado, onChange }: { value: string; placeholder?: string | undefined; rows?: number; guardado: boolean; onChange: (v: string) => void }) {
   return (
     <div className="relative self-stretch">
-      <textarea value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} rows={7} className={`${inputBox} w-full resize-none pr-9`} />
+      <textarea value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} rows={rows} className={`${inputBox} w-full resize-none pr-9`} />
       <span className="pointer-events-none absolute bottom-3 right-2.5">{guardado ? <CheckLleno className="h-5 w-5" /> : <CheckVacio className="h-5 w-5" />}</span>
     </div>
   );
 }
 
-function Edicion({ cfg, b, falta, pendiente, onFecha, onItem, onResp, onFoco }: {
-  cfg: DiaConfig; b: Borrador; falta: Faltante[]; pendiente: boolean;
+function TextoConsigna({ texto }: { texto: string }) {
+  return texto.split(/(Mis Notas|Registro Diario|Tracker Visual de 21 Días)/g).map((s, i) => {
+    const to = s === "Mis Notas" ? "/registro-diario/notas" : s === "Registro Diario" ? "/registro-diario" : s === "Tracker Visual de 21 Días" ? "/tracker" : null;
+    return to ? <Link key={i} to={to} className="text-salvia underline underline-offset-2">{s}</Link> : s;
+  });
+}
+
+function Edicion({ cfg, b, logs, falta, pendiente, onFecha, onItem, onResp, onFoco }: {
+  cfg: DiaConfig; b: Borrador; logs: LogDia[]; falta: Faltante[]; pendiente: boolean;
   onFecha: (v: string) => void; onItem: (id: string) => void; onResp: (id: string, r: Respuesta, inmediato?: boolean) => void; onFoco: (v: number) => void;
 }) {
   return (
@@ -417,23 +427,29 @@ function Edicion({ cfg, b, falta, pendiente, onFecha, onItem, onResp, onFoco }: 
             {cfg.practica.map((it) => (
               <FilaCheck key={it.id} titulo={it.titulo} desc={it.desc} hecho={b.practice_items.includes(it.id)} onToggle={() => onItem(it.id)} />
             ))}
+            {cfg.practicaNota && <p className="text-sm text-piedra">{cfg.practicaNota}</p>}
           </div>
         </Seccion>
       )}
       {cfg.extras.map((e) => (
         <Seccion key={e.id} titulo={e.seccion} marcado={falta.includes("extras")}>
-          <FilaCheck titulo={e.titulo} desc={e.desc} hecho={b.practice_items.includes(e.id)} onToggle={() => onItem(e.id)} />
+          {e.pregunta ? <><div className="flex justify-end">{textoRespuesta(e.pregunta, b.responses[e.id]).length ? <CheckLleno /> : <CheckVacio />}</div><CampoPregunta p={e.pregunta} i={0} total={1} r={b.responses[e.id]} pendiente={pendiente} onResp={(r, inm) => onResp(e.id, r, inm)} /></> : <FilaCheck titulo={e.titulo} desc={e.desc} hecho={b.practice_items.includes(e.id)} onToggle={() => onItem(e.id)} />}
         </Seccion>
       ))}
+      <ReferenciasDia cfg={cfg} logs={logs} />
       {cfg.preguntas.length > 0 && (
         <Seccion titulo="Reflexión escrita" marcado={falta.includes("reflexion")}>
           {cfg.preguntas.map((p, i) => (
             <CampoPregunta key={p.id} p={p} i={i} total={cfg.preguntas.length} r={b.responses[p.id]} pendiente={pendiente} onResp={(r, inm) => onResp(p.id, r, inm)} />
           ))}
+          {cfg.reflexionNota && <p className="text-sm text-piedra"><TextoConsigna texto={cfg.reflexionNota} /></p>}
+          {cfg.enlacePlan && <Link to="/registro-diario/plan" className="text-sm text-salvia underline underline-offset-2">Cuando termines el reto vas a poder armar tu plan en Mantenimiento.</Link>}
         </Seccion>
       )}
+      <AutoevaluacionDia cfg={cfg} />
       <Seccion titulo="Cierre" marcado={falta.includes("foco")}>
         <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">Calificá tu foco de hoy</p>
+        {cfg.n > 1 && cfg.n !== 8 && logs.find((l) => l.day_number === cfg.n - 1)?.focus_level != null && <p className="text-sm text-piedra">Ayer: {logs.find((l) => l.day_number === cfg.n - 1)?.focus_level}</p>}
         <div className="flex flex-row items-center justify-between self-stretch py-2.5">
           {Array.from({ length: 10 }, (_, i) => i + 1).map((v) => (
             <button key={v} type="button" aria-pressed={b.focus === v} onClick={() => onFoco(v)} className={`flex h-8 w-8 items-center justify-center rounded-full text-base font-semibold leading-none ${b.focus === v ? "bg-salvia text-tiza" : "bg-carbon/[0.04] text-piedra"}`}>
@@ -447,25 +463,7 @@ function Edicion({ cfg, b, falta, pendiente, onFecha, onItem, onResp, onFoco }: 
 }
 
 // ---------- Modo compacto / preview ----------
-function respuestaTexto(p: Pregunta, r?: Respuesta): string[] {
-  if (!r) return [];
-  const out: string[] = [];
-  if (p.tipo === "chips") {
-    const sel = Array.isArray(r.selected) ? r.selected : [];
-    const labels = sel.map((id) => p.opciones.find((o) => o.id === id)?.label).filter(Boolean) as string[];
-    if (r.other?.trim()) labels.push(r.other.trim());
-    if (labels.length) out.push(labels.join(", "));
-  } else if (p.tipo === "options") {
-    const l = p.opciones.find((o) => o.id === r.selected)?.label;
-    if (l) out.push(l);
-    if (r.note?.trim()) out.push(r.note.trim());
-  } else if (p.tipo === "text") {
-    if (r.text?.trim()) out.push(r.text.trim());
-  } else if (r.done) out.push("Lo hice");
-  return out;
-}
-
-function Resumen({ cfg, b }: { cfg: DiaConfig; b: Borrador | null }) {
+function Resumen({ cfg, b, logs }: { cfg: DiaConfig; b: Borrador | null; logs: LogDia[] }) {
   const fila = "flex flex-col gap-2.5 self-stretch border-b border-carbon-10/10 px-1 py-5";
   const check = b ? <CheckLleno /> : <CheckVacio />;
   return (
@@ -481,12 +479,15 @@ function Resumen({ cfg, b }: { cfg: DiaConfig; b: Borrador | null }) {
             {check}
           </div>
           <div className="flex flex-col gap-2 pl-1.5">
-            {[...cfg.practica, ...cfg.extras].map((it) => (
-              <p key={it.id} className="text-sm tracking-tight text-piedra">{it.titulo}</p>
-            ))}
+            {[...cfg.practica, ...cfg.extras].map((it) => {
+              const pregunta = cfg.extras.find((e) => e.id === it.id)?.pregunta;
+              return <div key={it.id} className="flex flex-col gap-1"><p className="text-sm tracking-tight text-piedra">{it.titulo}</p>{pregunta && b && textoRespuesta(pregunta, b.responses[it.id]).map((t, i) => <p key={i} className="text-base text-salvia">{t}</p>)}</div>;
+            })}
+            {cfg.practicaNota && <p className="text-sm text-piedra">{cfg.practicaNota}</p>}
           </div>
         </div>
       )}
+      {cfg.referencias?.length && <div className={fila}><ReferenciasDia cfg={cfg} logs={logs} /></div>}
       {cfg.preguntas.length > 0 && (
         <div className={fila}>
           <div className="flex flex-row items-center justify-between">
@@ -496,15 +497,18 @@ function Resumen({ cfg, b }: { cfg: DiaConfig; b: Borrador | null }) {
           <div className="flex flex-col gap-2 pl-1.5">
             {cfg.preguntas.map((p) => (
               <div key={p.id} className="flex flex-col gap-2">
-                <p className="text-sm tracking-tight text-piedra">{p.enunciado}</p>
-                {b && respuestaTexto(p, b.responses[p.id]).map((t, i) => (
+                <p className="text-sm tracking-tight text-piedra"><TextoConsigna texto={p.enunciado} /></p>
+                {b && textoRespuesta(p, b.responses[p.id]).map((t, i) => (
                   <p key={i} className="whitespace-pre-line pl-1 text-base tracking-tight text-salvia">{t}</p>
                 ))}
               </div>
             ))}
+            {cfg.reflexionNota && <p className="text-sm text-piedra"><TextoConsigna texto={cfg.reflexionNota} /></p>}
+            {cfg.enlacePlan && <Link to="/registro-diario/plan" className="text-sm text-salvia underline underline-offset-2">Cuando termines el reto vas a poder armar tu plan en Mantenimiento.</Link>}
           </div>
         </div>
       )}
+      {cfg.autoevaluacion && <div className={fila}><AutoevaluacionDia cfg={cfg} /></div>}
       <div className={`${fila} !flex-row items-center justify-between`}>
         <p className="text-base tracking-tight text-carbon">Calificación de foco</p>
         {b?.focus && (
