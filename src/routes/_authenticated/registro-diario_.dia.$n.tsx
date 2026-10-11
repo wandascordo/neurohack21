@@ -1,14 +1,14 @@
 import { createFileRoute, Link, redirect, useBlocker, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import { ChevronDown, Minus, Plus } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, Minus, Plus } from "lucide-react";
 import { toast } from "sonner";
 import backIcon from "@/assets/menu-back.png.asset.json";
 import { meta } from "@/components/Placeholder";
 import { BookScreen, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { CheckLleno, CheckVacio, CirculoDia, Pill } from "@/components/registro/RegistroUI";
 import {
-  FALTANTE_LABEL, diaActual, diaConfig, estadoDe, faltantes, fechaLarga, guardarDia, hoyLocal, logsQuery,
+  FALTANTE_LABEL, MESES, diaActual, diaConfig, estadoDe, faltantes, fechaLarga, guardarDia, hoyLocal, logsQuery,
   type Borrador, type DiaConfig, type Faltante, type LogDia, type Pregunta, type Respuesta,
 } from "@/lib/registro";
 
@@ -196,6 +196,106 @@ function Dia({ n, logs }: { n: number; logs: LogDia[] }) {
 }
 
 // ---------- Modo edición ----------
+const pad2 = (n: number) => String(n).padStart(2, "0");
+const DIAS_SEMANA = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sá", "Do"];
+
+function SelectorFecha({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [abierto, setAbierto] = useState(false);
+  const hoy = hoyLocal();
+  const hoyDate = new Date();
+  const mesActual = new Date(hoyDate.getFullYear(), hoyDate.getMonth(), 1);
+  const [mes, setMes] = useState(() => {
+    const [y = 0, m = 1] = value.split("-").map(Number);
+    return new Date(y, m - 1, 1);
+  });
+
+  const y = mes.getFullYear();
+  const m = mes.getMonth();
+  const offset = (new Date(y, m, 1).getDay() + 6) % 7; // lunes primero
+  const celdas: (string | null)[] = [
+    ...Array.from({ length: offset }, () => null as string | null),
+    ...Array.from({ length: new Date(y, m + 1, 0).getDate() }, (_, i) => `${y}-${pad2(m + 1)}-${pad2(i + 1)}`),
+  ];
+  while (celdas.length % 7 !== 0) celdas.push(null);
+  const puedeSiguiente = mes.getTime() < mesActual.getTime(); // no se puede avanzar al mes en curso o futuro
+
+  return (
+    <div className="relative self-stretch">
+      <button
+        type="button"
+        onClick={() => setAbierto(!abierto)}
+        aria-expanded={abierto}
+        aria-label="Elegir fecha"
+        className="flex w-full flex-row items-center gap-1 rounded-[10px] border border-carbon-10/10 bg-tiza p-2 text-left"
+      >
+        <span className="flex-1 text-base tracking-tight text-carbon">{fechaLarga(value)}</span>
+        <ChevronDown className={`h-5 w-5 shrink-0 text-piedra transition-transform ${abierto ? "rotate-180" : ""}`} strokeWidth={1.5} />
+      </button>
+      {abierto && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setAbierto(false)} aria-hidden="true" />
+          <div className="absolute inset-x-0 top-full z-50 mt-1.5 flex flex-col gap-2 rounded-[10px] border border-carbon-10/10 bg-tiza p-3 animate-fade-in">
+            <div className="flex flex-row items-center justify-between">
+              <button
+                type="button"
+                onClick={() => setMes(new Date(y, m - 1, 1))}
+                aria-label="Mes anterior"
+                className="rounded-full p-1 text-piedra hover:bg-carbon/[0.04]"
+              >
+                <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
+              </button>
+              <p className="text-base font-semibold capitalize tracking-tight text-carbon">
+                {MESES[m]} {y}
+              </p>
+              <button
+                type="button"
+                disabled={!puedeSiguiente}
+                onClick={() => setMes(new Date(y, m + 1, 1))}
+                aria-label="Mes siguiente"
+                className="rounded-full p-1 text-piedra hover:bg-carbon/[0.04] disabled:opacity-40 disabled:hover:bg-transparent"
+              >
+                <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
+              </button>
+            </div>
+            <div className="grid grid-cols-7 gap-y-1">
+              {DIAS_SEMANA.map((d) => (
+                <span key={d} className="flex h-8 items-center justify-center text-xs tracking-tight text-piedra">
+                  {d}
+                </span>
+              ))}
+              {celdas.map((iso, idx) =>
+                iso ? (
+                  <button
+                    key={iso}
+                    type="button"
+                    disabled={iso > hoy}
+                    aria-pressed={iso === value}
+                    onClick={() => {
+                      onChange(iso);
+                      setAbierto(false);
+                    }}
+                    className={`mx-auto flex h-9 w-9 items-center justify-center rounded-full text-sm tracking-tight transition-colors ${
+                      iso === value
+                        ? "bg-salvia font-semibold text-tiza"
+                        : iso > hoy
+                          ? "text-piedra/50"
+                          : "text-carbon hover:bg-carbon/[0.04]"
+                    }`}
+                  >
+                    {Number(iso.slice(8))}
+                  </button>
+                ) : (
+                  <span key={`vacio-${idx}`} />
+                ),
+              )}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 function Seccion({ titulo, marcado, children }: { titulo: string; marcado?: boolean; children: ReactNode }) {
   return (
     <div className={`flex flex-col gap-2.5 self-stretch rounded-[10px] transition-shadow ${marcado ? "-m-3 p-3 ring-1 ring-salvia/60" : ""}`}>
@@ -214,7 +314,7 @@ function FilaCheck({ titulo, desc, hecho, onToggle }: { titulo: string; desc?: s
           {abierto ? <Minus className="h-4 w-4" strokeWidth={1.5} /> : <Plus className="h-4 w-4" strokeWidth={1.5} />}
         </span>
         <span className="flex flex-1 flex-col gap-0.5">
-          <span className={`text-base tracking-tight text-carbon ${abierto ? "font-semibold" : "font-normal"}`}>{titulo}</span>
+          <span className="text-base font-normal tracking-tight text-carbon">{titulo}</span>
           {abierto && desc && <span className="text-xs tracking-tight text-piedra">{desc}</span>}
         </span>
       </button>
@@ -227,8 +327,8 @@ function FilaCheck({ titulo, desc, hecho, onToggle }: { titulo: string; desc?: s
 
 const inputBox = "self-stretch rounded-[10px] border border-carbon-10/10 bg-blanco p-2.5 text-base tracking-tight text-carbon placeholder:text-piedra/60 outline-none focus:border-salvia/50";
 
-function CampoPregunta({ p, i, r, pendiente, onResp }: { p: Pregunta; i: number; r?: Respuesta | undefined; pendiente: boolean; onResp: (r: Respuesta, inmediato?: boolean) => void }) {
-  const titulo = <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{i + 1}. {p.enunciado}</p>;
+function CampoPregunta({ p, i, total, r, pendiente, onResp }: { p: Pregunta; i: number; total: number; r?: Respuesta | undefined; pendiente: boolean; onResp: (r: Respuesta, inmediato?: boolean) => void }) {
+  const titulo = <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{total > 1 ? `${i + 1}. ` : ""}{p.enunciado}</p>;
   if (p.tipo === "chips") {
     const sel = Array.isArray(r?.selected) ? r.selected : [];
     const toggle = (id: string) => {
@@ -306,19 +406,10 @@ function Edicion({ cfg, b, falta, pendiente, onFecha, onItem, onResp, onFoco }: 
   cfg: DiaConfig; b: Borrador; falta: Faltante[]; pendiente: boolean;
   onFecha: (v: string) => void; onItem: (id: string) => void; onResp: (id: string, r: Respuesta, inmediato?: boolean) => void; onFoco: (v: number) => void;
 }) {
-  const fechaRef = useRef<HTMLInputElement>(null);
   return (
     <div className="mt-5 flex flex-col gap-10 self-stretch">
       <Seccion titulo="Fecha">
-        <label className="relative flex flex-row items-center gap-1 self-stretch rounded-[10px] border border-carbon-10/10 bg-blanco p-2" onClick={() => fechaRef.current?.showPicker?.()}>
-          <span className="flex-1 text-base tracking-tight text-carbon">{fechaLarga(b.logged_on)}</span>
-          <ChevronDown className="h-5 w-5 text-piedra" strokeWidth={1.5} />
-          <input
-            ref={fechaRef} type="date" value={b.logged_on} max={hoyLocal()} aria-label="Fecha"
-            onChange={(e) => e.target.value && onFecha(e.target.value)}
-            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-          />
-        </label>
+        <SelectorFecha value={b.logged_on} onChange={onFecha} />
       </Seccion>
       {cfg.practica.length > 0 && (
         <Seccion titulo="Práctica corporal" marcado={falta.includes("practica")}>
@@ -337,7 +428,7 @@ function Edicion({ cfg, b, falta, pendiente, onFecha, onItem, onResp, onFoco }: 
       {cfg.preguntas.length > 0 && (
         <Seccion titulo="Reflexión escrita" marcado={falta.includes("reflexion")}>
           {cfg.preguntas.map((p, i) => (
-            <CampoPregunta key={p.id} p={p} i={i} r={b.responses[p.id]} pendiente={pendiente} onResp={(r, inm) => onResp(p.id, r, inm)} />
+            <CampoPregunta key={p.id} p={p} i={i} total={cfg.preguntas.length} r={b.responses[p.id]} pendiente={pendiente} onResp={(r, inm) => onResp(p.id, r, inm)} />
           ))}
         </Seccion>
       )}
