@@ -57,6 +57,27 @@
       "when": 1791686990155,
       "tag": "0007_registro_diario_extend",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791689041810,
+      "tag": "0008_module_notes",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1791689044784,
+      "tag": "0009_ritual_columns",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1791689048990,
+      "tag": "0010_intentions_columns",
+      "breakpoints": true
     }
   ]
 }

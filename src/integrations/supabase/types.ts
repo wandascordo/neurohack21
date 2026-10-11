@@ -139,27 +139,48 @@ export type Database = {
       }
       implementation_intentions: {
         Row: {
+          context: string | null
           created_at: string
           id: string
+          if_option_id: string | null
+          if_other: string | null
           if_situation: string
           position: number
+          source_module: number
           then_action: string
+          then_option_id: string | null
+          then_other: string | null
+          updated_at: string
           user_id: string
         }
         Insert: {
+          context?: string | null
           created_at?: string
           id?: string
+          if_option_id?: string | null
+          if_other?: string | null
           if_situation: string
           position?: number
+          source_module?: number
           then_action: string
+          then_option_id?: string | null
+          then_other?: string | null
+          updated_at?: string
           user_id?: string
         }
         Update: {
+          context?: string | null
           created_at?: string
           id?: string
+          if_option_id?: string | null
+          if_other?: string | null
           if_situation?: string
           position?: number
+          source_module?: number
           then_action?: string
+          then_option_id?: string | null
+          then_other?: string | null
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
@@ -167,18 +188,60 @@ export type Database = {
       maintenance_rituals: {
         Row: {
           ritual: string
+          ritual_practice_id: string | null
+          ritual_practice_other: string | null
+          ritual_when_id: string | null
+          ritual_when_other: string | null
           updated_at: string
           user_id: string
         }
         Insert: {
           ritual?: string
+          ritual_practice_id?: string | null
+          ritual_practice_other?: string | null
+          ritual_when_id?: string | null
+          ritual_when_other?: string | null
           updated_at?: string
           user_id?: string
         }
         Update: {
           ritual?: string
+          ritual_practice_id?: string | null
+          ritual_practice_other?: string | null
+          ritual_when_id?: string | null
+          ritual_when_other?: string | null
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      module_notes: {
+        Row: {
+          field_key: string
+          id: string
+          module_number: number
+          updated_at: string
+          user_id: string
+          value_number: number | null
+          value_text: string | null
+        }
+        Insert: {
+          field_key: string
+          id?: string
+          module_number: number
+          updated_at?: string
+          user_id?: string
+          value_number?: number | null
+          value_text?: string | null
+        }
+        Update: {
+          field_key?: string
+          id?: string
+          module_number?: number
+          updated_at?: string
+          user_id?: string
+          value_number?: number | null
+          value_text?: string | null
         }
         Relationships: []
       }
