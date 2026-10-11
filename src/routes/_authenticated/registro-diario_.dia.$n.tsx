@@ -102,17 +102,15 @@ function Dia({ n, logs }: { n: number; logs: LogDia[] }) {
   };
 
   const cambiar = (fn: (p: Borrador) => Borrador, inmediato = false) => {
-    setB((prev) => {
-      const next = fn(prev);
-      if (autoguardar) {
-        setPendiente(true);
-        window.clearTimeout(timer.current);
-        if (inmediato) void persistirBorrador(next);
-        else timer.current = window.setTimeout(() => void persistirBorrador(next), 1000);
-      } else setDirty(true);
-      if (falta.length) setFalta(faltantes(cfg, next));
-      return next;
-    });
+    const next = fn(b);
+    setB(next);
+    if (autoguardar) {
+      setPendiente(true);
+      window.clearTimeout(timer.current);
+      if (inmediato) void persistirBorrador(next);
+      else timer.current = window.setTimeout(() => void persistirBorrador(next), 1000);
+    } else setDirty(true);
+    if (falta.length) setFalta(faltantes(cfg, next));
   };
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
