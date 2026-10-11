@@ -33,6 +33,8 @@ import { Route as AuthenticatedIndiceSeccionRouteImport } from './routes/_authen
 import { Route as AuthenticatedRegistroDiarioNotasRouteImport } from './routes/_authenticated/registro-diario_.notas'
 import { Route as AuthenticatedRegistroDiarioPlanRouteImport } from './routes/_authenticated/registro-diario_.plan'
 import { Route as AuthenticatedRegistroDiarioDiaNRouteImport } from './routes/_authenticated/registro-diario_.dia.$n'
+import { Route as AuthenticatedRegistroDiarioPlanIntencionesRouteImport } from './routes/_authenticated/registro-diario_.plan_.intenciones'
+import { Route as AuthenticatedRegistroDiarioPlanMundoRealRouteImport } from './routes/_authenticated/registro-diario_.plan_.mundo-real'
 import { Route as AuthenticatedRegistroDiarioPlanRitualRouteImport } from './routes/_authenticated/registro-diario_.plan_.ritual'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
@@ -167,6 +169,18 @@ const AuthenticatedRegistroDiarioDiaNRoute =
     path: '/registro-diario/dia/$n',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedRegistroDiarioPlanIntencionesRoute =
+  AuthenticatedRegistroDiarioPlanIntencionesRouteImport.update({
+    id: '/registro-diario_/plan_/intenciones',
+    path: '/registro-diario/plan/intenciones',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedRegistroDiarioPlanMundoRealRoute =
+  AuthenticatedRegistroDiarioPlanMundoRealRouteImport.update({
+    id: '/registro-diario_/plan_/mundo-real',
+    path: '/registro-diario/plan/mundo-real',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedRegistroDiarioPlanRitualRoute =
   AuthenticatedRegistroDiarioPlanRitualRouteImport.update({
     id: '/registro-diario_/plan_/ritual',
@@ -214,6 +228,8 @@ export interface FileRoutesByFullPath {
   '/registro-diario/plan': typeof AuthenticatedRegistroDiarioPlanRoute
   '/indice/': typeof AuthenticatedIndiceIndexRoute
   '/registro-diario/dia/$n': typeof AuthenticatedRegistroDiarioDiaNRoute
+  '/registro-diario/plan/intenciones': typeof AuthenticatedRegistroDiarioPlanIntencionesRoute
+  '/registro-diario/plan/mundo-real': typeof AuthenticatedRegistroDiarioPlanMundoRealRoute
   '/registro-diario/plan/ritual': typeof AuthenticatedRegistroDiarioPlanRitualRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -243,6 +259,8 @@ export interface FileRoutesByTo {
   '/registro-diario/plan': typeof AuthenticatedRegistroDiarioPlanRoute
   '/indice': typeof AuthenticatedIndiceIndexRoute
   '/registro-diario/dia/$n': typeof AuthenticatedRegistroDiarioDiaNRoute
+  '/registro-diario/plan/intenciones': typeof AuthenticatedRegistroDiarioPlanIntencionesRoute
+  '/registro-diario/plan/mundo-real': typeof AuthenticatedRegistroDiarioPlanMundoRealRoute
   '/registro-diario/plan/ritual': typeof AuthenticatedRegistroDiarioPlanRitualRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -274,6 +292,8 @@ export interface FileRoutesById {
   '/_authenticated/registro-diario_/plan': typeof AuthenticatedRegistroDiarioPlanRoute
   '/_authenticated/indice/': typeof AuthenticatedIndiceIndexRoute
   '/_authenticated/registro-diario_/dia/$n': typeof AuthenticatedRegistroDiarioDiaNRoute
+  '/_authenticated/registro-diario_/plan_/intenciones': typeof AuthenticatedRegistroDiarioPlanIntencionesRoute
+  '/_authenticated/registro-diario_/plan_/mundo-real': typeof AuthenticatedRegistroDiarioPlanMundoRealRoute
   '/_authenticated/registro-diario_/plan_/ritual': typeof AuthenticatedRegistroDiarioPlanRitualRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -305,6 +325,8 @@ export interface FileRouteTypes {
     | '/registro-diario/plan'
     | '/indice/'
     | '/registro-diario/dia/$n'
+    | '/registro-diario/plan/intenciones'
+    | '/registro-diario/plan/mundo-real'
     | '/registro-diario/plan/ritual'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -334,6 +356,8 @@ export interface FileRouteTypes {
     | '/registro-diario/plan'
     | '/indice'
     | '/registro-diario/dia/$n'
+    | '/registro-diario/plan/intenciones'
+    | '/registro-diario/plan/mundo-real'
     | '/registro-diario/plan/ritual'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -364,6 +388,8 @@ export interface FileRouteTypes {
     | '/_authenticated/registro-diario_/plan'
     | '/_authenticated/indice/'
     | '/_authenticated/registro-diario_/dia/$n'
+    | '/_authenticated/registro-diario_/plan_/intenciones'
+    | '/_authenticated/registro-diario_/plan_/mundo-real'
     | '/_authenticated/registro-diario_/plan_/ritual'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -554,6 +580,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRegistroDiarioDiaNRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/registro-diario_/plan_/intenciones': {
+      id: '/_authenticated/registro-diario_/plan_/intenciones'
+      path: '/registro-diario/plan/intenciones'
+      fullPath: '/registro-diario/plan/intenciones'
+      preLoaderRoute: typeof AuthenticatedRegistroDiarioPlanIntencionesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/registro-diario_/plan_/mundo-real': {
+      id: '/_authenticated/registro-diario_/plan_/mundo-real'
+      path: '/registro-diario/plan/mundo-real'
+      fullPath: '/registro-diario/plan/mundo-real'
+      preLoaderRoute: typeof AuthenticatedRegistroDiarioPlanMundoRealRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/registro-diario_/plan_/ritual': {
       id: '/_authenticated/registro-diario_/plan_/ritual'
       path: '/registro-diario/plan/ritual'
@@ -601,6 +641,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedRegistroDiarioPlanRoute: typeof AuthenticatedRegistroDiarioPlanRoute
   AuthenticatedIndiceIndexRoute: typeof AuthenticatedIndiceIndexRoute
   AuthenticatedRegistroDiarioDiaNRoute: typeof AuthenticatedRegistroDiarioDiaNRoute
+  AuthenticatedRegistroDiarioPlanIntencionesRoute: typeof AuthenticatedRegistroDiarioPlanIntencionesRoute
+  AuthenticatedRegistroDiarioPlanMundoRealRoute: typeof AuthenticatedRegistroDiarioPlanMundoRealRoute
   AuthenticatedRegistroDiarioPlanRitualRoute: typeof AuthenticatedRegistroDiarioPlanRitualRoute
   AuthenticatedRegistroDiarioNotasModuloNRoute: typeof AuthenticatedRegistroDiarioNotasModuloNRoute
 }
@@ -622,6 +664,10 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedRegistroDiarioPlanRoute: AuthenticatedRegistroDiarioPlanRoute,
   AuthenticatedIndiceIndexRoute: AuthenticatedIndiceIndexRoute,
   AuthenticatedRegistroDiarioDiaNRoute: AuthenticatedRegistroDiarioDiaNRoute,
+  AuthenticatedRegistroDiarioPlanIntencionesRoute:
+    AuthenticatedRegistroDiarioPlanIntencionesRoute,
+  AuthenticatedRegistroDiarioPlanMundoRealRoute:
+    AuthenticatedRegistroDiarioPlanMundoRealRoute,
   AuthenticatedRegistroDiarioPlanRitualRoute:
     AuthenticatedRegistroDiarioPlanRitualRoute,
   AuthenticatedRegistroDiarioNotasModuloNRoute:
