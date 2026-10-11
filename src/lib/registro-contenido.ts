@@ -3,11 +3,13 @@ import type { DiaConfig, Pregunta, Opcion, Referencia } from "./registro";
 
 const opciones = (pairs: string[]): Opcion[] => pairs.map((s) => { const [id = "", label = ""] = s.split("|"); return { id, label }; });
 const otro = "otro|Otro (opcional)";
-const q = (n: number, k: number, tipo: "chips" | "options" | "text", enunciado: string, pairs: string[] = [], opcional = false): Pregunta => {
+function q(n: number, k: number, tipo: "chips", enunciado: string, pairs?: string[], opcional?: boolean): Extract<Pregunta, { tipo: "chips" }>;
+function q(n: number, k: number, tipo: "options" | "text", enunciado: string, pairs?: string[], opcional?: boolean): Pregunta;
+function q(n: number, k: number, tipo: "chips" | "options" | "text", enunciado: string, pairs: string[] = [], opcional = false): Pregunta {
   const id = `d${String(n).padStart(2, "0")}.r${k}`;
   if (tipo === "text") return { id, tipo, enunciado, opcional, placeholder: "Escribí acá tu reflexión." };
   return { id, tipo, enunciado, opciones: opciones(pairs), opcional };
-};
+}
 const completa = [
   "Escaneo corporal (2 minutos)",
   "Respiración de coherencia cardíaca (3 a 5 minutos: inhalar 5 segundos por la nariz, exhalar 5 segundos)",

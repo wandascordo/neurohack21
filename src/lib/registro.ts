@@ -21,11 +21,11 @@ export type DiaConfig = {
   practica: ItemPractica[];
   extras: Extra[];
   preguntas: Pregunta[];
-  referencias?: Referencia[];
-  practicaNota?: string;
-  reflexionNota?: string;
-  enlacePlan?: boolean;
-  autoevaluacion?: { texto: string; boton: string; moment: "cierre_semana1" | "cierre_semana2" | "dia21" };
+  referencias?: Referencia[] | undefined;
+  practicaNota?: string | undefined;
+  reflexionNota?: string | undefined;
+  enlacePlan?: boolean | undefined;
+  autoevaluacion?: { texto: string; boton: string; moment: "cierre_semana1" | "cierre_semana2" | "dia21" } | undefined;
 };
 
 export const slug = (s: string) =>

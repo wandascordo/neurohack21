@@ -479,9 +479,10 @@ function Resumen({ cfg, b, logs }: { cfg: DiaConfig; b: Borrador | null; logs: L
             {check}
           </div>
           <div className="flex flex-col gap-2 pl-1.5">
-            {[...cfg.practica, ...cfg.extras].map((it) => (
-              <div key={it.id} className="flex flex-col gap-1"><p className="text-sm tracking-tight text-piedra">{it.titulo}</p>{"pregunta" in it && it.pregunta && b && textoRespuesta(it.pregunta, b.responses[it.id]).map((t, i) => <p key={i} className="text-base text-salvia">{t}</p>)}</div>
-            ))}
+            {[...cfg.practica, ...cfg.extras].map((it) => {
+              const pregunta = cfg.extras.find((e) => e.id === it.id)?.pregunta;
+              return <div key={it.id} className="flex flex-col gap-1"><p className="text-sm tracking-tight text-piedra">{it.titulo}</p>{pregunta && b && textoRespuesta(pregunta, b.responses[it.id]).map((t, i) => <p key={i} className="text-base text-salvia">{t}</p>)}</div>;
+            })}
           </div>
         </div>
       )}
