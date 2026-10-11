@@ -35,6 +35,7 @@ import { Route as AuthenticatedRegistroDiarioPlanRouteImport } from './routes/_a
 import { Route as AuthenticatedRegistroDiarioDiaNRouteImport } from './routes/_authenticated/registro-diario_.dia.$n'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
+import { Route as AuthenticatedRegistroDiarioNotasModuloNRouteImport } from './routes/_authenticated/registro-diario_.notas_.modulo.$n'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -175,6 +176,12 @@ const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
   path: '/lovable/email/auth/webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRegistroDiarioNotasModuloNRoute =
+  AuthenticatedRegistroDiarioNotasModuloNRouteImport.update({
+    id: '/registro-diario_/notas_/modulo/$n',
+    path: '/registro-diario/notas/modulo/$n',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByFullPath {
   '/registro-diario/dia/$n': typeof AuthenticatedRegistroDiarioDiaNRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
+  '/registro-diario/notas/modulo/$n': typeof AuthenticatedRegistroDiarioNotasModuloNRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -229,6 +237,7 @@ export interface FileRoutesByTo {
   '/registro-diario/dia/$n': typeof AuthenticatedRegistroDiarioDiaNRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
+  '/registro-diario/notas/modulo/$n': typeof AuthenticatedRegistroDiarioNotasModuloNRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -258,6 +267,7 @@ export interface FileRoutesById {
   '/_authenticated/registro-diario_/dia/$n': typeof AuthenticatedRegistroDiarioDiaNRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
+  '/_authenticated/registro-diario_/notas_/modulo/$n': typeof AuthenticatedRegistroDiarioNotasModuloNRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -287,6 +297,7 @@ export interface FileRouteTypes {
     | '/registro-diario/dia/$n'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
+    | '/registro-diario/notas/modulo/$n'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -314,6 +325,7 @@ export interface FileRouteTypes {
     | '/registro-diario/dia/$n'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
+    | '/registro-diario/notas/modulo/$n'
   id:
     | '__root__'
     | '/'
@@ -342,6 +354,7 @@ export interface FileRouteTypes {
     | '/_authenticated/registro-diario_/dia/$n'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
+    | '/_authenticated/registro-diario_/notas_/modulo/$n'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -542,6 +555,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailAuthWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/registro-diario_/notas_/modulo/$n': {
+      id: '/_authenticated/registro-diario_/notas_/modulo/$n'
+      path: '/registro-diario/notas/modulo/$n'
+      fullPath: '/registro-diario/notas/modulo/$n'
+      preLoaderRoute: typeof AuthenticatedRegistroDiarioNotasModuloNRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -561,6 +581,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedRegistroDiarioPlanRoute: typeof AuthenticatedRegistroDiarioPlanRoute
   AuthenticatedIndiceIndexRoute: typeof AuthenticatedIndiceIndexRoute
   AuthenticatedRegistroDiarioDiaNRoute: typeof AuthenticatedRegistroDiarioDiaNRoute
+  AuthenticatedRegistroDiarioNotasModuloNRoute: typeof AuthenticatedRegistroDiarioNotasModuloNRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -580,6 +601,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedRegistroDiarioPlanRoute: AuthenticatedRegistroDiarioPlanRoute,
   AuthenticatedIndiceIndexRoute: AuthenticatedIndiceIndexRoute,
   AuthenticatedRegistroDiarioDiaNRoute: AuthenticatedRegistroDiarioDiaNRoute,
+  AuthenticatedRegistroDiarioNotasModuloNRoute:
+    AuthenticatedRegistroDiarioNotasModuloNRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
