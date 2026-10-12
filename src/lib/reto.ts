@@ -7,7 +7,7 @@ export const RETO_LINKS: Record<string, "/registro-diario" | "/registro-diario/n
   "Mi plan de mantenimiento": "/registro-diario/plan",
   "Botón Anti-Distracción": "/boton-anti-distraccion",
   "Autoevaluación de Foco": "/autoevaluacion",
-  "Tracker Visual de 21 Días": "/tracker",
+  "Tracker Visual de tu Progreso": "/tracker",
 };
 
 export type RetoItem = { text: string; note?: string };
@@ -234,7 +234,7 @@ export const SEMANAS: Record<1 | 2 | 3, Semana> = {
           { text: "Cierre final. Respondé: ¿qué cambió realmente en estos 21 días? ¿Qué tan cerca estás hoy de lo que esperabas lograr cuando empezaste? ¿Qué te llevás para seguir sosteniendo después de hoy?" },
         ] },
         { label: "Cierre (1 min)", items: [
-          { text: "Repetí la {Autoevaluación de Foco} por última vez.", note: "Vas a ver esta comparación gráfica reflejada automáticamente en tu {Tracker Visual de 21 Días}. Tomá nota de cómo cambió tu puntaje: en el Módulo 7 vas a diseñar tu plan para sostener lo que lograste." },
+          { text: "Repetí la {Autoevaluación de Foco} por última vez.", note: "Vas a ver esta comparación gráfica reflejada automáticamente en tu {Tracker Visual de tu Progreso}. Tomá nota de cómo cambió tu puntaje: en el Módulo 7 vas a diseñar tu plan para sostener lo que lograste." },
         ] },
       ] },
     ],

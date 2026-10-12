@@ -28,7 +28,7 @@ const DIAS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "
 const MESES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 export function fechaLarga(iso: string) {
   const d = new Date(iso);
-  return `${DIAS[d.getDay()]}, ${d.getDate()} de ${MESES[d.getMonth()]} de ${d.getFullYear()}`;
+  return `${DIAS[d.getDay()].toLowerCase()}, ${d.getDate()} de ${MESES[d.getMonth()].toLowerCase()} de ${d.getFullYear()}`;
 }
 export function hora(iso: string) {
   const d = new Date(iso);

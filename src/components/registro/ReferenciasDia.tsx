@@ -65,13 +65,14 @@ export function ReferenciasDia({ cfg, logs }: { cfg: DiaConfig; logs: LogDia[] }
 export function AutoevaluacionDia({ cfg }: { cfg: DiaConfig }) {
   const bloque = cfg.autoevaluacion;
   const { data: hecha = false } = useQuery({
-    queryKey: ["registro-autoevaluacion", bloque?.moment],
+    queryKey: ["focus-assessments", "total", cfg.n],
     enabled: !!bloque,
     queryFn: async () => {
-      if (!bloque) return false;
-      const { data, error } = await supabase.from("focus_assessments").select("id").eq("moment", bloque.moment).limit(1);
+      // "Hecha" según la cantidad total de autoevaluaciones: Día 7 ≥ 2, Día 14 ≥ 3, Día 21 ≥ 4.
+      const minimo = cfg.n === 7 ? 2 : cfg.n === 14 ? 3 : 4;
+      const { count, error } = await supabase.from("focus_assessments").select("id", { count: "exact", head: true });
       if (error) throw error;
-      return !!data?.length;
+      return (count ?? 0) >= minimo;
     },
   });
   if (!bloque) return null;
