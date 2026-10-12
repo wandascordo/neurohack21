@@ -34,7 +34,7 @@ const dias: Record<number, { preguntas: Pregunta[]; practica?: string[]; practic
   },
   4: { practica: ["Escaneo corporal (prestá especial atención a la mandíbula y los hombros)", completa[1] ?? "", completa[2] ?? ""], referencias: [nota("m3_tarea", "La tarea que más postergo · Módulo 3"), nota("m3_pregunta", "Lo que estoy evitando sentir · Módulo 3")], preguntas: [
     q(4, 1, "chips", "Retomá la pregunta del Módulo 3: si postergar esta tarea me estuviera protegiendo de sentir algo incómodo, ¿qué sería?", ["aburrimiento|Aburrimiento", "miedo_a_fallar|Miedo a fallar", "verguenza|Vergüenza", "ansiedad|Ansiedad", "no_ser_suficiente|Sensación de no ser suficiente", "incertidumbre|Incertidumbre", "cansancio|Cansancio", otro]),
-    q(4, 2, "text", "Escribí sobre la misma tarea que identificaste entonces (la tenés anotada en Mis Notas), sumando cualquier detalle nuevo que haya aparecido esta semana.", [], true),
+    q(4, 2, "text", "Escribí sobre la misma tarea que identificaste entonces, sumando cualquier detalle nuevo que haya aparecido esta semana.", [], true),
   ] },
   5: { practicaNota: respiracionNota, preguntas: [
     q(5, 1, "options", "¿Lograste notar la distracción y redirigir la atención sin actuar sobre ella?", ["si_lo_logre|Sí, lo logré", "estuve_cerca|Estuve cerca", "todavia_no|Todavía no me pasó"]),
