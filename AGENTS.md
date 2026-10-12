@@ -21,3 +21,5 @@
 - Store long Figma module transcriptions in dedicated src/lib/moduloN.ts files and render them with the shared book block renderer — keeps exact chapter text separate from navigation and preserves the established reading layout.
 - Notes and maintenance-plan placeholder routes use non-nested file routes under the authenticated layout and shared BookChrome — keeps the existing Registro Diario screen unchanged while rendering each destination independently.
 - Registro Diario: src/lib/registro-contenido.ts defines the explicit day fields and src/lib/registro.ts owns persistence and completion; Day 8 retains its original Figma config, and references read existing notes/logs/assessment moments — stable IDs keep wording independent of saved answers.
+- Daily practice display corrections live in registro-presentacion and ratings share EscalaFoco; retain saved field IDs and completion checks so visual changes never invalidate records.
+- Golden-rule dismissal uses an activity event keyed to the latest completed_at; existing per-user storage synchronizes dismissal without a new table or browser storage.

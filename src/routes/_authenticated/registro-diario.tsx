@@ -1,12 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { NotebookPen, Star } from "lucide-react";
+import { NotebookPen, Star, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { meta } from "@/components/Placeholder";
 import { BookScreen, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { CirculoDia, Pill, RegistroBottomNav } from "@/components/registro/RegistroUI";
-import { INSTRUCTIVO_PDF, cargarFeedback, diaActual, estadoDe, guardarFeedback, logsQuery } from "@/lib/registro";
+import { INSTRUCTIVO_PDF, cargarFeedback, cargarAvisoOculto, ocultarAviso, ultimoCompletado, diaActual, estadoDe, guardarFeedback, logsQuery, type LogDia } from "@/lib/registro";
 
 export const Route = createFileRoute("/_authenticated/registro-diario")({
   head: () => meta("Registro Diario de 21 Días", "Registrá tu práctica y reflexión de cada día del reto."),
@@ -49,6 +50,36 @@ function Estrellas() {
   );
 }
 
+function ReglaDeOro({ logs }: { logs: LogDia[] }) {
+  const qc = useQueryClient();
+  const { data: oculto, isSuccess } = useQuery({ queryKey: ["registro-aviso-oculto"], queryFn: cargarAvisoOculto });
+  const [cerrado, setCerrado] = useState<string | null>(null);
+  const [ahora, setAhora] = useState(0);
+  useEffect(() => {
+    setAhora(Date.now());
+    const timer = window.setInterval(() => setAhora(Date.now()), 60000);
+    return () => window.clearInterval(timer);
+  }, []);
+  const ultimo = ultimoCompletado(logs);
+  if (!isSuccess || !ultimo || !logs.some((l) => l.day_number === 1 && l.status === "completed") || ahora - Date.parse(ultimo) <= 24 * 60 * 60 * 1000 || oculto === ultimo || cerrado === ultimo) return null;
+  return (
+    <div className="relative flex flex-col gap-1 self-stretch rounded-[10px] border border-carbon-10/10 p-3 pr-9">
+      <Button variant="ghost" size="icon" aria-label="Ocultar regla de oro" className="absolute right-1 top-1 h-7 w-7 rounded-full text-piedra hover:bg-carbon-10/[0.03] hover:text-piedra" onClick={async () => {
+        setCerrado(ultimo);
+        try {
+          await ocultarAviso(ultimo);
+          await qc.invalidateQueries({ queryKey: ["registro-aviso-oculto"] });
+        } catch {
+          setCerrado(null);
+          toast.error("No pudimos ocultar el mensaje. Probá de nuevo.");
+        }
+      }}><X /></Button>
+      <p className="text-xs font-normal text-piedra tracking-tight">Regla de oro</p>
+      <p className="text-sm text-carbon tracking-tight"><strong className="font-semibold">Faltar un día no reinicia el proceso</strong>, simplemente seguí registrando tu progreso desde donde te quedaste.</p>
+    </div>
+  );
+}
+
 function RegistroInicio() {
   const { data: logs = [] } = useQuery(logsQuery);
   const actual = diaActual(logs);
@@ -58,14 +89,7 @@ function RegistroInicio() {
       <TopBar />
       <Pill />
       <div className="mt-2.5 flex flex-col gap-2.5 self-stretch animate-fade-in">
-        {!completo && (
-          <div className="flex flex-col gap-1 self-stretch rounded-[10px] border border-carbon-10/10 p-3">
-            <p className="text-xs font-normal text-piedra tracking-tight">Regla de oro</p>
-            <p className="text-sm text-carbon tracking-tight">
-              <strong className="font-semibold">Faltar un día no reinicia el proceso</strong>, simplemente seguí registrando tu progreso desde donde te quedaste.
-            </p>
-          </div>
-        )}
+        <ReglaDeOro logs={logs} />
         <div className="flex flex-col self-stretch py-1">
           {SEMANAS.map((s, i) => (
             <div key={s.titulo} className={`flex flex-col gap-2.5 self-stretch p-2.5 ${i < 2 ? "border-b border-carbon-10/10" : ""}`}>

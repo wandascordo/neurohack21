@@ -173,12 +173,13 @@ export type LogDia = {
   practice_items: string[];
   responses: Respuestas;
   focus_level: number | null;
+  completed_at: string | null;
 };
 
 export async function cargarLogs(): Promise<LogDia[]> {
   const { data, error } = await supabase
     .from("daily_logs")
-    .select("day_number, status, logged_on, practice_items, responses, focus_level")
+    .select("day_number, status, logged_on, practice_items, responses, focus_level, completed_at")
     .order("day_number");
   if (error) throw error;
   return (data ?? []).map((r) => ({
@@ -188,6 +189,7 @@ export async function cargarLogs(): Promise<LogDia[]> {
     practice_items: Array.isArray(r.practice_items) ? (r.practice_items as string[]) : [],
     responses: (r.responses && typeof r.responses === "object" && !Array.isArray(r.responses) ? r.responses : {}) as Respuestas,
     focus_level: r.focus_level,
+    completed_at: r.completed_at,
   }));
 }
 
@@ -233,6 +235,22 @@ export async function guardarFeedback(rating: number) {
 export const INSTRUCTIVO_PDF = "/downloads/instructivo-registro-diario.pdf";
 
 export const logsQuery = { queryKey: ["registro-logs"], queryFn: cargarLogs };
+
+export function ultimoCompletado(logs: LogDia[]): string | null {
+  return logs.filter((l) => l.status === "completed" && l.completed_at).map((l) => l.completed_at).sort().at(-1) ?? null;
+}
+
+export async function cargarAvisoOculto(): Promise<string | null> {
+  const { data, error } = await supabase.from("user_activity_events").select("anchor")
+    .eq("event_type", "registro_regla_oro_oculta").order("created_at", { ascending: false }).limit(1).maybeSingle();
+  if (error) throw error;
+  return data?.anchor ?? null;
+}
+
+export async function ocultarAviso(completado: string) {
+  const { error } = await supabase.from("user_activity_events").insert({ event_type: "registro_regla_oro_oculta", anchor: completado });
+  if (error) throw error;
+}
 
 export function estadoDe(n: number, logs: LogDia[]): "completado" | "actual" | "pendiente" {
   if (logs.some((l) => l.day_number === n && l.status === "completed")) return "completado";

@@ -9,6 +9,8 @@ import { BookScreen, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { CheckLleno, CheckVacio, CirculoDia, Pill } from "@/components/registro/RegistroUI";
 import { AutoevaluacionDia, ReferenciasDia } from "@/components/registro/ReferenciasDia";
 import { Button } from "@/components/ui/button";
+import { EscalaFoco } from "@/components/registro/EscalaFoco";
+import { presentacionDia } from "@/lib/registro-presentacion";
 import {
   FALTANTE_LABEL, MESES, diaActual, diaConfig, estadoDe, faltantes, fechaLarga, guardarDia, hoyLocal, logsQuery, textoRespuesta,
   type Borrador, type DiaConfig, type Faltante, type LogDia, type Pregunta, type Respuesta,
@@ -65,7 +67,7 @@ function NavDias({ n, logs }: { n: number; logs: LogDia[] }) {
       className="relative -mx-5 flex w-[calc(100%+40px)] snap-x snap-mandatory scroll-pl-5 flex-row gap-2.5 overflow-x-auto scroll-smooth px-5 py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       {Array.from({ length: 21 }, (_, i) => i + 1).map((d) => (
-        <CirculoDia key={d} n={d} estado={estadoDe(d, logs)} />
+        <CirculoDia key={d} n={d} estado={estadoDe(d, logs)} seleccionado={d === n} />
       ))}
     </div>
   );
@@ -76,7 +78,7 @@ const desdeLog = (l?: LogDia): Borrador =>
   l ? { logged_on: l.logged_on, practice_items: l.practice_items, responses: l.responses, focus: l.focus_level } : vacio();
 
 function Dia({ n, logs }: { n: number; logs: LogDia[] }) {
-  const cfg = diaConfig(n);
+  const cfg = presentacionDia(diaConfig(n));
   const qc = useQueryClient();
   const navigate = useNavigate();
   const log = logs.find((l) => l.day_number === n);
@@ -311,18 +313,18 @@ function FilaCheck({ titulo, desc, hecho, onToggle }: { titulo: string; desc?: s
   const [abierto, setAbierto] = useState(false);
   return (
     <div className="flex flex-row items-start gap-1 self-stretch border-b border-carbon-10/10 pb-2.5 pl-1 pr-2.5 pt-2.5">
-      <button type="button" onClick={() => desc && setAbierto(!abierto)} className="flex flex-1 flex-row items-start gap-1 text-left" aria-expanded={abierto}>
+      <Button variant="ghost" type="button" onClick={() => desc && setAbierto(!abierto)} className="h-auto min-w-0 flex-1 items-start justify-start gap-1 whitespace-normal rounded-none p-0 text-left hover:bg-transparent hover:text-carbon" aria-expanded={abierto}>
         <span className="flex h-6 w-5 shrink-0 items-center justify-center text-piedra">
           {abierto ? <Minus className="h-4 w-4" strokeWidth={1.5} /> : <Plus className="h-4 w-4" strokeWidth={1.5} />}
         </span>
         <span className="flex flex-1 flex-col gap-0.5">
-          <span className="text-base font-normal tracking-tight text-carbon">{titulo}</span>
-          {abierto && desc && <span className="text-xs tracking-tight text-piedra">{desc}</span>}
+          <span className="text-base font-semibold leading-normal text-carbon">{titulo}</span>
+          {abierto && desc && <span className="whitespace-pre-line text-sm font-normal text-piedra">{desc}</span>}
         </span>
-      </button>
-      <button type="button" onClick={onToggle} aria-pressed={hecho} aria-label={hecho ? `Desmarcar ${titulo}` : `Marcar ${titulo} como hecho`}>
+      </Button>
+      <Button variant="ghost" type="button" className="h-6 w-6 shrink-0 rounded-full p-0 hover:bg-transparent" onClick={onToggle} aria-pressed={hecho} aria-label={hecho ? `Desmarcar ${titulo}` : `Marcar ${titulo} como hecho`}>
         {hecho ? <CheckLleno /> : <CheckVacio />}
-      </button>
+      </Button>
     </div>
   );
 }
@@ -423,17 +425,21 @@ function Edicion({ cfg, b, logs, falta, pendiente, onFecha, onItem, onResp, onFo
       </Seccion>
       {cfg.practica.length > 0 && (
         <Seccion titulo="Práctica corporal" marcado={falta.includes("practica")}>
+          {cfg.practicaNota && <p className="rounded-[10px] bg-carbon-10/[0.03] p-3 text-sm text-piedra">{cfg.practicaNota}</p>}
           <div className="flex flex-col gap-1 self-stretch">
             {cfg.practica.map((it) => (
               <FilaCheck key={it.id} titulo={it.titulo} desc={it.desc} hecho={b.practice_items.includes(it.id)} onToggle={() => onItem(it.id)} />
             ))}
-            {cfg.practicaNota && <p className="text-sm text-piedra">{cfg.practicaNota}</p>}
           </div>
         </Seccion>
       )}
       {cfg.extras.map((e) => (
         <Seccion key={e.id} titulo={e.seccion} marcado={falta.includes("extras")}>
-          {e.pregunta ? <><div className="flex justify-end">{textoRespuesta(e.pregunta, b.responses[e.id]).length ? <CheckLleno /> : <CheckVacio />}</div><CampoPregunta p={e.pregunta} i={0} total={1} r={b.responses[e.id]} pendiente={pendiente} onResp={(r, inm) => onResp(e.id, r, inm)} /></> : <FilaCheck titulo={e.titulo} desc={e.desc} hecho={b.practice_items.includes(e.id)} onToggle={() => onItem(e.id)} />}
+          {[3, 15, 16, 17, 18, 19].includes(cfg.n) ? <>
+          <p className="text-sm text-piedra">{e.titulo}</p>
+          {e.pregunta ? <CampoPregunta p={{ ...e.pregunta, enunciado: "" }} i={0} total={1} r={b.responses[e.id]} pendiente={pendiente} onResp={(r, inm) => onResp(e.id, r, inm)} /> : <Button variant="ghost" className="h-auto justify-start p-1 text-carbon hover:bg-transparent" aria-pressed={b.practice_items.includes(e.id)} onClick={() => onItem(e.id)}>{b.practice_items.includes(e.id) ? <CheckLleno /> : <CheckVacio />}Lo hice</Button>}
+          <AreaTexto value={b.responses[e.id]?.note ?? ""} placeholder="Escribí acá (opcional)." guardado={!pendiente && !!b.responses[e.id]?.note?.trim()} onChange={(v) => onResp(e.id, { ...b.responses[e.id], note: v })} />
+          </> : e.pregunta ? <><div className="flex justify-end">{textoRespuesta(e.pregunta, b.responses[e.id]).length ? <CheckLleno /> : <CheckVacio />}</div><CampoPregunta p={e.pregunta} i={0} total={1} r={b.responses[e.id]} pendiente={pendiente} onResp={(r, inm) => onResp(e.id, r, inm)} /></> : <FilaCheck titulo={e.titulo} desc={e.desc} hecho={b.practice_items.includes(e.id)} onToggle={() => onItem(e.id)} />}
         </Seccion>
       ))}
       <ReferenciasDia cfg={cfg} logs={logs} />
@@ -450,13 +456,7 @@ function Edicion({ cfg, b, logs, falta, pendiente, onFecha, onItem, onResp, onFo
       <Seccion titulo="Cierre" marcado={falta.includes("foco")}>
         <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">Calificá tu foco de hoy</p>
         {cfg.n > 1 && cfg.n !== 8 && logs.find((l) => l.day_number === cfg.n - 1)?.focus_level != null && <p className="text-sm text-piedra">Ayer: {logs.find((l) => l.day_number === cfg.n - 1)?.focus_level}</p>}
-        <div className="flex flex-row items-center justify-between self-stretch py-2.5">
-          {Array.from({ length: 10 }, (_, i) => i + 1).map((v) => (
-            <button key={v} type="button" aria-pressed={b.focus === v} onClick={() => onFoco(v)} className={`flex h-8 w-8 items-center justify-center rounded-full text-base font-semibold leading-none ${b.focus === v ? "bg-salvia text-tiza" : "bg-carbon/[0.04] text-piedra"}`}>
-              {v}
-            </button>
-          ))}
-        </div>
+        <EscalaFoco label="Calificá tu foco de hoy" value={b.focus} onChange={onFoco} />
       </Seccion>
     </div>
   );
@@ -479,7 +479,7 @@ function Resumen({ cfg, b, logs }: { cfg: DiaConfig; b: Borrador | null; logs: L
             {check}
           </div>
           <div className="flex flex-col gap-2 pl-1.5">
-            {[...cfg.practica, ...cfg.extras].map((it) => {
+             {cfg.practica.map((it) => {
               const pregunta = cfg.extras.find((e) => e.id === it.id)?.pregunta;
               return <div key={it.id} className="flex flex-col gap-1"><p className="text-sm tracking-tight text-piedra">{it.titulo}</p>{pregunta && b && textoRespuesta(pregunta, b.responses[it.id]).map((t, i) => <p key={i} className="text-base text-salvia">{t}</p>)}</div>;
             })}
@@ -487,6 +487,12 @@ function Resumen({ cfg, b, logs }: { cfg: DiaConfig; b: Borrador | null; logs: L
           </div>
         </div>
       )}
+      {cfg.extras.map((e) => <div key={e.id} className={fila}>
+        <p className="text-base text-carbon">{e.seccion}</p>
+        <p className="text-sm text-piedra">{e.titulo}</p>
+        {b && e.pregunta && textoRespuesta(e.pregunta, b.responses[e.id]).map((text, i) => <p key={i} className="whitespace-pre-line text-base text-salvia">{text}</p>)}
+        {b && !e.pregunta && b.responses[e.id]?.note && <p className="whitespace-pre-line text-base text-salvia">{b.responses[e.id]?.note}</p>}
+      </div>)}
       {cfg.referencias?.length && <div className={fila}><ReferenciasDia cfg={cfg} logs={logs} /></div>}
       {cfg.preguntas.length > 0 && (
         <div className={fila}>

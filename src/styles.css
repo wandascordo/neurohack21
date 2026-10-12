@@ -280,11 +280,35 @@
   will-change: transform, opacity;
 }
 
+.escala-foco-fill {
+  width: calc(32px + (100% - 42px) * var(--scale-position));
+  transition: width 180ms ease-out;
+}
+.escala-foco-thumb {
+  left: calc(5px + (100% - 42px) * var(--scale-position));
+  transition: left 180ms ease-out;
+}
+.escala-foco:focus-within {
+  outline: 2px solid var(--token-salvia);
+  outline-offset: 2px;
+}
+.escala-foco input::-webkit-slider-thumb {
+  appearance: none;
+  width: 32px;
+  height: 32px;
+}
+.escala-foco input::-moz-range-thumb {
+  width: 32px;
+  height: 32px;
+  border: 0;
+}
+
 .dark .glow-lunar {
   opacity: 0.4;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .escala-foco-fill, .escala-foco-thumb { transition: none; }
   .glow-lunar {
     animation: none;
   }
