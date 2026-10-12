@@ -29,20 +29,23 @@ function fechaCorta(iso: string) {
 }
 
 /** Curva monótona (Fritsch–Carlson) que pasa por todos los puntos sin sobrepasarlos. */
-function curva(p: [number, number][]) {
-  const n = p.length;
+function curva(pts: [number, number][]) {
+  const n = pts.length;
   if (n < 2) return "";
-  const d = p.slice(0, -1).map((a, i) => (p[i + 1][1] - a[1]) / (p[i + 1][0] - a[0]));
-  const m = p.map((_, i) => (i === 0 ? d[0] : i === n - 1 ? d[n - 2] : d[i - 1] * d[i] <= 0 ? 0 : (d[i - 1] + d[i]) / 2));
+  const X = pts.map((q) => q[0]), Y = pts.map((q) => q[1]);
+  const at = (arr: number[], i: number) => arr[i] ?? 0;
+  const d = X.slice(0, -1).map((_, i) => (at(Y, i + 1) - at(Y, i)) / (at(X, i + 1) - at(X, i)));
+  const m = X.map((_, i) => (i === 0 ? at(d, 0) : i === n - 1 ? at(d, n - 2) : at(d, i - 1) * at(d, i) <= 0 ? 0 : (at(d, i - 1) + at(d, i)) / 2));
   for (let i = 0; i < n - 1; i++) {
-    if (d[i] === 0) { m[i] = 0; m[i + 1] = 0; continue; }
-    const a = m[i] / d[i], b = m[i + 1] / d[i], s = a * a + b * b;
-    if (s > 9) { const t = 3 / Math.sqrt(s); m[i] = t * a * d[i]; m[i + 1] = t * b * d[i]; }
+    const di = at(d, i);
+    if (di === 0) { m[i] = 0; m[i + 1] = 0; continue; }
+    const a = at(m, i) / di, b = at(m, i + 1) / di, q = a * a + b * b;
+    if (q > 9) { const t = 3 / Math.sqrt(q); m[i] = t * a * di; m[i + 1] = t * b * di; }
   }
-  let path = `M ${p[0][0]} ${p[0][1]}`;
+  let path = `M ${at(X, 0)} ${at(Y, 0)}`;
   for (let i = 0; i < n - 1; i++) {
-    const h = (p[i + 1][0] - p[i][0]) / 3;
-    path += ` C ${p[i][0] + h} ${p[i][1] + m[i] * h} ${p[i + 1][0] - h} ${p[i + 1][1] - m[i + 1] * h} ${p[i + 1][0]} ${p[i + 1][1]}`;
+    const h = (at(X, i + 1) - at(X, i)) / 3;
+    path += ` C ${at(X, i) + h} ${at(Y, i) + at(m, i) * h} ${at(X, i + 1) - h} ${at(Y, i + 1) - at(m, i + 1) * h} ${at(X, i + 1)} ${at(Y, i + 1)}`;
   }
   return path;
 }
@@ -114,9 +117,9 @@ function Grafico({ lista, selId, onSel }: { lista: RegistroFoco[]; selId?: strin
   }, [n, W]);
 
   const puntos = useMemo(() => lista.map((r, i) => [slot * (i + 0.5), yDe(r.total_score)] as [number, number]), [lista, slot]);
-  const linea = n ? curva([[0, yDe(Math.max(10, lista[0].total_score - 2))], ...puntos]) : "";
+  const linea = n ? curva([[0, yDe(Math.max(10, (lista[0]?.total_score ?? 12) - 2))], ...puntos]) : "";
   const ultimo = puntos[n - 1];
-  const area = n ? `${linea} L ${ultimo[0]} ${H} L 0 ${H} Z` : "";
+  const area = ultimo ? `${linea} L ${ultimo[0]} ${H} L 0 ${H} Z` : "";
   const etiquetas = n ? lista.map((r) => fechaCorta(r.assessed_at)) : ["Día 0", "Día 7", "Día 14", "Día 21"];
 
   return (
