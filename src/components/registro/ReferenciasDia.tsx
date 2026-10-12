@@ -21,7 +21,7 @@ export function ReferenciasDia({ cfg, logs }: { cfg: DiaConfig; logs: LogDia[] }
       {modulos.map((n) => {
         const titulo = NOTAS.find((x) => x.n === n)?.titulo ?? `Módulo ${n}`;
         return (
-          <Link key={n} to={`/registro-diario/notas/modulo/${n}`} className="w-fit text-salvia underline underline-offset-2">
+          <Link key={n} to="/registro-diario/notas/modulo/$n" params={{ n: String(n) }} className="w-fit text-salvia underline underline-offset-2">
             {titulo} · Módulo {n}
           </Link>
         );
