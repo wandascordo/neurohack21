@@ -9,7 +9,7 @@ export function Pill() {
   return (
     <div className="flex flex-col gap-10 items-center self-stretch h-fit py-2.5">
       <div className="flex select-none flex-col gap-2.5 items-center w-fit h-fit bg-carbon-10/10 rounded-full py-2 px-4">
-        <p className="text-base font-semibold text-center text-salvia leading-none self-stretch h-fit">Registro Diario de 21 Días</p>
+        <p className="text-base font-semibold text-center text-salvia leading-none self-stretch h-fit">Registro Diario del Reto</p>
       </div>
     </div>
   );
