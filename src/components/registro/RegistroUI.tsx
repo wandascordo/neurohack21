@@ -51,19 +51,20 @@ export function RegistroBottomNav() {
 
 export type EstadoDia = "completado" | "actual" | "pendiente";
 
-export function CirculoDia({ n, estado, size = "h-10 w-10" }: { n: number; estado: EstadoDia; size?: string }) {
+export function CirculoDia({ n, estado, seleccionado = false, size = "h-10 w-10" }: { n: number; estado: EstadoDia; seleccionado?: boolean; size?: string }) {
   const cls =
     estado === "completado"
-      ? "bg-salvia text-tiza"
+      ? seleccionado ? "bg-carbon text-tiza" : "bg-salvia text-tiza"
       : estado === "actual"
-        ? "border-2 border-salvia text-salvia"
-        : "bg-carbon/[0.04] text-piedra";
+        ? `border-2 border-salvia text-salvia ${seleccionado ? "bg-carbon-10/10" : ""}`
+        : `${seleccionado ? "bg-carbon-10/10" : "bg-carbon-10/[0.03]"} text-piedra`;
   return (
     <Link
       to="/registro-diario/dia/$n"
       params={{ n: String(n) }}
       aria-label={`Día ${n}`}
       data-dia={n}
+      aria-current={seleccionado ? "page" : undefined}
       className={`flex shrink-0 snap-start flex-row items-center justify-center rounded-full ${size} ${cls}`}
     >
       <span className="text-base font-semibold leading-none">{n}</span>
