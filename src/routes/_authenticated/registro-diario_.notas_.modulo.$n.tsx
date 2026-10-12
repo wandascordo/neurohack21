@@ -6,6 +6,7 @@ import { meta } from "@/components/Placeholder";
 import { Pill } from "@/components/registro/RegistroUI";
 import { AreaGuardado, Encabezado, IrAlModulo, Volver } from "@/components/registro/PlanUI";
 import { NOTAS, guardarNota, notasQuery, type CampoNota, type FilaNota } from "@/lib/notas";
+import { EscalaFoco } from "@/components/registro/EscalaFoco";
 
 export const Route = createFileRoute("/_authenticated/registro-diario_/notas_/modulo/$n")({
   beforeLoad: ({ params }) => {
@@ -18,8 +19,9 @@ export const Route = createFileRoute("/_authenticated/registro-diario_/notas_/mo
 
 function NotaDetalle() {
   const n = Number(Route.useParams().n);
-  const m = NOTAS.find((x) => x.n === n)!;
+  const m = NOTAS.find((x) => x.n === n);
   const { data: filas } = useQuery(notasQuery);
+  if (!m) return null;
   return (
     <BookScreen fill>
       <TopBar />
@@ -75,23 +77,7 @@ function Campo({ n, c, fila }: { n: number; c: CampoNota; fila?: FilaNota | unde
     return (
       <div className="flex flex-col gap-2.5 self-stretch">
         <p className={etiquetaCls}>{c.etiqueta}</p>
-        <div className="flex flex-row items-center justify-between self-stretch py-2.5">
-          {Array.from({ length: 10 }, (_, i) => i + 1).map((v) => (
-            <button
-              key={v}
-              type="button"
-              aria-pressed={num === v}
-              onClick={() => {
-                const next = num === v ? null : v;
-                setNum(next);
-                void persistir({ number: next });
-              }}
-              className={`flex h-8 w-8 items-center justify-center rounded-full text-base font-semibold leading-none ${num === v ? "bg-salvia text-tiza" : "bg-carbon/[0.04] text-piedra"}`}
-            >
-              {v}
-            </button>
-          ))}
-        </div>
+        <EscalaFoco label={c.etiqueta} value={num} onChange={(v) => { setNum(v); void persistir({ number: v }); }} />
       </div>
     );
   }
