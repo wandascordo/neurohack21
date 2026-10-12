@@ -96,7 +96,7 @@ function Tracker() {
   );
 }
 
-function Grafico({ lista, selId, onSel }: { lista: RegistroFoco[]; selId?: string; onSel: (id: string) => void }) {
+function Grafico({ lista, selId, onSel }: { lista: RegistroFoco[]; selId: string | undefined; onSel: (id: string) => void }) {
   const scroller = useRef<HTMLDivElement>(null);
   const [ancho, setAncho] = useState(325);
   useEffect(() => {
