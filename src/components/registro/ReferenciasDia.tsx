@@ -11,7 +11,7 @@ export function ReferenciasDia({ cfg, logs }: { cfg: DiaConfig; logs: LogDia[] }
   const { data: notas = [] } = useQuery({ ...notasQuery, enabled: !!cfg.referencias?.some((r) => r.tipo === "nota") });
   if (!cfg.referencias?.length) return null;
   return (
-    <details className="group flex flex-col self-stretch">
+    <details className="group flex flex-col self-stretch rounded-[10px] bg-carbon-10/[0.03] p-3 text-sm text-piedra">
       <summary className="flex cursor-pointer list-none items-center justify-between text-sm text-piedra [&::-webkit-details-marker]:hidden">
         Referencia <ChevronDown className="h-5 w-5 group-open:rotate-180" strokeWidth={1.5} />
       </summary>
@@ -35,9 +35,9 @@ export function ReferenciasDia({ cfg, logs }: { cfg: DiaConfig; logs: LogDia[] }
             <div key={i} className="flex flex-col gap-2.5">
               <p className="text-sm text-piedra">{ref.titulo}</p>
               {textos.length ? textos.map((t) => (
-                <div key={t.titulo} className="flex flex-col gap-1 rounded-[10px] bg-carbon/[0.04] p-2.5">
+                <div key={t.titulo} className="flex flex-col gap-1">
                   {ref.tipo === "dias" && <p className="text-xs text-piedra">{t.titulo}</p>}
-                  <p className="whitespace-pre-wrap text-base text-carbon">{t.texto}</p>
+                  <p className="whitespace-pre-wrap text-sm text-piedra">{t.texto}</p>
                 </div>
               )) : (
                 <p className="text-sm text-piedra">Todavía no escribiste esta nota. Podés encontrarla o crearla en <Link to="/registro-diario/notas" className="text-salvia underline underline-offset-2">Mis notas</Link>.</p>

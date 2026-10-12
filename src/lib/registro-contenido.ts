@@ -20,7 +20,8 @@ const nota = (key: string, titulo: string): Referencia => ({ tipo: "nota", key, 
 const respiracionNota = "Si notás que te cuesta sostener la respiración pautada, está bien acortar a 2 minutos, la constancia importa más que la duración.";
 const dias: Record<number, { preguntas: Pregunta[]; practica?: string[]; practicaNota?: string; referencias?: Referencia[]; extra?: { titulo: string; desc?: string; opciones?: string[] }; autoevaluacion?: string; reflexionNota?: string; plan?: boolean }> = {
   1: {
-    practica: ["Escaneo corporal (2 minutos)", "Respiración de coherencia cardíaca (3 minutos)", "Lo hice antes de mi primer bloque de trabajo del día"],
+    practica: ["Escaneo corporal (2 minutos)", "Respiración de coherencia cardíaca (3 minutos)"],
+    practicaNota: "Lo hice antes de mi primer bloque de trabajo del día",
     referencias: [nota("m1_registro", "Mi registro de 24 horas · Módulo 1")],
     preguntas: [q(1, 1, "chips", "¿En qué momento del día aparece con más frecuencia el patrón de distracción que más se repitió?", ["manana_temprano|Mañana temprano", "media_manana|Media mañana", "despues_de_almorzar|Después de almorzar", "media_tarde|Media tarde", "noche|Noche", "al_empezar_una_tarea|Al empezar una tarea", "cuando_se_pone_dificil|Cuando la tarea se pone difícil", otro])],
   },
