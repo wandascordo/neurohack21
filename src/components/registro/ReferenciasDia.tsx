@@ -1,52 +1,50 @@
 import { Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { CheckLleno } from "@/components/registro/RegistroUI";
-import { notasQuery } from "@/lib/notas";
-import { supabase } from "@/integrations/supabase/client";
+import { NOTAS } from "@/lib/notas";
 import { diaConfig, textoRespuesta, type DiaConfig, type LogDia } from "@/lib/registro";
 
+const moduloDeNota = (key: string) => {
+  const m = /^m(\d+)_/.exec(key)?.[1];
+  return m ? Number(m) : null;
+};
+
 export function ReferenciasDia({ cfg, logs }: { cfg: DiaConfig; logs: LogDia[] }) {
-  const { data: notas = [] } = useQuery({ ...notasQuery, enabled: !!cfg.referencias?.some((r) => r.tipo === "nota") });
-  if (!cfg.referencias?.length) return null;
+  const referencias = cfg.referencias ?? [];
+  const modulos = [...new Set(referencias.filter((r) => r.tipo === "nota").map((r) => moduloDeNota(r.key)).filter((n): n is number => n != null))];
+  const otros = referencias.filter((r) => r.tipo !== "nota");
+  if (!modulos.length && !otros.length) return null;
   return (
-    <details className="group flex flex-col self-stretch rounded-[10px] bg-carbon-10/[0.03] p-3 text-sm text-piedra">
-      <summary className="flex cursor-pointer list-none items-center justify-between text-sm text-piedra [&::-webkit-details-marker]:hidden">
-        Referencia <ChevronDown className="h-5 w-5 group-open:rotate-180" strokeWidth={1.5} />
-      </summary>
-      <div className="flex flex-col gap-5 pt-2.5">
-        {cfg.referencias.map((ref, i) => {
-          const textos: { titulo: string; texto: string }[] = [];
-          if (ref.tipo === "nota") {
-            const texto = notas.find((n) => n.field_key === ref.key)?.value_text;
-            if (texto?.trim()) textos.push({ titulo: ref.titulo, texto });
-          } else {
-            const dias = ref.tipo === "dias" ? ref.dias : [ref.dia];
-            for (const n of dias) {
-              const log = logs.find((l) => l.day_number === n);
-              if (!log) continue;
-              const preguntas = diaConfig(n).preguntas.filter((p) => ref.tipo === "dias" || p.id === ref.preguntaId);
-              const texto = preguntas.flatMap((p) => textoRespuesta(p, log.responses[p.id])).join("\n\n");
-              if (texto) textos.push({ titulo: `Día ${n}`, texto });
-            }
-          }
-          return (
-            <div key={i} className="flex flex-col gap-2.5">
-              <p className="text-sm text-piedra">{ref.titulo}</p>
-              {textos.length ? textos.map((t) => (
-                <div key={t.titulo} className="flex flex-col gap-1">
-                  {ref.tipo === "dias" && <p className="text-xs text-piedra">{t.titulo}</p>}
-                  <p className="whitespace-pre-wrap text-sm text-piedra">{t.texto}</p>
-                </div>
-              )) : (
-                <p className="text-sm text-piedra">Todavía no escribiste esta nota. Podés encontrarla o crearla en <Link to="/registro-diario/notas" className="text-salvia underline underline-offset-2">Mis notas</Link>.</p>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </details>
+    <div className="flex flex-col gap-5 self-stretch rounded-[10px] bg-carbon-10/[0.03] p-3 text-sm text-piedra">
+      {modulos.map((n) => {
+        const titulo = NOTAS.find((x) => x.n === n)?.titulo ?? `Módulo ${n}`;
+        return (
+          <Link key={n} to={`/registro-diario/notas/modulo/${n}`} className="w-fit text-salvia underline underline-offset-2">
+            {titulo} · Módulo {n}
+          </Link>
+        );
+      })}
+      {otros.map((ref, i) => {
+        const textos: { titulo: string; texto: string }[] = [];
+        const dias = ref.tipo === "dias" ? ref.dias : [ref.dia];
+        for (const n of dias) {
+          const log = logs.find((l) => l.day_number === n);
+          if (!log) continue;
+          const preguntas = diaConfig(n).preguntas.filter((p) => ref.tipo === "dias" || p.id === ref.preguntaId);
+          const texto = preguntas.flatMap((p) => textoRespuesta(p, log.responses[p.id])).join("\n\n");
+          if (texto) textos.push({ titulo: `Día ${n}`, texto });
+        }
+        return (
+          <div key={i} className="flex flex-col gap-2.5">
+            <p className="text-sm text-piedra">{ref.titulo}</p>
+            {textos.map((t) => (
+              <div key={t.titulo} className="flex flex-col gap-1">
+                {ref.tipo === "dias" && <p className="text-xs text-piedra">{t.titulo}</p>}
+                <p className="whitespace-pre-wrap text-sm text-piedra">{t.texto}</p>
+              </div>
+            ))}
+          </div>
+        );
+      })}
+    </div>
   );
 }
 
