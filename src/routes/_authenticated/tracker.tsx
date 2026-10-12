@@ -142,9 +142,9 @@ function Grafico({ lista, selId, onSel }: { lista: RegistroFoco[]; selId?: strin
             {n > 0 && <path d={area} fill="url(#tracker-area)" />}
             {n > 0 && <path d={linea} fill="none" strokeWidth={1} className="stroke-salvia" />}
             {puntos.map(([x, y], i) => {
-              const activo = lista[i].id === selId;
+              const r = lista[i]!; const activo = r.id === selId;
               return (
-                <g key={lista[i].id} onClick={() => onSel(lista[i].id)} className="cursor-pointer" role="button" aria-label={`${lista[i].total_score} puntos, ${fechaCorta(lista[i].assessed_at)}`}>
+                <g key={r.id} onClick={() => onSel(r.id)} className="cursor-pointer" role="button" aria-label={`${r.total_score} puntos, ${fechaCorta(r.assessed_at)}`}>
                   <circle cx={x} cy={y} r={18} fill="transparent" />
                   <circle cx={x} cy={y} r={activo ? 6 : 3.5} strokeWidth={2} className="fill-salvia stroke-tiza" style={{ filter: "drop-shadow(3px 3px 5px rgb(29 29 29 / 0.1))" }} />
                 </g>
