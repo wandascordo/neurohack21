@@ -13,8 +13,8 @@ import closeX from "@/assets/close-x.png.asset.json";
 
 export const Route = createFileRoute("/_authenticated/autoevaluacion")({
   validateSearch: (s: Record<string, unknown>): { id?: string; from?: "tracker" } => ({
-    ...(typeof s.id === "string" ? { id: s.id } : {}),
-    ...(s.from === "tracker" ? { from: "tracker" as const } : {}),
+    ...(typeof s["id"] === "string" ? { id: s["id"] } : {}),
+    ...(s["from"] === "tracker" ? { from: "tracker" as const } : {}),
   }),
   head: () => meta("Autoevaluación de Foco", "Medí cómo cambia tu foco a lo largo del reto."),
   component: Autoevaluacion,
@@ -76,7 +76,7 @@ function Autoevaluacion() {
   const { data } = useResultados();
   const directo = id ? data?.find((r) => r.id === id) : undefined;
   const volverDirecto = () => {
-    if (from === "tracker") navigate({ to: "/tracker", search: { sel: id } });
+    if (from === "tracker") navigate({ to: "/tracker", search: id ? { sel: id } : {} });
     else { setVista({ v: "lista" }); navigate({ to: "/autoevaluacion", search: {}, replace: true }); }
   };
   if (id && directo) {

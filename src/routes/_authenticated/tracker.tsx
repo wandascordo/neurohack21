@@ -7,7 +7,7 @@ import { ResultadoCard, type RegistroFoco } from "@/components/autoevaluacion/Re
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/tracker")({
-  validateSearch: (s: Record<string, unknown>): { sel?: string } => (typeof s.sel === "string" ? { sel: s.sel } : {}),
+  validateSearch: (s: Record<string, unknown>): { sel?: string } => (typeof s["sel"] === "string" ? { sel: s["sel"] } : {}),
   head: () => meta("Tracker Visual de tu Progreso", "Mirá cómo evolucionan los puntajes de tus autoevaluaciones de foco."),
   component: Tracker,
 });
