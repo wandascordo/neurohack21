@@ -89,7 +89,7 @@ function RegistroInicio() {
       <TopBar />
       <Pill />
       <div className="mt-2.5 flex flex-col gap-2.5 self-stretch animate-fade-in">
-        {!completo && <ReglaDeOro logs={logs} />}
+        <ReglaDeOro logs={logs} />
         <div className="flex flex-col self-stretch py-1">
           {SEMANAS.map((s, i) => (
             <div key={s.titulo} className={`flex flex-col gap-2.5 self-stretch p-2.5 ${i < 2 ? "border-b border-carbon-10/10" : ""}`}>

@@ -435,9 +435,11 @@ function Edicion({ cfg, b, logs, falta, pendiente, onFecha, onItem, onResp, onFo
       )}
       {cfg.extras.map((e) => (
         <Seccion key={e.id} titulo={e.seccion} marcado={falta.includes("extras")}>
+          {[3, 15, 16, 17, 18, 19].includes(cfg.n) ? <>
           <p className="text-sm text-piedra">{e.titulo}</p>
           {e.pregunta ? <CampoPregunta p={{ ...e.pregunta, enunciado: "" }} i={0} total={1} r={b.responses[e.id]} pendiente={pendiente} onResp={(r, inm) => onResp(e.id, r, inm)} /> : <Button variant="ghost" className="h-auto justify-start p-1 text-carbon hover:bg-transparent" aria-pressed={b.practice_items.includes(e.id)} onClick={() => onItem(e.id)}>{b.practice_items.includes(e.id) ? <CheckLleno /> : <CheckVacio />}Lo hice</Button>}
           <AreaTexto value={b.responses[e.id]?.note ?? ""} placeholder="Escribí acá (opcional)." guardado={!pendiente && !!b.responses[e.id]?.note?.trim()} onChange={(v) => onResp(e.id, { ...b.responses[e.id], note: v })} />
+          </> : e.pregunta ? <><div className="flex justify-end">{textoRespuesta(e.pregunta, b.responses[e.id]).length ? <CheckLleno /> : <CheckVacio />}</div><CampoPregunta p={e.pregunta} i={0} total={1} r={b.responses[e.id]} pendiente={pendiente} onResp={(r, inm) => onResp(e.id, r, inm)} /></> : <FilaCheck titulo={e.titulo} desc={e.desc} hecho={b.practice_items.includes(e.id)} onToggle={() => onItem(e.id)} />}
         </Seccion>
       ))}
       <ReferenciasDia cfg={cfg} logs={logs} />
