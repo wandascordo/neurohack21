@@ -16,6 +16,6 @@
 - [x] Cargar configuración de Días 1 a 21, conservando Día 8.
 - [x] Integrar referencias, autoevaluación y ayuda de foco anterior sin cambiar diseño ni base de datos.
 - [x] Verificar tipos de campos, completitud y listar cantidades por día.
-- [ ] Corregir aviso de Regla de oro y selección de días.
-- [ ] Ajustar prácticas, indicaciones y ejercicios adicionales sin perder registros.
-- [ ] Incorporar escala Figma en Cierre y Mis notas Módulo 4 y verificar guardado.
+- [x] Corregir aviso de Regla de oro y selección de días.
+- [x] Ajustar prácticas, indicaciones y ejercicios adicionales sin perder registros.
+- [x] Incorporar escala Figma en Cierre y Mis notas Módulo 4 y verificar guardado.
