@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { ResultadoCard, type RegistroFoco } from "@/components/autoevaluacion/ResultadoCard";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -8,15 +9,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { AFIRMACIONES, OPCIONES, puntaje, rango, fechaLarga, hora } from "@/lib/autoevaluacion";
 import focoIcon from "@/assets/menu-foco.png.asset.json";
 import backIcon from "@/assets/menu-back.png.asset.json";
-import chevron from "@/assets/ob-chevron.png.asset.json";
 import closeX from "@/assets/close-x.png.asset.json";
 
 export const Route = createFileRoute("/_authenticated/autoevaluacion")({
+  validateSearch: (s: Record<string, unknown>): { id?: string; from?: "tracker" } => ({
+    ...(typeof s["id"] === "string" ? { id: s["id"] } : {}),
+    ...(s["from"] === "tracker" ? { from: "tracker" as const } : {}),
+  }),
   head: () => meta("Autoevaluación de Foco", "Medí cómo cambia tu foco a lo largo del reto."),
   component: Autoevaluacion,
 });
 
-type Registro = { id: string; answers: number[]; total_score: number; created_at: string };
+type Registro = RegistroFoco;
 type Vista =
   | { v: "intro" }
   | { v: "preguntas" }
@@ -57,8 +61,8 @@ function useResultados() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("focus_assessments")
-        .select("id, answers, total_score, created_at")
-        .order("created_at", { ascending: true });
+        .select("id, answers, total_score, assessed_at")
+        .order("assessed_at", { ascending: true });
       if (error) throw error;
       return (data ?? []) as Registro[];
     },
@@ -66,7 +70,26 @@ function useResultados() {
 }
 
 function Autoevaluacion() {
+  const { id, from } = Route.useSearch();
+  const navigate = useNavigate();
   const [vista, setVista] = useState<Vista>({ v: "intro" });
+  const { data } = useResultados();
+  const directo = id ? data?.find((r) => r.id === id) : undefined;
+  const volverDirecto = () => {
+    if (from === "tracker") navigate({ to: "/tracker", search: id ? { sel: id } : {} });
+    else { setVista({ v: "lista" }); navigate({ to: "/autoevaluacion", search: {}, replace: true }); }
+  };
+  if (id && directo) {
+    return (
+      <BookScreen fill>
+        <TopBar />
+        <Chip onHome={() => { setVista({ v: "intro" }); navigate({ to: "/autoevaluacion", search: {} }); }} />
+        <div className="flex flex-1 animate-fade-in flex-col self-stretch">
+          <Detalle r={directo} onBack={volverDirecto} />
+        </div>
+      </BookScreen>
+    );
+  }
   return (
     <BookScreen fill>
       <TopBar />
@@ -226,21 +249,7 @@ function Lista({ onBack, onOpen }: { onBack: () => void; onOpen: (r: Registro) =
       <h1 className="text-[28px] leading-[1.1] tracking-[-1.5px] text-carbon">Mis resultados</h1>
       <div className="flex flex-col gap-2.5">
         {(data ?? []).map((r) => (
-          <button key={r.id} type="button" onClick={() => onOpen(r)} className="flex flex-col gap-1 rounded-[20px] border border-carbon-10/10 bg-tiza p-2.5 text-left">
-            <div className="flex items-center gap-2.5 p-1">
-              <p className="flex-1 text-sm tracking-tight text-piedra">{fechaLarga(r.created_at)} – {hora(r.created_at)} hs</p>
-              <MaskIcon url={chevron.url} className="h-6 w-6 bg-piedra" />
-            </div>
-            <div className="flex flex-col gap-2.5 rounded-[10px] bg-carbon/[0.03] p-3.5">
-              <div className="flex items-center gap-2.5">
-                <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{r.total_score} puntos</p>
-                <div className="h-1 flex-1 overflow-hidden rounded-full bg-carbon-10/10">
-                  <div className="h-full rounded-full bg-salvia" style={{ width: `${(r.total_score / 50) * 100}%` }} />
-                </div>
-              </div>
-              <p className="text-xs tracking-tight text-carbon">{rango(r.total_score).titular}</p>
-            </div>
-          </button>
+          <ResultadoCard key={r.id} r={r} onClick={() => onOpen(r)} />
         ))}
       </div>
       <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[400px] bg-gradient-to-t from-tiza from-60% to-transparent px-5 pb-10 pt-10">
@@ -267,7 +276,7 @@ function Detalle({ r, onBack }: { r: Registro; onBack: () => void }) {
   return (
     <>
       <div className="self-stretch"><Volver onClick={onBack} /></div>
-      <ResultadoVista score={r.total_score} fecha={`${fechaLarga(r.created_at)} – ${hora(r.created_at)} hs`}>
+      <ResultadoVista score={r.total_score} fecha={`${fechaLarga(r.assessed_at)}, ${hora(r.assessed_at)} hs`}>
         <button type="button" onClick={() => setOpen(true)} className={btnSec}>Eliminar resultado</button>
       </ResultadoVista>
       {open && (
@@ -278,7 +287,7 @@ function Detalle({ r, onBack }: { r: Registro; onBack: () => void }) {
             </button>
             <div className="flex flex-col gap-2">
               <p className="text-sm font-semibold text-piedra">Eliminar resultado</p>
-              <p className="text-xl leading-tight tracking-tight text-carbon">¿Querés eliminar el resultado de tu autoevaluación del {fechaLarga(r.created_at)} a las {hora(r.created_at)}hs?</p>
+              <p className="text-xl leading-tight tracking-tight text-carbon">¿Querés eliminar el resultado de tu autoevaluación del {fechaLarga(r.assessed_at)} a las {hora(r.assessed_at)}hs?</p>
               <p className="text-base tracking-tight text-piedra">Una vez eliminado, no podrás volver a recuperarlo.</p>
             </div>
             <div className="flex flex-col gap-2.5 pt-3">

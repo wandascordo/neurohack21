@@ -410,8 +410,8 @@ function AreaTexto({ value, placeholder, rows = 7, guardado, onChange }: { value
 }
 
 function TextoConsigna({ texto }: { texto: string }) {
-  return texto.split(/(Mis Notas|Registro Diario|Tracker Visual de 21 Días)/g).map((s, i) => {
-    const to = s === "Mis Notas" ? "/registro-diario/notas" : s === "Registro Diario" ? "/registro-diario" : s === "Tracker Visual de 21 Días" ? "/tracker" : null;
+  return texto.split(/(Mis Notas|Registro Diario|Tracker Visual de tu Progreso)/g).map((s, i) => {
+    const to = s === "Mis Notas" ? "/registro-diario/notas" : s === "Registro Diario" ? "/registro-diario" : s === "Tracker Visual de tu Progreso" ? "/tracker" : null;
     return to ? <Link key={i} to={to} className="text-salvia underline underline-offset-2">{s}</Link> : s;
   });
 }
