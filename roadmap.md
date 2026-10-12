@@ -20,3 +20,4 @@
 - [x] Ajustar prácticas, indicaciones y ejercicios adicionales sin perder registros.
 - [x] Incorporar escala Figma en Cierre y Mis notas Módulo 4 y verificar guardado.
 - [x] Conservar últimas ediciones, mover mensaje Día 1 y referencias, ocultar mensajes en preview y volver al inicio al guardar.
+- [ ] Cambiar el ícono de Tracker Visual de tu Progreso por chart-03
