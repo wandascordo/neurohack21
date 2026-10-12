@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
+import { IconoMascara } from "@/components/IconoMascara";
+import stickyNote from "@/assets/registro-sticky-note-02.png.asset.json";
 import { CheckLleno } from "@/components/registro/RegistroUI";
 import { NOTAS } from "@/lib/notas";
 import { supabase } from "@/integrations/supabase/client";
@@ -21,8 +23,16 @@ export function ReferenciasDia({ cfg, logs }: { cfg: DiaConfig; logs: LogDia[] }
       {modulos.map((n) => {
         const titulo = NOTAS.find((x) => x.n === n)?.titulo ?? `Módulo ${n}`;
         return (
-          <Link key={n} to="/registro-diario/notas/modulo/$n" params={{ n: String(n) }} className="w-fit text-salvia underline underline-offset-2">
-            {titulo} · Módulo {n}
+          <Link
+            key={n}
+            to="/registro-diario/notas/modulo/$n"
+            params={{ n: String(n) }}
+            className="inline-flex w-fit items-center gap-1.5 text-salvia"
+          >
+            <IconoMascara asset={stickyNote} className="h-[15px] w-[15px] text-piedra" />
+            <span className="underline underline-offset-2">
+              {titulo} · Módulo {n}
+            </span>
           </Link>
         );
       })}
