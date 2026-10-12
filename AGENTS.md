@@ -24,3 +24,4 @@
 - Daily practice display corrections live in registro-presentacion and ratings share EscalaFoco; retain saved field IDs and completion checks so visual changes never invalidate records.
 - Golden-rule dismissal uses an activity event keyed to the latest completed_at; existing per-user storage synchronizes dismissal without a new table or browser storage.
 - Completed daily logs retain their status when saved edits clear fields; completion validation applies to first completion, and summaries derive checks from saved values rather than status alone.
+- Focus self-assessments are unlimited: every completion inserts a focus_assessments row ordered by assessed_at; Tracker and Mis resultados share ResultadoCard, and Registro Diario 'Hecha' uses the total row count — moment is never set nor used to gate.
