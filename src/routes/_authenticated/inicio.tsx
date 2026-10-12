@@ -10,7 +10,7 @@ import { LIBRO } from "@/lib/libro";
 import foco from "@/assets/menu-foco.png.asset.json";
 import siren from "@/assets/menu-siren.png.asset.json";
 import calendario from "@/assets/menu-calendario.png.asset.json";
-import chart from "@/assets/menu-chart.png.asset.json";
+import chart from "@/assets/menu-chart-03.png.asset.json";
 import postits from "@/assets/menu-postits.png.asset.json";
 import glosario from "@/assets/menu-glosario.png.asset.json";
 
