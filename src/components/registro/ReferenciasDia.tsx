@@ -1,5 +1,9 @@
 import { Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
+import { CheckLleno } from "@/components/registro/RegistroUI";
 import { NOTAS } from "@/lib/notas";
+import { supabase } from "@/integrations/supabase/client";
 import { diaConfig, textoRespuesta, type DiaConfig, type LogDia } from "@/lib/registro";
 
 const moduloDeNota = (key: string) => {
