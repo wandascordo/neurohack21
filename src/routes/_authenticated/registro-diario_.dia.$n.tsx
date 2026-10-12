@@ -93,6 +93,7 @@ function Dia({ n, logs }: { n: number; logs: LogDia[] }) {
   const [falta, setFalta] = useState<Faltante[]>([]);
   const [guardando, setGuardando] = useState(false);
   const timer = useRef<number | undefined>(undefined);
+  const salidaGuardada = useRef(false);
   const autoguardar = !completado && modo === "edicion";
 
   const persistirBorrador = async (next: Borrador) => {
@@ -118,7 +119,7 @@ function Dia({ n, logs }: { n: number; logs: LogDia[] }) {
   };
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
-  const blocker = useBlocker({ shouldBlockFn: () => editando && dirty, enableBeforeUnload: editando && dirty, withResolver: true });
+  const blocker = useBlocker({ shouldBlockFn: () => !salidaGuardada.current && editando && dirty, enableBeforeUnload: editando && dirty, withResolver: true });
 
   const guardar = async () => {
     const f = completado ? [] : faltantes(cfg, b);
@@ -132,6 +133,7 @@ function Dia({ n, logs }: { n: number; logs: LogDia[] }) {
       setDirty(false);
       setEditando(false);
       setPendiente(false);
+      salidaGuardada.current = true;
       toast.success("Registro guardado");
       await navigate({ to: "/registro-diario" });
     } catch {
