@@ -232,7 +232,7 @@ function SelectorFecha({ value, onChange }: { value: string; onChange: (v: strin
         onClick={() => setAbierto(!abierto)}
         aria-expanded={abierto}
         aria-label="Elegir fecha"
-        className="flex w-full flex-row items-center gap-1 rounded-[10px] border border-carbon-10/10 bg-tiza p-2 text-left"
+        className="flex w-full flex-row items-center gap-1 rounded-[10px] border border-carbon-10/10 bg-blanco p-2 text-left"
       >
         <span className="flex-1 text-base tracking-tight text-carbon">{fechaLarga(value)}</span>
         <ChevronDown className={`h-5 w-5 shrink-0 text-piedra transition-transform ${abierto ? "rotate-180" : ""}`} strokeWidth={1.5} />
@@ -240,7 +240,7 @@ function SelectorFecha({ value, onChange }: { value: string; onChange: (v: strin
       {abierto && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setAbierto(false)} aria-hidden="true" />
-          <div className="absolute inset-x-0 top-full z-50 mt-1.5 flex flex-col gap-2 rounded-[10px] border border-carbon-10/10 bg-tiza p-3 animate-fade-in">
+          <div className="absolute inset-x-0 top-full z-50 mt-1.5 flex flex-col gap-2 rounded-[10px] border border-carbon-10/10 bg-blanco p-3 animate-fade-in">
             <div className="flex flex-row items-center justify-between">
               <button
                 type="button"
@@ -331,7 +331,7 @@ function FilaCheck({ titulo, desc, hecho, onToggle }: { titulo: string; desc?: s
   );
 }
 
-const inputBox = "self-stretch rounded-[10px] border border-carbon-10/10 bg-blanco p-2.5 text-base tracking-tight text-carbon placeholder:text-piedra/60 outline-none focus:border-salvia/50";
+const inputBox = "self-stretch rounded-[10px] border border-carbon-10/10 bg-blanco p-2.5 text-base tracking-tight text-carbon placeholder:text-piedra/60 outline-none focus:border-salvia/50 touch-pan-y";
 
 function CampoPregunta({ p, i, total, r, pendiente, onResp }: { p: Pregunta; i: number; total: number; r?: Respuesta | undefined; pendiente: boolean; onResp: (r: Respuesta, inmediato?: boolean) => void }) {
   const titulo = <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{total > 1 ? `${i + 1}. ` : ""}<TextoConsigna texto={p.enunciado} />{p.opcional && <span className="text-sm font-normal text-piedra"> (opcional)</span>}</p>;

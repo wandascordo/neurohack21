@@ -6,7 +6,7 @@ import backIcon from "@/assets/menu-back.png.asset.json";
 import { CheckLleno, CheckVacio } from "@/components/registro/RegistroUI";
 
 export const inputBox =
-  "self-stretch rounded-[10px] border border-carbon-10/10 bg-blanco p-2.5 text-base tracking-tight text-carbon placeholder:text-piedra/60 outline-none focus:border-salvia/50";
+  "self-stretch rounded-[10px] border border-carbon-10/10 bg-blanco p-2.5 text-base tracking-tight text-carbon placeholder:text-piedra/60 outline-none focus:border-salvia/50 touch-pan-y";
 
 export function Volver({ to }: { to: "/registro-diario/notas" | "/registro-diario/plan" }) {
   return (
