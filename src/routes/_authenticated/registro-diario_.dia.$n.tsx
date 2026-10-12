@@ -121,7 +121,7 @@ function Dia({ n, logs }: { n: number; logs: LogDia[] }) {
   const blocker = useBlocker({ shouldBlockFn: () => editando && dirty, enableBeforeUnload: editando && dirty, withResolver: true });
 
   const guardar = async () => {
-    const f = faltantes(cfg, b);
+    const f = completado ? [] : faltantes(cfg, b);
     setFalta(f);
     if (f.length) return;
     window.clearTimeout(timer.current);
@@ -133,7 +133,7 @@ function Dia({ n, logs }: { n: number; logs: LogDia[] }) {
       setEditando(false);
       setPendiente(false);
       toast.success("Registro guardado");
-      if (n === 21) navigate({ to: "/registro-diario" });
+      await navigate({ to: "/registro-diario" });
     } catch {
       toast.error("No pudimos guardar tu registro. Probá de nuevo.");
     } finally {
@@ -170,9 +170,9 @@ function Dia({ n, logs }: { n: number; logs: LogDia[] }) {
           </button>
         )}
         {modo === "compacto" && (
-          <button type="button" onClick={() => setEditando(true)} className="flex self-stretch items-center justify-center rounded-full bg-carbon-10/10 px-6 py-4 text-base font-semibold uppercase leading-none text-carbon">
+          <Button type="button" variant="ghost" onClick={() => { setB(desdeLog(log)); setEditando(true); }} className="h-auto flex self-stretch items-center justify-center rounded-full bg-carbon-10/10 px-6 py-4 text-base font-semibold uppercase leading-none text-carbon hover:bg-carbon-10/10">
             Editar
-          </button>
+          </Button>
         )}
         {modo === "preview" && (
           <div className="self-stretch rounded-[10px] bg-carbon/[0.04] p-5 text-center text-base tracking-tight text-carbon">
@@ -436,15 +436,15 @@ function Edicion({ cfg, b, logs, falta, pendiente, onFecha, onItem, onResp, onFo
       {cfg.extras.map((e) => (
         <Seccion key={e.id} titulo={e.seccion} marcado={falta.includes("extras")}>
           {[3, 15, 16, 17, 18, 19].includes(cfg.n) ? <>
-          <p className="text-sm text-piedra">{e.titulo}</p>
+           <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{e.titulo}</p>
           {e.pregunta ? <CampoPregunta p={{ ...e.pregunta, enunciado: "" }} i={0} total={1} r={b.responses[e.id]} pendiente={pendiente} onResp={(r, inm) => onResp(e.id, r, inm)} /> : <Button variant="ghost" className="h-auto justify-start p-1 text-carbon hover:bg-transparent" aria-pressed={b.practice_items.includes(e.id)} onClick={() => onItem(e.id)}>{b.practice_items.includes(e.id) ? <CheckLleno /> : <CheckVacio />}Lo hice</Button>}
           <AreaTexto value={b.responses[e.id]?.note ?? ""} placeholder="Escribí acá (opcional)." guardado={!pendiente && !!b.responses[e.id]?.note?.trim()} onChange={(v) => onResp(e.id, { ...b.responses[e.id], note: v })} />
           </> : e.pregunta ? <><div className="flex justify-end">{textoRespuesta(e.pregunta, b.responses[e.id]).length ? <CheckLleno /> : <CheckVacio />}</div><CampoPregunta p={e.pregunta} i={0} total={1} r={b.responses[e.id]} pendiente={pendiente} onResp={(r, inm) => onResp(e.id, r, inm)} /></> : <FilaCheck titulo={e.titulo} desc={e.desc} hecho={b.practice_items.includes(e.id)} onToggle={() => onItem(e.id)} />}
         </Seccion>
       ))}
-      <ReferenciasDia cfg={cfg} logs={logs} />
       {cfg.preguntas.length > 0 && (
         <Seccion titulo="Reflexión escrita" marcado={falta.includes("reflexion")}>
+          <ReferenciasDia cfg={cfg} logs={logs} />
           {cfg.preguntas.map((p, i) => (
             <CampoPregunta key={p.id} p={p} i={i} total={cfg.preguntas.length} r={b.responses[p.id]} pendiente={pendiente} onResp={(r, inm) => onResp(p.id, r, inm)} />
           ))}
@@ -465,7 +465,7 @@ function Edicion({ cfg, b, logs, falta, pendiente, onFecha, onItem, onResp, onFo
 // ---------- Modo compacto / preview ----------
 function Resumen({ cfg, b, logs }: { cfg: DiaConfig; b: Borrador | null; logs: LogDia[] }) {
   const fila = "flex flex-col gap-2.5 self-stretch border-b border-carbon-10/10 px-1 py-5";
-  const check = b ? <CheckLleno /> : <CheckVacio />;
+    const check = (hecho: boolean) => hecho ? <CheckLleno /> : <CheckVacio />;
   return (
     <div className="mt-5 flex flex-col self-stretch">
       <div className={`${fila} !flex-row items-center justify-between`}>
@@ -476,31 +476,30 @@ function Resumen({ cfg, b, logs }: { cfg: DiaConfig; b: Borrador | null; logs: L
         <div className={fila}>
           <div className="flex flex-row items-center justify-between">
             <p className="text-base tracking-tight text-carbon">Práctica corporal</p>
-            {check}
+            {check(!!b && cfg.practica.every((it) => b.practice_items.includes(it.id)))}
           </div>
           <div className="flex flex-col gap-2 pl-1.5">
              {cfg.practica.map((it) => {
               const pregunta = cfg.extras.find((e) => e.id === it.id)?.pregunta;
               return <div key={it.id} className="flex flex-col gap-1"><p className="text-sm tracking-tight text-piedra">{it.titulo}</p>{pregunta && b && textoRespuesta(pregunta, b.responses[it.id]).map((t, i) => <p key={i} className="text-base text-salvia">{t}</p>)}</div>;
             })}
-            {cfg.practicaNota && <p className="text-sm text-piedra">{cfg.practicaNota}</p>}
           </div>
         </div>
       )}
       {cfg.extras.map((e) => <div key={e.id} className={fila}>
         <p className="text-base text-carbon">{e.seccion}</p>
-        <p className="text-sm text-piedra">{e.titulo}</p>
+        <p className="text-lg font-semibold leading-[1.1] tracking-tight text-carbon">{e.titulo}</p>
         {b && e.pregunta && textoRespuesta(e.pregunta, b.responses[e.id]).map((text, i) => <p key={i} className="whitespace-pre-line text-base text-salvia">{text}</p>)}
         {b && !e.pregunta && b.responses[e.id]?.note && <p className="whitespace-pre-line text-base text-salvia">{b.responses[e.id]?.note}</p>}
       </div>)}
-      {cfg.referencias?.length && <div className={fila}><ReferenciasDia cfg={cfg} logs={logs} /></div>}
       {cfg.preguntas.length > 0 && (
         <div className={fila}>
           <div className="flex flex-row items-center justify-between">
             <p className="text-base tracking-tight text-carbon">Reflexión escrita</p>
-            {check}
+            {check(!!b && !faltantes(cfg, b).includes("reflexion"))}
           </div>
           <div className="flex flex-col gap-2 pl-1.5">
+            {cfg.referencias?.some((ref) => ref.tipo !== "nota") && <ReferenciasDia cfg={{ ...cfg, referencias: cfg.referencias.filter((ref) => ref.tipo !== "nota") }} logs={logs} />}
             {cfg.preguntas.map((p) => (
               <div key={p.id} className="flex flex-col gap-2">
                 <p className="text-sm tracking-tight text-piedra"><TextoConsigna texto={p.enunciado} /></p>
