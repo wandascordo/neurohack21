@@ -97,7 +97,7 @@ function Login() {
       {coverState !== "gone" && (
         <div
           aria-hidden="true"
-          className={`pointer-events-none fixed inset-0 z-50 overflow-hidden bg-salvia transition-opacity duration-500 motion-reduce:hidden ${
+          className={`pointer-events-none fixed inset-0 z-50 overflow-hidden bg-arena transition-opacity duration-500 motion-reduce:hidden ${
             coverState === "fade" ? "opacity-0" : "opacity-100"
           }`}
         >
@@ -113,6 +113,7 @@ function Login() {
         <source src={loginVideoWebm.url} type="video/webm" />
         <source src={loginVideo.url} type="video/mp4" />
       </video>
+      <div aria-hidden="true" className="login-shade" />
       <div className="mx-auto flex min-h-[100svh] w-full max-w-2xl flex-col gap-10 pt-20 px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         <h1 className="sr-only">Neurohack 21</h1>
         <img src={logo.url} alt="Neurohack 21" width={250} height={30} className="mx-auto h-auto w-[250px] max-w-full" />
