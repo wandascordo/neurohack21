@@ -1,6 +1,6 @@
 import { useState } from "react";
-import eyeClosed from "@/assets/eye.png.asset.json";
-import eyeOpen from "@/assets/eye-open.png.asset.json";
+import eyeClosed from "@/assets/iconoview-off.png";
+import eyeOpen from "@/assets/iconoview.png";
 
 export function PasswordField({ id, placeholder, value, onChange, autoComplete = "new-password" }: { id: string; placeholder: string; value: string; onChange: (v: string) => void; autoComplete?: string }) {
   const [show, setShow] = useState(false);
@@ -10,7 +10,7 @@ export function PasswordField({ id, placeholder, value, onChange, autoComplete =
       <input id={id} type={show ? "text" : "password"} autoComplete={autoComplete} minLength={8} required value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}
         className="min-w-0 flex-1 bg-transparent text-base font-semibold leading-none text-carbon placeholder:uppercase placeholder:text-piedra focus:outline-none" />
       <button type="button" onClick={() => setShow(!show)} aria-label={show ? "Ocultar contraseña" : "Mostrar contraseña"} aria-pressed={show}>
-        <img className="w-5 h-5" src={show ? eyeOpen.url : eyeClosed.url} alt="" />
+        <img className="w-5 h-5" src={show ? eyeOpen : eyeClosed} alt="" />
       </button>
     </div>
   );
