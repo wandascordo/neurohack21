@@ -135,15 +135,16 @@ function Login() {
               </Button>
             </div>
           </form>
-          <div className="px-6">
+           <p className="px-6 text-xs leading-5 text-piedra">Al ingresar aceptás los <Link to="/terminos-de-uso" className="underline underline-offset-2">Términos de uso</Link> y la <Link to="/politica-de-privacidad" className="underline underline-offset-2">Política de privacidad</Link>.</p>
+           <div className="px-6">
             <button type="button" onClick={forgot} className="text-sm tracking-tight underline">Olvidé mi contraseña</button>
             {(error || info) && <p role={error ? "alert" : "status"} className="mt-2 text-sm font-medium">{error ?? info}</p>}
           </div>
         </div>
         <div className="flex flex-col items-center gap-5 border-t border-cover-ink pt-5">
           <div className="flex gap-5 text-xs tracking-tight">
-            <Link to="/privacidad" className="underline">Políticas de Privacidad</Link>
-            <Link to="/terminos" className="underline">Términos de Uso</Link>
+            <Link to="/politica-de-privacidad" className="underline">Política de privacidad</Link>
+            <Link to="/terminos-de-uso" className="underline">Términos de uso</Link>
           </div>
         </div>
       </div>
