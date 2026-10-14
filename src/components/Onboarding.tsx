@@ -98,7 +98,7 @@ export function Onboarding() {
           {pantalla === 1 ? (
             <div key="bienvenida" className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain">
               <div className="relative -mx-5 mt-20 min-h-[120px] flex-1">
-                <img src={bienvenida.url} alt="" className="absolute inset-0 h-full w-full object-contain opacity-20 dark:invert" />
+                <img src={bienvenida.url} alt="" className="absolute inset-0 h-full w-full object-cover dark:invert" />
               </div>
               <div className="flex shrink-0 flex-col gap-2.5 py-5">
                 <p className="text-base font-semibold leading-none text-salvia">Antes de empezar</p>
@@ -108,7 +108,7 @@ export function Onboarding() {
               </div>
             </div>
           ) : (
-            <div key="recomendacion" className="onboarding-recomendacion flex min-h-0 flex-1 flex-col gap-[30px] overflow-y-auto overscroll-contain pt-[100px]">
+            <div key="recomendacion" className="onboarding-recomendacion flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto overscroll-contain pt-16">
               <Button variant="ghost" onClick={() => setPantalla(1)} className="h-auto shrink-0 justify-start gap-1 self-start rounded-none p-0 text-sm font-normal text-piedra hover:bg-transparent hover:text-carbon">
                 <ChevronLeft className="size-5" /> Volver
               </Button>
