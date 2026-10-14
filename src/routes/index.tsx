@@ -25,6 +25,15 @@ function Login() {
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [coverState, setCoverState] = useState<"anim" | "hold" | "fade" | "gone">("anim");
+  const [videoReady, setVideoReady] = useState(false);
+
+  useEffect(() => {
+    if (coverState !== "hold" || !videoReady) return;
+    setCoverState("fade");
+    const t = setTimeout(() => setCoverState("gone"), 700);
+    return () => clearTimeout(t);
+  }, [coverState, videoReady]);
 
   useEffect(() => {
     async function route(_userId: string) {
@@ -71,8 +80,27 @@ function Login() {
 
   return (
     <main className="relative isolate min-h-[100svh] overflow-hidden bg-primary text-cover-ink font-cover">
+      {coverState !== "gone" && (
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none fixed inset-0 z-50 overflow-hidden bg-salvia transition-opacity duration-500 motion-reduce:hidden ${
+            coverState === "fade" ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <div
+            className="login-cover-glow"
+            onAnimationEnd={() => setCoverState((s) => (s === "anim" ? "hold" : s))}
+          />
+        </div>
+      )}
       <img src={loginPoster.url} alt="" aria-hidden="true" className="absolute inset-0 -z-20 h-full w-full object-cover object-center" />
-      <video autoPlay muted loop playsInline preload="metadata" poster={loginPoster.url} aria-hidden="true" className="absolute inset-0 -z-10 h-full w-full object-cover object-center motion-reduce:hidden">
+      <video
+        autoPlay muted loop playsInline preload="metadata" poster={loginPoster.url} aria-hidden="true"
+        onCanPlay={() => setVideoReady(true)}
+        onPlaying={() => setVideoReady(true)}
+        onError={() => setVideoReady(true)}
+        className="absolute inset-0 -z-10 h-full w-full object-cover object-center motion-reduce:hidden"
+      >
         <source src={loginVideoWebm.url} type="video/webm" />
         <source src={loginVideo.url} type="video/mp4" />
       </video>
