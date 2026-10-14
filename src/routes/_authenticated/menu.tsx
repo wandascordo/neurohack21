@@ -125,7 +125,7 @@ function Menu() {
               {INDICE.map((g, idx) => (
                 <div key={g.titulo} style={stagger(idx)} className={`flex h-fit flex-col justify-center gap-2.5 self-stretch border-b border-carbon-10/10 p-2.5 ${staggerClass}`}>
                   <Link to="/indice/$seccion" params={{ seccion: g.slug ?? g.items[0]!.slug }} className={`${title} self-stretch`}>{g.titulo}</Link>
-                  {g.items.length > 0 && g.titulo !== "Introducción" && g.items.map((it) => (
+                  {g.items.length > 0 && g.titulo !== "Introducción" && !g.titulo.startsWith("Parte III") && g.items.map((it) => (
                     <Link key={it.slug} to="/indice/$seccion" params={{ seccion: it.slug }} className={`${sub} self-stretch px-2.5 pt-2.5`}>{it.label}</Link>
                   ))}
                 </div>
