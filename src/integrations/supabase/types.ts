@@ -251,6 +251,7 @@ export type Database = {
           created_at: string
           email: string | null
           first_login_at: string | null
+          full_name: string | null
           id: string
           last_read_anchor: string | null
           last_read_anchor_label: string | null
@@ -266,6 +267,7 @@ export type Database = {
           created_at?: string
           email?: string | null
           first_login_at?: string | null
+          full_name?: string | null
           id: string
           last_read_anchor?: string | null
           last_read_anchor_label?: string | null
@@ -281,6 +283,7 @@ export type Database = {
           created_at?: string
           email?: string | null
           first_login_at?: string | null
+          full_name?: string | null
           id?: string
           last_read_anchor?: string | null
           last_read_anchor_label?: string | null

@@ -78,6 +78,13 @@
       "when": 1791689048990,
       "tag": "0010_intentions_columns",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1792004434072,
+      "tag": "0011_profiles_full_name",
+      "breakpoints": true
     }
   ]
 }
