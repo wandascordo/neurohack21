@@ -85,6 +85,13 @@
       "when": 1792004434072,
       "tag": "0011_profiles_full_name",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1792012460812,
+      "tag": "0012_intentions_limit_10",
+      "breakpoints": true
     }
   ]
 }

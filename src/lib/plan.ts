@@ -35,7 +35,7 @@ export const SITUACIONES_M8: Record<Contexto, Opcion[]> = {
   relaciones: ops(["Estoy en una conversación y me voy mentalmente", "Suena el celular en medio de una charla", "Noto que no estoy presente"]),
 };
 
-export const MAX_INTENCIONES = { 7: 3, 8: 1 } as const;
+export const MAX_INTENCIONES = { 7: 10, 8: 10 } as const;
 
 // ---------- Helpers ----------
 export const minus = (s: string) => (s ? s.charAt(0).toLowerCase() + s.slice(1) : s);
