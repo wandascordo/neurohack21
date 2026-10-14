@@ -22,3 +22,5 @@
 - [x] Conservar últimas ediciones, mover mensaje Día 1 y referencias, ocultar mensajes en preview y volver al inicio al guardar.
 - [x] Cambiar el ícono de Tracker Visual de tu Progreso por chart-03
 - [x] Dividir onboarding según las dos pantallas Figma y comprobar navegación, guías y cierre.
+- [ ] Corregir tamaño y fondo del onboarding, foco de la X, imagen Fit y desbordamiento horizontal.
+- [ ] Actualizar instrucciones de Android y computadora con íconos y comprobar ambas pantallas.
