@@ -124,6 +124,8 @@
   --color-carbon-10: var(--token-carbon-10);
   --color-salvia: var(--token-salvia);
   --color-piedra: var(--token-piedra);
+  --color-arena: var(--token-arena);
+  --color-login-shade: var(--token-login-shade);
 }
 
 :root {
@@ -137,6 +139,9 @@
   --token-carbon-10: hsl(0 0% 11%);
   --token-salvia: hsl(124 7% 45%);
   --token-piedra: hsl(53 4% 65%);
+  /* Arena: igual en los dos temas, la portada del login no cambia. */
+  --token-arena: hsl(37 29% 88%);
+  --token-login-shade: hsl(0 0% 11%);
   --cover-ink: oklch(0.993 0.004 80);
   --cover-warm: oklch(0.91 0.019 76);
   --cover-arrow: oklch(0.22 0 0);
@@ -186,6 +191,8 @@
   --token-carbon-10: hsl(40 60% 99%);
   --token-salvia: hsl(124 9% 61%);
   --token-piedra: hsl(53 4% 65%);
+  --token-arena: hsl(37 29% 88%);
+  --token-login-shade: hsl(0 0% 11%);
   --cover-ink: oklch(0.993 0.004 80);
   --cover-warm: oklch(0.91 0.019 76);
   --cover-arrow: oklch(0.22 0 0);
@@ -262,7 +269,7 @@
   }
 }
 
-/* Login: destello de carga mientras llega el video (Salvia → Tiza cubriendo la pantalla). */
+/* Login: destello de carga mientras llega el video (Arena → luz difuminada cubriendo la pantalla). */
 @keyframes login-destello {
   0% {
     transform: translate(-50%, -50%) scale(0.05);
@@ -284,10 +291,28 @@
   width: 320vmax;
   height: 320vmax;
   border-radius: 9999px;
-  background: radial-gradient(circle closest-side, var(--token-tiza) 0%, var(--token-tiza) 50%, transparent 72%);
+  /* Caída muy progresiva: el destello se disuelve contra el fondo, sin borde visible. */
+  background: radial-gradient(
+    circle closest-side,
+    var(--token-luz) 0%,
+    var(--token-luz) 8%,
+    color-mix(in srgb, var(--token-luz) 72%, transparent) 34%,
+    color-mix(in srgb, var(--token-luz) 34%, transparent) 62%,
+    color-mix(in srgb, var(--token-luz) 10%, transparent) 84%,
+    transparent 100%
+  );
   transform: translate(-50%, -50%) scale(0.05);
   animation: login-destello 2s cubic-bezier(0.6, 0.05, 0.85, 0.5) forwards;
   will-change: transform, opacity;
+}
+
+/* Login: sombra Carbón de abajo (100%) hacia arriba (0%) para dar contraste a los campos y el pie. */
+.login-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -5;
+  pointer-events: none;
+  background: linear-gradient(to top, var(--color-login-shade) 0%, transparent 100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
