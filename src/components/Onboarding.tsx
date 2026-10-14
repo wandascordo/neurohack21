@@ -52,6 +52,10 @@ export function Onboarding() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("onboarding") === "true") {
+      setOpen(true);
+      return;
+    }
     if (sessionStorage.getItem("nh21-onboarding-closed")) return;
     let vigente = true;
     (async () => {
