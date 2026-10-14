@@ -17,7 +17,6 @@ export function LegalPage({ title, updated, children }: { title: string; updated
       <TopBar />
       <main className="flex w-full min-w-0 flex-col gap-8 py-5 text-carbon">
         <header className="flex flex-col items-start gap-5">
-          <span className="w-fit rounded-full bg-carbon-10/10 px-4 py-2 text-sm font-semibold text-salvia">{title}</span>
           <div className="flex flex-col gap-3">
             <h1 className="text-[28px] font-normal leading-tight">Términos de Uso</h1>
             {updated && <p className="text-sm leading-6 text-piedra">Última actualización: {updated}</p>}
