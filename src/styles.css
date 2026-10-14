@@ -251,6 +251,17 @@
   font-family: var(--font-rethink-sans);
 }
 
+.onboarding-modal {
+  box-shadow: var(--toast-shadow);
+}
+
+@media (max-height: 780px) {
+  .onboarding-recomendacion {
+    padding-top: 45px;
+    gap: 20px;
+  }
+}
+
 /* Luz lunar: iluminación cálida y suave que emana desde abajo de la tarjeta, como en el logo. */
 @keyframes glow-lunar {
   0%,
