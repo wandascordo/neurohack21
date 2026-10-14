@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Neurohack 21 decisions
+- Public legal routes share LegalPage with BookChrome and no resource navigation; legacy legal URLs permanently redirect to canonical routes to preserve existing links.
 - Global notification appearance is centralized in the shared Sonner wrapper and theme tokens — all resources must use the same toast styling.
 - All user state lives in Lovable Cloud tables with per-user RLS (no localStorage) — progress must sync across devices.
 - Signed-in screens live under src/routes/_authenticated/ (client-only gate redirecting to /); admin panel at /admin checks has_role('admin') from user_roles — roles never stored on profiles.

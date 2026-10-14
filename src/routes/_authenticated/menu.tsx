@@ -107,8 +107,10 @@ function Menu() {
               </div>
             </div>
             <div className="flex flex-1 flex-col items-center justify-end self-stretch">
-              <Link to="/privacidad" style={stagger(10)} className={`${foot} ${staggerClass}`}>Políticas de Privacidad</Link>
-              <Link to="/terminos" style={stagger(11)} className={`${foot} ${staggerClass}`}>Términos de Uso</Link>
+              <nav aria-label="Páginas legales" className="flex w-full flex-col items-center border-t border-carbon-10/10 pt-2.5">
+                <Link to="/terminos-de-uso" style={stagger(10)} className={`${foot} ${staggerClass}`}>Términos de uso</Link>
+                <Link to="/politica-de-privacidad" style={stagger(11)} className={`${foot} ${staggerClass}`}>Política de privacidad</Link>
+              </nav>
               <button type="button" onClick={signOut} style={stagger(12)} className={`${foot} ${staggerClass}`}>Logout</button>
             </div>
           </div>

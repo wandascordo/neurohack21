@@ -1,3 +1,6 @@
+- [ ] Crear estructura legal pública, Términos exactos y Política de privacidad provisional.
+- [ ] Ajustar enlaces del menú y aceptación del acceso, conservando direcciones anteriores.
+- [ ] Verificar acceso sin sesión y capturas de Términos, menú y acceso.
 - [x] Aclarar que no existe una referencia Figma recibida todavía.
 - [x] Dar estructura provisional y sobria a las secciones pendientes, sin simular funciones ni contenido final.
 - [x] Mantener la navegación y los metadatos de las páginas.

@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Placeholder, meta } from "@/components/Placeholder";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { meta } from "@/components/Placeholder";
 
 export const Route = createFileRoute("/terminos")({
   head: () => meta("Términos de Uso", "Condiciones de uso de Neurohack 21."),
-  component: () => <Placeholder title="Términos de Uso" back="/" />,
+  beforeLoad: () => { throw redirect({ to: "/terminos-de-uso", statusCode: 301 }); },
 });
