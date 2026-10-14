@@ -1,13 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { NotebookPen, Star, X } from "lucide-react";
+import { Star, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { meta } from "@/components/Placeholder";
 import { BookScreen, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { CirculoDia, Pill, RegistroBottomNav } from "@/components/registro/RegistroUI";
-import { INSTRUCTIVO_PDF, cargarFeedback, cargarAvisoOculto, ocultarAviso, ultimoCompletado, diaActual, estadoDe, guardarFeedback, logsQuery, type LogDia } from "@/lib/registro";
+import { cargarFeedback, cargarAvisoOculto, ocultarAviso, ultimoCompletado, diaActual, estadoDe, guardarFeedback, logsQuery, type LogDia } from "@/lib/registro";
 
 export const Route = createFileRoute("/_authenticated/registro-diario")({
   head: () => meta("Registro Diario de 21 Días", "Registrá tu práctica y reflexión de cada día del reto."),
@@ -122,16 +122,6 @@ function RegistroInicio() {
             <Link to="/registro-diario/dia/$n" params={{ n: String(actual) }} className={`${btnPrimary} mt-5 self-stretch`}>
               Completar registro de hoy
             </Link>
-            <div className="mt-10 flex flex-row gap-2.5 items-start self-stretch rounded-[10px] bg-carbon/[0.04] p-3">
-              <NotebookPen className="h-5 w-5 shrink-0 text-piedra" strokeWidth={1.5} />
-              <p className="text-sm text-piedra tracking-tight">
-                Si preferís lápiz y papel, podés{" "}
-                <a href={INSTRUCTIVO_PDF} target="_blank" rel="noopener" className="font-semibold text-salvia underline underline-offset-2">
-                  descargar el instructivo
-                </a>{" "}
-                e imprimirlo, o replicarlo en una hoja.
-              </p>
-            </div>
           </>
         )}
       </div>
