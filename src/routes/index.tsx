@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { logEvent } from "@/lib/progreso";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,8 @@ export const Route = createFileRoute("/")({
 
 function Login() {
   const navigate = useNavigate();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -26,14 +28,36 @@ function Login() {
   const [info, setInfo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [coverState, setCoverState] = useState<"anim" | "hold" | "fade" | "gone">("anim");
-  const [videoReady, setVideoReady] = useState(false);
+
+  // Portada de carga: destello Salvia → Tiza (2s) mientras llega el video.
+  useEffect(() => {
+    let ready = false;
+    const markReady = () => { ready = true; };
+    const video = videoRef.current;
+    video?.addEventListener("canplay", markReady, { once: true });
+    video?.addEventListener("playing", markReady, { once: true });
+    video?.addEventListener("error", markReady, { once: true });
+    const onAnimEnd = () => setCoverState((s) => (s === "anim" ? "hold" : s));
+    glowRef.current?.addEventListener("animationend", onAnimEnd, { once: true });
+
+    const poll = setInterval(() => {
+      setCoverState((s) => (s === "hold" && ready ? "fade" : s));
+    }, 150);
+    // Red de seguridad: aunque el video no avise, la portada se retira sola.
+    const cap = setTimeout(() => setCoverState((s) => (s === "anim" || s === "hold" ? "fade" : s)), 9000);
+    const unmount = setTimeout(() => setCoverState("gone"), 9800);
+    return () => {
+      clearInterval(poll);
+      clearTimeout(cap);
+      clearTimeout(unmount);
+    };
+  }, []);
 
   useEffect(() => {
-    if (coverState !== "hold" || !videoReady) return;
-    setCoverState("fade");
+    if (coverState !== "fade") return;
     const t = setTimeout(() => setCoverState("gone"), 700);
     return () => clearTimeout(t);
-  }, [coverState, videoReady]);
+  }, [coverState]);
 
   useEffect(() => {
     async function route(_userId: string) {
