@@ -18,7 +18,7 @@ export function LegalPage({ title, updated, children }: { title: string; updated
         <BackButton label="Volver" onClick={goBack} />
         <header className="flex flex-col items-start gap-5">
           <div className="flex flex-col gap-3">
-            <h1 className="text-[28px] font-normal leading-tight">Términos de Uso</h1>
+            <h1 className="text-[28px] font-normal leading-tight">Términos de uso</h1>
             {updated && <p className="text-sm leading-6 text-piedra">Última actualización: {updated}</p>}
           </div>
         </header>
