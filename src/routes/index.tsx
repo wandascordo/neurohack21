@@ -145,7 +145,6 @@ function Login() {
             <Link to="/privacidad" className="underline">Políticas de Privacidad</Link>
             <Link to="/terminos" className="underline">Términos de Uso</Link>
           </div>
-          <p className="text-[10px] tracking-tight">{"\n"}</p>
         </div>
       </div>
     </main>
