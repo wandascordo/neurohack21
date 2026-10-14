@@ -20,6 +20,15 @@ const parteIllustrations: Record<string, string> = {
   conclusiones: conclusionesIllustration.url,
 };
 
+// Proporción original (ancho:alto) de cada portada. El alto se deriva del ancho,
+// así que si la pantalla es más ancha la imagen crece en la misma medida.
+const parteIllustrationRatio: Record<string, string> = {
+  "parte-1": "2 / 1",
+  "parte-2": "2 / 1",
+  "parte-3": "2 / 1",
+  "parte-4": "8 / 3",
+};
+
 export const Route = createFileRoute("/_authenticated/indice/$seccion")({
   loader: ({ params }) => {
     const i = LIBRO.findIndex((x) => x.slug === params.seccion);
@@ -167,7 +176,8 @@ function Seccion() {
                 </div>
               ) : parteIllustrations[p.slug] && (
                 <img
-                  className="-mx-5 h-[200px] w-[calc(100%+2.5rem)] max-w-none object-cover dark:invert"
+                  className="-mx-5 w-[calc(100%+2.5rem)] max-w-none shrink-0 object-cover dark:invert"
+                  style={{ aspectRatio: parteIllustrationRatio[p.slug] ?? "2 / 1" }}
                   src={parteIllustrations[p.slug]}
                   alt=""
                 />
