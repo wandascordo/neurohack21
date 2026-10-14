@@ -20,7 +20,6 @@ export const Route = createFileRoute("/")({
 function Login() {
   const navigate = useNavigate();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -30,27 +29,18 @@ function Login() {
   const [coverState, setCoverState] = useState<"anim" | "hold" | "fade" | "gone">("anim");
 
   // Portada de carga: destello Salvia → Tiza (2s) mientras llega el video.
+  // Con SSR la animación arranca antes de la hidratación, así que no nos
+  // apoyamos en animationend: usamos temporizadores y el estado del video.
   useEffect(() => {
-    let ready = false;
-    const markReady = () => { ready = true; };
-    const video = videoRef.current;
-    video?.addEventListener("canplay", markReady, { once: true });
-    video?.addEventListener("playing", markReady, { once: true });
-    video?.addEventListener("error", markReady, { once: true });
-    const onAnimEnd = () => setCoverState((s) => (s === "anim" ? "hold" : s));
-    glowRef.current?.addEventListener("animationend", onAnimEnd, { once: true });
-
+    const hold = setTimeout(() => setCoverState((s) => (s === "anim" ? "hold" : s)), 2000);
     const poll = setInterval(() => {
+      const v = videoRef.current;
+      const ready = !!v && (v.readyState >= 3 || !!v.error);
       setCoverState((s) => (s === "hold" && ready ? "fade" : s));
     }, 150);
     // Red de seguridad: aunque el video no avise, la portada se retira sola.
     const cap = setTimeout(() => setCoverState((s) => (s === "anim" || s === "hold" ? "fade" : s)), 9000);
-    const unmount = setTimeout(() => setCoverState("gone"), 9800);
-    return () => {
-      clearInterval(poll);
-      clearTimeout(cap);
-      clearTimeout(unmount);
-    };
+    return () => { clearTimeout(hold); clearInterval(poll); clearTimeout(cap); };
   }, []);
 
   useEffect(() => {
@@ -111,7 +101,7 @@ function Login() {
             coverState === "fade" ? "opacity-0" : "opacity-100"
           }`}
         >
-          <div ref={glowRef} className="login-cover-glow" />
+          <div className="login-cover-glow" />
         </div>
       )}
       <img src={loginPoster.url} alt="" aria-hidden="true" className="absolute inset-0 -z-20 h-full w-full object-cover object-center" />
