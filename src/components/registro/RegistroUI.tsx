@@ -30,7 +30,7 @@ export function RegistroBottomNav() {
       <div className="h-[110px] shrink-0" aria-hidden="true" />
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 h-[117px] bg-gradient-to-t from-tiza to-tiza/0" />
       <nav
-        className="fixed inset-x-0 z-40 mx-auto flex w-[calc(100%-20px)] max-w-[380px] flex-row gap-2.5 items-start bg-tiza rounded-full border border-carbon-10/10 p-2.5"
+        className="fixed inset-x-0 z-40 mx-auto flex w-[calc(100%-20px)] flex-row gap-2.5 items-start bg-tiza rounded-full border border-carbon-10/10 p-2.5"
         style={{ bottom: "calc(20px + env(safe-area-inset-bottom))" }}
       >
         {TABS.map(({ to, label, asset }) => (

@@ -47,7 +47,7 @@ function FirstTimeLogin() {
 
   return (
     <main className="min-h-[100svh] bg-tiza font-cover">
-      <form onSubmit={onSubmit} className="mx-auto flex min-h-[100svh] w-full max-w-[400px] flex-col gap-5 items-start pt-[30px] px-5 pb-10">
+      <form onSubmit={onSubmit} className="mx-auto flex min-h-[100svh] w-full max-w-2xl flex-col gap-5 items-start pt-[30px] px-5 pb-10">
         <div className="flex flex-row justify-center items-center self-stretch h-12 py-2.5">
           <img className="w-[100px] h-3" src={logo.url} alt="Neurohack 21" />
         </div>

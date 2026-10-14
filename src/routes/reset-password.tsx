@@ -75,7 +75,7 @@ function ResetPassword() {
 
   return (
     <main className="min-h-[100svh] bg-tiza font-cover">
-      <form onSubmit={onSubmit} className="mx-auto flex min-h-[100svh] max-w-[400px] flex-col gap-9 pt-[30px] px-5 pb-10">
+      <form onSubmit={onSubmit} className="mx-auto flex min-h-[100svh] max-w-2xl flex-col gap-9 pt-[30px] px-5 pb-10">
         <div className="flex justify-center py-2.5"><img className="w-[100px] h-3" src={logo.url} alt="Neurohack 21" /></div>
         <div className="flex flex-1 flex-col justify-center gap-2.5">
           <h1 className="text-[28px] text-carbon leading-[1.1] tracking-[-1.5px]">Nueva contraseña</h1>

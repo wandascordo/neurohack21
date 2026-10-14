@@ -102,7 +102,7 @@ function GuionesParaProtegerTuFoco() {
         ))}
       </div>
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 h-[117px] bg-gradient-to-t from-tiza to-tiza/0" />
-      <nav className="fixed inset-x-0 bottom-5 z-40 mx-auto flex w-[calc(100%-20px)] max-w-[380px] flex-row gap-2.5 items-start bg-tiza rounded-full border border-carbon-10/10 p-2.5">
+      <nav className="fixed inset-x-0 bottom-5 z-40 mx-auto flex w-[calc(100%-20px)] flex-row gap-2.5 items-start bg-tiza rounded-full border border-carbon-10/10 p-2.5">
         {GUIONES.map((c) => {
           const Icono = ICONOS[c.id];
           const sel = c.id === activa;

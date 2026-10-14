@@ -252,7 +252,7 @@ function Lista({ onBack, onOpen }: { onBack: () => void; onOpen: (r: Registro) =
           <ResultadoCard key={r.id} r={r} onClick={() => onOpen(r)} />
         ))}
       </div>
-      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[400px] bg-gradient-to-t from-tiza from-60% to-transparent px-5 pb-10 pt-10">
+      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-2xl bg-gradient-to-t from-tiza from-60% to-transparent px-5 pb-10 pt-10">
         <Link to="/tracker" className={`${btnPrimary} w-full`}>Ir al tracker visual</Link>
       </div>
     </div>
