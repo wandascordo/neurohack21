@@ -111,18 +111,13 @@ function Login() {
             coverState === "fade" ? "opacity-0" : "opacity-100"
           }`}
         >
-          <div
-            className="login-cover-glow"
-            onAnimationEnd={() => setCoverState((s) => (s === "anim" ? "hold" : s))}
-          />
+          <div ref={glowRef} className="login-cover-glow" />
         </div>
       )}
       <img src={loginPoster.url} alt="" aria-hidden="true" className="absolute inset-0 -z-20 h-full w-full object-cover object-center" />
       <video
+        ref={videoRef}
         autoPlay muted loop playsInline preload="metadata" poster={loginPoster.url} aria-hidden="true"
-        onCanPlay={() => setVideoReady(true)}
-        onPlaying={() => setVideoReady(true)}
-        onError={() => setVideoReady(true)}
         className="absolute inset-0 -z-10 h-full w-full object-cover object-center motion-reduce:hidden"
       >
         <source src={loginVideoWebm.url} type="video/webm" />
