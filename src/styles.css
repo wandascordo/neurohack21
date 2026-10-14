@@ -262,6 +262,41 @@
   }
 }
 
+/* Login: destello de carga mientras llega el video (Salvia → Tiza cubriendo la pantalla). */
+@keyframes login-destello {
+  0% {
+    transform: translate(-50%, -50%) scale(0.05);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+.login-cover-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 320vmax;
+  height: 320vmax;
+  border-radius: 9999px;
+  background: radial-gradient(circle closest-side, var(--token-tiza) 0%, var(--token-tiza) 50%, transparent 72%);
+  transform: translate(-50%, -50%) scale(0.05);
+  animation: login-destello 2s cubic-bezier(0.6, 0.05, 0.85, 0.5) forwards;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-cover-glow {
+    animation: none;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
 /* Luz lunar: iluminación cálida y suave que emana desde abajo de la tarjeta, como en el logo. */
 @keyframes glow-lunar {
   0%,

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { logEvent } from "@/lib/progreso";
 import { Button } from "@/components/ui/button";
@@ -19,12 +19,35 @@ export const Route = createFileRoute("/")({
 
 function Login() {
   const navigate = useNavigate();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [coverState, setCoverState] = useState<"anim" | "hold" | "fade" | "gone">("anim");
+
+  // Portada de carga: destello Salvia → Tiza (2s) mientras llega el video.
+  // Con SSR la animación arranca antes de la hidratación, así que no nos
+  // apoyamos en animationend: usamos temporizadores y el estado del video.
+  useEffect(() => {
+    const hold = setTimeout(() => setCoverState((s) => (s === "anim" ? "hold" : s)), 2000);
+    const poll = setInterval(() => {
+      const v = videoRef.current;
+      const ready = !!v && (v.readyState >= 3 || !!v.error);
+      setCoverState((s) => (s === "hold" && ready ? "fade" : s));
+    }, 150);
+    // Red de seguridad: aunque el video no avise, la portada se retira sola.
+    const cap = setTimeout(() => setCoverState((s) => (s === "anim" || s === "hold" ? "fade" : s)), 9000);
+    return () => { clearTimeout(hold); clearInterval(poll); clearTimeout(cap); };
+  }, []);
+
+  useEffect(() => {
+    if (coverState !== "fade") return;
+    const t = setTimeout(() => setCoverState("gone"), 700);
+    return () => clearTimeout(t);
+  }, [coverState]);
 
   useEffect(() => {
     async function route(_userId: string) {
@@ -71,8 +94,22 @@ function Login() {
 
   return (
     <main className="relative isolate min-h-[100svh] overflow-hidden bg-primary text-cover-ink font-cover">
+      {coverState !== "gone" && (
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none fixed inset-0 z-50 overflow-hidden bg-salvia transition-opacity duration-500 motion-reduce:hidden ${
+            coverState === "fade" ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <div className="login-cover-glow" />
+        </div>
+      )}
       <img src={loginPoster.url} alt="" aria-hidden="true" className="absolute inset-0 -z-20 h-full w-full object-cover object-center" />
-      <video autoPlay muted loop playsInline preload="metadata" poster={loginPoster.url} aria-hidden="true" className="absolute inset-0 -z-10 h-full w-full object-cover object-center motion-reduce:hidden">
+      <video
+        ref={videoRef}
+        autoPlay muted loop playsInline preload="metadata" poster={loginPoster.url} aria-hidden="true"
+        className="absolute inset-0 -z-10 h-full w-full object-cover object-center motion-reduce:hidden"
+      >
         <source src={loginVideoWebm.url} type="video/webm" />
         <source src={loginVideo.url} type="video/mp4" />
       </video>
