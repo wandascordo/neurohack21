@@ -140,7 +140,7 @@
   --token-salvia: hsl(124 7% 45%);
   --token-piedra: hsl(53 4% 65%);
   /* Arena: igual en los dos temas, la portada del login no cambia. */
-  --token-arena: hsl(37 29% 88%);
+  --token-arena: #E9E2D7;
   --token-login-shade: hsl(0 0% 11%);
   --cover-ink: oklch(0.993 0.004 80);
   --cover-warm: oklch(0.91 0.019 76);
@@ -191,7 +191,7 @@
   --token-carbon-10: hsl(40 60% 99%);
   --token-salvia: hsl(124 9% 61%);
   --token-piedra: hsl(53 4% 65%);
-  --token-arena: hsl(37 29% 88%);
+  --token-arena: #E9E2D7;
   --token-login-shade: hsl(0 0% 11%);
   --cover-ink: oklch(0.993 0.004 80);
   --cover-warm: oklch(0.91 0.019 76);
