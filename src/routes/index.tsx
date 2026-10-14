@@ -5,6 +5,8 @@ import { logEvent } from "@/lib/progreso";
 import { Button } from "@/components/ui/button";
 import { meta } from "@/components/Placeholder";
 import coverArrow from "@/assets/cover-arrow.png.asset.json";
+import eyeClosed from "@/assets/iconoview-off.png";
+import eyeOpen from "@/assets/iconoview.png";
 import loginVideo from "@/assets/login-background-optimized.mp4.asset.json";
 import loginVideoWebm from "@/assets/login-background.webm.asset.json";
 import loginPoster from "@/assets/login-video-poster.jpg.asset.json";
@@ -19,6 +21,7 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -84,7 +87,10 @@ function Login() {
             </div>
             <div className={`${pillBase} ${password ? activeField : "bg-tiza/10"} group-hover:bg-white group-focus-within:bg-white`}>
               <label htmlFor="password" className="sr-only">Contraseña</label>
-              <input id="password" type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" className={inputCls} />
+              <input id="password" type={showPassword ? "text" : "password"} autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" className={inputCls} />
+              <button type="button" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"} aria-pressed={showPassword} className="shrink-0 px-1">
+                <img className="w-5 h-5" src={showPassword ? eyeOpen : eyeClosed} alt="" />
+              </button>
               <Button type="submit" variant="ghost" size="icon" disabled={loading} aria-label="Ingresar"
                 className={`size-[38px] shrink-0 rounded-full ${password ? activeBtn : "bg-avena hover:bg-avena/90"} group-hover:bg-salvia group-focus-within:bg-salvia`}>
                 <img src={coverArrow.url} alt="" width={20} height={20} className={`size-5 ${password ? "brightness-0 invert" : ""} group-hover:brightness-0 group-hover:invert group-focus-within:brightness-0 group-focus-within:invert`} />
