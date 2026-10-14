@@ -13,10 +13,12 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as BienvenidaRouteImport } from './routes/bienvenida'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as PoliticaDePrivacidadRouteImport } from './routes/politica-de-privacidad'
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as RegistroRouteImport } from './routes/registro'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TerminosRouteImport } from './routes/terminos'
+import { Route as TerminosDeUsoRouteImport } from './routes/terminos-de-uso'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAutoevaluacionRouteImport } from './routes/_authenticated/autoevaluacion'
@@ -60,6 +62,11 @@ const McpRoute = McpRouteImport.update({
   path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PoliticaDePrivacidadRoute = PoliticaDePrivacidadRouteImport.update({
+  id: '/politica-de-privacidad',
+  path: '/politica-de-privacidad',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacidadRoute = PrivacidadRouteImport.update({
   id: '/privacidad',
   path: '/privacidad',
@@ -78,6 +85,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const TerminosRoute = TerminosRouteImport.update({
   id: '/terminos',
   path: '/terminos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TerminosDeUsoRoute = TerminosDeUsoRouteImport.update({
+  id: '/terminos-de-uso',
+  path: '/terminos-de-uso',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
@@ -214,10 +226,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bienvenida': typeof BienvenidaRoute
   '/mcp': typeof McpRoute
+  '/politica-de-privacidad': typeof PoliticaDePrivacidadRoute
   '/privacidad': typeof PrivacidadRoute
   '/registro': typeof RegistroRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terminos': typeof TerminosRoute
+  '/terminos-de-uso': typeof TerminosDeUsoRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
@@ -246,10 +260,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bienvenida': typeof BienvenidaRoute
   '/mcp': typeof McpRoute
+  '/politica-de-privacidad': typeof PoliticaDePrivacidadRoute
   '/privacidad': typeof PrivacidadRoute
   '/registro': typeof RegistroRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terminos': typeof TerminosRoute
+  '/terminos-de-uso': typeof TerminosDeUsoRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
@@ -280,10 +296,12 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/bienvenida': typeof BienvenidaRoute
   '/mcp': typeof McpRoute
+  '/politica-de-privacidad': typeof PoliticaDePrivacidadRoute
   '/privacidad': typeof PrivacidadRoute
   '/registro': typeof RegistroRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terminos': typeof TerminosRoute
+  '/terminos-de-uso': typeof TerminosDeUsoRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/autoevaluacion': typeof AuthenticatedAutoevaluacionRoute
@@ -314,10 +332,12 @@ export interface FileRouteTypes {
     | '/'
     | '/bienvenida'
     | '/mcp'
+    | '/politica-de-privacidad'
     | '/privacidad'
     | '/registro'
     | '/reset-password'
     | '/terminos'
+    | '/terminos-de-uso'
     | '/.well-known/oauth-protected-resource'
     | '/admin'
     | '/autoevaluacion'
@@ -346,10 +366,12 @@ export interface FileRouteTypes {
     | '/'
     | '/bienvenida'
     | '/mcp'
+    | '/politica-de-privacidad'
     | '/privacidad'
     | '/registro'
     | '/reset-password'
     | '/terminos'
+    | '/terminos-de-uso'
     | '/.well-known/oauth-protected-resource'
     | '/admin'
     | '/autoevaluacion'
@@ -379,10 +401,12 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/bienvenida'
     | '/mcp'
+    | '/politica-de-privacidad'
     | '/privacidad'
     | '/registro'
     | '/reset-password'
     | '/terminos'
+    | '/terminos-de-uso'
     | '/.well-known/oauth-protected-resource'
     | '/_authenticated/admin'
     | '/_authenticated/autoevaluacion'
@@ -413,10 +437,12 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   BienvenidaRoute: typeof BienvenidaRoute
   McpRoute: typeof McpRoute
+  PoliticaDePrivacidadRoute: typeof PoliticaDePrivacidadRoute
   PrivacidadRoute: typeof PrivacidadRoute
   RegistroRoute: typeof RegistroRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TerminosRoute: typeof TerminosRoute
+  TerminosDeUsoRoute: typeof TerminosDeUsoRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
@@ -453,6 +479,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/politica-de-privacidad': {
+      id: '/politica-de-privacidad'
+      path: '/politica-de-privacidad'
+      fullPath: '/politica-de-privacidad'
+      preLoaderRoute: typeof PoliticaDePrivacidadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacidad': {
       id: '/privacidad'
       path: '/privacidad'
@@ -479,6 +512,13 @@ declare module '@tanstack/react-router' {
       path: '/terminos'
       fullPath: '/terminos'
       preLoaderRoute: typeof TerminosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terminos-de-uso': {
+      id: '/terminos-de-uso'
+      path: '/terminos-de-uso'
+      fullPath: '/terminos-de-uso'
+      preLoaderRoute: typeof TerminosDeUsoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.well-known/oauth-protected-resource': {
@@ -702,10 +742,12 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   BienvenidaRoute: BienvenidaRoute,
   McpRoute: McpRoute,
+  PoliticaDePrivacidadRoute: PoliticaDePrivacidadRoute,
   PrivacidadRoute: PrivacidadRoute,
   RegistroRoute: RegistroRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TerminosRoute: TerminosRoute,
+  TerminosDeUsoRoute: TerminosDeUsoRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
