@@ -28,12 +28,6 @@ const recursos = [
   { to: "/glosario", label: "Glosario de Términos", icon: glosario.url },
 ] as const;
 
-function saludo() {
-  const h = new Date().getHours();
-  if (h >= 5 && h < 13) return "Buenos días";
-  if (h >= 13 && h < 20) return "Buenas tardes";
-  return "Buenas noches";
-}
 
 function Inicio() {
   const queryClient = useQueryClient();
@@ -60,9 +54,6 @@ function Inicio() {
       <div className="flex w-full flex-1 flex-col">
         <TopBar />
         <div className="flex flex-col items-center gap-10 self-stretch pt-[20px]">
-          <h1 className="h-fit shrink-0 self-stretch text-left text-[28px] font-normal leading-[1.1] tracking-[-1.50px] text-carbon">
-            {saludo()}
-          </h1>
           <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-5 self-stretch rounded-t-[20px] rounded-b-[40px] relative isolate overflow-hidden border border-carbon-10/10 bg-salvia p-5 [&>*:not(.glow)]:relative [&>*:not(.glow)]:z-10">
             <div aria-hidden className="glow glow-lunar" />
             {completo ? (
