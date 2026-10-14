@@ -21,3 +21,4 @@
 - [x] Incorporar escala Figma en Cierre y Mis notas Módulo 4 y verificar guardado.
 - [x] Conservar últimas ediciones, mover mensaje Día 1 y referencias, ocultar mensajes en preview y volver al inicio al guardar.
 - [x] Cambiar el ícono de Tracker Visual de tu Progreso por chart-03
+- [ ] Dividir onboarding según las dos pantallas Figma y comprobar navegación, guías y cierre.
