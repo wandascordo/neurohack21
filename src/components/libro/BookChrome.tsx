@@ -125,7 +125,7 @@ function FixedTopBar() {
       <header
         className={`fixed inset-x-0 top-0 z-40 bg-tiza transition-transform duration-300 ease-out ${hidden ? "-translate-y-full" : "translate-y-0"}`}
       >
-        <div className="mx-auto flex w-full max-w-[400px] flex-row items-center justify-between px-5 py-5">
+        <div className="mx-auto flex w-full flex-row items-center justify-between px-5 py-5">
           <TopBarRow />
         </div>
       </header>
@@ -150,7 +150,7 @@ export function ProgressBar({ value }: { value: number }) {
 export function BookScreen({ children, fill = false, exact = false }: { children: ReactNode; fill?: boolean; exact?: boolean }) {
   return (
     <div className="min-h-screen bg-tiza font-rethink-sans">
-      <div className={`mx-auto flex w-full max-w-[400px] flex-col items-start bg-tiza px-5 pb-10 pt-0 ${exact ? "h-[100dvh] overflow-y-auto overscroll-none" : fill ? "min-h-screen" : ""}`}>
+      <div className={`mx-auto flex w-full max-w-2xl flex-col items-start bg-tiza px-5 pb-10 pt-0 ${exact ? "h-[100dvh] overflow-y-auto overscroll-none" : fill ? "min-h-screen" : ""}`}>
         {children}
       </div>
     </div>
