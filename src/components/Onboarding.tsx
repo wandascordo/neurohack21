@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { ChevronDown, ChevronLeft } from "lucide-react";
+import { ChevronDown, ChevronLeft, MonitorDown, MoreVertical } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { logEvent } from "@/lib/progreso";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,7 @@ const GUIAS = [
     id: "android",
     label: "Android",
     pasos: [
-      <>Abrí este link en Chrome y tocá el menú de los tres puntos.</>,
+      <>Abrí este link en Chrome y tocá el menú de los tres puntos <MoreVertical aria-hidden="true" className="inline-block size-3.5 align-text-bottom" />.</>,
       <>Elegí <strong className="font-semibold">Agregar a pantalla principal</strong> (o “Instalar app”).</>,
       <>Tocá Agregar para confirmar.</>,
     ],
@@ -35,11 +35,11 @@ const GUIAS = [
     id: "computadora",
     label: "Computadora",
     pasos: [
-      <>Abrí este link en tu navegador.</>,
-      <>Agregalo a tus favoritos o marcadores desde el menú del navegador.</>,
-      <>Guardalo para volver cuando quieras.</>,
+      <>Seleccioná el ícono de <strong className="font-semibold">Instalar app</strong> <MonitorDown aria-hidden="true" className="inline-block size-3.5 align-text-bottom" /> en la barra de navegación.</>,
+      <>Seleccioná Instalar para confirmar.</>,
+      <>Arrastrá la app al Escritorio.</>,
     ],
-    cierre: "Vas a poder acceder desde tus favoritos.",
+    cierre: "Vas a poder acceder desde el Escritorio.",
   },
 ];
 
@@ -93,18 +93,18 @@ export function Onboarding() {
   return (
     <Dialog open={open} onOpenChange={(o) => { if (!o && !guardando) close(); }}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-carbon-10/10 backdrop-blur-lg" />
-        <DialogPrimitive.Content className="onboarding-modal fixed bottom-5 left-1/2 z-50 flex h-[776px] max-h-[calc(100svh-98px)] w-[calc(100%-30px)] max-w-[370px] -translate-x-1/2 flex-col gap-2.5 overflow-hidden rounded-[20px] border border-carbon-10/10 bg-blanco px-5 pb-[30px] pt-5 font-rethink-sans outline-none sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2">
-          <Button variant="ghost" size="icon" onClick={close} disabled={guardando} aria-label="Cerrar" className="absolute right-[13px] top-[13px] z-10 h-8 w-8 rounded-full p-1 hover:bg-carbon-10/[0.03]">
+        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-carbon-10/10 backdrop-blur-[10px]" />
+        <DialogPrimitive.Content className="onboarding-modal fixed inset-[15px] z-50 flex min-h-0 min-w-0 flex-col gap-2.5 overflow-hidden rounded-[20px] border border-carbon-10/10 bg-blanco px-5 pb-[30px] pt-5 font-rethink-sans outline-none">
+          <Button variant="ghost" size="icon" onClick={close} disabled={guardando} aria-label="Cerrar" className="absolute right-[13px] top-[13px] z-10 h-8 w-8 rounded-full border-0 p-1 shadow-none outline-none hover:bg-carbon-10/[0.03] focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
             <img className="h-6 w-6" src={closeX.url} alt="" />
           </Button>
 
           {pantalla === 1 ? (
-            <div key="bienvenida" className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain">
-              <div className="relative -mx-5 mt-20 min-h-[120px] flex-1">
-                <img src={bienvenida.url} alt="" className="absolute inset-0 h-full w-full object-cover dark:invert" />
+            <div key="bienvenida" className="-mx-5 flex min-h-0 min-w-0 flex-1 flex-col overflow-x-hidden overflow-y-auto overscroll-contain">
+              <div className="relative mt-20 min-h-[120px] w-full flex-1">
+                <img src={bienvenida.url} alt="" className="absolute inset-0 h-full w-full object-contain dark:invert" />
               </div>
-              <div className="flex shrink-0 flex-col gap-2.5 py-5">
+              <div className="flex min-w-0 shrink-0 flex-col gap-2.5 px-5 py-5">
                 <p className="text-base font-semibold leading-none text-salvia">Antes de empezar</p>
                 <DialogTitle className="text-[22px] font-normal leading-[1.1] tracking-normal text-carbon">Te damos la bienvenida a Neurohack 21</DialogTitle>
                 <DialogDescription className="text-sm font-normal leading-[1.3] tracking-normal text-piedra">Este es tu libro interactivo: la teoría, el reto de 21 días y tus recursos van a estar siempre acá, guardados en tu cuenta.</DialogDescription>
@@ -112,7 +112,7 @@ export function Onboarding() {
               </div>
             </div>
           ) : (
-            <div key="recomendacion" className="onboarding-recomendacion flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto overscroll-contain pt-16">
+            <div key="recomendacion" className="onboarding-recomendacion flex min-h-0 min-w-0 flex-1 flex-col gap-6 overflow-x-hidden overflow-y-auto overscroll-contain pt-16">
               <Button variant="ghost" onClick={() => setPantalla(1)} className="h-auto shrink-0 justify-start gap-1 self-start rounded-none p-0 text-sm font-normal text-piedra hover:bg-transparent hover:text-carbon">
                 <ChevronLeft className="size-5" /> Volver
               </Button>
