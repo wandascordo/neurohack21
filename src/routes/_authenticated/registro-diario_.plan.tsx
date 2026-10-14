@@ -27,7 +27,11 @@ function Plan() {
   const practica = ritual ? ritualPractica(ritual) : null;
   const cuando = ritual ? ritualCuando(ritual) : null;
   const m7 = ints.filter((i) => i.source_module === 7);
-  const m8 = ints.find((i) => i.source_module === 8);
+  const m8s = ints.filter((i) => i.source_module === 8);
+  const m8 = m8s[m8s.length - 1];
+  const u7 = m7[m7.length - 1];
+  const f7 = u7 ? fraseDe(u7) : null;
+  const mas = (n: number) => n > 1 ? <p className="text-sm tracking-tight text-piedra">+{n - 1} {n - 1 === 1 ? "intención" : "intenciones"}</p> : null;
   const f8 = m8 ? fraseDe(m8) : null;
   return (
     <BookScreen fill>
@@ -47,12 +51,10 @@ function Plan() {
             )}
           </TarjetaLink>
           <TarjetaLink to="/registro-diario/plan/intenciones" eyebrow="Módulo 7" titulo="Mis intenciones de implementación">
-            {m7.length ? (
+            {f7 ? (
               <div className="flex flex-col gap-1">
-                {m7.map((i) => {
-                  const f = fraseDe(i);
-                  return f ? <Cita key={i.id}>{f}</Cita> : null;
-                })}
+                <Cita>{f7}</Cita>
+                {mas(m7.length)}
               </div>
             ) : null}
           </TarjetaLink>
@@ -61,6 +63,7 @@ function Plan() {
               <div className={caja}>
                 <ChipEstatico>{CONTEXTOS.find((c) => c.id === m8.context)?.label}</ChipEstatico>
                 <p className="border-l-2 border-piedra/70 pl-3 text-base tracking-tight text-carbon">{f8}</p>
+                {mas(m8s.length)}
               </div>
             ) : null}
           </TarjetaLink>

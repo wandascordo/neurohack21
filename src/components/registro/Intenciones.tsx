@@ -1,4 +1,4 @@
-// Pantalla de intenciones (Módulo 7: hasta 3; Módulo 8: 1 con contexto). Creación y edición dentro de la tarjeta.
+// Pantalla de intenciones (Módulos 7 y 8: hasta 10 cada uno; el 8 con contexto). Creación y edición dentro de la tarjeta.
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Copy, Trash2 } from "lucide-react";
@@ -19,12 +19,12 @@ const TEXTOS = {
   7: {
     titulo: "Mis intenciones de implementación",
     sub: "Dos o tres frases con el formato “si pasa X, entonces hago Y”.",
-    max: "Llegaste al máximo de tres intenciones. Podés editar o eliminar alguna.",
+    max: "Llegaste al máximo de diez intenciones. Podés editar o eliminar alguna.",
   },
   8: {
     titulo: "Mi intención para el mundo real",
     sub: "Una intención para el contexto donde más te cuesta sostener el foco: trabajo, estudio o relaciones. Se suma a las que ya guardaste en el Módulo 7.",
-    max: "Ya sumaste tu intención del Módulo 8. Podés editarla o eliminarla.",
+    max: "Llegaste al máximo de diez intenciones. Podés editar o eliminar alguna.",
   },
 } as const;
 
