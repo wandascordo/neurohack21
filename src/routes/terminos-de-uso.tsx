@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { LegalPage } from "@/components/LegalPage";
 import { meta } from "@/components/Placeholder";
 
@@ -16,7 +16,7 @@ function Terms() {
     <LegalPage title="Términos de uso" updated="14 de octubre de 2026">
       <section>
         <h2>1. Quién ofrece este producto</h2>
-        <p>Neurohack 21 es un libro interactivo y un conjunto de herramientas digitales ofrecido bajo la marca Destello Interior (“nosotros”). Al crear tu cuenta, acceder o usar Neurohack 21, aceptás estos Términos de uso y la Política de privacidad. Si no estás de acuerdo, por favor no uses el producto.</p>
+        <p>Neurohack 21 es un libro interactivo y un conjunto de herramientas digitales ofrecido bajo la marca Destello Interior (“nosotros”). Al crear tu cuenta, acceder o usar Neurohack 21, aceptás estos Términos de uso y la <Link to="/politica-de-privacidad">Política de privacidad</Link>. Si no estás de acuerdo, por favor no uses el producto.</p>
       </section>
       <section>
         <h2>2. Qué incluye Neurohack 21</h2>
@@ -37,7 +37,7 @@ function Terms() {
           <li>Neurohack 21 se adquiere con un pago único. No hay suscripción ni cargos recurrentes.</li>
           <li>El pago se procesa de forma externa y segura. Nosotros no vemos ni guardamos los datos de tu tarjeta.</li>
           <li>Tu acceso se mantiene mientras Neurohack 21 esté disponible. Si algún día dejáramos de ofrecerlo, te avisaremos con una anticipación razonable.</li>
-          <li><strong>Reembolsos:</strong> podés solicitar el reembolso de tu compra hasta 30 días después de la fecha de compra. Para hacerlo, escribinos a <Email /> desde el email con el que compraste. Al procesar el reembolso damos de baja tu cuenta y tu acceso finaliza. Si además querés que eliminemos tus datos personales, pedínoslo y los borramos según la Política de privacidad. Esto no limita los derechos que la ley te reconoce como consumidor.</li>
+          <li><strong>Reembolsos:</strong> podés solicitar el reembolso de tu compra hasta 30 días después de la fecha de compra. Para hacerlo, escribinos a <Email /> desde el email con el que compraste. Al procesar el reembolso damos de baja tu cuenta y tu acceso finaliza. Si además querés que eliminemos tus datos personales, pedínoslo y los borramos según la <Link to="/politica-de-privacidad">Política de privacidad</Link>. Esto no limita los derechos que la ley te reconoce como consumidor.</li>
         </ul>
       </section>
       <section>
@@ -50,7 +50,7 @@ function Terms() {
       </section>
       <section>
         <h2>6. Tu contenido</h2>
-        <p>Lo que escribís en el Registro Diario, Mis notas, tus intenciones, tu ritual mínimo y tus autoevaluaciones es tuyo. Nos das permiso únicamente para guardarlo y mostrártelo dentro de tu cuenta, y para los fines descritos en la Política de privacidad. Podés pedir que lo eliminemos según se explica en esa política.</p>
+        <p>Lo que escribís en el Registro Diario, Mis notas, tus intenciones, tu ritual mínimo y tus autoevaluaciones es tuyo. Nos das permiso únicamente para guardarlo y mostrártelo dentro de tu cuenta, y para los fines descritos en la <Link to="/politica-de-privacidad">Política de privacidad</Link>. Podés pedir que lo eliminemos según se explica en esa política.</p>
       </section>
       <section>
         <h2>7. Uso aceptable</h2>
