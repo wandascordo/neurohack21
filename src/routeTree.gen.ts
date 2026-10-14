@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as BienvenidaRouteImport } from './routes/bienvenida'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
+import { Route as RegistroRouteImport } from './routes/registro'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
@@ -62,6 +63,11 @@ const McpRoute = McpRouteImport.update({
 const PrivacidadRoute = PrivacidadRouteImport.update({
   id: '/privacidad',
   path: '/privacidad',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegistroRoute = RegistroRouteImport.update({
+  id: '/registro',
+  path: '/registro',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -209,6 +215,7 @@ export interface FileRoutesByFullPath {
   '/bienvenida': typeof BienvenidaRoute
   '/mcp': typeof McpRoute
   '/privacidad': typeof PrivacidadRoute
+  '/registro': typeof RegistroRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terminos': typeof TerminosRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -240,6 +247,7 @@ export interface FileRoutesByTo {
   '/bienvenida': typeof BienvenidaRoute
   '/mcp': typeof McpRoute
   '/privacidad': typeof PrivacidadRoute
+  '/registro': typeof RegistroRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terminos': typeof TerminosRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -273,6 +281,7 @@ export interface FileRoutesById {
   '/bienvenida': typeof BienvenidaRoute
   '/mcp': typeof McpRoute
   '/privacidad': typeof PrivacidadRoute
+  '/registro': typeof RegistroRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terminos': typeof TerminosRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -306,6 +315,7 @@ export interface FileRouteTypes {
     | '/bienvenida'
     | '/mcp'
     | '/privacidad'
+    | '/registro'
     | '/reset-password'
     | '/terminos'
     | '/.well-known/oauth-protected-resource'
@@ -337,6 +347,7 @@ export interface FileRouteTypes {
     | '/bienvenida'
     | '/mcp'
     | '/privacidad'
+    | '/registro'
     | '/reset-password'
     | '/terminos'
     | '/.well-known/oauth-protected-resource'
@@ -369,6 +380,7 @@ export interface FileRouteTypes {
     | '/bienvenida'
     | '/mcp'
     | '/privacidad'
+    | '/registro'
     | '/reset-password'
     | '/terminos'
     | '/.well-known/oauth-protected-resource'
@@ -402,6 +414,7 @@ export interface RootRouteChildren {
   BienvenidaRoute: typeof BienvenidaRoute
   McpRoute: typeof McpRoute
   PrivacidadRoute: typeof PrivacidadRoute
+  RegistroRoute: typeof RegistroRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   TerminosRoute: typeof TerminosRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -445,6 +458,13 @@ declare module '@tanstack/react-router' {
       path: '/privacidad'
       fullPath: '/privacidad'
       preLoaderRoute: typeof PrivacidadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/registro': {
+      id: '/registro'
+      path: '/registro'
+      fullPath: '/registro'
+      preLoaderRoute: typeof RegistroRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reset-password': {
@@ -683,6 +703,7 @@ const rootRouteChildren: RootRouteChildren = {
   BienvenidaRoute: BienvenidaRoute,
   McpRoute: McpRoute,
   PrivacidadRoute: PrivacidadRoute,
+  RegistroRoute: RegistroRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   TerminosRoute: TerminosRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
