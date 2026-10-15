@@ -4,7 +4,7 @@ import { Body, Button, Container, Font, Head, Heading, Html, Link, Preview, Sect
 // Fixed light-mode Figma tokens are inlined for Gmail and other email clients.
 export const emailColors = {
   tiza: '#FEFDFB', carbon: '#1C1C1C', salvia: '#6B7B6C',
-  piedra: '#A9A89F', help: '#F7F6F4', white: '#FFFFFF',
+  piedra: '#A9A9A2', help: '#F7F6F4', white: '#FFFFFF',
 }
 const fontFamily = '"Rethink Sans", Arial, Helvetica, sans-serif'
 
@@ -21,7 +21,7 @@ export function AuthEmailLayout({ preview, title, children, buttonLabel, confirm
   return (
     <Html lang="es" dir="ltr">
       <Head>
-        <Font fontFamily="Rethink Sans" fallbackFontFamily={['Arial', 'Helvetica', 'sans-serif']} webFont={{ url: 'https://fonts.gstatic.com/s/rethinksans/v5/hLSwBGdD3MMIuZ35LrO5iThTs1FZ.woff2', format: 'woff2' }} fontWeight={400} fontStyle="normal" />
+        <Font fontFamily="Rethink Sans" fallbackFontFamily={['Arial', 'Helvetica', 'sans-serif']} webFont={{ url: 'https://fonts.gstatic.com/s/rethinksans/v7/AMODz4SDuXOMCPfdoglY9JQuWHBGG0X45DmqkmFRCE4.ttf', format: 'truetype' }} fontWeight={400} fontStyle="normal" />
         <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
       </Head>
       <Preview>{preview}</Preview>
