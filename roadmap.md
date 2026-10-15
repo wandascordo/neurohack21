@@ -28,3 +28,6 @@
 - [x] Corregir tamaño y fondo del onboarding, foco de la X, imagen Fit y desbordamiento horizontal.
 - [x] Actualizar instrucciones de Android y computadora con íconos y comprobar ambas pantallas.
 - [x] Cargar el texto exacto de Políticas de privacidad en /politica-de-privacidad y verificar enlaces, acceso sin sesión y capturas.
+- [ ] Reemplazar los seis correos de autenticación según Figma y textos entregados, preservando flujos y remitente.
+- [ ] Verificar las seis vistas en celular y escritorio e informar los flujos disponibles.
+- [ ] Enviar seis pruebas desde los controles existentes, si están accesibles.
