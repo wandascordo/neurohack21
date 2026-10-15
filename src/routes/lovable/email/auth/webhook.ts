@@ -24,11 +24,12 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
         const handler = createAuthEmailHandler({
           apiKey: process.env['LOVABLE_API_KEY']!,
           from: `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
+          replyTo: 'neurohack21@gmail.com',
           senderDomain: SENDER_DOMAIN,
           sendUrl: process.env['LOVABLE_SEND_URL'],
           emails: {
             signup: {
-              subject: 'Confirm your email',
+              subject: 'Un paso más para activar tu cuenta',
               render: (data) =>
                 React.createElement(SignupEmail, {
                   siteName: SITE_NAME,
@@ -38,7 +39,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
                 }),
             },
             invite: {
-              subject: "You've been invited",
+              subject: 'Tu reto de 21 días te espera',
               render: (data) =>
                 React.createElement(InviteEmail, {
                   siteName: SITE_NAME,
@@ -47,7 +48,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
                 }),
             },
             magiclink: {
-              subject: 'Your login link',
+              subject: 'Tu acceso a Neurohack 21, a un click',
               render: (data) =>
                 React.createElement(MagicLinkEmail, {
                   siteName: SITE_NAME,
@@ -55,7 +56,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
                 }),
             },
             recovery: {
-              subject: 'Reset your password',
+              subject: 'Elegí una contraseña nueva',
               render: (data) =>
                 React.createElement(RecoveryEmail, {
                   siteName: SITE_NAME,
@@ -63,7 +64,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
                 }),
             },
             email_change: {
-              subject: 'Confirm your new email',
+              subject: 'Confirmá tu nuevo email',
               render: (data) =>
                 React.createElement(EmailChangeEmail, {
                   siteName: SITE_NAME,
@@ -74,7 +75,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
                 }),
             },
             reauthentication: {
-              subject: 'Your verification code',
+              subject: 'Tu código de verificación',
               render: (data) =>
                 React.createElement(ReauthenticationEmail, { token: data.token ?? '' }),
             },

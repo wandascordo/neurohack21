@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Neurohack 21 decisions
+- Auth emails share a React Email layout with fixed light-mode inline tokens, while each of the six templates owns its copy and keeps the managed webhook variables unchanged — email clients cannot rely on app CSS or scripts.
 - Public legal routes share LegalPage with BookChrome and no resource navigation; legacy legal URLs permanently redirect to canonical routes to preserve existing links.
 - Global notification appearance is centralized in the shared Sonner wrapper and theme tokens — all resources must use the same toast styling.
 - All user state lives in Lovable Cloud tables with per-user RLS (no localStorage) — progress must sync across devices.
