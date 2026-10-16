@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { meta } from "@/components/Placeholder";
 import { BookScreen, TopBar, btnPrimary } from "@/components/libro/BookChrome";
 import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/boton-anti-distraccion")({
   head: () => meta("Botón Anti-Distracción", "Una guía de rescate de 3 pasos para cuando sentís el impulso de distraerte."),
@@ -141,10 +142,10 @@ function BotonAntiDistraccion() {
               <div key={s} className="absolute rounded-full border-2 border-salvia animate-anillo"
                 style={{ width: s, height: s, opacity: [0.4, 0.3, 0.2, 0.1, 0.05][i], animationDelay: `${i * 0.25}s` }} />
             ))}
-            <button type="button" onClick={() => { registrado.current = false; setPantalla(1); }}
-              className="relative flex h-[180px] w-[180px] cursor-pointer items-center justify-center rounded-full bg-salvia px-6 py-4">
+            <Button variant="ghost" type="button" onClick={() => { registrado.current = false; setPantalla(1); }}
+              className="relative flex h-[180px] w-[180px] shrink-0 cursor-pointer items-center justify-center rounded-full bg-salvia p-6 hover:bg-salvia">
               <span className="text-lg font-semibold text-center text-tiza leading-[1.1] tracking-tight">Botón<br />Anti-Distracción</span>
-            </button>
+            </Button>
           </div>
           <p className="text-base font-normal text-center text-salvia tracking-tight self-stretch px-2.5">
             Usalo cuando sientas:<br /><em>“Tengo el impulso de distraerme ahora mismo”</em>
