@@ -31,5 +31,7 @@
 - [x] Reemplazar los seis correos de autenticación según Figma y textos entregados, preservando flujos y remitente.
 - [x] Verificar las seis vistas en celular y escritorio e informar los flujos disponibles.
 - [ ] Enviar seis pruebas: bloqueado porque el control «Enviar prueba» de More → Emails no está accesible al agente; requiere acción de la usuaria.
-- [ ] Verificar los seis asuntos en español y desplegar los emails sin errores.
-- [ ] Consultar dominio principal y configuración alojada de Site URL y Redirect URLs; actualizar solo URLs si es posible.
+- [x] Verificar los seis asuntos exactos en español y corregir enlaces de prueba a neurohack21.com; comprobación local sin errores.
+- [ ] Confirmar despliegue solicitado: la última lectura pública aún muestra las vistas anteriores; falta confirmación de publicación.
+- [x] Confirmar neurohack21.com activo y principal.
+- [ ] Leer Site URL y Redirect URLs alojadas y actualizar solo esas URLs: bloqueado porque las herramientas disponibles no exponen lectura ni modificación de estos campos; requiere revisión en Lovable.
