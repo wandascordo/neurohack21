@@ -31,3 +31,5 @@
 - [x] Reemplazar los seis correos de autenticación según Figma y textos entregados, preservando flujos y remitente.
 - [x] Verificar las seis vistas en celular y escritorio e informar los flujos disponibles.
 - [ ] Enviar seis pruebas: bloqueado porque el control «Enviar prueba» de More → Emails no está accesible al agente; requiere acción de la usuaria.
+- [ ] Verificar los seis asuntos en español y desplegar los emails sin errores.
+- [ ] Consultar dominio principal y configuración alojada de Site URL y Redirect URLs; actualizar solo URLs si es posible.

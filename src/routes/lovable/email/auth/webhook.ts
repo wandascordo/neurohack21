@@ -48,7 +48,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
                 }),
             },
             magiclink: {
-              subject: 'Tu acceso a Neurohack 21, a un click',
+              subject: 'Tu acceso a Neurohack 21, a un clic',
               render: (data) =>
                 React.createElement(MagicLinkEmail, {
                   siteName: SITE_NAME,
