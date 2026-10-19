@@ -35,7 +35,3 @@
 - [ ] Confirmar despliegue solicitado: la última lectura pública aún muestra las vistas anteriores; falta confirmación de publicación.
 - [x] Confirmar neurohack21.com activo y principal.
 - [ ] Leer Site URL y Redirect URLs alojadas y actualizar solo esas URLs: bloqueado porque las herramientas disponibles no exponen lectura ni modificación de estos campos; requiere revisión en Lovable.
-- [ ] Convertir /registro en finalización de cuenta invitada y verificar ambos estados sin cambiar Onboarding.
-- [ ] Implementar reenvíos privados con compra active y límite de 2 minutos: bloqueado por ausencia de purchases; confirmar origen de compras.
-- [ ] Mostrar y aprobar cambios de base de datos antes de aplicarlos.
-- [ ] Cerrar registro público preservando ajustes actuales: confirmar valores alojados antes de configurar.
