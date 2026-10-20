@@ -129,7 +129,7 @@ function Menu() {
           </div>
         ) : (
           <div className="flex flex-1 flex-col items-center gap-5 self-stretch">
-            <Button variant="ghost" onClick={() => setView("main")} className="flex h-fit flex-row justify-start items-center gap-1 self-stretch rounded-none px-0 py-[5px] hover:bg-transparent">
+            <Button variant="ghost" onClick={() => setView("main")} className="flex h-fit flex-row justify-start items-center gap-1 self-stretch rounded-none px-0 py-2.5 hover:bg-transparent">
               <IconoMascara asset={chevron} className="size-5 rotate-180 text-salvia" />
               <span className="text-sm font-normal tracking-tight text-piedra text-left">Menú principal</span>
             </Button>
