@@ -40,3 +40,4 @@
 - [x] Cargar SHOPIFY_WEBHOOK_SECRET y SHOPIFY_PRODUCT_IDS
 - [x] Ajustar ancho de Onboarding y Top Nav, diseño de Menú e Inicio según referencias recibidas; verificar navegación y tamaños con sesión real en escritorio y celular.
 - [x] Cambiar las esquinas inferiores de la tarjeta de progreso de lectura a 30px.
+- [x] Sumar 20px antes del título «Libro digital», alinear a la izquierda el enlace «Menú principal» y sangrar 10px los links de Módulos.
