@@ -29,6 +29,23 @@ const recursos = [
 ] as const;
 
 
+// Saludo según la hora local del dispositivo.
+function saludoHorario() {
+  const h = new Date().getHours();
+  if (h >= 6 && h < 12) return "Buenos días";
+  if (h >= 12 && h < 20) return "Buenas tardes";
+  return "Buenas noches";
+}
+
+// Primer nombre del perfil, con la primera letra en mayúscula.
+function primerNombre(nombre: string | null | undefined) {
+  const [primero] = (nombre ?? "").trim().split(/\s+/);
+  if (!primero) return "";
+  return primero
+    .toLocaleLowerCase("es")
+    .replace(/(^|[\s'-])(\p{L})/gu, (_m, a: string, b: string) => a + b.toLocaleUpperCase("es"));
+}
+
 function Inicio() {
   const queryClient = useQueryClient();
   const { data } = useQuery({
@@ -39,6 +56,9 @@ function Inicio() {
   });
   const pagina = data?.slug ? LIBRO.find((p) => p.slug === data.slug) ?? null : null;
   const pct = data?.pct ?? 0;
+  const saludo = saludoHorario();
+  const nombre = primerNombre(data?.full_name);
+  const saludoCompleto = nombre ? `${saludo}, ${nombre}` : saludo;
   const completo = pct >= 100;
   const hash = data?.anchor ?? undefined;
   const [parte, ...resto] = pagina ? pagina.eyebrow.split(" / ") : [];
@@ -54,6 +74,7 @@ function Inicio() {
       <div className="flex w-full flex-1 flex-col">
         <TopBar />
         <div className="flex flex-1 flex-col items-center gap-10 self-stretch pt-[20px]">
+          <p className="h-fit self-stretch text-left text-[28px] font-normal leading-[1.1] tracking-[-1.50px] text-carbon">{saludoCompleto}</p>
           <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-2.5 self-stretch rounded-t-[20px] rounded-b-[30px] relative isolate overflow-hidden border border-carbon-10/10 bg-salvia p-2.5 [&>*:not(.glow)]:relative [&>*:not(.glow)]:z-10">
             <div aria-hidden className="glow glow-lunar" />
             {completo ? (
