@@ -84,7 +84,7 @@ function Menu() {
       <div className={`flex w-full flex-1 flex-col ${closing ? "animate-menu-out" : "animate-menu-in"}`}>
         <TopBar onClose={closeMenu} closing={closing} />
         {view === "main" ? (
-          <div className="flex flex-1 flex-col items-center gap-[30px] self-stretch">
+          <div className="flex flex-1 flex-col items-center gap-[30px] self-stretch pt-[20px]">
             <div className="flex h-fit flex-col items-center gap-3.5 self-stretch">
               <div className={`flex h-fit flex-row items-center self-stretch ${staggerClass}`} style={stagger(0)}>
                 <h2 className={section}>Libro digital</h2>
@@ -129,7 +129,7 @@ function Menu() {
           </div>
         ) : (
           <div className="flex flex-1 flex-col items-center gap-5 self-stretch">
-            <Button variant="ghost" onClick={() => setView("main")} className="flex h-fit flex-row justify-start items-center gap-1 self-stretch rounded-none p-[5px] hover:bg-transparent">
+            <Button variant="ghost" onClick={() => setView("main")} className="flex h-fit flex-row justify-start items-center gap-1 self-stretch rounded-none px-0 py-[5px] hover:bg-transparent">
               <IconoMascara asset={chevron} className="size-5 rotate-180 text-salvia" />
               <span className="text-sm font-normal tracking-tight text-piedra text-left">Menú principal</span>
             </Button>
@@ -141,7 +141,7 @@ function Menu() {
                 <div key={g.titulo} style={stagger(idx)} className={`flex h-fit flex-col justify-center gap-2.5 self-stretch p-[5px] ${staggerClass}`}>
                   <Link to="/indice/$seccion" params={{ seccion: g.slug ?? g.items[0]?.slug ?? "prologo" }} className={`${title} self-stretch p-[5px]`}>{g.titulo}</Link>
                   {g.items.length > 0 && g.titulo !== "Introducción" && !g.titulo.startsWith("Parte III") && g.items.map((it) => (
-                    <Link key={it.slug} to="/indice/$seccion" params={{ seccion: it.slug }} className={`${sub} self-stretch p-[5px]`}>{it.label}</Link>
+                    <Link key={it.slug} to="/indice/$seccion" params={{ seccion: it.slug }} className={`${sub} self-stretch p-[5px] pl-[15px]`}>{it.label}</Link>
                   ))}
                 </div>
               ))}
