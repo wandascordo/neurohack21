@@ -37,4 +37,4 @@
 - [ ] Leer Site URL y Redirect URLs alojadas y actualizar solo esas URLs: bloqueado porque las herramientas disponibles no exponen lectura ni modificación de estos campos; requiere revisión en Lovable.
 
 - [x] Acceso por compra Shopify: purchases (+first_name/last_name), access_requests, webhook orders/paid, pedir acceso, /registro con invitación y nombre precargado, cerrar registro público; pedir SHOPIFY_WEBHOOK_SECRET y SHOPIFY_PRODUCT_IDS
-- [ ] Cargar SHOPIFY_WEBHOOK_SECRET y SHOPIFY_PRODUCT_IDS (espera a la usuaria)
+- [x] Cargar SHOPIFY_WEBHOOK_SECRET y SHOPIFY_PRODUCT_IDS
