@@ -61,6 +61,7 @@ function Registro() {
 
 function Formulario({ email, nombreInicial }: { email: string; nombreInicial: string }) {
   const navigate = useNavigate();
+  const sinNombre = !nombreInicial.trim();
   const [name, setName] = useState(nombreInicial);
   const [p1, setP1] = useState("");
   const [p2, setP2] = useState("");
@@ -70,7 +71,7 @@ function Formulario({ email, nombreInicial }: { email: string; nombreInicial: st
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     const n: typeof err = {};
-    if (!name.trim()) n.nombre = "Completá tu nombre y apellido.";
+    if (sinNombre && !name.trim()) n.nombre = "Completá tu nombre y apellido.";
     if (p1.length < 8) n.p1 = "La contraseña debe tener al menos 8 caracteres.";
     else if (p1 !== p2) n.p2 = "Las contraseñas no coinciden.";
     setErr(n);
@@ -97,33 +98,24 @@ function Formulario({ email, nombreInicial }: { email: string; nombreInicial: st
     <form onSubmit={onSubmit} noValidate className="flex flex-col gap-5 items-start self-stretch flex-1">
       <div className="flex flex-col gap-[30px] items-center self-stretch flex-1 py-5">
         <div className="flex flex-col gap-2.5 items-start self-stretch">
-          <p className="text-base font-semibold text-piedra leading-none">Hola :)</p>
-          <h1 className="text-[28px] font-normal text-carbon leading-[1.1] tracking-[-1.50px]">Qué gusto verte acá</h1>
+          <h1 className="text-[28px] font-normal text-carbon leading-[1.1] tracking-[-1.50px]">Creá tu cuenta</h1>
         </div>
         <div className="flex flex-col gap-2.5 items-start self-stretch">
           <div className={`${campo} opacity-70`}>
             <label htmlFor="email" className="sr-only">Email</label>
             <input id="email" type="email" value={email} readOnly disabled className={input} />
           </div>
-          <p className="px-2 text-sm text-piedra tracking-tight">Con este email vas a ingresar a la app. Si querés usar otro, escribinos a <a href="mailto:neurohack21@gmail.com" className="text-salvia underline">neurohack21@gmail.com</a>.</p>
+          <p className="px-2 text-sm text-piedra tracking-tight">¿Querés usar otro email? <a href="mailto:neurohack21@gmail.com" className="text-salvia underline">Escribinos</a>.</p>
         </div>
         <div className="flex flex-col gap-2.5 items-start self-stretch">
-          <p className="text-base font-normal text-piedra tracking-tight self-stretch">Para empezar, completá tu nombre completo:</p>
-          <div className={campo}>
-            <label htmlFor="nombre" className="sr-only">Nombre y Apellido</label>
-            <input id="nombre" type="text" autoComplete="name" maxLength={120} value={name} onChange={(e) => setName(e.target.value)} placeholder="Nombre y Apellido" className={input} />
-          </div>
-          {err.nombre && <p role="alert" className={errorCls}>{err.nombre}</p>}
-        </div>
-        <div className="flex flex-col gap-2.5 items-start self-stretch">
-          <p className="text-base font-normal text-piedra tracking-tight self-stretch">Y creá una contraseña de al menos 8 caracteres que recuerdes para poder acceder a tu cuenta desde cualquier dispositivo:</p>
+          <p className="text-base font-normal text-piedra tracking-tight self-stretch">Creá una contraseña de al menos 8 caracteres</p>
           <PasswordField id="p1" placeholder="Creá tu contraseña" value={p1} onChange={setP1} />
           {err.p1 && <p role="alert" className={errorCls}>{err.p1}</p>}
           <PasswordField id="p2" placeholder="Repetí tu contraseña" value={p2} onChange={setP2} />
           {err.p2 && <p role="alert" className={errorCls}>{err.p2}</p>}
           {err.general && <p role="alert" className={errorCls}>{err.general}</p>}
         </div>
-        <p className="text-sm font-normal text-piedra tracking-tight self-stretch">Con tu contraseña vas a poder ingresar desde cualquier dispositivo.</p>
+        <p className="text-sm font-normal text-piedra tracking-tight self-stretch">Si este enlace vence, podrás pedir uno nuevo con tu email.</p>
       </div>
       <button type="submit" disabled={loading} aria-busy={loading} className={boton}>{loading ? "Creando…" : "Crear mi cuenta"}</button>
     </form>
