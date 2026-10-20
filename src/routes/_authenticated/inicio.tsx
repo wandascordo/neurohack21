@@ -54,7 +54,7 @@ function Inicio() {
       <div className="flex w-full flex-1 flex-col">
         <TopBar />
         <div className="flex flex-1 flex-col items-center gap-10 self-stretch pt-[20px]">
-          <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-2.5 self-stretch rounded-t-[20px] rounded-b-[40px] relative isolate overflow-hidden border border-carbon-10/10 bg-salvia p-2.5 [&>*:not(.glow)]:relative [&>*:not(.glow)]:z-10">
+          <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-2.5 self-stretch rounded-t-[20px] rounded-b-[30px] relative isolate overflow-hidden border border-carbon-10/10 bg-salvia p-2.5 [&>*:not(.glow)]:relative [&>*:not(.glow)]:z-10">
             <div aria-hidden className="glow glow-lunar" />
             {completo ? (
               <>
