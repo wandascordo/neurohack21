@@ -107,6 +107,16 @@ function Formulario({ email, nombreInicial }: { email: string; nombreInicial: st
           </div>
           <p className="px-2 text-sm text-piedra tracking-tight">¿Querés usar otro email? <a href="mailto:neurohack21@gmail.com" className="text-salvia underline">Escribinos</a>.</p>
         </div>
+        {sinNombre && (
+          <div className="flex flex-col gap-2.5 items-start self-stretch">
+            <p className="text-base font-normal text-piedra tracking-tight self-stretch">Completá tu nombre y apellido:</p>
+            <div className={campo}>
+              <label htmlFor="nombre" className="sr-only">Nombre y Apellido</label>
+              <input id="nombre" type="text" autoComplete="name" maxLength={120} value={name} onChange={(e) => setName(e.target.value)} placeholder="Nombre y Apellido" className={input} />
+            </div>
+            {err.nombre && <p role="alert" className={errorCls}>{err.nombre}</p>}
+          </div>
+        )}
         <div className="flex flex-col gap-2.5 items-start self-stretch">
           <p className="text-base font-normal text-piedra tracking-tight self-stretch">Creá una contraseña de al menos 8 caracteres</p>
           <PasswordField id="p1" placeholder="Creá tu contraseña" value={p1} onChange={setP1} />
