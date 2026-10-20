@@ -125,7 +125,7 @@ function FixedTopBar() {
       <header
         className={`fixed inset-x-0 top-0 z-40 bg-tiza transition-transform duration-300 ease-out ${hidden ? "-translate-y-full" : "translate-y-0"}`}
       >
-        <div className="mx-auto flex w-full flex-row items-center justify-between px-5 py-5">
+        <div className="mx-auto flex w-full max-w-2xl flex-row items-center justify-between px-5 py-5">
           <TopBarRow />
         </div>
       </header>
