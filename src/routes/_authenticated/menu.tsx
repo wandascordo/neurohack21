@@ -14,6 +14,9 @@ import chart from "@/assets/menu-chart-03.png.asset.json";
 import postits from "@/assets/menu-postits.png.asset.json";
 import glosario from "@/assets/menu-glosario.png.asset.json";
 import chevron from "@/assets/menu-chevron.png.asset.json";
+import dashboard from "@/assets/menu-dashboard-square-add.png.asset.json";
+import { IconoMascara } from "@/components/IconoMascara";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/menu")({
   head: () => meta("Menú principal", "Accedé a todas las secciones de Neurohack 21."),
@@ -29,13 +32,17 @@ const items = [
   { to: "/glosario", label: "Glosario de Términos", icon: glosario.url },
 ] as const;
 
-const row = "flex h-fit flex-row items-center gap-2.5 self-stretch border-b border-carbon-10/10 p-2.5";
+const row = "flex h-fit flex-row items-center gap-2.5 self-stretch p-[5px]";
 const title = "text-base font-normal tracking-tight text-carbon text-left";
 const sub = "text-sm font-normal tracking-tight text-carbon text-left";
-const section = "flex-1 text-lg font-semibold leading-[1.1] tracking-tight text-carbon text-left";
+const section = "flex-1 text-sm font-bold leading-[1.3] tracking-normal text-carbon text-left";
 const foot = "flex h-fit flex-col justify-center self-stretch p-2.5 text-sm font-normal tracking-tight text-piedra text-left";
 const staggerClass = "animate-menu-item";
 const stagger = (i: number) => ({ animationDelay: `${60 + i * 35}ms` });
+
+function MenuIcon({ url }: { url: string }) {
+  return <span className="flex size-[30px] shrink-0 items-center justify-center rounded-[5px] bg-carbon/[0.03] p-[5px] text-salvia"><IconoMascara asset={{ url }} className="size-5" /></span>;
+}
 
 function Menu() {
   const navigate = useNavigate();
@@ -79,56 +86,62 @@ function Menu() {
         {view === "main" ? (
           <div className="flex flex-1 flex-col items-center gap-[30px] self-stretch">
             <div className="flex h-fit flex-col items-center gap-3.5 self-stretch">
-              <div className={`flex h-fit flex-row items-center self-stretch px-2.5 ${staggerClass}`} style={stagger(0)}>
+              <div className={`flex h-fit flex-row items-center self-stretch ${staggerClass}`} style={stagger(0)}>
+                <h2 className={section}>Libro digital</h2>
+              </div>
+              <div className="flex h-fit flex-col items-start gap-2.5 self-stretch">
+                <Link to="/inicio" className={`${row} ${staggerClass}`} style={stagger(1)}>
+                  <MenuIcon url={dashboard.url} />
+                  <span className={title}>Inicio</span>
+                </Link>
+                <Button variant="ghost" onClick={() => setView("indice")} className={`${row} h-auto justify-start rounded-none whitespace-normal font-normal hover:bg-carbon/[0.03] ${staggerClass}`} style={stagger(2)}>
+                  <MenuIcon url={paginas.url} />
+                  <span className={`${title} min-w-0 flex-1`}>Índice de Contenidos</span>
+                  <IconoMascara asset={chevron} className="size-5 text-salvia" />
+                </Button>
+              </div>
+            </div>
+            <div className="flex h-fit flex-col items-center gap-3.5 self-stretch">
+              <div className={`flex h-fit flex-row items-center self-stretch ${staggerClass}`} style={stagger(3)}>
                 <h2 className={section}>Recursos</h2>
               </div>
               <nav className="flex h-fit flex-col items-start gap-2.5 self-stretch">
                 {items.map((i, idx) => (
-                  <Link key={i.to} to={i.to} onClick={() => logEvent("recurso_abierto", { metadata: { recurso: i.to, desde: "menu" } })} className={`${row} ${staggerClass}`} style={stagger(idx + 1)}>
-                    <img className="h-6 w-6" src={i.icon} alt="" />
+                  <Link key={i.to} to={i.to} onClick={() => logEvent("recurso_abierto", { metadata: { recurso: i.to, desde: "menu" } })} className={`${row} ${staggerClass}`} style={stagger(idx + 4)}>
+                    <MenuIcon url={i.icon} />
                     <span className={title}>{i.label}</span>
                   </Link>
                 ))}
               </nav>
             </div>
-            <div className="flex h-fit flex-col items-center gap-3.5 self-stretch">
-              <div className={`flex h-fit flex-row items-center self-stretch px-2.5 ${staggerClass}`} style={stagger(7)}>
-                <h2 className={section}>Libro digital</h2>
-              </div>
-              <div className="flex h-fit flex-col items-start gap-5 self-stretch">
-                <button type="button" onClick={() => setView("indice")} className={`flex h-fit flex-row items-center gap-2.5 self-stretch border-b border-carbon-10/10 pt-2.5 pr-1 pb-2.5 pl-2.5 ${staggerClass}`} style={stagger(8)}>
-                  <img className="h-6 w-6" src={paginas.url} alt="" />
-                  <span className={`${title} flex-1`}>Índice de Contenidos</span>
-                  <img className="h-6 w-6" src={chevron.url} alt="" />
-                </button>
+            <div className="flex h-fit flex-col items-start self-stretch">
                 <Link to="/indice/$seccion" params={{ seccion: destino }} {...(continuarHash ? { hash: continuarHash } : {})} onClick={() => logEvent(iniciar ? "iniciar_lectura" : "continuar_leyendo", { slug: destino, anchor: continuarHash, metadata: { desde: "menu" } })} style={stagger(9)} className={`flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-salvia px-6 py-4 text-center text-base font-semibold uppercase leading-none text-tiza ${staggerClass}`}>
                   {iniciar ? "Iniciar lectura" : "Continuar leyendo"}
                 </Link>
-              </div>
             </div>
             <div className="flex flex-1 flex-col items-center justify-end self-stretch">
-              <nav aria-label="Páginas legales" className="flex w-full flex-col items-center border-t border-carbon-10/10 pt-2.5">
-                <Link to="/terminos-de-uso" style={stagger(10)} className={`${foot} ${staggerClass}`}>Términos de uso</Link>
-                <Link to="/politica-de-privacidad" style={stagger(11)} className={`${foot} ${staggerClass}`}>Política de privacidad</Link>
+              <nav aria-label="Páginas legales" className="flex w-full flex-col items-center pt-2.5">
+                <Link to="/politica-de-privacidad" style={stagger(10)} className={`${foot} ${staggerClass}`}>Políticas de Privacidad</Link>
+                <Link to="/terminos-de-uso" style={stagger(11)} className={`${foot} ${staggerClass}`}>Términos de Uso</Link>
               </nav>
-              <button type="button" onClick={signOut} style={stagger(12)} className={`${foot} ${staggerClass}`}>Logout</button>
+              <Button variant="ghost" onClick={signOut} style={stagger(12)} className={`${foot} h-auto items-start rounded-none hover:bg-transparent ${staggerClass}`}>Logout</Button>
             </div>
           </div>
         ) : (
           <div className="flex flex-1 flex-col items-center gap-5 self-stretch">
-            <button type="button" onClick={() => setView("main")} className="flex h-fit flex-row items-center gap-1 self-stretch">
-              <img className="h-6 w-6 rotate-180" src={chevron.url} alt="" />
+            <Button variant="ghost" onClick={() => setView("main")} className="flex h-fit flex-row justify-start items-center gap-1 self-stretch rounded-none p-[5px] hover:bg-transparent">
+              <IconoMascara asset={chevron} className="size-5 rotate-180 text-salvia" />
               <span className="text-sm font-normal tracking-tight text-piedra text-left">Menú principal</span>
-            </button>
+            </Button>
             <nav className="flex h-fit flex-col items-center gap-2.5 self-stretch py-2.5">
               <div className="flex h-fit flex-row items-center gap-1 self-stretch">
                 <h2 className={section}>Índice de Contenidos</h2>
               </div>
               {INDICE.map((g, idx) => (
-                <div key={g.titulo} style={stagger(idx)} className={`flex h-fit flex-col justify-center gap-2.5 self-stretch border-b border-carbon-10/10 p-2.5 ${staggerClass}`}>
-                  <Link to="/indice/$seccion" params={{ seccion: g.slug ?? g.items[0]!.slug }} className={`${title} self-stretch`}>{g.titulo}</Link>
+                <div key={g.titulo} style={stagger(idx)} className={`flex h-fit flex-col justify-center gap-2.5 self-stretch p-[5px] ${staggerClass}`}>
+                  <Link to="/indice/$seccion" params={{ seccion: g.slug ?? g.items[0]?.slug ?? "prologo" }} className={`${title} self-stretch p-[5px]`}>{g.titulo}</Link>
                   {g.items.length > 0 && g.titulo !== "Introducción" && !g.titulo.startsWith("Parte III") && g.items.map((it) => (
-                    <Link key={it.slug} to="/indice/$seccion" params={{ seccion: it.slug }} className={`${sub} self-stretch px-2.5 pt-2.5`}>{it.label}</Link>
+                    <Link key={it.slug} to="/indice/$seccion" params={{ seccion: it.slug }} className={`${sub} self-stretch p-[5px]`}>{it.label}</Link>
                   ))}
                 </div>
               ))}
