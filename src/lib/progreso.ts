@@ -13,13 +13,14 @@ export type Progreso = {
   anchorLabel: string | null;
   completadas: string[];
   pct: number;
+  full_name: string | null;
 };
 
 export async function fetchProgreso(): Promise<Progreso | null> {
   const { data: u } = await supabase.auth.getUser();
   if (!u.user) return null;
   const [{ data: prof }, { data: rows }] = await Promise.all([
-    supabase.from("profiles").select("last_read_slug, last_read_anchor, last_read_anchor_label").eq("id", u.user.id).maybeSingle(),
+    supabase.from("profiles").select("last_read_slug, last_read_anchor, last_read_anchor_label, full_name").eq("id", u.user.id).maybeSingle(),
     supabase.from("reading_progress").select("slug").eq("user_id", u.user.id),
   ]);
   const completadas = (rows ?? []).map((r) => r.slug).filter((s) => PAGINAS_LECTURA.includes(s));
@@ -34,6 +35,7 @@ export async function fetchProgreso(): Promise<Progreso | null> {
     anchorLabel: slug ? prof?.last_read_anchor_label ?? null : null,
     completadas,
     pct: llegoAlFinal ? 100 : Math.min(99, Math.round((leidas / contables.length) * 100)),
+    full_name: prof?.full_name ?? null,
   };
 }
 
