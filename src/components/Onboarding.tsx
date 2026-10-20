@@ -94,7 +94,7 @@ export function Onboarding() {
     <Dialog open={open} onOpenChange={(o) => { if (!o && !guardando) close(); }}>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-carbon-10/10 backdrop-blur-[10px]" />
-        <DialogPrimitive.Content className="onboarding-modal fixed inset-[15px] z-50 flex min-h-0 min-w-0 flex-col gap-2.5 overflow-hidden rounded-[20px] border border-carbon-10/10 bg-blanco px-5 pb-[30px] pt-5 font-rethink-sans outline-none">
+        <DialogPrimitive.Content className="onboarding-modal fixed inset-y-[15px] left-1/2 z-50 flex w-[calc(100%-30px)] max-w-2xl -translate-x-1/2 min-h-0 min-w-0 flex-col gap-2.5 overflow-hidden rounded-[20px] border border-carbon-10/10 bg-blanco px-5 pb-[30px] pt-5 font-rethink-sans outline-none">
           <Button variant="ghost" size="icon" onClick={close} disabled={guardando} aria-label="Cerrar" className="absolute right-[13px] top-[13px] z-10 h-8 w-8 rounded-full border-0 p-1 shadow-none outline-none hover:bg-carbon-10/[0.03] focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
             <img className="h-6 w-6" src={closeX.url} alt="" />
           </Button>

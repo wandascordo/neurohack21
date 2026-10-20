@@ -49,15 +49,16 @@ function Inicio() {
   }, [pct]);
 
   return (
-    <BookScreen exact>
+    <BookScreen fill>
       <Onboarding />
       <div className="flex w-full flex-1 flex-col">
         <TopBar />
-        <div className="flex flex-col items-center gap-10 self-stretch pt-[20px]">
-          <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-5 self-stretch rounded-t-[20px] rounded-b-[40px] relative isolate overflow-hidden border border-carbon-10/10 bg-salvia p-5 [&>*:not(.glow)]:relative [&>*:not(.glow)]:z-10">
+        <div className="flex flex-1 flex-col items-center gap-10 self-stretch pt-[20px]">
+          <div className="flex h-fit shrink-0 flex-col items-center justify-center gap-2.5 self-stretch rounded-t-[20px] rounded-b-[40px] relative isolate overflow-hidden border border-carbon-10/10 bg-salvia p-2.5 [&>*:not(.glow)]:relative [&>*:not(.glow)]:z-10">
             <div aria-hidden className="glow glow-lunar" />
             {completo ? (
-              <div className="flex flex-col items-center justify-center gap-2.5 self-stretch p-1">
+              <>
+              <div className="flex flex-col items-center justify-center gap-2.5 self-stretch p-2.5">
                 <div className="flex h-fit flex-row items-start justify-center gap-5 self-stretch">
                   <p className="h-fit flex-1 text-left text-base font-semibold tracking-tight text-tiza">Tu progreso de lectura: 100%</p>
                   <img className="h-5 w-5" src={check.url} alt="Lectura completa" />
@@ -66,6 +67,7 @@ function Inicio() {
                   <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza">Llegaste hasta el final de tu aprendizaje, ahora es momento de llevar a la práctica todo lo aprendido.</p>
                   <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza">Cuando quieras, podés volver a repasar los contenidos de este libro y reforzar los conceptos que trabajamos acá.</p>
                 </div>
+              </div>
                 <Link
                   to="/indice/$seccion"
                   params={{ seccion: "prologo" }}
@@ -77,9 +79,10 @@ function Inicio() {
                 >
                   Leer de nuevo
                 </Link>
-              </div>
+              </>
             ) : pagina ? (
               <>
+                <div className="flex flex-col gap-5 self-stretch p-2.5">
                 <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza">Tu progreso de lectura: {pct}%</p>
                 <div className="flex h-1 flex-row self-stretch overflow-hidden rounded-full bg-carbon-10/10 dark:bg-tiza/10">
                   <div className="self-stretch rounded-full bg-tiza transition-[width] duration-1000 ease-linear" style={{ width: `${shownPct}%` }} />
@@ -94,13 +97,14 @@ function Inicio() {
                     <p className="h-fit self-stretch text-left text-sm font-normal tracking-tight text-tiza">{data.anchorLabel}</p>
                   )}
                 </div>
+                </div>
                 <Link to="/indice/$seccion" params={{ seccion: pagina.slug }} {...(hash ? { hash: hash } : {})} onClick={() => logEvent("continuar_leyendo", { slug: pagina.slug, anchor: hash, metadata: { desde: "inicio" } })} className="flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-tiza px-6 py-4 text-center text-base font-semibold uppercase leading-none text-salvia">
                   Continuar leyendo
                 </Link>
               </>
             ) : (
               <>
-                <p className="h-fit self-stretch text-left text-base font-normal tracking-tight text-tiza">
+                <p className="h-fit self-stretch p-2.5 text-left text-base font-normal tracking-tight text-tiza">
                   Acá vas a ver tu progreso a medida que vayas avanzando con la lectura del libro, ¿empezamos?
                 </p>
                 <Link to="/indice" onClick={() => logEvent("iniciar_lectura")} className="flex h-fit flex-row items-center justify-center gap-2.5 self-stretch overflow-hidden rounded-full bg-tiza px-6 py-4 text-center text-base font-semibold uppercase leading-none text-salvia">
@@ -115,7 +119,7 @@ function Inicio() {
               {recursos.map((r) => (
                 <Link key={r.to} to={r.to} onClick={() => logEvent("recurso_abierto", { metadata: { recurso: r.to, desde: "inicio" } })} className="flex h-[120px] flex-col items-start justify-between rounded-[20px] border border-carbon-10/10 bg-carbon/[0.03] p-2.5">
                   <span
-                    className={r.to === "/autoevaluacion" ? "h-[30px] w-[30px] bg-salvia" : "h-6 w-6 bg-salvia"}
+                    className="h-[30px] w-[30px] shrink-0 bg-salvia"
                     style={{
                       maskImage: `url(${r.icon})`,
                       WebkitMaskImage: `url(${r.icon})`,
@@ -132,7 +136,7 @@ function Inicio() {
               ))}
             </div>
           </div>
-          <div className="flex h-11 flex-row items-end justify-center gap-2.5 self-stretch border-t border-carbon-10/10">
+          <div className="mt-auto flex min-h-11 shrink-0 flex-row items-end justify-center gap-2.5 self-stretch border-t border-carbon-10/10">
             <Link to="/privacidad" className="p-2.5 text-[10px] font-normal tracking-tight text-carbon">Políticas de Privacidad</Link>
             <Link to="/terminos" className="p-2.5 text-[10px] font-normal tracking-tight text-carbon">Términos de Uso</Link>
           </div>
