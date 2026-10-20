@@ -38,4 +38,4 @@
 
 - [x] Acceso por compra Shopify: purchases (+first_name/last_name), access_requests, webhook orders/paid, pedir acceso, /registro con invitación y nombre precargado, cerrar registro público; pedir SHOPIFY_WEBHOOK_SECRET y SHOPIFY_PRODUCT_IDS
 - [x] Cargar SHOPIFY_WEBHOOK_SECRET y SHOPIFY_PRODUCT_IDS
-- [ ] Ajustar ancho de Onboarding y Top Nav, diseño de Menú e Inicio según referencias recibidas; verificar navegación y tamaños.
+- [x] Ajustar ancho de Onboarding y Top Nav, diseño de Menú e Inicio según referencias recibidas; verificar navegación y tamaños con sesión real en escritorio y celular.
