@@ -35,10 +35,12 @@ import { Route as AuthenticatedIndiceIndexRouteImport } from './routes/_authenti
 import { Route as AuthenticatedIndiceSeccionRouteImport } from './routes/_authenticated/indice.$seccion'
 import { Route as AuthenticatedRegistroDiarioNotasRouteImport } from './routes/_authenticated/registro-diario_.notas'
 import { Route as AuthenticatedRegistroDiarioPlanRouteImport } from './routes/_authenticated/registro-diario_.plan'
+import { Route as ApiPublicAccessRequestRouteImport } from './routes/api/public/access-request'
 import { Route as AuthenticatedRegistroDiarioDiaNRouteImport } from './routes/_authenticated/registro-diario_.dia.$n'
 import { Route as AuthenticatedRegistroDiarioPlanIntencionesRouteImport } from './routes/_authenticated/registro-diario_.plan_.intenciones'
 import { Route as AuthenticatedRegistroDiarioPlanMundoRealRouteImport } from './routes/_authenticated/registro-diario_.plan_.mundo-real'
 import { Route as AuthenticatedRegistroDiarioPlanRitualRouteImport } from './routes/_authenticated/registro-diario_.plan_.ritual'
+import { Route as ApiPublicShopifyOrdersPaidRouteImport } from './routes/api/public/shopify/orders-paid'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as AuthenticatedRegistroDiarioNotasModuloNRouteImport } from './routes/_authenticated/registro-diario_.notas_.modulo.$n'
@@ -181,6 +183,11 @@ const AuthenticatedRegistroDiarioPlanRoute =
     path: '/registro-diario/plan',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const ApiPublicAccessRequestRoute = ApiPublicAccessRequestRouteImport.update({
+  id: '/api/public/access-request',
+  path: '/api/public/access-request',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedRegistroDiarioDiaNRoute =
   AuthenticatedRegistroDiarioDiaNRouteImport.update({
     id: '/registro-diario_/dia/$n',
@@ -204,6 +211,12 @@ const AuthenticatedRegistroDiarioPlanRitualRoute =
     id: '/registro-diario_/plan_/ritual',
     path: '/registro-diario/plan/ritual',
     getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const ApiPublicShopifyOrdersPaidRoute =
+  ApiPublicShopifyOrdersPaidRouteImport.update({
+    id: '/api/public/shopify/orders-paid',
+    path: '/api/public/shopify/orders-paid',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   id: '/lovable/email/auth/preview',
@@ -247,11 +260,13 @@ export interface FileRoutesByFullPath {
   '/indice/$seccion': typeof AuthenticatedIndiceSeccionRoute
   '/registro-diario/notas': typeof AuthenticatedRegistroDiarioNotasRoute
   '/registro-diario/plan': typeof AuthenticatedRegistroDiarioPlanRoute
+  '/api/public/access-request': typeof ApiPublicAccessRequestRoute
   '/indice/': typeof AuthenticatedIndiceIndexRoute
   '/registro-diario/dia/$n': typeof AuthenticatedRegistroDiarioDiaNRoute
   '/registro-diario/plan/intenciones': typeof AuthenticatedRegistroDiarioPlanIntencionesRoute
   '/registro-diario/plan/mundo-real': typeof AuthenticatedRegistroDiarioPlanMundoRealRoute
   '/registro-diario/plan/ritual': typeof AuthenticatedRegistroDiarioPlanRitualRoute
+  '/api/public/shopify/orders-paid': typeof ApiPublicShopifyOrdersPaidRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/registro-diario/notas/modulo/$n': typeof AuthenticatedRegistroDiarioNotasModuloNRoute
@@ -281,11 +296,13 @@ export interface FileRoutesByTo {
   '/indice/$seccion': typeof AuthenticatedIndiceSeccionRoute
   '/registro-diario/notas': typeof AuthenticatedRegistroDiarioNotasRoute
   '/registro-diario/plan': typeof AuthenticatedRegistroDiarioPlanRoute
+  '/api/public/access-request': typeof ApiPublicAccessRequestRoute
   '/indice': typeof AuthenticatedIndiceIndexRoute
   '/registro-diario/dia/$n': typeof AuthenticatedRegistroDiarioDiaNRoute
   '/registro-diario/plan/intenciones': typeof AuthenticatedRegistroDiarioPlanIntencionesRoute
   '/registro-diario/plan/mundo-real': typeof AuthenticatedRegistroDiarioPlanMundoRealRoute
   '/registro-diario/plan/ritual': typeof AuthenticatedRegistroDiarioPlanRitualRoute
+  '/api/public/shopify/orders-paid': typeof ApiPublicShopifyOrdersPaidRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/registro-diario/notas/modulo/$n': typeof AuthenticatedRegistroDiarioNotasModuloNRoute
@@ -317,11 +334,13 @@ export interface FileRoutesById {
   '/_authenticated/indice/$seccion': typeof AuthenticatedIndiceSeccionRoute
   '/_authenticated/registro-diario_/notas': typeof AuthenticatedRegistroDiarioNotasRoute
   '/_authenticated/registro-diario_/plan': typeof AuthenticatedRegistroDiarioPlanRoute
+  '/api/public/access-request': typeof ApiPublicAccessRequestRoute
   '/_authenticated/indice/': typeof AuthenticatedIndiceIndexRoute
   '/_authenticated/registro-diario_/dia/$n': typeof AuthenticatedRegistroDiarioDiaNRoute
   '/_authenticated/registro-diario_/plan_/intenciones': typeof AuthenticatedRegistroDiarioPlanIntencionesRoute
   '/_authenticated/registro-diario_/plan_/mundo-real': typeof AuthenticatedRegistroDiarioPlanMundoRealRoute
   '/_authenticated/registro-diario_/plan_/ritual': typeof AuthenticatedRegistroDiarioPlanRitualRoute
+  '/api/public/shopify/orders-paid': typeof ApiPublicShopifyOrdersPaidRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/_authenticated/registro-diario_/notas_/modulo/$n': typeof AuthenticatedRegistroDiarioNotasModuloNRoute
@@ -353,11 +372,13 @@ export interface FileRouteTypes {
     | '/indice/$seccion'
     | '/registro-diario/notas'
     | '/registro-diario/plan'
+    | '/api/public/access-request'
     | '/indice/'
     | '/registro-diario/dia/$n'
     | '/registro-diario/plan/intenciones'
     | '/registro-diario/plan/mundo-real'
     | '/registro-diario/plan/ritual'
+    | '/api/public/shopify/orders-paid'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/registro-diario/notas/modulo/$n'
@@ -387,11 +408,13 @@ export interface FileRouteTypes {
     | '/indice/$seccion'
     | '/registro-diario/notas'
     | '/registro-diario/plan'
+    | '/api/public/access-request'
     | '/indice'
     | '/registro-diario/dia/$n'
     | '/registro-diario/plan/intenciones'
     | '/registro-diario/plan/mundo-real'
     | '/registro-diario/plan/ritual'
+    | '/api/public/shopify/orders-paid'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/registro-diario/notas/modulo/$n'
@@ -422,11 +445,13 @@ export interface FileRouteTypes {
     | '/_authenticated/indice/$seccion'
     | '/_authenticated/registro-diario_/notas'
     | '/_authenticated/registro-diario_/plan'
+    | '/api/public/access-request'
     | '/_authenticated/indice/'
     | '/_authenticated/registro-diario_/dia/$n'
     | '/_authenticated/registro-diario_/plan_/intenciones'
     | '/_authenticated/registro-diario_/plan_/mundo-real'
     | '/_authenticated/registro-diario_/plan_/ritual'
+    | '/api/public/shopify/orders-paid'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/_authenticated/registro-diario_/notas_/modulo/$n'
@@ -445,6 +470,8 @@ export interface RootRouteChildren {
   TerminosDeUsoRoute: typeof TerminosDeUsoRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
+  ApiPublicAccessRequestRoute: typeof ApiPublicAccessRequestRoute
+  ApiPublicShopifyOrdersPaidRoute: typeof ApiPublicShopifyOrdersPaidRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
 }
@@ -633,6 +660,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRegistroDiarioPlanRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/access-request': {
+      id: '/api/public/access-request'
+      path: '/api/public/access-request'
+      fullPath: '/api/public/access-request'
+      preLoaderRoute: typeof ApiPublicAccessRequestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/registro-diario_/dia/$n': {
       id: '/_authenticated/registro-diario_/dia/$n'
       path: '/registro-diario/dia/$n'
@@ -660,6 +694,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/registro-diario/plan/ritual'
       preLoaderRoute: typeof AuthenticatedRegistroDiarioPlanRitualRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/shopify/orders-paid': {
+      id: '/api/public/shopify/orders-paid'
+      path: '/api/public/shopify/orders-paid'
+      fullPath: '/api/public/shopify/orders-paid'
+      preLoaderRoute: typeof ApiPublicShopifyOrdersPaidRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/lovable/email/auth/preview': {
       id: '/lovable/email/auth/preview'
@@ -751,6 +792,8 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
+  ApiPublicAccessRequestRoute: ApiPublicAccessRequestRoute,
+  ApiPublicShopifyOrdersPaidRoute: ApiPublicShopifyOrdersPaidRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
 }

@@ -28,3 +28,4 @@
 - Completed daily logs retain their status when saved edits clear fields; completion validation applies to first completion, and summaries derive checks from saved values rather than status alone.
 - Focus self-assessments are unlimited: every completion inserts a focus_assessments row ordered by assessed_at; Tracker and Mis resultados share ResultadoCard, and Registro Diario 'Hecha' uses the total row count — moment is never set nor used to gate.
 - Onboarding uses two steps inside the existing shared modal; only Listo with the opt-out checkbox selected calls complete_onboarding, preserving account-level dismissal and temporary session closing.
+- Shopify purchases grant access: the signed webhook at /api/public/shopify/orders-paid records purchases and invites via the admin auth API; /registro only completes invited accounts (complete_account RPC sets profiles.account_completed_at) and public signup stays disabled — accounts exist only for buyers.

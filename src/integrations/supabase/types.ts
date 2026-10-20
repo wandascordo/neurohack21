@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      access_requests: {
+        Row: {
+          email: string
+          id: string
+          requested_at: string
+        }
+        Insert: {
+          email: string
+          id?: string
+          requested_at?: string
+        }
+        Update: {
+          email?: string
+          id?: string
+          requested_at?: string
+        }
+        Relationships: []
+      }
       challenge_feedback: {
         Row: {
           created_at: string
@@ -248,6 +266,7 @@ export type Database = {
       profiles: {
         Row: {
           access_status: Database["public"]["Enums"]["access_status"]
+          account_completed_at: string | null
           created_at: string
           email: string | null
           first_login_at: string | null
@@ -264,6 +283,7 @@ export type Database = {
         }
         Insert: {
           access_status?: Database["public"]["Enums"]["access_status"]
+          account_completed_at?: string | null
           created_at?: string
           email?: string | null
           first_login_at?: string | null
@@ -280,6 +300,7 @@ export type Database = {
         }
         Update: {
           access_status?: Database["public"]["Enums"]["access_status"]
+          account_completed_at?: string | null
           created_at?: string
           email?: string | null
           first_login_at?: string | null
@@ -293,6 +314,39 @@ export type Database = {
           purchased_at?: string | null
           theme?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      purchases: {
+        Row: {
+          created_at: string
+          email: string
+          error_message: string | null
+          first_name: string | null
+          id: string
+          last_name: string | null
+          shopify_order_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          error_message?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          shopify_order_id: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          error_message?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          shopify_order_id?: string
+          status?: string
         }
         Relationships: []
       }
@@ -394,6 +448,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      complete_account: { Args: { _full_name: string }; Returns: undefined }
       complete_onboarding: { Args: never; Returns: undefined }
       has_role: {
         Args: {
