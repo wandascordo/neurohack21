@@ -43,4 +43,5 @@
 - [x] Sumar 20px antes del título «Libro digital», alinear a la izquierda el enlace «Menú principal» y sangrar 10px los links de Módulos.
 - [x] Volver a poner el saludo horario en Inicio, ahora con el primer nombre del perfil.
 - [x] Reemplazar contacto y soporte en todo el proyecto sin cambiar textos ni diseño; verificar enlaces legales y renderizado de los seis correos. «No me llegó mi acceso» no existe en este proyecto.
-- [ ] Cambiar remitente a no-reply@destellointerior.com y obtener registros DNS: bloqueado hasta que la usuaria configure destellointerior.com en el diálogo de dominios de email; conservar remitente actual para no interrumpir envíos.
+- [x] Configurar remitente «Neurohack 21» <no-reply@destellointerior.com> con notificaciones.destellointerior.com, conservar las seis plantillas e informar los dos registros NS asignados.
+- [ ] Activar envío con notificaciones.destellointerior.com: pendiente de verificación DNS y publicación de la configuración actualizada.
