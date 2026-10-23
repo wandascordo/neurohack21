@@ -1,5 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { completeRegistration } from "@/lib/account-completion.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { meta } from "@/components/Placeholder";
 import { PasswordField } from "@/components/PasswordField";
@@ -61,6 +63,7 @@ function Registro() {
 
 function Formulario({ email, nombreInicial }: { email: string; nombreInicial: string }) {
   const navigate = useNavigate();
+  const complete = useServerFn(completeRegistration);
   const sinNombre = !nombreInicial.trim();
   const [name, setName] = useState(nombreInicial);
   const [p1, setP1] = useState("");
@@ -88,9 +91,9 @@ function Formulario({ email, nombreInicial }: { email: string; nombreInicial: st
         return setErr({ general: "Tu enlace venció. Pedí uno nuevo desde esta misma pantalla." });
       return setErr({ general: "No pudimos crear tu cuenta. Intentá de nuevo." });
     }
-    const { error: e2 } = await supabase.rpc("complete_account", { _full_name: full_name });
+    const result = await complete({ data: { fullName: full_name } }).catch(() => ({ ok: false }));
     setLoading(false);
-    if (e2) return setErr({ general: "No pudimos crear tu cuenta. Intentá de nuevo." });
+    if (!result.ok) return setErr({ general: "No pudimos crear tu cuenta. Intentá de nuevo." });
     navigate({ to: "/inicio" });
   }
 

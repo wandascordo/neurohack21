@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Neurohack 21 decisions
+- Administrative event emails use the managed template sender with fixed recipients and event-based idempotency; registration completion runs in an authenticated server function and notification errors are isolated from successful buyer actions — no email tables or queues are needed.
 - Auth emails share a React Email layout with fixed light-mode inline tokens, while each of the six templates owns its copy and keeps the managed webhook variables unchanged — email clients cannot rely on app CSS or scripts.
 - Public legal routes share LegalPage with BookChrome and no resource navigation; legacy legal URLs permanently redirect to canonical routes to preserve existing links.
 - Global notification appearance is centralized in the shared Sonner wrapper and theme tokens — all resources must use the same toast styling.

@@ -84,6 +84,11 @@ export const Route = createFileRoute("/api/public/shopify/orders-paid")({
           }
           return Response.json({ ok: true, invited: false, aviso });
         }
+        try {
+          const { notifyAdmin } = await import('@/lib/admin-notification');
+          const { sendTemplateEmail } = await import('@/lib/email-templates/send-email');
+          await notifyAdmin(sendTemplateEmail, 'invitation', email, `shopify-${orderId}`);
+        } catch { console.warn('[shopify] admin notification failed'); }
         return Response.json({ ok: true, invited: true, aviso });
       },
     },

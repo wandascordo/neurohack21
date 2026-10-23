@@ -43,6 +43,7 @@ import { Route as AuthenticatedRegistroDiarioPlanRitualRouteImport } from './rou
 import { Route as ApiPublicShopifyOrdersPaidRouteImport } from './routes/api/public/shopify/orders-paid'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as AuthenticatedRegistroDiarioNotasModuloNRouteImport } from './routes/_authenticated/registro-diario_.notas_.modulo.$n'
 
 const IndexRoute = IndexRouteImport.update({
@@ -228,6 +229,12 @@ const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
   path: '/lovable/email/auth/webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LovableEmailTransactionalPreviewRoute =
+  LovableEmailTransactionalPreviewRouteImport.update({
+    id: '/lovable/email/transactional/preview',
+    path: '/lovable/email/transactional/preview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedRegistroDiarioNotasModuloNRoute =
   AuthenticatedRegistroDiarioNotasModuloNRouteImport.update({
     id: '/registro-diario_/notas_/modulo/$n',
@@ -269,6 +276,7 @@ export interface FileRoutesByFullPath {
   '/api/public/shopify/orders-paid': typeof ApiPublicShopifyOrdersPaidRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/registro-diario/notas/modulo/$n': typeof AuthenticatedRegistroDiarioNotasModuloNRoute
 }
 export interface FileRoutesByTo {
@@ -305,6 +313,7 @@ export interface FileRoutesByTo {
   '/api/public/shopify/orders-paid': typeof ApiPublicShopifyOrdersPaidRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/registro-diario/notas/modulo/$n': typeof AuthenticatedRegistroDiarioNotasModuloNRoute
 }
 export interface FileRoutesById {
@@ -343,6 +352,7 @@ export interface FileRoutesById {
   '/api/public/shopify/orders-paid': typeof ApiPublicShopifyOrdersPaidRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/_authenticated/registro-diario_/notas_/modulo/$n': typeof AuthenticatedRegistroDiarioNotasModuloNRoute
 }
 export interface FileRouteTypes {
@@ -381,6 +391,7 @@ export interface FileRouteTypes {
     | '/api/public/shopify/orders-paid'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
+    | '/lovable/email/transactional/preview'
     | '/registro-diario/notas/modulo/$n'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -417,6 +428,7 @@ export interface FileRouteTypes {
     | '/api/public/shopify/orders-paid'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
+    | '/lovable/email/transactional/preview'
     | '/registro-diario/notas/modulo/$n'
   id:
     | '__root__'
@@ -454,6 +466,7 @@ export interface FileRouteTypes {
     | '/api/public/shopify/orders-paid'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
+    | '/lovable/email/transactional/preview'
     | '/_authenticated/registro-diario_/notas_/modulo/$n'
   fileRoutesById: FileRoutesById
 }
@@ -474,6 +487,7 @@ export interface RootRouteChildren {
   ApiPublicShopifyOrdersPaidRoute: typeof ApiPublicShopifyOrdersPaidRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
+  LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -716,6 +730,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailAuthWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/registro-diario_/notas_/modulo/$n': {
       id: '/_authenticated/registro-diario_/notas_/modulo/$n'
       path: '/registro-diario/notas/modulo/$n'
@@ -796,6 +817,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicShopifyOrdersPaidRoute: ApiPublicShopifyOrdersPaidRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
+  LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
