@@ -43,7 +43,7 @@ export function AuthEmailLayout({ preview, title, children, buttonLabel, confirm
           <table role="presentation" cellPadding="0" cellSpacing="0" style={{ maxWidth: '100%' }}><tbody><tr><td style={{ backgroundColor: emailColors.help, borderRadius: '10px', padding: '14px' }}>
             <Text style={{ ...paragraphStyle, fontSize: '12px', lineHeight: '18px', margin: 0 }}>
               <span style={{ color: emailColors.salvia }}>¿Necesitás ayuda?</span>{' '}Escribinos a{' '}
-              <Link href="mailto:neurohack21@gmail.com" style={{ color: emailColors.carbon, textDecoration: 'underline' }}>neurohack21@gmail.com</Link>
+              <Link href="mailto:soporte@destellointerior.com" style={{ color: emailColors.carbon, textDecoration: 'underline' }}>soporte@destellointerior.com</Link>
             </Text>
           </td></tr></tbody></table>
         </Container>

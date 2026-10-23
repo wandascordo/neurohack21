@@ -105,7 +105,7 @@ function Formulario({ email, nombreInicial }: { email: string; nombreInicial: st
             <label htmlFor="email" className="sr-only">Email</label>
             <input id="email" type="email" value={email} readOnly disabled className={input} />
           </div>
-          <p className="px-2 text-sm text-piedra tracking-tight">¿Querés usar otro email? <a href="mailto:neurohack21@gmail.com" className="text-salvia underline">Escribinos</a>.</p>
+          <p className="px-2 text-sm text-piedra tracking-tight">¿Querés usar otro email? <a href="mailto:soporte@destellointerior.com" className="text-salvia underline">Escribinos</a>.</p>
         </div>
         {sinNombre && (
           <div className="flex flex-col gap-2.5 items-start self-stretch">
