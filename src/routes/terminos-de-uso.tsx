@@ -8,7 +8,7 @@ export const Route = createFileRoute("/terminos-de-uso")({
 });
 
 function Email() {
-  return <a href="mailto:neurohack21@gmail.com">neurohack21@gmail.com</a>;
+  return <a href="mailto:soporte@destellointerior.com">soporte@destellointerior.com</a>;
 }
 
 function Terms() {
