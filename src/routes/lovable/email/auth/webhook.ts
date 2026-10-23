@@ -10,9 +10,9 @@ import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
 
 // Configuration
 const SITE_NAME = "Neurohack 21"
-const SENDER_DOMAIN = "notify.neurohack21.com"
+const SENDER_DOMAIN = "notificaciones.destellointerior.com"
 const ROOT_DOMAIN = "neurohack21.com"
-const FROM_DOMAIN = "neurohack21.com"
+const FROM_DOMAIN = "destellointerior.com"
 const SITE_URL = `https://${ROOT_DOMAIN}`
 
 // The SDK handler owns verification, dispatch, and retry semantics; this file
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
       POST: ({ request }) => {
         const handler = createAuthEmailHandler({
           apiKey: process.env['LOVABLE_API_KEY']!,
-          from: `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
+          from: { name: SITE_NAME, address: `no-reply@${FROM_DOMAIN}` },
           replyTo: 'soporte@destellointerior.com',
           senderDomain: SENDER_DOMAIN,
           sendUrl: process.env['LOVABLE_SEND_URL'],
