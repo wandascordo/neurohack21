@@ -10,6 +10,8 @@ import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
 
 // Configuration
 const SITE_NAME = "Neurohack 21"
+// Name shown in the inbox before the address; the email bodies keep SITE_NAME.
+const SENDER_NAME = "Destello Interior"
 const SENDER_DOMAIN = "notificaciones.destellointerior.com"
 const ROOT_DOMAIN = "neurohack21.com"
 const FROM_DOMAIN = "destellointerior.com"
@@ -23,7 +25,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
       POST: ({ request }) => {
         const handler = createAuthEmailHandler({
           apiKey: process.env['LOVABLE_API_KEY']!,
-          from: { name: SITE_NAME, address: `no-reply@${FROM_DOMAIN}` },
+          from: { name: SENDER_NAME, address: `no-reply@${FROM_DOMAIN}` },
           replyTo: 'soporte@destellointerior.com',
           senderDomain: SENDER_DOMAIN,
           sendUrl: process.env['LOVABLE_SEND_URL'],
