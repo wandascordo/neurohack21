@@ -385,8 +385,8 @@
   }
 }
 
-/* Botones: en pantallas mayores a 400px el ancho lo define el label */
-@media (min-width: 401px) {
+/* Botones: en pantallas mayores a 420px el ancho lo define el label */
+@media (min-width: 421px) {
   :is(button, a).rounded-full.px-6.py-4 {
     width: auto;
     align-self: flex-start;
