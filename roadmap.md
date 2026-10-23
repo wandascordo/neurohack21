@@ -42,3 +42,5 @@
 - [x] Cambiar las esquinas inferiores de la tarjeta de progreso de lectura a 30px.
 - [x] Sumar 20px antes del título «Libro digital», alinear a la izquierda el enlace «Menú principal» y sangrar 10px los links de Módulos.
 - [x] Volver a poner el saludo horario en Inicio, ahora con el primer nombre del perfil.
+- [ ] Reemplazar contacto y soporte en todo el proyecto sin cambiar textos ni diseño y verificar los seis correos.
+- [ ] Cambiar remitente a no-reply@destellointerior.com y obtener registros DNS: requiere configurar el nuevo dominio de envío.
