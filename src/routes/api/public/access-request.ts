@@ -17,7 +17,7 @@ export const Route = createFileRoute("/api/public/access-request")({
         const desde = new Date(Date.now() - 2 * 60 * 1000).toISOString();
         const { data: reciente } = await supabaseAdmin.from("access_requests").select("id").eq("email", email).gte("requested_at", desde).limit(1);
         if (reciente?.length) return ok();
-        await supabaseAdmin.from("access_requests").insert({ email });
+        const { data: solicitud } = await supabaseAdmin.from("access_requests").insert({ email }).select("id").single();
 
         const { data: compra } = await supabaseAdmin.from("purchases").select("first_name, last_name")
           .eq("email", email).eq("status", "active").order("created_at", { ascending: false }).limit(1).maybeSingle();
@@ -33,6 +33,12 @@ export const Route = createFileRoute("/api/public/access-request")({
             if (error) {
               // Cuenta invitada que ya existe: enlace de acceso único hacia /registro.
               await supabaseAdmin.auth.signInWithOtp({ email, options: { shouldCreateUser: false, emailRedirectTo: `${SITE}/registro` } });
+            } else {
+              try {
+                const { notifyAdmin } = await import('@/lib/admin-notification');
+                const { sendTemplateEmail } = await import('@/lib/email-templates/send-email');
+                await notifyAdmin(sendTemplateEmail, 'invitation', email, `access-${solicitud?.id ?? crypto.randomUUID()}`);
+              } catch { console.warn('[access-request] admin notification failed'); }
             }
           }
         } catch {

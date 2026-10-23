@@ -2,11 +2,12 @@ import * as React from 'react'
 import { render } from '@react-email/render'
 import { EmailAPIError, sendLovableEmail } from '@lovable.dev/email-js'
 import { TEMPLATES } from './registry'
+import { ADMIN_EMAIL, ADMIN_SENDER_NAME } from '../admin-notification'
 
 // Server-only: reads LOVABLE_API_KEY. Never import from client components.
 
 // Configuration baked in at scaffold time
-const SITE_NAME = "Neurohack 21"
+const SITE_NAME = ADMIN_SENDER_NAME
 // SENDER_DOMAIN is the verified sender subdomain FQDN (e.g., "notify.example.com").
 // It MUST match the subdomain delegated to Lovable's nameservers. NEVER use the root domain.
 const SENDER_DOMAIN = "notificaciones.destellointerior.com"
@@ -69,7 +70,7 @@ export async function sendTemplateEmail(
     await sendLovableEmail(
       {
         to: recipient,
-        from: { name: SITE_NAME, address: `noreply@${FROM_DOMAIN}` },
+        from: { name: SITE_NAME, address: ADMIN_EMAIL },
         sender_domain: SENDER_DOMAIN,
         subject,
         html,
