@@ -7,14 +7,11 @@ import { MagicLinkEmail } from '@/lib/email-templates/magic-link'
 import { RecoveryEmail } from '@/lib/email-templates/recovery'
 import { EmailChangeEmail } from '@/lib/email-templates/email-change'
 import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
+import { EMAIL_CONFIG } from '@/lib/email-config'
 
 // Configuration
 const SITE_NAME = "Neurohack 21"
-// Name shown in the inbox before the address; the email bodies keep SITE_NAME.
-const SENDER_NAME = "Destello Interior"
-const SENDER_DOMAIN = "notificaciones.destellointerior.com"
 const ROOT_DOMAIN = "neurohack21.com"
-const FROM_DOMAIN = "destellointerior.com"
 const SITE_URL = `https://${ROOT_DOMAIN}`
 
 // The SDK handler owns verification, dispatch, and retry semantics; this file
@@ -25,9 +22,9 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
       POST: ({ request }) => {
         const handler = createAuthEmailHandler({
           apiKey: process.env['LOVABLE_API_KEY']!,
-          from: { name: SENDER_NAME, address: `no-reply@${FROM_DOMAIN}` },
+          from: EMAIL_CONFIG.from,
           replyTo: 'soporte@destellointerior.com',
-          senderDomain: SENDER_DOMAIN,
+          senderDomain: EMAIL_CONFIG.senderDomain,
           sendUrl: process.env['LOVABLE_SEND_URL'],
           emails: {
             signup: {
