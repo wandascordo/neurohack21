@@ -45,6 +45,8 @@
 - [x] Reemplazar contacto y soporte en todo el proyecto sin cambiar textos ni diseño; verificar enlaces legales y renderizado de los seis correos. «No me llegó mi acceso» no existe en este proyecto.
 - [x] Configurar dominio de envío notificaciones.destellointerior.com, conservar las seis plantillas e informar los dos registros NS asignados.
 - [x] Cambiar el nombre del remitente a «Destello Interior» <no-reply@destellointerior.com>, conservando «Neurohack 21™» en los cuerpos de los correos.
-- [ ] Activar envío con notificaciones.destellointerior.com: DNS verificado; pendiente publicación de la configuración actualizada.
+- [x] Verificar dominio de envío notificaciones.destellointerior.com: DNS verificado y emails de autenticación habilitados.
+- [x] Auditar remitentes y destinatarios antes de cambiar; centralizar identidad de autenticación y administración sin alterar asuntos ni cuerpos.
+- [x] Preparar identidad de email unificada para republicación; once pruebas de remitentes, destinatarios y aislamiento de errores pasan.
 - [x] Agregar avisos administrativos por invitación enviada y registro completado; verificar destinatario, remitente, horario y aislamiento de fallos con siete pruebas.
 - [ ] Verificar recepción real de los avisos tras publicar y realizar una compra y un registro nuevos; no se enviaron avisos ficticios.

@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Neurohack 21 decisions
+- All authentication and app email delivery identities and fixed admin recipients come from src/lib/email-config.ts; product branding and subjects remain separate so sender changes cannot alter content.
 - Administrative event emails use the managed template sender with fixed recipients and event-based idempotency; registration completion runs in an authenticated server function and notification errors are isolated from successful buyer actions — no email tables or queues are needed.
 - Auth emails share a React Email layout with fixed light-mode inline tokens, while each of the six templates owns its copy and keeps the managed webhook variables unchanged — email clients cannot rely on app CSS or scripts.
 - Public legal routes share LegalPage with BookChrome and no resource navigation; legacy legal URLs permanently redirect to canonical routes to preserve existing links.

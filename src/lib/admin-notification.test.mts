@@ -1,13 +1,11 @@
 import { describe, expect, it } from 'bun:test'
-import { ADMIN_EMAIL, ADMIN_SENDER_NAME, notifyAdmin } from './admin-notification'
+import { notifyAdmin } from './admin-notification'
 import { finishAccount } from './account-completion'
 
 describe('administrative event notifications', () => {
   it('sends each invitation to the fixed admin with Neurohack 21 and Buenos Aires event time', async () => {
     let actual: unknown
     await notifyAdmin(async (...args) => { actual = args }, 'invitation', 'buyer@example.com', 'order-123', new Date('2026-10-23T20:20:00Z'))
-    expect(ADMIN_SENDER_NAME).toBe('Destello Interior')
-    expect(ADMIN_EMAIL).toBe('hola@destellointerior.com')
     expect(actual).toEqual(['admin-invitation', 'hola@destellointerior.com', {
       templateData: { email: 'buyer@example.com', product: 'Neurohack 21', dateTime: '23/10/26, 17:20:00 (Buenos Aires)' },
       idempotencyKey: 'admin-invitation-order-123',
