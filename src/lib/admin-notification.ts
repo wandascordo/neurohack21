@@ -6,7 +6,7 @@ type Sender = (template: string, to: string, options: { templateData: Record<str
 export async function notifyAdmin(send: Sender, event: AdminEvent, email: string, eventId: string, at = new Date()) {
   const template = event === 'invitation' ? 'admin-invitation' : 'admin-registration'
   const dateTime = new Intl.DateTimeFormat('es-AR', {
-    timeZone: 'America/Argentina/Buenos_Aires', dateStyle: 'short', timeStyle: 'medium',
+    timeZone: 'America/Argentina/Buenos_Aires', dateStyle: 'short', timeStyle: 'medium', hourCycle: 'h23',
   }).format(at) + ' (Buenos Aires)'
   try {
     await send(template, ADMIN_EMAIL, {
