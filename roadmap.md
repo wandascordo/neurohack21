@@ -45,4 +45,5 @@
 - [x] Reemplazar contacto y soporte en todo el proyecto sin cambiar textos ni diseño; verificar enlaces legales y renderizado de los seis correos. «No me llegó mi acceso» no existe en este proyecto.
 - [x] Configurar dominio de envío notificaciones.destellointerior.com, conservar las seis plantillas e informar los dos registros NS asignados.
 - [x] Cambiar el nombre del remitente a «Destello Interior» <no-reply@destellointerior.com>, conservando «Neurohack 21™» en los cuerpos de los correos.
-- [ ] Activar envío con notificaciones.destellointerior.com: pendiente de verificación DNS y publicación de la configuración actualizada.
+- [ ] Activar envío con notificaciones.destellointerior.com: DNS verificado; pendiente publicación de la configuración actualizada.
+- [ ] Agregar y verificar avisos administrativos por invitación enviada y registro completado, sin bloquear compradores.
