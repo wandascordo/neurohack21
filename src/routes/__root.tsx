@@ -9,7 +9,9 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import bookLogo from "@/assets/book-logo.svg.asset.json";
+import illustration404 from "@/assets/404-illustration.png.asset.json";
 import { Toaster } from "@/components/ui/sonner";
 
 import appCss from "../styles.css?url";
@@ -18,23 +20,58 @@ import { supabase } from "@/integrations/supabase/client";
 import { initInstallPrompt } from "@/lib/install-prompt";
 
 function NotFoundComponent() {
+  const [destino, setDestino] = useState<"/" | "/inicio" | null>(null);
+  useEffect(() => {
+    let activo = true;
+    supabase.auth.getSession().then(({ data }) => {
+      if (activo) setDestino(data.session ? "/inicio" : "/");
+    });
+    return () => {
+      activo = false;
+    };
+  }, []);
+
+  const boton =
+    "flex h-[52px] w-full items-center justify-center rounded-full bg-carbon px-6 text-base font-semibold uppercase text-tiza md:w-fit";
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
-        </div>
+    <div className="flex min-h-dvh flex-col items-center justify-between bg-tiza px-5 py-[30px] font-rethink-sans">
+      <div className="flex self-stretch justify-center">
+        <span
+          aria-label="Neurohack 21™"
+          role="img"
+          className="block h-3 w-[100px] bg-carbon"
+          style={{ mask: `url(${bookLogo.url}) center / contain no-repeat`, WebkitMask: `url(${bookLogo.url}) center / contain no-repeat` }}
+        />
       </div>
+      <main className="flex w-full max-w-[360px] flex-col items-center md:max-w-[520px]">
+        <img src={illustration404.url} alt="" aria-hidden="true" className="h-auto w-full max-w-[388px]" />
+        <p className="text-base font-semibold leading-none text-piedra">404</p>
+        <h1 className="mt-3 text-center text-[32px] font-normal leading-[1.1] tracking-[-1.5px] text-carbon md:text-[44px] md:tracking-[-2px]">
+          Este camino no existe
+        </h1>
+        <p className="mt-4 max-w-80 text-center text-base leading-normal tracking-tight text-piedra md:max-w-[420px]">
+          Puede que el enlace haya cambiado o que la página ya no esté. Volvé al inicio y seguimos desde ahí.
+        </p>
+        <div className="mt-8 flex w-full justify-center">
+          {destino ? (
+            <Link to={destino} className={boton}>
+              Volver al inicio
+            </Link>
+          ) : (
+            <button type="button" disabled className={boton}>
+              Volver al inicio
+            </button>
+          )}
+        </div>
+      </main>
+      <p className="w-full max-w-[360px] text-center text-sm leading-snug tracking-tight text-carbon md:max-w-[520px]">
+        ¿Necesitás ayuda? Escribinos a<br className="md:hidden" />
+        <span className="hidden md:inline"> </span>
+        <a href="mailto:soporte@destellointerior.com" className="text-carbon underline">
+          soporte@destellointerior.com
+        </a>
+      </p>
     </div>
   );
 }
