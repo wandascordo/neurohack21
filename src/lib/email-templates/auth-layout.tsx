@@ -15,9 +15,10 @@ interface AuthEmailLayoutProps {
   buttonLabel?: string
   confirmationUrl?: string
   note: string
+  afterButton?: React.ReactNode
 }
 
-export function AuthEmailLayout({ preview, title, children, buttonLabel, confirmationUrl, note }: AuthEmailLayoutProps) {
+export function AuthEmailLayout({ preview, title, children, buttonLabel, confirmationUrl, note, afterButton }: AuthEmailLayoutProps) {
   return (
     <Html lang="es" dir="ltr">
       <Head>
@@ -37,6 +38,7 @@ export function AuthEmailLayout({ preview, title, children, buttonLabel, confirm
               <Button href={confirmationUrl} style={{ backgroundColor: emailColors.salvia, color: emailColors.white, fontFamily, fontSize: '16px', fontWeight: 600, lineHeight: '18px', borderRadius: '999px', padding: '16px 24px', textDecoration: 'none', textAlign: 'center', maxWidth: '100%', boxSizing: 'border-box' }}>{buttonLabel}</Button>
             </Section>
           )}
+          {afterButton}
           <Section style={{ padding: '20px 10px 10px' }}>
             <Text style={{ ...paragraphStyle, fontSize: '14px', color: emailColors.piedra, margin: '0 0 10px' }}>{note}</Text>
           </Section>

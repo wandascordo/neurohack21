@@ -13,6 +13,12 @@ async function firmaValida(body: string, header: string | null, secret: string) 
   return diff === 0;
 }
 
+export const EXPERIENCIA_PRODUCT_ID = "15457431617735";
+
+export function planDe(o: { line_items?: { product_id?: number | string | null }[] }): "neurohack" | "experiencia" {
+  return (o.line_items ?? []).some((li) => li.product_id != null && String(li.product_id) === EXPERIENCIA_PRODUCT_ID) ? "experiencia" : "neurohack";
+}
+
 const txt = (v: unknown) => (typeof v === "string" && v.trim() ? v.trim().slice(0, 120) : null);
 
 type Orden = {
@@ -53,6 +59,7 @@ export const Route = createFileRoute("/api/public/shopify/orders-paid")({
         if (!orderId || !email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return Response.json({ ok: true, ignored: "missing_email" });
 
         const ids = (process.env["SHOPIFY_PRODUCT_IDS"] ?? "").split(",").map((s) => s.trim()).filter(Boolean);
+        if (ids.length && !ids.includes(EXPERIENCIA_PRODUCT_ID)) ids.push(EXPERIENCIA_PRODUCT_ID);
         const aviso = ids.length ? undefined : "SHOPIFY_PRODUCT_IDS no está cargado: se aceptan todos los pedidos.";
         if (ids.length && !(o.line_items ?? []).some((li) => li.product_id != null && ids.includes(String(li.product_id))))
           return Response.json({ ok: true, ignored: "product" });
@@ -63,7 +70,7 @@ export const Route = createFileRoute("/api/public/shopify/orders-paid")({
 
         const { first, last } = nombreDe(o);
         const { error: insErr } = await supabaseAdmin.from("purchases")
-          .insert({ shopify_order_id: orderId, email, first_name: first, last_name: last, status: "active" });
+          .insert({ shopify_order_id: orderId, email, first_name: first, last_name: last, status: "active", plan: planDe(o) });
         if (insErr) {
           if (insErr.code === "23505") return Response.json({ ok: true, duplicate: true, aviso });
           console.error("[shopify] insert failed", { orderId, email });

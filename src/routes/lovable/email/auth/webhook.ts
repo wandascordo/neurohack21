@@ -14,6 +14,19 @@ const SITE_NAME = "Neurohack 21"
 const ROOT_DOMAIN = "neurohack21.com"
 const SITE_URL = `https://${ROOT_DOMAIN}`
 
+// Plan comes from the buyer's purchases so every invite path (Shopify webhook,
+// access re-request) gets the right content; any failure falls back to the original email.
+async function planPorEmail(email: string): Promise<'neurohack' | 'experiencia'> {
+  try {
+    const { supabaseAdmin } = await import('@/integrations/supabase/client.server')
+    const { data } = await supabaseAdmin.from('purchases').select('id')
+      .eq('email', (email ?? '').trim().toLowerCase()).eq('plan', 'experiencia').eq('status', 'active').limit(1)
+    return data && data.length ? 'experiencia' : 'neurohack'
+  } catch {
+    return 'neurohack'
+  }
+}
+
 // The SDK handler owns verification, dispatch, and retry semantics; this file
 // owns only the email decisions: subjects, templates, and per-type props.
 export const Route = createFileRoute("/lovable/email/auth/webhook")({
@@ -39,11 +52,12 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
             },
             invite: {
               subject: 'Tu reto de 21 días te espera',
-              render: (data) =>
+              render: async (data) =>
                 React.createElement(InviteEmail, {
                   siteName: SITE_NAME,
                   siteUrl: SITE_URL,
                   confirmationUrl: data.url,
+                  plan: await planPorEmail(data.email),
                 }),
             },
             magiclink: {
