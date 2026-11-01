@@ -79,13 +79,24 @@ export const Route = createFileRoute("/api/public/shopify/orders-paid")({
         console.log("[shopify] order paid", { orderId, email });
 
         const { data: perfil } = await supabaseAdmin.from("profiles").select("id").eq("email", email).maybeSingle();
-        if (perfil) return Response.json({ ok: true, invited: false, existing_account: true, aviso });
+        if (perfil) {
+          const { data: authUser } = await supabaseAdmin.auth.admin.getUserById(perfil.id);
+          if (authUser?.user) {
+            await supabaseAdmin.from("purchases").update({ error_message: "Invitación salteada: ya existe una cuenta con este email." }).eq("shopify_order_id", orderId);
+            console.log("[shopify] invite skipped existing_account", { orderId, email });
+            return Response.json({ ok: true, invited: false, existing_account: true, aviso });
+          }
+          console.warn("[shopify] orphan profile ignored", { orderId, email });
+        }
 
         const full_name = [first, last].filter(Boolean).join(" ") || undefined;
         const { error } = await supabaseAdmin.auth.admin.inviteUserByEmail(email, { redirectTo: REDIRECT, data: full_name ? { full_name } : {} });
         if (error) {
           const ya = /already|registered|exists/i.test(error.message);
-          if (!ya) {
+          if (ya) {
+            await supabaseAdmin.from("purchases").update({ error_message: "Invitación salteada: ya existe una cuenta con este email." }).eq("shopify_order_id", orderId);
+            console.log("[shopify] invite skipped already_registered", { orderId, email });
+          } else {
             await supabaseAdmin.from("purchases").update({ status: "error", error_message: error.message.slice(0, 500) }).eq("shopify_order_id", orderId);
             console.error("[shopify] invite failed", { orderId, email });
           }
