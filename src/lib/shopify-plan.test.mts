@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest'
+import { expect, test } from 'bun:test'
 import { planDe } from '@/routes/api/public/shopify/orders-paid'
 test('pedido con 15457431617735 es experiencia', () => {
   expect(planDe({ line_items: [{ product_id: 1 }, { product_id: 15457431617735 }] })).toBe('experiencia')
