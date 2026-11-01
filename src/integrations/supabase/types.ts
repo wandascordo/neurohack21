@@ -325,6 +325,7 @@ export type Database = {
           first_name: string | null
           id: string
           last_name: string | null
+          plan: string
           shopify_order_id: string
           status: string
         }
@@ -335,6 +336,7 @@ export type Database = {
           first_name?: string | null
           id?: string
           last_name?: string | null
+          plan?: string
           shopify_order_id: string
           status?: string
         }
@@ -345,6 +347,7 @@ export type Database = {
           first_name?: string | null
           id?: string
           last_name?: string | null
+          plan?: string
           shopify_order_id?: string
           status?: string
         }

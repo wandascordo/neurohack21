@@ -99,6 +99,13 @@
       "when": 1792454601120,
       "tag": "0013_shopify_purchases_access",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1793568264318,
+      "tag": "0014_purchases_plan",
+      "breakpoints": true
     }
   ]
 }
