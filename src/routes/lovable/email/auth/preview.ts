@@ -11,6 +11,7 @@ import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
 const EMAIL_TEMPLATES: Record<string, React.ComponentType<any>> = {
   signup: SignupEmail,
   invite: InviteEmail,
+  invite_experiencia: InviteEmail,
   magiclink: MagicLinkEmail,
   recovery: RecoveryEmail,
   email_change: EmailChangeEmail,
@@ -47,6 +48,12 @@ const SAMPLE_DATA: Record<string, object> = {
     siteName: SITE_NAME,
     siteUrl: SAMPLE_PROJECT_URL,
     confirmationUrl: SAMPLE_PROJECT_URL,
+  },
+  invite_experiencia: {
+    siteName: SITE_NAME,
+    siteUrl: SAMPLE_PROJECT_URL,
+    confirmationUrl: SAMPLE_PROJECT_URL,
+    plan: 'experiencia',
   },
   email_change: {
     siteName: SITE_NAME,
