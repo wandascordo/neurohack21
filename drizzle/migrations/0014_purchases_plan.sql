@@ -1,0 +1,1 @@
+ALTER TABLE public.purchases ADD COLUMN plan text NOT NULL DEFAULT 'neurohack' CHECK (plan IN ('neurohack','experiencia'));
